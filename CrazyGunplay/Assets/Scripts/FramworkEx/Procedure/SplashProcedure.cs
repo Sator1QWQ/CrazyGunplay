@@ -18,6 +18,12 @@ public class SplashProcedure : ProcedureBase
     {
         Debug.Log("进入闪屏流程");
 
+
+#if UNITY_EDITOR
+        //预加载流程
+        //ChangeState<>
+#else
         //进入验证版本
+#endif
     }
 }

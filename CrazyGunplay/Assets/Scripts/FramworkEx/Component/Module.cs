@@ -10,7 +10,7 @@ using UnityGameFramework.Runtime;
 * 描述：
 		所有组件注册
 */
-public class Module : MonoBehaviour
+public sealed class Module : MonoBehaviour
 {
     public static BaseComponent Base { get; private set; }
 
