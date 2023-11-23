@@ -28,7 +28,7 @@ public class LuaComponent : GameFrameworkComponent
     private byte[] LoadFile(ref string path)
     {
         string replace = path.Replace(".", "/");
-        string filePath = GlobalDefine.LUA_PATH + replace;
+        string filePath = GlobalDefine.LUA_PATH + replace + ".lua";
         FileStream file = new FileStream(filePath, FileMode.Open);
         byte[] bts = new byte[file.Length];
         file.Read(bts, 0, bts.Length);
