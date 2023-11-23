@@ -13,23 +13,14 @@ using XLua;
 */
 public class LuaBehaviour : MonoBehaviour
 {
+    public TextAsset luaScript;
 
     private void Awake()
     {
-
+        Module.Lua.env.DoString(luaScript.text);
     }
 
     private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-        
-    }
-
-    private void FixedUpdate()
     {
         
     }

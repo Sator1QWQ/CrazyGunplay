@@ -20,10 +20,10 @@ public class SplashProcedure : ProcedureBase
 
 
 #if UNITY_EDITOR
-        //预加载流程
-        //ChangeState<>
+        //游戏流程
+        ChangeState<GameProcedure>(procedureOwner);
 #else
-        //进入验证版本
+        //进入验证版本流程
 #endif
     }
 }

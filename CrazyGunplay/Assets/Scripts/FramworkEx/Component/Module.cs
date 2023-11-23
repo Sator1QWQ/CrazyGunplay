@@ -24,7 +24,20 @@ public sealed class Module : MonoBehaviour
     /// </summary>
     public static EventComponent Event { get; private set; }
 
+    /// <summary>
+    /// 界面
+    /// </summary>
     public static UIComponent UI { get; private set; }
+
+    /// <summary>
+    /// 资源加载
+    /// </summary>
+    public static ResourceComponent Resource { get; private set; }
+
+    /// <summary>
+    /// lua组件
+    /// </summary>
+    public static LuaComponent Lua { get; set; }
 
     private void Start()
     {

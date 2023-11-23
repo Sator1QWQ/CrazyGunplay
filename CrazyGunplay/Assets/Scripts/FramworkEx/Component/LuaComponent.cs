@@ -14,7 +14,7 @@ using System.IO;
 */
 public class LuaComponent : GameFrameworkComponent
 {
-	public static LuaEnv env;
+	public LuaEnv env;
 
     protected override void Awake()
     {
@@ -27,9 +27,9 @@ public class LuaComponent : GameFrameworkComponent
     //加载Lua文件
     private byte[] LoadFile(ref string path)
     {
-        string newPath = path.Replace(".", "/");
-
-        FileStream file = new FileStream(path, FileMode.Open);
+        string replace = path.Replace(".", "/");
+        string filePath = GlobalDefine.LUA_PATH + replace;
+        FileStream file = new FileStream(filePath, FileMode.Open);
         byte[] bts = new byte[file.Length];
         file.Read(bts, 0, bts.Length);
         return bts;
