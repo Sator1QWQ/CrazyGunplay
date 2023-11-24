@@ -25,7 +25,8 @@ public class LuaPanelEditor : Editor
             for (int i = 0; i < tfs.Length; i++)
             {
                 string objName = tfs[i].name;
-                if (objName[objName.Length - 1].Equals('_'))
+                //_为特殊符号
+                if (objName.IndexOf('_') != -1)
                 {
                     uiList.Add(tfs[i].gameObject);
                 }

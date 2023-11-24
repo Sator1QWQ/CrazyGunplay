@@ -15,9 +15,7 @@ using System;
 public class LuaBehaviour : MonoBehaviour
 {
     public LuaTable Table { get; private set; }  //require返回的表
-    
-    [SerializeField]
-    private string luaScriptPath;    //require的内容
+    public string luaScriptPath;    //require的内容
 
     private void Awake()
     {

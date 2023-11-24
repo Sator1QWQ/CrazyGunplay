@@ -31,8 +31,15 @@ public class LuaPanel : UIFormLogic
     /// <param name="goName">gameObject名字</param>
     /// <param name="type">组件类型</param>
     /// <returns></returns>
-	public Component Get(string goName, System.Type type)
+	public Component Get(string goName)
     {
+        Type type = GetCompType(goName);
+        if (type == null)
+        {
+            Debug.LogError("组件类型不正确==" + goName + ", 界面为==" + gameObject.name);
+            return null;
+        }
+        
 		if(uiDic.ContainsKey(goName))
         {
 			return uiDic[goName].GetComponent(type);
@@ -48,12 +55,45 @@ public class LuaPanel : UIFormLogic
             }
         }
 
+        Debug.LogError("未获取到gameObject==" + goName + ", 界面为==" + gameObject.name);
         return null;
+    }
+
+    //获取组件类型
+    private Type GetCompType(string goName)
+    {
+        Type type;
+        string exName = goName.Substring(goName.IndexOf("_") + 1);  //组件名
+        switch (exName)
+        {
+            case "btn":
+                type = typeof(Button);
+                break;
+            case "text":
+                type = typeof(Text);
+                break;
+            case "sld":
+                type = typeof(Slider);
+                break;
+            case "img":
+                type = typeof(Image);
+                break;
+            default:
+                type = null;
+                break;
+        }
+
+        return type;
     }
 
     protected override void OnInit(object userData)
     {
-        Action<object> act = behaviour.Table.Get<Action<object>>("OnInit");
-        act?.Invoke(userData);
+        //只有在Init时才把panel传给lua，其他周期函数不传，在Init做好缓存
+        behaviour.Table.Get<Action<object>>("OnInit")?.Invoke(this);
+    }
+
+    protected override void OnOpen(object userData)
+    {
+        behaviour.Table.Get<Action>("OnOpen")?.Invoke();
     }
 }

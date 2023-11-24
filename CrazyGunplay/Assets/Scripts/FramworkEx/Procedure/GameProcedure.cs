@@ -17,11 +17,6 @@ public class GameProcedure : ProcedureBase
 {
     protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
     {
-        LoadAssetCallbacks callBack = new LoadAssetCallbacks((string assetName, object asset, float duration, object userData) =>
-        {
-            Debug.Log("资源加载完成==" + assetName + ", obj==" + asset + "dura==" + duration);
-            Object.Instantiate(asset as GameObject);
-        });
         //进入主界面
         //Module.Resource.LoadAsset("Assets/Resource/UI/StartPanel.prefab", callBack);
         Module.UI.OpenUIForm("Assets/Resource/UI/StartPanel.prefab", "NormalGroup");

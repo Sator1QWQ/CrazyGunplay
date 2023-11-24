@@ -1,12 +1,6 @@
 UnityEngine = CS.UnityEngine
 Debug = UnityEngine.Debug
+UI = UnityEngine.UI
 
-Debug.Log("Lua Hello!!!")
-
-local _M = {}
-
-function _M:Awake()
-    Debug.Log("Lua Awake!")
-end
-
-return _M
+Debug.Log("Lua Main运行!!!")
+require "Global.ModelDefine"
