@@ -82,13 +82,13 @@ public class LuaPanel : UIFormLogic
                 type = null;
                 break;
         }
-
         return type;
     }
 
     protected override void OnInit(object userData)
     {
         //只有在Init时才把panel传给lua，其他周期函数不传，在Init做好缓存
+        transform.localPosition = Vector3.zero;
         behaviour.Table.Get<Action<object>>("OnInit")?.Invoke(this);
     }
 
