@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4096316604022204813}
   - component: {fileID: 4096316604022204814}
+  - component: {fileID: -3341257168147926662}
   m_Layer: 5
   m_Name: StartPanel
   m_TagString: Untagged
@@ -50,10 +51,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c9406e68cae4c4c805f6aa9c8f0f19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  uiList: []
+--- !u!114 &-3341257168147926662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096316604022204812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e98e4912f8cbd45a466ec48e4b5ea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  luaScriptPath: Module/Start/StartPanel
 --- !u!1 &4096316605625477422
 GameObject:
   m_ObjectHideFlags: 0

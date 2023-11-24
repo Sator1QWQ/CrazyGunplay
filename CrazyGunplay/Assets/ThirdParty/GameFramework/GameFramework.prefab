@@ -327,7 +327,7 @@ MonoBehaviour:
   m_LogHelperTypeName: UnityGameFramework.Runtime.DefaultLogHelper
   m_CompressionHelperTypeName: UnityGameFramework.Runtime.DefaultCompressionHelper
   m_JsonHelperTypeName: UnityGameFramework.Runtime.DefaultJsonHelper
-  m_FrameRate: 30
+  m_FrameRate: 60
   m_GameSpeed: 1
   m_RunInBackground: 1
   m_NeverSleep: 1
@@ -843,7 +843,13 @@ MonoBehaviour:
   m_CustomUIFormHelper: {fileID: 0}
   m_UIGroupHelperTypeName: UnityGameFramework.Runtime.DefaultUIGroupHelper
   m_CustomUIGroupHelper: {fileID: 0}
-  m_UIGroups: []
+  m_UIGroups:
+  - m_Name: NormalGroup
+    m_Depth: 0
+  - m_Name: PopupGroup
+    m_Depth: 1
+  - m_Name: TipGroup
+    m_Depth: 2
 --- !u!1 &176370
 GameObject:
   m_ObjectHideFlags: 0

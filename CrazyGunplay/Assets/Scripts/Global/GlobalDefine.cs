@@ -10,5 +10,13 @@ using UnityEngine;
 */
 public class GlobalDefine
 {
+	/// <summary>
+	/// lua脚本路径
+	/// </summary>
 	public static readonly string LUA_PATH = Application.dataPath + "/LuaScripts/";
+
+	/// <summary>
+	/// ui界面路径
+	/// </summary>
+	public static readonly string PANEL_PATH = Application.dataPath + "/Resource/UI/";
 }

@@ -47,10 +47,13 @@ public sealed class Module : MonoBehaviour
     //初始化模块
     private void InitModuleComponent()
     {
+
         Base = GameEntry.GetComponent<BaseComponent>();
         Entity = GameEntry.GetComponent<EntityComponent>();
         Event = GameEntry.GetComponent<EventComponent>();
         UI = GameEntry.GetComponent<UIComponent>();
+        Resource = GameEntry.GetComponent<ResourceComponent>();
+        Lua = GameEntry.GetComponent<LuaComponent>();
         Debug.Log("模块初始化完成");
     }
 }

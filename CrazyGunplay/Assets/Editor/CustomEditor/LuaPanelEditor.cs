@@ -16,7 +16,7 @@ public class LuaPanelEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        if(GUILayout.Button("生成预制体"))
+        if(GUILayout.Button("生成挂载对象"))
         {
             LuaPanel panel = (serializedObject.targetObject as LuaPanel);
             List<GameObject> uiList = panel.uiList;
