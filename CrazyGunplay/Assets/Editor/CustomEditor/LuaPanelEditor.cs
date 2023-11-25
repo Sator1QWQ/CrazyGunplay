@@ -21,6 +21,10 @@ public class LuaPanelEditor : Editor
             LuaPanel panel = (serializedObject.targetObject as LuaPanel);
             List<GameObject> uiList = panel.uiList;
             Transform[] tfs = panel.GetComponentsInChildren<Transform>();
+            if(uiList == null)
+            {
+                uiList = new List<GameObject>();
+            }
             uiList.Clear();
             for (int i = 0; i < tfs.Length; i++)
             {
