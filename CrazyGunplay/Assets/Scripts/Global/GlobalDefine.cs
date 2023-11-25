@@ -19,4 +19,7 @@ public class GlobalDefine
 	/// ui界面路径
 	/// </summary>
 	public static readonly string PANEL_PATH = Application.dataPath + "/Resource/UI/";
+
+	public const float DESIGN_WIDTH = 1920;	//设计宽
+	public const float DESIGN_HEIGHT = 1080;	//设计高
 }

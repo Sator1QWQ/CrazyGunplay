@@ -78,6 +78,12 @@ public class LuaPanel : UIFormLogic
             case "img":
                 type = typeof(Image);
                 break;
+            case "eve":
+                type = typeof(EventTrigger);
+                break;
+            case "go":
+                type = typeof(GameObject);
+                break;
             default:
                 type = null;
                 break;
@@ -89,7 +95,8 @@ public class LuaPanel : UIFormLogic
     {
         //只有在Init时才把panel传给lua，其他周期函数不传，在Init做好缓存
         transform.localPosition = Vector3.zero;
-        behaviour.Table.Get<Action<object>>("OnInit")?.Invoke(this);
+        transform.GetComponent<RectTransform>().sizeDelta = new Vector2(GlobalDefine.DESIGN_WIDTH, GlobalDefine.DESIGN_HEIGHT);
+        behaviour.Table.Get<Action<LuaPanel>>("OnInit")?.Invoke(this);
     }
 
     protected override void OnOpen(object userData)
