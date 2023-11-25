@@ -317,6 +317,7 @@ namespace UnityGameFramework.Runtime
             uiGroupHelper.gameObject.layer = LayerMask.NameToLayer("UI");
             Transform transform = uiGroupHelper.transform;
             transform.SetParent(m_InstanceRoot);
+            transform.localPosition = Vector3.zero;
             transform.localScale = Vector3.one;
 
             return m_UIManager.AddUIGroup(uiGroupName, depth, uiGroupHelper);

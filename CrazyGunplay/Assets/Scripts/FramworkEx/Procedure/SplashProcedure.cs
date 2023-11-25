@@ -23,6 +23,7 @@ public class SplashProcedure : ProcedureBase
         //游戏流程
         ChangeState<GameProcedure>(procedureOwner);
 #else
+        Debug.Log("验证版本");
         //进入验证版本流程
 #endif
     }
