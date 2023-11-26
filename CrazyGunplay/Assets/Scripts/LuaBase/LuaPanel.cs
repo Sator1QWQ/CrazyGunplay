@@ -93,6 +93,7 @@ public class LuaPanel : UIFormLogic
 
     protected override void OnInit(object userData)
     {
+        base.OnInit(userData);
         //只有在Init时才把panel传给lua，其他周期函数不传，在Init做好缓存
         transform.localPosition = Vector3.zero;
         transform.GetComponent<RectTransform>().sizeDelta = new Vector2(GlobalDefine.DESIGN_WIDTH, GlobalDefine.DESIGN_HEIGHT);
@@ -101,6 +102,18 @@ public class LuaPanel : UIFormLogic
 
     protected override void OnOpen(object userData)
     {
+        base.OnOpen(userData);
         behaviour.Table.Get<Action>("OnOpen")?.Invoke();
+    }
+
+    protected override void OnClose(bool isShutdown, object userData)
+    {
+        base.OnClose(isShutdown, userData);
+        behaviour.Table.Get<Action<LuaPanel>>("OnClose")?.Invoke(this);
+    }
+
+    public void Close()
+    {
+        Module.UI.CloseUIForm(UIForm.SerialId);
     }
 }

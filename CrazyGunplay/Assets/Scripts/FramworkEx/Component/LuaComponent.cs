@@ -19,9 +19,11 @@ public class LuaComponent : GameFrameworkComponent
     //缓存了每个lua文件
     private Dictionary<string, byte[]> fileDic = new Dictionary<string, byte[]>();
 
-    protected override void Awake()
+    /// <summary>
+    /// 初始化lua
+    /// </summary>
+    public void InitLua()
     {
-        base.Awake();
         Env = new LuaEnv();
         Env.AddLoader(LoadFile);
         Env.DoString("require 'Main'");

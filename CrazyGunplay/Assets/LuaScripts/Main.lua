@@ -4,6 +4,7 @@ UI = UnityEngine.UI
 Vector3 = UnityEngine.Vector3
 EventSystems = UnityEngine.EventSystems
 EventTrigger = EventSystems.EventTrigger
+EventTriggerType = EventSystems.EventTriggerType
 
 UI = CS.Module.UI
 
