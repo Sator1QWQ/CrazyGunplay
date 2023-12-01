@@ -8,6 +8,7 @@ EventTriggerType = EventSystems.EventTriggerType
 
 UI = CS.Module.UI
 
+require "Base.Class"
 Text = require "Global.Text"
 
 Debug.Log("Lua Main运行!!!")
