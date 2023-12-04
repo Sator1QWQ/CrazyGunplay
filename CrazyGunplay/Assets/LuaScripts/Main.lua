@@ -9,7 +9,12 @@ EventTriggerType = EventSystems.EventTriggerType
 UI = CS.Module.UI
 
 require "Base.Class"
+GlobalDefine = require "Global.GlobalDefine"
+GlobalEnum = require "Global.GlobalEnum"
 Text = require "Global.Text"
+
+require "Base.ControllerRequire"
+CCharacterController.Init()
 
 Debug.Log("Lua Main运行!!!")
 require "Global.ModelDefine"
