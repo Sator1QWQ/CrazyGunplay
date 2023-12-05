@@ -12,7 +12,7 @@ using UnityGameFramework.Runtime;
 */
 public class LuaGrid : MonoBehaviour
 {
-	public GameObject template;
+	public LuaItem template;
 
 	/// <summary>
 	/// 设置数量
@@ -22,8 +22,11 @@ public class LuaGrid : MonoBehaviour
 		for(int i = 0; i < count; i++)
         {
 			GameObject go = Instantiate(template.gameObject);
-			go.transform.SetParent(transform);
+			go.transform.SetParent(transform, false);
 			go.SetActive(true);
-        }
+			go.name = i.ToString();
+			LuaItem item = go.GetComponent<LuaItem>();
+			item.SetIndex(i);
+		}
     }
 }

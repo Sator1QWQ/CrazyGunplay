@@ -31,65 +31,7 @@ public class LuaPanel : UIFormLogic
     /// <param name="goName">gameObject名字</param>
     /// <param name="type">组件类型</param>
     /// <returns></returns>
-	public Component Get(string goName)
-    {
-        Type type = GetCompType(goName);
-        if (type == null)
-        {
-            Debug.LogError("组件类型不正确==" + goName + ", 界面为==" + gameObject.name);
-            return null;
-        }
-        
-		if(uiDic.ContainsKey(goName))
-        {
-			return uiDic[goName].GetComponent(type);
-        }
-
-		for(int i = 0; i < uiList.Count; i++)
-        {
-			if(uiList[i].name.Equals(goName))
-            {
-                //缓存gameObject时需要小心物体被销毁的情况
-                uiDic.Add(goName, uiList[i]);
-                return uiList[i].GetComponent(type);
-            }
-        }
-
-        Debug.LogError("未获取到gameObject==" + goName + ", 界面为==" + gameObject.name);
-        return null;
-    }
-
-    //获取组件类型
-    private Type GetCompType(string goName)
-    {
-        Type type;
-        string exName = goName.Substring(goName.IndexOf("_") + 1);  //组件名
-        switch (exName)
-        {
-            case "btn":
-                type = typeof(Button);
-                break;
-            case "text":
-                type = typeof(Text);
-                break;
-            case "sld":
-                type = typeof(Slider);
-                break;
-            case "img":
-                type = typeof(Image);
-                break;
-            case "eve":
-                type = typeof(EventTrigger);
-                break;
-            case "go":
-                type = typeof(GameObject);
-                break;
-            default:
-                type = null;
-                break;
-        }
-        return type;
-    }
+	public Component Get(string goName) => LuaTools.Get(gameObject, uiList, uiDic, goName);
 
     protected override void OnInit(object userData)
     {

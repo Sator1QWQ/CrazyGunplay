@@ -14,6 +14,8 @@ GlobalEnum = require "Global.GlobalEnum"
 Text = require "Global.Text"
 
 require "Base.ControllerRequire"
+require "Base.ModelRequire"
+
 CCharacterController.Init()
 
 Debug.Log("Lua Main运行!!!")

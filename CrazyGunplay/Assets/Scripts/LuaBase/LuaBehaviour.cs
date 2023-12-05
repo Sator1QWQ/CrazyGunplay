@@ -16,13 +16,15 @@ public class LuaBehaviour : MonoBehaviour
 {
     public LuaTable Table { get; private set; }  //require返回的表
     public string luaScriptPath;    //require的内容
+    public LuaBehaviour parent; //引用其他LuaBehaviour
 
     private void Awake()
     {
         byte[] bts = Module.Lua.GetByteAndLoad(luaScriptPath);
 
         //每次awake的时候重新加载lua
-        object[] obj = Module.Lua.Env.DoString(bts);
+        string scriptName = luaScriptPath.Substring(luaScriptPath.LastIndexOf('/') + 1);
+        object[] obj = Module.Lua.Env.DoString(bts, scriptName);
         Table = obj[0] as LuaTable;
         Table.Get<Action>("Awake")?.Invoke();
     }
