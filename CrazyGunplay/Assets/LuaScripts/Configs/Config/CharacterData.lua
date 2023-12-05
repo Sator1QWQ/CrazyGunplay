@@ -17,3 +17,4 @@ CharacterData = {
 		dushNum = 1,
 	},
 }
+CharacterData.Count = 2

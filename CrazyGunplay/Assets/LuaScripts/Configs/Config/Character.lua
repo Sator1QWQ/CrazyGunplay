@@ -17,3 +17,4 @@ Character = {
 		desc = Character_Text.desc_5,
 	},
 }
+Character.Count = 2
