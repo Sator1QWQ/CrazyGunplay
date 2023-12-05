@@ -1,1 +1,1 @@
-require "Controller.CCharacterController"
+--require "Controller.CCharacterController"

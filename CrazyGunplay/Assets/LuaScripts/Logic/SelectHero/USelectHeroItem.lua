@@ -17,7 +17,7 @@ end
 function _M.OnClick()
     Debug.Log("_M.index==" .. tostring(_M.index))
     local id = 1000 + _M.index + 1
-    CharacterModel.SetSelectPlayer(id)
+    MHero.SetSelectPlayer(id)
 end
 
 return _M

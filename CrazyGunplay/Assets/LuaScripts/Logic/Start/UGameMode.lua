@@ -14,8 +14,8 @@ end
 
 --本地按钮
 function _M.Local()
-    CharacterModel.SetMode(GlobalEnum.GameMode.Local)
-    UI:OpenUIForm("Assets/Resource/UI/SelectCharacterPanel.prefab", "NormalGroup")
+    MHero.SetMode(GlobalEnum.GameMode.Local)
+    UI:OpenUIForm("Assets/Resource/UI/SelectHeroPanel.prefab", "NormalGroup")
 end
 
 return _M

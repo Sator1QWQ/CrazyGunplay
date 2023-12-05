@@ -16,7 +16,5 @@ Text = require "Global.Text"
 require "Base.ControllerRequire"
 require "Base.ModelRequire"
 
-CCharacterController.Init()
-
 Debug.Log("Lua Main运行!!!")
 require "Global.ModelDefine"

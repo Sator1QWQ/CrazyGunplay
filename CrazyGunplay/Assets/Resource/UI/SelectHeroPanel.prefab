@@ -250,7 +250,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1802380933230923344
 RectTransform:
   m_ObjectHideFlags: 0
@@ -269,10 +269,10 @@ RectTransform:
   m_Father: {fileID: 1802380932772293547}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 65, y: -65}
+  m_SizeDelta: {x: 130, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1802380933230923346
 CanvasRenderer:
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e98e4912f8cbd45a466ec48e4b5ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  luaScriptPath: UModule/SelectCharacter/SelectCharacterItem
+  luaScriptPath: Logic/SelectHero/USelectHeroItem
   parent: {fileID: 1231541623093987354}
 --- !u!114 &4022105530110922726
 MonoBehaviour:
@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 8678193376622252270}
   - component: {fileID: 1231541623093987354}
   m_Layer: 5
-  m_Name: SelectCharacterPanel
+  m_Name: SelectHeroPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e98e4912f8cbd45a466ec48e4b5ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  luaScriptPath: UModule/SelectCharacter/SelectCharacterPanel
+  luaScriptPath: Logic/SelectHero/USelectHero
   parent: {fileID: 0}
 --- !u!1 &8678193377439190570
 GameObject:

@@ -1,1 +1,1 @@
-require "Model.CharacterModel"
+require "Logic.SelectHero.MHero"

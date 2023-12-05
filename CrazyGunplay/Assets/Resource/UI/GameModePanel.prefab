@@ -376,7 +376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e98e4912f8cbd45a466ec48e4b5ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  luaScriptPath: UModule/Start/GameModePanel
+  luaScriptPath: Logic/Start/UGameMode
+  parent: {fileID: 0}
 --- !u!114 &4404630265922287054
 MonoBehaviour:
   m_ObjectHideFlags: 0
