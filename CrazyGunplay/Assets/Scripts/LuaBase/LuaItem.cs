@@ -15,8 +15,10 @@ using System;
 public class LuaItem : MonoBehaviour
 {
     public List<GameObject> uiList;
+    [HideInInspector] public LuaBehaviour behaviour;
+    [HideInInspector] public bool isSelect = false;
+
     private Dictionary<string, GameObject> uiDic = new Dictionary<string, GameObject>();
-    private LuaBehaviour behaviour;
     private int index;
 
     private void Start()
@@ -33,8 +35,26 @@ public class LuaItem : MonoBehaviour
     /// <returns></returns>
     public Component Get(string goName) => LuaTools.Get(gameObject, uiList, uiDic, goName);
 
+    /// <summary>
+    /// 获取GameObject
+    /// </summary>
+    /// <param name="goName"></param>
+    /// <returns></returns>
+    public GameObject GetGameObject(string goName) => LuaTools.GetGameObject(gameObject, uiList, uiDic, goName);
+
     public void SetIndex(int index)
     {
         this.index = index;
+    }
+
+    /// <summary>
+    /// 被选中或者取消选中时调用
+    /// </summary>
+    /// <param name="b"></param>
+    public void SelectChange()
+    {
+        isSelect = !isSelect;
+        Action<bool> act = behaviour.Table.Get<Action<bool>>("OnSelect");
+        act?.Invoke(isSelect);
     }
 }

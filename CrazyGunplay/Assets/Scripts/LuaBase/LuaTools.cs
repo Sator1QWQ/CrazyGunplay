@@ -23,6 +23,12 @@ public class LuaTools
     public static Component Get(GameObject go, List<GameObject> uiList, Dictionary<string, GameObject> uiDic, string goName)
     {
         Type type = GetCompType(goName);
+        if(type.Name.Equals("GameObject"))
+        {
+            Debug.LogError("不允许获取GameObject类型! 使用GetGameObject函数");
+            return null;
+        }
+
         if (type == null)
         {
             Debug.LogError("组件类型不正确==" + goName + ", 界面为==" + go.name);
@@ -41,6 +47,35 @@ public class LuaTools
                 //缓存gameObject时需要小心物体被销毁的情况
                 uiDic.Add(goName, uiList[i]);
                 return uiList[i].GetComponent(type);
+            }
+        }
+
+        Debug.LogError("未获取到gameObject==" + goName + ", 界面为==" + go.name);
+        return null;
+    }
+
+    /// <summary>
+    /// 获取GameObject类型
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="uiList"></param>
+    /// <param name="uiDic"></param>
+    /// <param name="goName"></param>
+    /// <returns></returns>
+    public static GameObject GetGameObject(GameObject go, List<GameObject> uiList, Dictionary<string, GameObject> uiDic, string goName)
+    {
+        if (uiDic.ContainsKey(goName))
+        {
+            return uiDic[goName].gameObject;
+        }
+
+        for (int i = 0; i < uiList.Count; i++)
+        {
+            if (uiList[i].name.Equals(goName))
+            {
+                //缓存gameObject时需要小心物体被销毁的情况
+                uiDic.Add(goName, uiList[i]);
+                return uiList[i].gameObject;
             }
         }
 
