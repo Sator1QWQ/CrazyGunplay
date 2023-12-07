@@ -1,7 +1,7 @@
 --玩家数据
-PlayerModel = Class.Create("PlayerModel", Object)
+MPlayer = Class.Create("MPlayer", Object)
 
-function PlayerModel:ctor()
+function MPlayer:ctor()
     self.playerList = {}
     self.playerHeroDic = {}    --玩家当前使用的英雄
 end
@@ -12,7 +12,7 @@ end
         name,   --玩家名字
     }
 --]]
-function PlayerModel:AddPlayer(data)
+function MPlayer:AddPlayer(data)
     if self.playerList[data.id] ~= nil then
         Debug.LogError("玩家被设置过了！ id==" .. tostring(data.id))
         return
@@ -20,7 +20,8 @@ function PlayerModel:AddPlayer(data)
     self.playerList[data.id] = data
 end
 
-function PlayerModel:SetPlayerHero(data)
+--设置玩家使用的英雄
+function MPlayer:SetPlayerHeroData(data)
     --data.id -> playerId
     if self.playerHeroDic[data.id] == nil then
         self.playerHeroDic[data.id] = {}
@@ -29,4 +30,4 @@ function PlayerModel:SetPlayerHero(data)
 end
 
 --单例模式
-PlayerModel.Instance = PlayerModel.new()
+MPlayer.Instance = MPlayer.new()

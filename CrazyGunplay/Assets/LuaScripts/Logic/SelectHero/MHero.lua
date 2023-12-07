@@ -1,21 +1,28 @@
 --选择角色时的model
-MHero = {}
-local _P = {}
+MHero = Class.Create("MHero", Object)
 
---设置游戏模式
-function MHero.SetMode(mode)
-    _P.mode = mode
+function MHero:ctor()
+    self.selectHeroDic = {}
 end
 
-function MHero.GetMode()
-    return _P.mode
+--设置游戏模式
+function MHero:SetMode(mode)
+    self.mode = mode
 end
 
 --当前选中的英雄
-function MHero.SetSelectPlayer(playerId, id)
-    _P.selectHeroId[playerId] = id
+function MHero:SetSelectPlayer(playerId, heroId)
+    Debug.Log("选中了==" ..tostring(playerId) )
+    self.selectHeroDic[playerId] = heroId
 end
 
-function MHero.GetSelectPlayer(playerId)
-    return _P.selectHeroId[playerId]
+function MHero:ClearSelectHero()
+    self.selectHeroDic = {}
 end
+
+function MHero:Dispose()
+    self:ClearSelectHero()
+    self.mode = nil
+end
+
+MHero.Instance = MHero:new()
