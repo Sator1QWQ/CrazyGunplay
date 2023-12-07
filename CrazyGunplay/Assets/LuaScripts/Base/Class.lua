@@ -5,6 +5,7 @@ Class.classDic = {}
 function Class.Create(name, parent)
     local table = {}
     table.name = name
+    table.base = parent
     function table.new()
         local obj = {}
         setmetatable(obj, table)

@@ -1,9 +1,10 @@
 --游戏模式工厂
-require "GameMode.LocalMode"
+require "Logic.GameMode.LocalMode"
 ModeFactory = Class.Create("ModeFactory", Object)
 
 --根据游戏模式枚举获取mode对象
-function ModeFactory:GetModeObj(mode)
+function ModeFactory:GetModeObj()
+    local mode = MHero.Instance.mode
     local GameMode = GlobalEnum.GameMode
     if self.modeDic[mode] ~= nil then
         return self.modeDic[mode]
@@ -34,4 +35,4 @@ function ModeFactory:Dispose()
 end
 
 --单例类
-ModeFactory.instance = ModeFactory.new()
+ModeFactory.Instance = ModeFactory.new()
