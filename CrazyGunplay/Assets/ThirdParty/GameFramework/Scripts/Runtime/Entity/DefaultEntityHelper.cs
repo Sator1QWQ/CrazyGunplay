@@ -45,7 +45,6 @@ namespace UnityGameFramework.Runtime
 
             Transform transform = gameObject.transform;
             transform.SetParent(((MonoBehaviour)entityGroup.Helper).transform);
-
             return gameObject.GetOrAddComponent<Entity>();
         }
 

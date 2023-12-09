@@ -1,0 +1,9 @@
+{
+    "Lua.diagnostics.disable": [
+        "trailing-space",
+        "undefined-global"
+    ],
+    "Lua.diagnostics.globals": [
+        "typeof"
+    ]
+}
