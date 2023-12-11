@@ -13,9 +13,15 @@ using UnityGameFramework.Runtime;
 public class JumpController : ControlActionBase
 {
     public override ControllerType CtrlType => ControllerType.Jump;
+    private float jumpSpeed;
+
+    public JumpController(float jumpSpeed)
+    {
+        this.jumpSpeed = jumpSpeed;
+    }
 
     public override void DoAction(PlayerController controller)
     {
-        controller.CharacterController.SimpleMove(Vector3.up*10);
+        controller.Gravity.Jump(Vector3.up * jumpSpeed);
     }
 }

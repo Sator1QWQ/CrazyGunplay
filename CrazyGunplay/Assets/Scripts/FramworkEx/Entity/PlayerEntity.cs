@@ -19,8 +19,8 @@ public class PlayerEntity : CharacterEntity
     public int PlayerId { get; private set; }
     public int HeroId { get; private set; }
 
-	private PlayerController controller;
-    private CharacterController cha;
+	private PlayerController mController;
+    private SimpleGravity mGravity;
 
     protected override void OnInit(object userData)
     {
@@ -33,20 +33,21 @@ public class PlayerEntity : CharacterEntity
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
-        controller.OnUpdate();
+        mController.OnUpdate();
     }
 
     private void InitController()
     {
-        cha = GetComponent<CharacterController>();
-        controller = new OnePController(this, cha);
+        mGravity = GetComponent<SimpleGravity>();
+        mController = new OnePController(this, mGravity);
         Module.Lua.Env.DoString("require 'Configs.Config.CharacterData'");
         LuaTable config = Module.Lua.Env.Global.Get<LuaTable>("CharacterData");
         LuaTable data;
         config.Get(HeroId, out data);
 
         float speed = data.Get<float>("speed");
-        controller.AddControlAction(new MoveController(speed));
-        controller.AddControlAction(new JumpController());
+        float jumpSpeed = data.Get<float>("jump");
+        mController.AddControlAction(new MoveController(speed));
+        mController.AddControlAction(new JumpController(jumpSpeed));
     }
 }

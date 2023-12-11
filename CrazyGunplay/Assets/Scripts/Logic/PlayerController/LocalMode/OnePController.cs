@@ -12,7 +12,7 @@ using UnityGameFramework.Runtime;
 */
 public class OnePController : PlayerController
 {
-    public OnePController(PlayerEntity entity, CharacterController controller) : base(entity, controller)
+    public OnePController(PlayerEntity entity, SimpleGravity gravity) : base(entity, gravity)
     {
     }
 

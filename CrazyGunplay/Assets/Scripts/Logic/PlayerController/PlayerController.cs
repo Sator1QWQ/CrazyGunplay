@@ -18,20 +18,24 @@ public abstract class PlayerController
     public PlayerEntity Entity { get; private set; }
 
     /// <summary>
-    /// 角色控制器
+    /// 重力模拟不用unity的
     /// </summary>
-    public CharacterController CharacterController;
+    public SimpleGravity Gravity { get; private set; }
+
+    /// <summary>
+    /// 是否使用重力
+    /// </summary>
+    public bool UseGravity { get; set; }
 
     /// <summary>
     /// 控制器字典，移动、跳跃这些
     /// </summary>
-
     private Dictionary<ControllerType, ControlActionBase> mControllerDic = new Dictionary<ControllerType, ControlActionBase>();
 
-    public PlayerController(PlayerEntity entity, CharacterController controller)
+    public PlayerController(PlayerEntity entity, SimpleGravity gravity)
     {
         Entity = entity;
-        CharacterController = controller;
+        Gravity = gravity;
     }
 
     public void AddControlAction(ControlActionBase ctrl)
@@ -59,8 +63,6 @@ public abstract class PlayerController
 
     public void OnUpdate()
     {
-        CharacterController.SimpleMove(Vector3.zero);
-
         if (GetMove())
         {
             Debug.Log("Move");

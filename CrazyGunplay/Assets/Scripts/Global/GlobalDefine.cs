@@ -21,5 +21,10 @@ public class GlobalDefine
 	public static readonly string PANEL_PATH = Application.dataPath + "/Resource/UI/";
 
 	public const float DESIGN_WIDTH = 1920;	//设计宽
-	public const float DESIGN_HEIGHT = 1080;	//设计高
+	public const float DESIGN_HEIGHT = 1080;    //设计高
+
+	/// <summary>
+	/// 重力加速度
+	/// </summary>
+	public static readonly Vector3 G = new Vector3(0, -15f, 0);
 }
