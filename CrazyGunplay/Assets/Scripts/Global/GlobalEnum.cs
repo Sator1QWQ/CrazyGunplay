@@ -19,6 +19,7 @@ public enum ControllerType
 	None,
 	Move,	//移动
 	Jump,	//跳跃
+	Dush,	//突进
 	NomralAttack,	//普攻
 	UseSkill,	//技能
 }

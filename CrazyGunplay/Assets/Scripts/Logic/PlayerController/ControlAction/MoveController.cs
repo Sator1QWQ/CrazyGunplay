@@ -27,11 +27,11 @@ public class MoveController : ControlActionBase
         float hori = controller.GetHorizontal();
         if(hori == -1)
         {
-            controller.Gravity.AddVelocity(Vector3.left * mSpeed);
+            controller.Gravity.AddVelocity("Left", Vector3.left * mSpeed);
         }
         else if(hori == 1)
         {
-            controller.Gravity.AddVelocity(Vector3.right * mSpeed);
+            controller.Gravity.AddVelocity("Right", Vector3.right * mSpeed);
         }
     }
 }

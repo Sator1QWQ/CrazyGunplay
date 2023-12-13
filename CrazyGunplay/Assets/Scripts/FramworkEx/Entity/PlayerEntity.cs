@@ -49,5 +49,6 @@ public class PlayerEntity : CharacterEntity
         float jumpSpeed = data.Get<float>("jump");
         mController.AddControlAction(new MoveController(speed));
         mController.AddControlAction(new JumpController(jumpSpeed));
+        mController.AddControlAction(new DushController());
     }
 }

@@ -59,6 +59,8 @@ public abstract class PlayerController
 
     public abstract bool GetMove();
 
+    public abstract bool GetDush();
+
     public abstract bool GetNormalAttack();
 
     public void OnUpdate()
@@ -73,7 +75,12 @@ public abstract class PlayerController
         {
             Debug.Log("JUmp");
             UpdateControllerAction(ControllerType.Jump);
+        }
 
+        if(GetDush())
+        {
+            Debug.Log("Dush");
+            UpdateControllerAction(ControllerType.Dush);
         }
 
         if (GetNormalAttack())

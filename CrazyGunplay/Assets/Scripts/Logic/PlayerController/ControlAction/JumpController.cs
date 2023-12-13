@@ -22,6 +22,7 @@ public class JumpController : ControlActionBase
 
     public override void DoAction(PlayerController controller)
     {
+        controller.Gravity.StopVelocity("Dush");
         controller.Gravity.Jump(Vector3.up * jumpSpeed);
     }
 }
