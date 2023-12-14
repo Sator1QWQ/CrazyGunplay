@@ -8,5 +8,6 @@ _M.Back = "返回"
 _M.OK = "确定"
 _M.OneP = "1P"
 _M.TwoP = "2P"
+_M.StartBattle = "开始战斗！"
 
 return _M

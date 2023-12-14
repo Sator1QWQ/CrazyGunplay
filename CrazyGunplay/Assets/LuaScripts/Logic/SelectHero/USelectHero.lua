@@ -1,3 +1,4 @@
+--本地模式下的选择界面
 require "Configs.Config.Character"
 local _M = {}
 
@@ -7,7 +8,8 @@ function _M.OnInit(panel)
     panel:Get("OK_btn").onClick:AddListener(function()
         _M.ClickOK(grid)
     end)
-    panel:Get("OK_text").text = Text.OK
+    _M.okText = panel:Get("OK_text")
+    _M.okText.text = Text.OK
     panel:Get("Back_text").text = Text.Back
 end
 
@@ -22,11 +24,24 @@ function _M.ClickOK(grid)
     local modeObj = ModeFactory.Instance:GetModeObj()
     local playerId = modeObj:GetCurControlPlayer()
     MHero.Instance:SetSelectPlayer(playerId, heroId)
+    if playerId == 1 then
+        _M.isOnePSelect = true
+    end
+    if playerId == 2 then
+        _M.isTwoPSelect = true
+    end
     Debug.Log("当前玩家==" .. tostring(playerId) .. ", 选中了==" .. tostring(heroId))
 end
 
 function _M.ClickBack()
     MHero.Instance:ClearSelectHero()
+end
+
+function _M.Refresh()
+    Debug.Log("Refresh OK== " .. tostring(_M.isOnePSelect))
+    if _M.isOnePSelect then
+        _M.okText.text = Text.StartBattle
+    end
 end
 
 return _M

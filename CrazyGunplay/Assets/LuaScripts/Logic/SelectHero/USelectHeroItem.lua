@@ -46,6 +46,7 @@ function _M.Click(item)
     end
 
     item.behaviour.parent.gameObject:GetComponent(typeof(CS.LuaPanel)):Get("CharacterGrid_grid"):Select(_M.index)
+    _M._Parent:Call("Refresh")
 end
 
 return _M

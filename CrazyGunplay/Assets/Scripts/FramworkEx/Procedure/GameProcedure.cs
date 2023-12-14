@@ -19,8 +19,8 @@ public class GameProcedure : ProcedureBase
     {
         Debug.Log("游戏流程");
         //进入主界面
-        //Module.UI.OpenUIForm("Assets/Resource/UI/StartPanel.prefab", "NormalGroup");
-        Module.Entity.AddEntityGroup("Normal", 1, 10, 10, 1);
-        Module.Entity.ShowEntity(123, typeof(PlayerEntity), "Assets/Resource/Models/Player/Player.prefab", "Normal", new int[]{ 1, 1001 });
+        Module.UI.OpenUIForm("Assets/Resource/UI/StartPanel.prefab", "NormalGroup");
+        //Module.Entity.AddEntityGroup("Normal", 1, 10, 10, 1);
+        //Module.Entity.ShowEntity(123, typeof(PlayerEntity), "Assets/Resource/Models/Player/Player.prefab", "Normal", new int[]{ 1, 1001 });
     }
 }

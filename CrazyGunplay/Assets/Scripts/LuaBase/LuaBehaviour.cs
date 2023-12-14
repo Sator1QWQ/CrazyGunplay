@@ -26,6 +26,10 @@ public class LuaBehaviour : MonoBehaviour
         string scriptName = luaScriptPath.Substring(luaScriptPath.LastIndexOf('/') + 1);
         object[] obj = Module.Lua.Env.DoString(bts, scriptName);
         Table = obj[0] as LuaTable;
+        if(parent != null)
+        {
+            Table.Set("_Parent", parent);
+        }
         Table.Get<Action>("Awake")?.Invoke();
     }
 
@@ -42,5 +46,16 @@ public class LuaBehaviour : MonoBehaviour
     private void OnDestroy()
     {
         Table.Get<Action>("OnDestroy")?.Invoke();
+    }
+
+    public void Call(string func)
+    {
+        Action act = Table.Get<Action>(func);
+        if(act == null)
+        {
+            Debug.LogError("lua 函数" + func + "为空！ gameObject==" + gameObject.name);
+            return;
+        }
+        act();
     }
 }
