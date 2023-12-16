@@ -37,7 +37,12 @@ public sealed class Module : MonoBehaviour
     /// <summary>
     /// lua组件
     /// </summary>
-    public static LuaComponent Lua { get; set; }
+    public static LuaComponent Lua { get; private set; }
+
+    /// <summary>
+    /// 场景组件
+    /// </summary>
+    public static SceneComponent Scene { get; private set; }
 
     private void Start()
     {
@@ -54,6 +59,7 @@ public sealed class Module : MonoBehaviour
         UI = GameEntry.GetComponent<UIComponent>();
         Resource = GameEntry.GetComponent<ResourceComponent>();
         Lua = GameEntry.GetComponent<LuaComponent>();
+        Scene = GameEntry.GetComponent<SceneComponent>();
         Debug.Log("模块初始化完成");
     }
 }

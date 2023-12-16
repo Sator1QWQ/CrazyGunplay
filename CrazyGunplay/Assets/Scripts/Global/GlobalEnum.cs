@@ -23,3 +23,12 @@ public enum ControllerType
 	NomralAttack,	//普攻
 	UseSkill,	//技能
 }
+
+/// <summary>
+/// 武器类型
+/// </summary>
+public enum GunType
+{
+	LongRange,	//远程
+	Throw,	//投掷
+}
