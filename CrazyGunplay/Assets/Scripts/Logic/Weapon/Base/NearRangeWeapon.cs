@@ -11,9 +11,14 @@ using XLua;
 * 描述：
 		近战武器(暂时不做)
 */
-public class NearRangeGun : GunBase
+public class NearRangeWeapon : Weapon
 {
-    public NearRangeGun(int id, LuaTable config) : base(id, config)
+    public NearRangeWeapon(WeaponEntity entity, LuaTable config, int id) : base(entity, config, id)
     {
+    }
+
+    public override void Attack()
+    {
+        Debug.Log("近战攻击未实现");
     }
 }

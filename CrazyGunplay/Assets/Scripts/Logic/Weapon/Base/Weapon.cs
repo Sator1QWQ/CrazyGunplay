@@ -13,12 +13,16 @@ using XLua;
 */
 public abstract class Weapon
 {
-	public int Id { get; protected set; }
+	public int Id { get; private set; }
+	public WeaponType Type { get; protected set; }
+
 	public WeaponEntity Entity { get; private set; }
 
 	public Weapon(WeaponEntity entity, LuaTable config, int id)
     {
+		Id = id;
 		Entity = entity;
+		Type = config.Get<WeaponType>("weaponType");
     }
 
 	/// <summary>

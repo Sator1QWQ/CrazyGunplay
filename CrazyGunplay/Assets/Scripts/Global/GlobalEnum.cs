@@ -27,6 +27,16 @@ public enum ControllerType
 /// <summary>
 /// 武器类型
 /// </summary>
+public enum WeaponType
+{
+	Gun,	//枪械
+	Throw,	//投掷物
+	NearRange,	//近战
+}
+
+/// <summary>
+/// 枪械类型
+/// </summary>
 public enum GunType
 {
 	LongRange,	//远程

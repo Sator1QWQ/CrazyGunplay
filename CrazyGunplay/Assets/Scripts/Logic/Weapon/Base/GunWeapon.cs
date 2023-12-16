@@ -11,7 +11,7 @@ using XLua;
 * 描述：
 		枪械基类
 */
-public class GunBase : Weapon
+public class GunWeapon : Weapon
 {
 
 	/// <summary>
@@ -59,9 +59,8 @@ public class GunBase : Weapon
 	/// </summary>
 	/// <param name="configName"></param>
 	/// <param name="id"></param>
-	public GunBase(WeaponEntity entity, LuaTable config, int id) : base(entity, config, id)
+	public GunWeapon(WeaponEntity entity, LuaTable config, int id) : base(entity, config, id)
     {
-		Id = id;
 		FireRate = config.Get<float>("fireRate");
 		Range = config.Get<float>("range");
 		ReloadTime = config.Get<float>("reloadTime");
@@ -71,5 +70,10 @@ public class GunBase : Weapon
 
     public override void Attack()
     {
+    }
+
+	public void Reload()
+    {
+
     }
 }
