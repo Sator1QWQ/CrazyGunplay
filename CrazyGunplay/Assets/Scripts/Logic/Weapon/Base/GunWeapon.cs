@@ -70,10 +70,14 @@ public class GunWeapon : Weapon
 
     public override void Attack()
     {
+		Debug.Log("枪射击");
     }
 
+	/// <summary>
+	/// 换弹
+	/// </summary>
 	public void Reload()
     {
-
+		Debug.Log("换子弹！");
     }
 }

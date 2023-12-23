@@ -35,10 +35,22 @@ public enum WeaponType
 }
 
 /// <summary>
-/// 枪械类型
+/// 子弹类型
 /// </summary>
-public enum GunType
+public enum BulletType
 {
-	LongRange,	//远程
-	Throw,	//投掷
+	/// <summary>
+	/// 一般子弹
+	/// </summary>
+	Normal,
+
+	/// <summary>
+	/// 手雷，抛物线，范围爆炸
+	/// </summary>
+	Grenade,
+
+	/// <summary>
+	/// RPG，范围爆炸
+	/// </summary>
+	RPG,
 }

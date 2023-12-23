@@ -29,4 +29,6 @@ public abstract class Weapon
 	/// 攻击
 	/// </summary>
 	public abstract void Attack();
+
+	public virtual void OnUpdate() { }
 }
