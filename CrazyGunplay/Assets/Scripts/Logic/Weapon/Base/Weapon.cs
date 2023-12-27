@@ -14,16 +14,26 @@ using XLua;
 public abstract class Weapon
 {
 	public int Id { get; private set; }
-	public WeaponType Type { get; protected set; }
+	public WeaponType Type { get; private set; }
+	public int TargetId { get; private set; }
 
 	public WeaponEntity Entity { get; private set; }
 
-	public Weapon(WeaponEntity entity, LuaTable config, int id)
+	public Weapon(LuaTable config, int id)
     {
 		Id = id;
-		Entity = entity;
 		Type = config.Get<WeaponType>("weaponType");
+		TargetId = config.Get<int>("targetId");
     }
+
+	/// <summary>
+	/// 初始化武器实体
+	/// </summary>
+	/// <param name="entity"></param>
+	public void InitWeaponEntity(WeaponEntity entity)
+    {
+		Entity = entity;
+	}
 
 	/// <summary>
 	/// 攻击

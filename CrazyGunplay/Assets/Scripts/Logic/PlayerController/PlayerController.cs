@@ -17,6 +17,8 @@ public abstract class PlayerController
     /// </summary>
     public PlayerEntity Entity { get; private set; }
 
+    public WeaponEntity Weapon { get; private set; }
+
     /// <summary>
     /// 重力模拟不用unity的
     /// </summary>
@@ -73,7 +75,7 @@ public abstract class PlayerController
 
         if (GetJump())
         {
-            Debug.Log("JUmp");
+            Debug.Log("Jump");
             UpdateControllerAction(ControllerType.Jump);
         }
 

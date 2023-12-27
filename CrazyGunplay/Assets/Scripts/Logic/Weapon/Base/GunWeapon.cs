@@ -50,27 +50,25 @@ public class GunWeapon : Weapon
 	public float MaxRecoil { get; private set; }
 
 	/// <summary>
-	/// 子弹
-	/// </summary>
-	public Bullet Bullet { get; private set; }
-
-	/// <summary>
 	/// 外部不允许直接new这个对象
 	/// </summary>
 	/// <param name="configName"></param>
 	/// <param name="id"></param>
-	public GunWeapon(WeaponEntity entity, LuaTable config, int id) : base(entity, config, id)
+	public GunWeapon(LuaTable config, int id) : base(config, id)
     {
-		FireRate = config.Get<float>("fireRate");
-		Range = config.Get<float>("range");
-		ReloadTime = config.Get<float>("reloadTime");
-		MainMag = config.Get<float>("mainMag");
-		SpareMag = config.Get<float>("spareMag");
+		LuaTable newTable = Config.Get("Gun", id);
+		FireRate = newTable.Get<float>("fireRate");
+		Range = newTable.Get<float>("range");
+		ReloadTime = newTable.Get<float>("reloadTime");
+		MainMag = newTable.Get<float>("mainMag");
+		SpareMag = newTable.Get<float>("spareMag");
 	}
 
     public override void Attack()
     {
 		Debug.Log("枪射击");
+		int bulletId = Config.Get<int>("Gun", Id, "bulletId");
+		Module.Bullet.ShowBullet(bulletId, Entity.transform.position, Entity.transform.forward);
     }
 
 	/// <summary>

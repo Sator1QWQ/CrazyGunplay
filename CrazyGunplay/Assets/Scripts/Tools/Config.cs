@@ -28,8 +28,13 @@ public class Config
             return configDic[configName];
         }
 
+        Module.Lua.Env.DoString($"require 'Configs.Config.{configName}'");
         LuaTable table = Module.Lua.Env.Global.Get<LuaTable>(configName);
         LuaTable config = table.Get<int, LuaTable>(id);
+        if(config == null)
+        {
+            Debug.Log("找不到数据！检查表是否有问题 configName==" + configName + ", id==" + id);
+        }
         configDic.Add(configName, config);  //小心内存释放问题
         return config;
     }

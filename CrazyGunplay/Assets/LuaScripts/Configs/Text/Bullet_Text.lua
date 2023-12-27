@@ -1,0 +1,9 @@
+Bullet_Text = {}
+Bullet_Text.assetPath_4 = "Assets/Resource/Models/Weapon/Bullet/Bullet_1001.prefab"
+Bullet_Text.effectPath_4 = ""
+Bullet_Text.assetPath_5 = "Assets/Resource/Models/Weapon/Bullet/Bullet_1001.prefab"
+Bullet_Text.effectPath_5 = ""
+Bullet_Text.assetPath_6 = "Assets/Resource/Models/Weapon/Bullet/Bullet_1001.prefab"
+Bullet_Text.effectPath_6 = ""
+Bullet_Text.assetPath_7 = "Assets/Resource/Models/Weapon/Bullet/Bullet_1001.prefab"
+Bullet_Text.effectPath_7 = ""

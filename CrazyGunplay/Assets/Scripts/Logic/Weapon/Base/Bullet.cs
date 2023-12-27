@@ -28,41 +28,50 @@ public abstract class Bullet
 	public Vector3 StartDirection { get; private set; }  
 
 	/// <summary>
-	/// 当前坐标
-	/// </summary>
-	public Vector3 CurPos { get; protected set; }
-
-	/// <summary>
-	/// 当前方向
-	/// </summary>
-	public Vector3 CurDirection { get; protected set; }
-
-	/// <summary>
 	/// 子弹数量
 	/// </summary>
 	public int BulletCount { get; private set; }
 
+	public float FlySpeed { get; private set; }
+
 	/// <summary>
 	/// 子弹实体
 	/// </summary>
-	public BulletEntity BulletEntity { get; private set; }
+	public List<BulletEntity> BulletEntityList { get; private set; }
 
-	public Bullet(BulletEntity entity, int bulletId)
+	public Bullet(int bulletId)
     {
-		BulletEntity = entity;
 		Id = bulletId;
-		BulletCount = Config.Get<int>("Bulelt", bulletId, "bulletCount");
+		BulletCount = Config.Get<int>("Bullet", bulletId, "bulletCount");
+		FlySpeed = Config.Get<float>("Bullet", bulletId, "flySpeed");
+		BulletEntityList = new List<BulletEntity>();
     }
 
 	/// <summary>
-	/// 开始飞行，只能由BuleltComponent调用，外部不允许调用
+	/// 初始化数据，只能由BuleltComponent调用，外部不允许调用
 	/// </summary>
 	/// <param name="startPos"></param>
 	/// <param name="startDirection"></param>
-	public void StartFly(Vector3 startPos, Vector3 startDirection)
+	public void InitBullet(Vector3 startPos, Vector3 startDirection)
     {
 		StartPos = startPos;
 		StartDirection = startDirection;
+		BulletEntityList.Clear();
+	}
+
+	public void OnShowBullet()
+    {
+		//暂时这样写，后续喷子需要改
+		for(int i = 0; i < BulletEntityList.Count; i++)
+        {
+			BulletEntityList[i].transform.position = StartPos;
+			BulletEntityList[i].transform.rotation = Quaternion.Euler(StartDirection);
+		}
+    }
+
+	public void AddBulletEntity(BulletEntity entity)
+    {
+		BulletEntityList.Add(entity);
     }
 
 	/// <summary>

@@ -12,5 +12,11 @@ using UnityGameFramework.Runtime;
 */
 public class BulletEntity : EntityLogic
 {
+	public SimpleGravity Gravity { get; private set; }
 
+    protected override void OnInit(object userData)
+    {
+        base.OnInit(userData);
+        Gravity = GetComponent<SimpleGravity>();
+    }
 }

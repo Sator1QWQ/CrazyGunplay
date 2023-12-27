@@ -29,9 +29,9 @@ public enum ControllerType
 /// </summary>
 public enum WeaponType
 {
-	Gun,	//枪械
-	Throw,	//投掷物
-	NearRange,	//近战
+	Gun = 1,	//枪械
+	Throw = 2,	//投掷物
+	NearRange = 3,	//近战
 }
 
 /// <summary>
@@ -42,15 +42,15 @@ public enum BulletType
 	/// <summary>
 	/// 一般子弹
 	/// </summary>
-	Normal,
+	Normal = 1,
 
 	/// <summary>
 	/// 手雷，抛物线，范围爆炸
 	/// </summary>
-	Grenade,
+	Grenade = 2,
 
 	/// <summary>
 	/// RPG，范围爆炸
 	/// </summary>
-	RPG,
+	RPG = 3,
 }

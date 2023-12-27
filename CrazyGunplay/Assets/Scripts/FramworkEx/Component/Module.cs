@@ -44,6 +44,16 @@ public sealed class Module : MonoBehaviour
     /// </summary>
     public static SceneComponent Scene { get; private set; }
 
+    /// <summary>
+    /// 武器组件
+    /// </summary>
+    public static WeaponComponent Weapon { get; private set; }
+
+    /// <summary>
+    /// 子弹组件
+    /// </summary>
+    public static BulletComponent Bullet { get; private set; }
+
     private void Start()
     {
         InitModuleComponent();
@@ -52,7 +62,6 @@ public sealed class Module : MonoBehaviour
     //初始化模块
     private void InitModuleComponent()
     {
-
         Base = GameEntry.GetComponent<BaseComponent>();
         Entity = GameEntry.GetComponent<EntityComponent>();
         Event = GameEntry.GetComponent<EventComponent>();
@@ -60,6 +69,8 @@ public sealed class Module : MonoBehaviour
         Resource = GameEntry.GetComponent<ResourceComponent>();
         Lua = GameEntry.GetComponent<LuaComponent>();
         Scene = GameEntry.GetComponent<SceneComponent>();
+        Weapon = GameEntry.GetComponent<WeaponComponent>();
+        Bullet = GameEntry.GetComponent<BulletComponent>();
         Debug.Log("模块初始化完成");
     }
 }

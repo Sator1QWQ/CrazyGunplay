@@ -15,7 +15,14 @@ using GameFramework.Event;
 */
 public class BulletComponent : GameFrameworkComponent
 {
-    private Dictionary<int, Bullet> bulletDic = new Dictionary<int, Bullet>();  //所有子弹字典，id为实体id
+    private class BulletData
+    {
+        public int id;
+        public Vector3 startPos;
+        public Vector3 dire;
+    }
+
+    private List<Bullet> bulletList = new List<Bullet>();   //所有子弹字典，id为实体id
     private List<Bullet> flyingList = new List<Bullet>();   //飞行中的子弹的列表
 
     private void Start()
@@ -23,7 +30,7 @@ public class BulletComponent : GameFrameworkComponent
         Module.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
     }
 
-    //show成功的话会发送事件，之后再new bullet对象
+    //show成功的话会发送事件
     private void OnShowEntity(object obj, GameEventArgs e)
     {
         ShowEntitySuccessEventArgs showEvent = e as ShowEntitySuccessEventArgs;
@@ -34,48 +41,60 @@ public class BulletComponent : GameFrameworkComponent
 
         BulletEntity entity = showEvent.Entity.Logic as BulletEntity;
         int bulletId = (int)showEvent.UserData;
-        BulletType type = Config.Get<BulletType>("Bullet", bulletId, "bulletType");
-        Bullet bullet = null;
-        switch (type)
+        Bullet bullet = bulletList.Find(b => b.Id == bulletId);
+        bullet.AddBulletEntity(entity);
+        
+        //子弹全部加载完，开始飞行
+        if(bullet.BulletEntityList.Count == bullet.BulletCount)
         {
-            case BulletType.Normal:
-                bullet = new NormalBullet(entity, bulletId);
-                break;
-            case BulletType.Grenade:
-                bullet = new GrenadeBullet(entity, bulletId);
-                break;
-            case BulletType.RPG:
-                bullet = new RPGBullet(entity, bulletId);
-                break;
+            bullet.OnShowBullet();
+            StartFly(bullet);
         }
-        bulletDic.Add(entity.Entity.Id, bullet);
     }
 
     /// <summary>
     /// 子弹的生成不需要对象池，因为实体已经实现了对象池
     /// </summary>
-	public void ShowBullet(int bulletId)
+	public void ShowBullet(int bulletId, Vector3 startPos, Vector3 startDirection)
     {
+        Debug.Log("ShowBullet!");
         string value = Config.Get<string>("Bullet", bulletId, "assetPath");
-        int bulleltId = EntityTool.GetBulletEntityId();
-        Module.Entity.ShowEntity<BulletEntity>(bulleltId, value, "normal", (object)bulletId);
+        BulletType type = Config.Get<BulletType>("Bullet", bulletId, "bulletType");
+        Bullet bullet = null;
+        switch (type)
+        {
+            case BulletType.Normal:
+                bullet = new NormalBullet(bulletId);
+                break;
+            case BulletType.Grenade:
+                bullet = new GrenadeBullet(bulletId);
+                break;
+            case BulletType.RPG:
+                bullet = new RPGBullet(bulletId);
+                break;
+        }
+        bullet.InitBullet(startPos, startDirection);
+
+        bulletList.Add(bullet);
+        for (int i = 0; i < bullet.BulletCount; i++)
+        {
+            int entityId = EntityTool.GetBulletEntityId();
+            Module.Entity.ShowEntity<BulletEntity>(entityId, value, "normal", (object)bulletId);
+        }
     }
 
     /// <summary>
-    /// 需要手动隐藏实体
+    /// 需要手动隐藏所有实体
     /// </summary>
     /// <param name="bullet"></param>
-    public void HideBullet(Bullet bullet)
+    private void HideBullet(Bullet bullet)
     {
-        int entityId = bullet.BulletEntity.Entity.Id;
-        if (!bulletDic.ContainsKey(entityId))
+        for (int i = 0; i < bullet.BulletEntityList.Count; i++)
         {
-            Debug.LogError("子弹出现错误！隐藏子弹时子弹不存在字典中 entityId==" + entityId);
-            return;
+            EntityLogic logic = bullet.BulletEntityList[i];
+            Module.Entity.HideEntity(logic.Entity);
         }
-
-        bulletDic.Remove(entityId);
-        Module.Entity.HideEntity(entityId);
+        bulletList.Remove(bullet);
     }
 
     /// <summary>
@@ -84,9 +103,8 @@ public class BulletComponent : GameFrameworkComponent
     /// <param name="bullet"></param>
     /// <param name="pos"></param>
     /// <param name="direction"></param>
-    public void StartFly(Bullet bullet, Vector3 pos, Vector3 direction)
+    public void StartFly(Bullet bullet)
     {
-        bullet.StartFly(pos, direction);
         flyingList.Add(bullet);
     }
 
@@ -97,9 +115,13 @@ public class BulletComponent : GameFrameworkComponent
             Bullet bullet = flyingList[i];
             RaycastHit hit;
 
-            if(Physics.Raycast(bullet.CurPos, bullet.CurDirection, out hit, 0.2f))
+            EntityLogic logic = bullet.BulletEntityList[0];
+            if(Physics.Raycast(logic.transform.position, logic.transform.forward, out hit, 0.2f))
             {
                 bullet.OnCollision(hit.transform.gameObject);
+                HideBullet(bullet);
+                flyingList.Remove(bullet);
+                i--;
             }
             else
             {

@@ -12,17 +12,20 @@ using UnityGameFramework.Runtime;
 */
 public class NormalBullet : Bullet
 {
-    public NormalBullet(BulletEntity entity, int bulletId) : base(entity, bulletId)
+    public NormalBullet(int bulletId) : base(bulletId)
     {
     }
 
     public override void Fly()
     {
-        throw new System.NotImplementedException();
+        for(int i = 0; i < BulletEntityList.Count; i++)
+        {
+            BulletEntityList[i].Gravity.AddVelocity("bullet", StartDirection.normalized * FlySpeed, -1, false);
+        }
     }
 
     public override void OnCollision(GameObject target)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("发生碰撞了！target==" + target);
     }
 }
