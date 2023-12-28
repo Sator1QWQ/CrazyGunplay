@@ -39,6 +39,10 @@ public abstract class Bullet
 	/// </summary>
 	public List<BulletEntity> BulletEntityList { get; private set; }
 
+	/// <summary>
+	/// 外部不允许new，只能由BulletComponent new
+	/// </summary>
+	/// <param name="bulletId"></param>
 	public Bullet(int bulletId)
     {
 		Id = bulletId;

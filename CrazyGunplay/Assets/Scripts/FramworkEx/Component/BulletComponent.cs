@@ -40,8 +40,8 @@ public class BulletComponent : GameFrameworkComponent
         }
 
         BulletEntity entity = showEvent.Entity.Logic as BulletEntity;
-        int bulletId = (int)showEvent.UserData;
-        Bullet bullet = bulletList.Find(b => b.Id == bulletId);
+        Bullet bullet = (Bullet)showEvent.UserData;
+        Debug.Log("bullet 子弹生成ok id==" + bullet);
         bullet.AddBulletEntity(entity);
         
         //子弹全部加载完，开始飞行
@@ -53,12 +53,11 @@ public class BulletComponent : GameFrameworkComponent
     }
 
     /// <summary>
+    /// 每一次的射击都会生成一个子弹对象
     /// 子弹的生成不需要对象池，因为实体已经实现了对象池
     /// </summary>
 	public void ShowBullet(int bulletId, Vector3 startPos, Vector3 startDirection)
     {
-        Debug.Log("ShowBullet!");
-        string value = Config.Get<string>("Bullet", bulletId, "assetPath");
         BulletType type = Config.Get<BulletType>("Bullet", bulletId, "bulletType");
         Bullet bullet = null;
         switch (type)
@@ -73,13 +72,16 @@ public class BulletComponent : GameFrameworkComponent
                 bullet = new RPGBullet(bulletId);
                 break;
         }
+        Debug.Log("创建子弹对象");
+        bulletList.Add(bullet);
+        string assetPath = Config.Get<string>("Bullet", bulletId, "assetPath");
         bullet.InitBullet(startPos, startDirection);
 
-        bulletList.Add(bullet);
         for (int i = 0; i < bullet.BulletCount; i++)
         {
             int entityId = EntityTool.GetBulletEntityId();
-            Module.Entity.ShowEntity<BulletEntity>(entityId, value, "normal", (object)bulletId);
+            Debug.Log("bullet show实体");
+            Module.Entity.ShowEntity<BulletEntity>(entityId, assetPath, "normal", bullet);
         }
     }
 
@@ -95,6 +97,8 @@ public class BulletComponent : GameFrameworkComponent
             Module.Entity.HideEntity(logic.Entity);
         }
         bulletList.Remove(bullet);
+        flyingList.Remove(bullet);  //隐藏时肯定是在飞的，所以flyingList里一定会有这个对象
+        Debug.Log("bullet 隐藏实体");
     }
 
     /// <summary>
@@ -105,6 +109,7 @@ public class BulletComponent : GameFrameworkComponent
     /// <param name="direction"></param>
     public void StartFly(Bullet bullet)
     {
+        Debug.Log("bullet startfly flyList添加");
         flyingList.Add(bullet);
     }
 
@@ -116,11 +121,12 @@ public class BulletComponent : GameFrameworkComponent
             RaycastHit hit;
 
             EntityLogic logic = bullet.BulletEntityList[0];
-            if(Physics.Raycast(logic.transform.position, logic.transform.forward, out hit, 0.2f))
+
+            //只检测碰撞到玩家和墙
+            if(Physics.Raycast(logic.transform.position, logic.transform.forward, out hit, 0.2f, LayerMask.GetMask("Player", "Wall")))
             {
                 bullet.OnCollision(hit.transform.gameObject);
                 HideBullet(bullet);
-                flyingList.Remove(bullet);
                 i--;
             }
             else
