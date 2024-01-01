@@ -16,6 +16,6 @@ public class DushController : ControlActionBase
 
     public override void DoAction(PlayerController controller)
     {
-        controller.Gravity.AddVelocity("Dush", Vector3.left * 20, 0.1f, false);
+        controller.Gravity.AddVelocity("Dush", controller.Entity.LookDirection * 20, 0.1f, false);
     }
 }

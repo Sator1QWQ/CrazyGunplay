@@ -19,7 +19,12 @@ public class PlayerEntity : CharacterEntity
     public int PlayerId { get; private set; }
     public int HeroId { get; private set; }
     public int WeaponId { get; private set; }
+    public Transform WeaponRoot { get; private set; }
 
+    /// <summary>
+    /// 玩家看的方向
+    /// </summary>
+    public Vector3 LookDirection { get; set; }
 	private PlayerController mController;
     private SimpleGravity mGravity;
 
@@ -28,6 +33,7 @@ public class PlayerEntity : CharacterEntity
         base.OnInit(userData);
         PlayerId = ((int[])userData)[0];
         HeroId = ((int[])userData)[1];
+        WeaponRoot = transform.Find("WeaponRoot");
         InitController();
         InitWeapon();
     }
@@ -41,7 +47,7 @@ public class PlayerEntity : CharacterEntity
     protected override void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)
     {
         base.OnAttached(childEntity, parentTransform, userData);
-        childEntity.transform.SetParent(parentTransform, false);
+        childEntity.transform.SetParent(WeaponRoot, false);
     }
 
     //初始化控制器
@@ -50,10 +56,6 @@ public class PlayerEntity : CharacterEntity
         mGravity = GetComponent<SimpleGravity>();
         mController = new OnePController(this, mGravity);
         LuaTable data = Config.Get("CharacterData", HeroId);
-        //Module.Lua.Env.DoString("require 'Configs.Config.CharacterData'");
-        //LuaTable config = Module.Lua.Env.Global.Get<LuaTable>("CharacterData");
-        //LuaTable data;
-        //config.Get(HeroId, out data);
 
         float speed = data.Get<float>("speed");
         float jumpSpeed = data.Get<float>("jump");
@@ -74,12 +76,23 @@ public class PlayerEntity : CharacterEntity
 
     private void OnShowEntity(object userData, GameFrameworkEventArgs e)
     {
-        //if((int)userData != WeaponId)
-        //{
-        //    return;
-        //}
-        //ShowEntitySuccessEventArgs showEvent = e as ShowEntitySuccessEventArgs;
-        //Module.Entity.AttachEntity(showEvent.Entity, Entity);
-        //Module.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
+        ShowEntitySuccessEventArgs showEvent = e as ShowEntitySuccessEventArgs;
+        if(!showEvent.EntityLogicType.Equals(typeof(WeaponEntity)))
+        {
+            return;
+        }
+        if(!(showEvent.UserData is Weapon))
+        {
+            return;
+        }
+
+        int weaponId = (showEvent.UserData as Weapon).Id;
+        if(weaponId != WeaponId)
+        {
+            return;
+        }
+        Module.Entity.AttachEntity(showEvent.Entity, Entity);
+        (showEvent.Entity.Logic as WeaponEntity).SetPlayerEntity(this);
+        Module.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
     }
 }

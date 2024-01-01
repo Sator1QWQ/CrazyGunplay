@@ -123,7 +123,7 @@ public class BulletComponent : GameFrameworkComponent
             EntityLogic logic = bullet.BulletEntityList[0];
 
             //只检测碰撞到玩家和墙
-            if(Physics.Raycast(logic.transform.position, logic.transform.forward, out hit, 0.2f, LayerMask.GetMask("Player", "Wall")))
+            if(Physics.Raycast(logic.transform.position, logic.transform.forward, out hit, 0.35f, LayerMask.GetMask("Player", "Wall")))
             {
                 bullet.OnCollision(hit.transform.gameObject);
                 HideBullet(bullet);

@@ -6,7 +6,7 @@ Bullet = {
 		params = {
 		},
 		bulletCount = 1,
-		flySpeed = 1,
+		flySpeed = 10,
 		assetPath = Bullet_Text.assetPath_4,
 		effectPath = Bullet_Text.effectPath_4,
 	},

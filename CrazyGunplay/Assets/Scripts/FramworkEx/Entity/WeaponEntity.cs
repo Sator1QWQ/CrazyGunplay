@@ -12,14 +12,13 @@ using UnityGameFramework.Runtime;
 */
 public class WeaponEntity : EntityLogic
 {
-	public Weapon Weapon { get; private set; }
-
 	/// <summary>
-	/// 设置武器对象
+	/// 武器持有者
 	/// </summary>
-	/// <param name="weapon"></param>
-	public void SetWeapon(Weapon weapon)
+	public PlayerEntity PlayerEntity { get; private set; }
+
+	public void SetPlayerEntity(PlayerEntity entity)
     {
-		Weapon = weapon;
+		PlayerEntity = entity;
     }
 }
