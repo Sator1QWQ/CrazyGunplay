@@ -23,5 +23,6 @@ public class GameProcedure : ProcedureBase
         //Module.Scene.LoadScene("Assets/Resource/Scenes/Battle_1.unity");
         Module.Entity.AddEntityGroup("normal", 1, 10, 10, 1);
         Module.Entity.ShowEntity(123, typeof(PlayerEntity), "Assets/Resource/Models/Player/Player.prefab", "normal", new int[]{ 1, 1001 });
+        Module.Entity.ShowEntity(124, typeof(PlayerEntity), "Assets/Resource/Models/Player/Player.prefab", "normal", new int[] { 2, 1002 });
     }
 }

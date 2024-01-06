@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2259661957536005729}
   - component: {fileID: -7241527139923552991}
   - component: {fileID: 6542750771244854948}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6084325391194149280}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WeaponRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

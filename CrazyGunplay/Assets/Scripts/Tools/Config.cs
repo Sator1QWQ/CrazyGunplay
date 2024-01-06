@@ -25,17 +25,18 @@ public class Config
     {
         if(configDic.ContainsKey(configName))
         {
-            return configDic[configName];
+            return configDic[configName].Get<int, LuaTable>(id);
         }
 
         Module.Lua.Env.DoString($"require 'Configs.Config.{configName}'");
         LuaTable table = Module.Lua.Env.Global.Get<LuaTable>(configName);
+        configDic.Add(configName, table);  //小心内存释放问题
         LuaTable config = table.Get<int, LuaTable>(id);
         if(config == null)
         {
             Debug.Log("找不到数据！检查表是否有问题 configName==" + configName + ", id==" + id);
+            return null;
         }
-        configDic.Add(configName, config);  //小心内存释放问题
         return config;
     }
 

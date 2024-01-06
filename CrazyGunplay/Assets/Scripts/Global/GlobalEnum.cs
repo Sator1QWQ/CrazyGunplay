@@ -54,3 +54,41 @@ public enum BulletType
 	/// </summary>
 	RPG = 3,
 }
+
+/// <summary>
+/// 角色状态类型
+/// </summary>
+public enum StateType
+{
+	//控制层
+	ControlIdle,   //控制层闲置
+	Move,   //移动
+	Jump,   //跳跃
+	Dush,   //突进
+
+	//被动层
+	PassiveIdle,	//被动层闲置
+	GetHitFly,  //被击飞
+	GetHit, //被击退
+	Die,    //死亡
+
+	//技能层
+	SkillIdle,	//技能层闲置
+	UseSkill,   //使用技能
+
+	//武器层
+	WeaponIdle,	//武器层闲置
+	NormalAttack,   //普攻
+	Reload, //换弹
+}
+
+/// <summary>
+/// 状态机层级类型
+/// </summary>
+public enum StateLayer
+{
+	Control,	//控制层
+	Passive,	//被动层
+	Skill,	//技能层
+	Weapon,	//武器层
+}

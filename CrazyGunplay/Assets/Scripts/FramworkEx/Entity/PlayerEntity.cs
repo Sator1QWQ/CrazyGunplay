@@ -54,7 +54,15 @@ public class PlayerEntity : CharacterEntity
     private void InitController()
     {
         mGravity = GetComponent<SimpleGravity>();
-        mController = new OnePController(this, mGravity);
+        if(PlayerId == 1)
+        {
+            mController = new OnePController(this, mGravity);
+        }
+        else
+        {
+            mController = new TwoPController(this, mGravity);
+        }
+        
         LuaTable data = Config.Get("CharacterData", HeroId);
 
         float speed = data.Get<float>("speed");

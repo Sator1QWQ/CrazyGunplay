@@ -26,6 +26,11 @@ public class NormalBullet : Bullet
 
     public override void OnCollision(GameObject target)
     {
-        Debug.Log("发生碰撞了！target==" + target);
+        PlayerEntity entity = target.GetComponent<PlayerEntity>();
+        if(entity != null)
+        {
+            Debug.Log("发生碰撞了！target==" + target);
+            
+        }
     }
 }

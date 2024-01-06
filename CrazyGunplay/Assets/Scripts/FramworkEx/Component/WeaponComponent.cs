@@ -61,7 +61,9 @@ public class WeaponComponent : GameFrameworkComponent
 
 		weaponList.Add(weapon);
 		string path = config.Get<string>("path");
-		Module.Entity.ShowEntity(EntityTool.GetWeaponEntityId(), typeof(WeaponEntity), path, "normal", weapon);
+		int entId = EntityTool.GetWeaponEntityId();
+		Debug.Log("show了一个武器 实体id==" + entId);
+		Module.Entity.ShowEntity(entId, typeof(WeaponEntity), path, "normal", weapon);
 		return weapon;
 	}
 
