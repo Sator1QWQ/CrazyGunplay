@@ -103,4 +103,12 @@ public class PlayerEntity : CharacterEntity
         (showEvent.Entity.Logic as WeaponEntity).SetPlayerEntity(this);
         Module.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
     }
+
+    public void BeatBack(Vector3 vector)
+    {
+        //mGravity.AddVelocity("BeatBack", vector, 0.1f, true);
+        mGravity.AddForce("Force",  Vector3.right * 5);
+        //mGravity.AddVelocity("BeatBack", Vector3.up*10, 0.5f, true);
+        //mGravity.Jump((Vector3.up)*10);
+    }
 }

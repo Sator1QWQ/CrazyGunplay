@@ -56,20 +56,20 @@ public class BulletComponent : GameFrameworkComponent
     /// 每一次的射击都会生成一个子弹对象
     /// 子弹的生成不需要对象池，因为实体已经实现了对象池
     /// </summary>
-	public void ShowBullet(int bulletId, Vector3 startPos, Vector3 startDirection)
+	public void ShowBullet(int bulletId, int gunId, Vector3 startPos, Vector3 startDirection)
     {
         BulletType type = Config.Get<BulletType>("Bullet", bulletId, "bulletType");
         Bullet bullet = null;
         switch (type)
         {
             case BulletType.Normal:
-                bullet = new NormalBullet(bulletId);
+                bullet = new NormalBullet(bulletId, gunId);
                 break;
             case BulletType.Grenade:
-                bullet = new GrenadeBullet(bulletId);
+                bullet = new GrenadeBullet(bulletId, gunId);
                 break;
             case BulletType.RPG:
-                bullet = new RPGBullet(bulletId);
+                bullet = new RPGBullet(bulletId, gunId);
                 break;
         }
         Debug.Log("创建子弹对象");

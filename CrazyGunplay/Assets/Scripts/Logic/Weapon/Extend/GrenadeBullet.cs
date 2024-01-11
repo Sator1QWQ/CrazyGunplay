@@ -12,7 +12,7 @@ using UnityGameFramework.Runtime;
 */
 public class GrenadeBullet : Bullet
 {
-    public GrenadeBullet(int bulletId) : base(bulletId)
+    public GrenadeBullet(int bulletId, int gunId) : base(bulletId, gunId)
     {
     }
 

@@ -39,13 +39,16 @@ public abstract class Bullet
 	/// </summary>
 	public List<BulletEntity> BulletEntityList { get; private set; }
 
+	public int GunId { get; private set; }
+
 	/// <summary>
 	/// 外部不允许new，只能由BulletComponent new
 	/// </summary>
 	/// <param name="bulletId"></param>
-	public Bullet(int bulletId)
+	public Bullet(int bulletId, int gunId)
     {
 		Id = bulletId;
+		GunId = gunId;
 		BulletCount = Config.Get<int>("Bullet", bulletId, "bulletCount");
 		FlySpeed = Config.Get<float>("Bullet", bulletId, "flySpeed");
 		BulletEntityList = new List<BulletEntity>();

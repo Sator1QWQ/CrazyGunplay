@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameFramework;
 using UnityGameFramework.Runtime;
+using System;
 
 /*
 * 作者：
@@ -21,6 +22,19 @@ public class SimpleGravity : MonoBehaviour
         public bool useGravity;
     }
 
+    private class UpdateData
+    {
+        public float tempTime;
+        public bool isEnd;
+        public Action act;
+        public Action onFloorAct;
+
+        public UpdateData(Action act)
+        {
+            this.act = act;
+        }
+    }
+
     [SerializeField] private Vector3 leftRaycastOffset;    //左脚射线偏移
     [SerializeField] private Vector3 rightRaycastOffset;    //右脚射线偏移
 
@@ -34,6 +48,7 @@ public class SimpleGravity : MonoBehaviour
 
     public bool useGravity;
     private bool seetingUseGravity;
+    private List<UpdateData> mUpdateActionList = new List<UpdateData>();
 
     [HideInInspector] public bool IsAir { get; private set; }
     
@@ -53,6 +68,46 @@ public class SimpleGravity : MonoBehaviour
     /// <param name="useGravity">是否使用重力，后面添加的数据会把前面的重力选项覆盖掉</param>
     public void AddVelocity(string id, Vector3 v, float time = -1, bool useGravity = true)
     {
+        AddVelocityInteral(id, v, time, useGravity);
+    }
+
+    public void AddForce(string id, Vector3 v)
+    {
+        UpdateData data = null;
+        if(v.y != 0)
+        {
+            Jump(v.y);
+            data = new UpdateData(() =>
+            {
+                Vector3 newV = new Vector3(v.x, 0, v.z);
+                AddVelocityInteral(id, newV, -1, true);
+            });
+            data.onFloorAct = () => data.isEnd = true;
+        }
+        else
+        {
+            data = new UpdateData(() =>
+            {
+                AddVelocityInteral(id, v, -1, true);
+                if(data.tempTime >= 0.1f)
+                {
+                    data.isEnd = true;
+                }
+                data.tempTime += Time.deltaTime;
+            });
+        }
+        AddUpdateAction(data);
+    }
+
+    /// <summary>
+    /// 添加一个速度，如果time不填的话，需要每帧添加
+    /// 如果time填了，则这个速度持续time秒
+    /// </summary>
+    /// <param name="v">速度</param>
+    /// <param name="time"></param>
+    /// <param name="useGravity">是否使用重力，后面添加的数据会把前面的重力选项覆盖掉</param>
+    private void AddVelocityInteral(string id, Vector3 v, float time = -1, bool useGravity = true)
+    {
         float endTime = time != -1 ? Time.time + time : -1;
         mVelocityDataList.Add(new VelocityData() {id = id, v = v, useGravity = useGravity, endTime = endTime });
     }
@@ -61,15 +116,28 @@ public class SimpleGravity : MonoBehaviour
     /// 跳跃
     /// </summary>
     /// <param name="v"></param>
-    public void Jump(Vector3 v)
+    public void Jump(float speed)
     {
-        v0 = v;
-        vt = v;
+        v0 = Vector3.up * speed;
+        vt = Vector3.up * speed;
         upTime = 0;
     }
 
     private void Update()
     {
+        for(int i = 0; i < mUpdateActionList.Count; i++)
+        {
+            if(mUpdateActionList[i].isEnd)
+            {
+                mUpdateActionList.RemoveAt(i);
+                i--;
+            }
+            else
+            {
+                mUpdateActionList[i].act();
+            }
+        }
+
         //触碰地面
         RaycastHit hitLeft;
         RaycastHit hitRight;
@@ -81,6 +149,10 @@ public class SimpleGravity : MonoBehaviour
             {
                 if (IsAir)
                 {
+                    for(int i = 0; i < mUpdateActionList.Count; i++)
+                    {
+                        mUpdateActionList[i].onFloorAct?.Invoke();
+                    }
                     Debug.Log("触碰到地面了");
                     gravityTime = 0;
                 }
@@ -135,6 +207,7 @@ public class SimpleGravity : MonoBehaviour
     /// </summary>
     private void ResetGravity()
     {
+        Debug.Log("还原重力");
         vt = Vector3.zero;
         v0 = Vector3.zero;
         upTime = 0;
@@ -186,6 +259,11 @@ public class SimpleGravity : MonoBehaviour
             }
             mBody.velocity += data.v;
         }
+    }
+
+    private void AddUpdateAction(UpdateData data)
+    {
+        mUpdateActionList.Add(data);
     }
 
     /// <summary>

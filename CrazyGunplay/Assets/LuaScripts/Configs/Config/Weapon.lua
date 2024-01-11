@@ -5,6 +5,8 @@ Weapon = {
 		name = Weapon_Text.name_4,
 		weaponType = 1,
 		targetId = 101,
+		beatType = 1,
+		beatBack = 1,
 		path = Weapon_Text.path_4,
 	},
 	[102] = {
@@ -12,7 +14,18 @@ Weapon = {
 		name = Weapon_Text.name_5,
 		weaponType = 1,
 		targetId = 102,
+		beatType = 1,
+		beatBack = 1,
 		path = Weapon_Text.path_5,
 	},
+	[103] = {
+		id = 103,
+		name = Weapon_Text.name_6,
+		weaponType = 1,
+		targetId = 103,
+		beatType = 1,
+		beatBack = 1,
+		path = Weapon_Text.path_6,
+	},
 }
-Weapon.Count = 2
+Weapon.Count = 3

@@ -6,6 +6,10 @@ Bullet = {
 		params = {
 		},
 		bulletCount = 1,
+		bulletOffset = {
+			[1] = 0,
+			[2] = 0,
+		},
 		flySpeed = 10,
 		assetPath = Bullet_Text.assetPath_4,
 		effectPath = Bullet_Text.effectPath_4,
@@ -16,7 +20,11 @@ Bullet = {
 		params = {
 		},
 		bulletCount = 7,
-		flySpeed = 1,
+		bulletOffset = {
+			[1] = -15,
+			[2] = 15,
+		},
+		flySpeed = 10,
 		assetPath = Bullet_Text.assetPath_5,
 		effectPath = Bullet_Text.effectPath_5,
 	},
@@ -26,6 +34,10 @@ Bullet = {
 		params = {
 		},
 		bulletCount = 1,
+		bulletOffset = {
+			[1] = 0,
+			[2] = 0,
+		},
 		flySpeed = 1,
 		assetPath = Bullet_Text.assetPath_6,
 		effectPath = Bullet_Text.effectPath_6,
@@ -36,6 +48,10 @@ Bullet = {
 		params = {
 		},
 		bulletCount = 1,
+		bulletOffset = {
+			[1] = 0,
+			[2] = 0,
+		},
 		flySpeed = 1,
 		assetPath = Bullet_Text.assetPath_7,
 		effectPath = Bullet_Text.effectPath_7,
