@@ -7,6 +7,7 @@ EventTrigger = EventSystems.EventTrigger
 EventTriggerType = EventSystems.EventTriggerType
 
 UI = CS.Module.UI
+Timer = CS.Module.Timer
 
 require "Base.Class"
 GlobalDefine = require "Global.GlobalDefine"

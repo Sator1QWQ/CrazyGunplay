@@ -1,5 +1,7 @@
 --本地模式下的选择界面
 require "Configs.Config.Character"
+require "Logic.Battle.Modes.NormalGameMode"
+require "Logic.Battle.GamePlayModeBase"
 local _M = {}
 
 function _M.OnInit(panel)
@@ -30,6 +32,14 @@ function _M.ClickOK(grid)
     if playerId == 2 then
         _M.isTwoPSelect = true
     end
+
+    --测试用
+    if _M.isOnePSelect and _M.isTwoPSelect then
+        local normalMode = NormalGameMode.new()
+        MBattleSetting.Instance:SetGameMode(normalMode)
+        MBattleSetting.Instance:StartCountDown()
+    end
+
     Debug.Log("当前玩家==" .. tostring(playerId) .. ", 选中了==" .. tostring(heroId))
 end
 

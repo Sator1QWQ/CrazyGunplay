@@ -54,6 +54,11 @@ public sealed class Module : MonoBehaviour
     /// </summary>
     public static BulletComponent Bullet { get; private set; }
 
+    /// <summary>
+    /// 定时器组件
+    /// </summary>
+    public static TimerComponent Timer { get; private set; }
+
     private void Start()
     {
         InitModuleComponent();
@@ -71,6 +76,7 @@ public sealed class Module : MonoBehaviour
         Scene = GameEntry.GetComponent<SceneComponent>();
         Weapon = GameEntry.GetComponent<WeaponComponent>();
         Bullet = GameEntry.GetComponent<BulletComponent>();
+        Timer = GameEntry.GetComponent<TimerComponent>();
         Debug.Log("模块初始化完成");
     }
 }

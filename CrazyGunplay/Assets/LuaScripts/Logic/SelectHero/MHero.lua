@@ -25,4 +25,4 @@ function MHero:Dispose()
     self.mode = nil
 end
 
-MHero.Instance = MHero:new()
+MHero.Instance = MHero.new()
