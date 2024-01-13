@@ -13,6 +13,10 @@ function _M.OnInit(panel)
     _M.okText = panel:Get("OK_text")
     _M.okText.text = Text.OK
     panel:Get("Back_text").text = Text.Back
+    panel:Get("Back_btn").onClick:AddListener(function()
+        _M.ClickBack()
+    end)
+    _M.panel = panel
 end
 
 function _M.ClickOK(grid)
@@ -45,6 +49,7 @@ end
 
 function _M.ClickBack()
     MHero.Instance:ClearSelectHero()
+    _M.panel:Close()
 end
 
 function _M.Refresh()

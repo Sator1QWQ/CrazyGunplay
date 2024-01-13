@@ -1,2 +1,2 @@
-local _M = {}
-return _M
+GlobalDefine = {}
+GlobalDefine.UIPath = "Assets/Resource/UI"

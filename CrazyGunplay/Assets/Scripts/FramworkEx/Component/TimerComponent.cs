@@ -18,13 +18,14 @@ public class TimerComponent : GameFrameworkComponent
         public float startTime;
         public float delay;
         public float duration;
-        public Action act;
-        public Action endAct;
+        public Action<TimerData> act;
+        public Action<TimerData> endAct;
+        public object userdata;
     }
 
     private List<TimerData> mTimerList = new List<TimerData>();
 
-    public TimerData AddTimer(Action act, float delayTime)
+    public TimerData AddTimer(Action<TimerData> act, float delayTime)
     {
         TimerData data = new TimerData();
         data.startTime = Time.time;
@@ -42,7 +43,7 @@ public class TimerComponent : GameFrameworkComponent
     /// <param name="endAct">结束函数</param>
     /// <param name="delayTime">延迟时间 单位：秒</param>
     /// <param name="duration">持续时间 单位：秒</param>
-    public TimerData AddUpdateTimer(Action act, Action endAct, float delayTime = 0, float duration = 0)
+    public TimerData AddUpdateTimer(Action<TimerData> act, Action<TimerData> endAct, float delayTime = 0, float duration = 0)
     {
         TimerData data = new TimerData();
         data.startTime = Time.time;
@@ -74,7 +75,7 @@ public class TimerComponent : GameFrameworkComponent
                 //持续时间为-1，则永远不会结束，需要外部手动结束
                 if(data.duration == -1)
                 {
-                    data.act();
+                    data.act(data);
                     continue;
                 }
 
@@ -84,15 +85,15 @@ public class TimerComponent : GameFrameworkComponent
                     //持续时间为0时，会直接remove，这里需要手动调一次act
                     if(data.duration == 0)
                     {
-                        data.act();
+                        data.act(data);
                     }
-                    data?.endAct();
+                    data.endAct?.Invoke(data);
                     mTimerList.RemoveAt(i);
                     i--;
                 }
                 else
                 {
-                    data.act();
+                    data.act(data);
                 }
             }
         }
