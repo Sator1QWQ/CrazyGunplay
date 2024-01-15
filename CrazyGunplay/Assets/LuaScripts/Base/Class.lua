@@ -19,7 +19,12 @@ function Class.Create(name, parent)
         setmetatable(table, parent)
         Class.classDic[name] = {table = table, parent = parent.name}
     else
-        Class.classDic[name] = {table = table, parent = nil}
+        local parentClass = parent
+        --除了Object本身外，其他类必须继承自Object
+        if parentClass == nil and name ~= "Object" then
+            parentClass = Object
+        end
+        Class.classDic[name] = {table = table, parent = parentClass}
     end
     return table
 end
