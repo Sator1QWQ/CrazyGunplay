@@ -10,18 +10,14 @@ using XLua;
 * 作者：
 * 日期：
 * 描述：
-		
+		xlua白名单
 */
-[CSharpCallLua]
-public delegate void ItemInitDele(LuaItem item, int index);
-
-public class CSharpCallLuaWhite
+public static class CSharpCallLuaWhite
 {
-    
-
-    //[CSharpCallLua]
-    //public static List<Type> whiteList = new List<Type>()
-    //{
-    //    typeof(Action<LuaItem, int>),
-    //};
+    [CSharpCallLua]
+    public static List<Type> whiteList = new List<Type>()
+    {
+        typeof(Action<LuaItem, int>),
+        typeof(Action<LuaTable, bool>),
+    };
 }

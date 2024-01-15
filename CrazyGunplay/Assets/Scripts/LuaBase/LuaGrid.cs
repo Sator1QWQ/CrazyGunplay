@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameFramework;
 using UnityGameFramework.Runtime;
+using UnityEngine.EventSystems;
 
 /*
 * 作者：
@@ -29,6 +30,19 @@ public class LuaGrid : MonoBehaviour
 			go.name = i.ToString();
 			LuaItem item = go.GetComponent<LuaItem>();
 			item.SetIndex(i);
+			
+			//item点击事件
+			if(item.trigger != null)
+            {
+				int index = i;
+				EventTrigger.Entry entry = new EventTrigger.Entry();
+				entry.eventID = EventTriggerType.PointerClick;
+				entry.callback = new EventTrigger.TriggerEvent();
+				entry.callback.AddListener(_ => Select(index));
+				item.trigger.triggers.Clear();
+				item.trigger.triggers.Add(entry);
+			}
+			
 			itemList.Add(item);
 		}
     }

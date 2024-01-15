@@ -4,12 +4,15 @@ using UnityEngine;
 using GameFramework;
 using UnityGameFramework.Runtime;
 using System;
+using XLua;
+using UnityEngine.EventSystems;
 
 /*
 * 作者：
 * 日期：
 * 描述：
 		所有Item需要挂载这个脚本
+        脚本必须以对象的模式写
 */
 [RequireComponent(typeof(LuaBehaviour))]
 public class LuaItem : MonoBehaviour
@@ -17,15 +20,21 @@ public class LuaItem : MonoBehaviour
     public List<GameObject> uiList;
     [HideInInspector] public LuaBehaviour behaviour;
     [HideInInspector] public bool isSelect = false;
+    public EventTrigger trigger;
 
     private Dictionary<string, GameObject> uiDic = new Dictionary<string, GameObject>();
     private int index;
+    private LuaTable mObjectInstance;    //对象实例
 
     private void Start()
     {
         behaviour = GetComponent<LuaBehaviour>();
-        Action<LuaItem, int> itemInit = behaviour.Table.Get<Action<LuaItem, int>>("ItemInit");
-        itemInit?.Invoke(this, index);
+
+        Action<LuaTable, LuaItem, int> itemInit = behaviour.Table.Get<Action<LuaTable, LuaItem, int>>("ItemInit");
+        Func<LuaTable> act = behaviour.Table.Get<Func<LuaTable>>("new");
+        mObjectInstance = act();
+        mObjectInstance.Get<Action<LuaTable>>("Test")(mObjectInstance);
+        itemInit?.Invoke(mObjectInstance, this, index);
     }
 
     /// <summary>
@@ -54,7 +63,7 @@ public class LuaItem : MonoBehaviour
     public void SelectChange()
     {
         isSelect = !isSelect;
-        Action<bool> act = behaviour.Table.Get<Action<bool>>("OnSelect");
-        act?.Invoke(isSelect);
+        Action<LuaTable, bool> act = behaviour.Table.Get<Action<LuaTable, bool>>("OnSelect");
+        act?.Invoke(mObjectInstance, isSelect);
     }
 }
