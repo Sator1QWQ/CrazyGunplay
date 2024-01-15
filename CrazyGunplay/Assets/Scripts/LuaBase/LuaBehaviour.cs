@@ -18,6 +18,9 @@ public class LuaBehaviour : MonoBehaviour
     public string luaScriptPath;    //require的内容
     public LuaBehaviour parent; //引用其他LuaBehaviour
 
+    private Action update;
+    private Action onDestroy;
+
     private void Awake()
     {
         byte[] bts = Module.Lua.GetByteAndLoad(luaScriptPath);
@@ -31,6 +34,8 @@ public class LuaBehaviour : MonoBehaviour
             Table.Set("_Parent", parent);
         }
         Table.Get<Action>("Awake")?.Invoke();
+        update = Table.Get<Action>("Update");
+        onDestroy = Table.Get<Action>("OnDestroy");
     }
 
     private void Start()
@@ -40,12 +45,12 @@ public class LuaBehaviour : MonoBehaviour
 
     private void Update()
     {
-        Table.Get<Action>("Update")?.Invoke();
+        update?.Invoke();
     }
 
     private void OnDestroy()
     {
-        Table.Get<Action>("OnDestroy")?.Invoke();
+        onDestroy?.Invoke();
     }
 
     public void Call(string func)
