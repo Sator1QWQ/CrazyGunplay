@@ -27,7 +27,9 @@ public class LuaBehaviour : MonoBehaviour
 
         //每次awake的时候重新加载lua
         string scriptName = luaScriptPath.Substring(luaScriptPath.LastIndexOf('/') + 1);
-        object[] obj = Module.Lua.Env.DoString(bts, scriptName);
+        string replace = luaScriptPath.Replace('/', '.');
+        string requirePath = "require '" + replace + "'";
+        object[] obj = Module.Lua.Env.DoString("return " + requirePath, scriptName);
         Table = obj[0] as LuaTable;
         if(parent != null)
         {
@@ -51,16 +53,5 @@ public class LuaBehaviour : MonoBehaviour
     private void OnDestroy()
     {
         onDestroy?.Invoke();
-    }
-
-    public void Call(string func)
-    {
-        Action act = Table.Get<Action>(func);
-        if(act == null)
-        {
-            Debug.LogError("lua 函数" + func + "为空！ gameObject==" + gameObject.name);
-            return;
-        }
-        act();
     }
 }
