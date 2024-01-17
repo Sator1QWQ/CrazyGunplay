@@ -465,6 +465,7 @@ MonoBehaviour:
   - {fileID: 8011968966437547715}
   behaviour: {fileID: 0}
   isSelect: 0
+  trigger: {fileID: 7461643771638474830}
 --- !u!1 &3620526914733664477
 GameObject:
   m_ObjectHideFlags: 0

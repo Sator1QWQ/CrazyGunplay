@@ -17,6 +17,18 @@ function _M.OnInit(panel)
         _M.ClickBack()
     end)
     _M.panel = panel
+    _M.grid = grid
+end
+
+function _M.OnOpen()
+    _M.isOnePSelect = false
+    _M.isTwoPSelect = false
+    _M.isOnePReady = false
+    _M.isTwoPReady = false
+    _M.okText.text = Text.OK
+    _M.grid:Foreach(function(item)
+        item:OnOpen()
+    end)
 end
 
 function _M.ClickOK(grid)
@@ -27,35 +39,50 @@ function _M.ClickOK(grid)
     end
 
     local heroId = 1000 + curSelect + 1
-    local modeObj = ModeFactory.Instance:GetModeObj()
-    local playerId = modeObj:GetCurControlPlayer()
-    MHero.Instance:SetSelectPlayer(playerId, heroId)
-    if playerId == 1 then
-        _M.isOnePSelect = true
+    if _M.isOnePSelect and not _M.isOnePReady then
+        _M.isOnePReady = true
     end
-    if playerId == 2 then
-        _M.isTwoPSelect = true
+    if _M.isTwoPSelect and not _M.isTwoPReady then
+        _M.isTwoPReady = true
     end
 
     --测试用
-    if _M.isOnePSelect and _M.isTwoPSelect then
+    if _M.isOnePReady and _M.isTwoPReady then
         local normalMode = NormalGameMode.new()
         MBattleSetting.Instance:SetGameMode(normalMode)
         MBattleSetting.Instance:StartCountDown()
     end
 
-    Debug.Log("当前玩家==" .. tostring(playerId) .. ", 选中了==" .. tostring(heroId))
+    grid:Foreach(function(item)
+        item:InitSelect()
+    end)
 end
 
 function _M.ClickBack()
-    MHero.Instance:ClearSelectHero()
     _M.panel:Close()
 end
 
 function _M.Refresh()
-    Debug.Log("Refresh OK== " .. tostring(_M.isOnePSelect))
-    if _M.isOnePSelect then
+    if _M.isOnePReady then
         _M.okText.text = Text.StartBattle
+    end
+end
+
+--哪个玩家选了英雄
+function _M.PlayerSelectChange(id, b)
+    if id == GlobalDefine.OnePId then
+        _M.isOnePSelect = b
+    else
+        _M.isTwoPSelect = b
+    end
+end
+
+--玩家是否被选中
+function _M.GetPlayerSelect(id)
+    if id == GlobalDefine.OnePId then
+        return _M.isOnePSelect
+    else
+        return _M.isTwoPSelect
     end
 end
 

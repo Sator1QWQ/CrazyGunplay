@@ -17,7 +17,8 @@ public static class CSharpCallLuaWhite
     [CSharpCallLua]
     public static List<Type> whiteList = new List<Type>()
     {
-        typeof(Action<LuaItem, int>),
+        typeof(Action<LuaTable, LuaItem, int>),
         typeof(Action<LuaTable, bool>),
+        typeof(Action<LuaTable, int>),
     };
 }

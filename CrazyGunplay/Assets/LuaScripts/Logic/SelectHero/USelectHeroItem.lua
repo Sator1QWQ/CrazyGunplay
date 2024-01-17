@@ -1,52 +1,48 @@
 require "Configs.Config.Character"
 require "Logic.GameMode.ModeFactory"
+local USelectHero = require "Logic.SelectHero.USelectHero"
 
-local _M = {}
+--所有Item必须以通过Class创建
+local USelectHeroItem = Class.Create("USelectHeroItem", Object)
 
-function _M.ItemInit(item, index)
-    _M.index = index
+function USelectHeroItem:ItemInit(luaItem, index)
+    self.index = index
     local heroId = 1000 + index + 1
-    item:Get("name_text").text = Character[heroId].name
-    
-    local trigger = EventTrigger.Entry()
-    trigger.eventID = EventTriggerType.PointerClick
-    trigger.callback = EventTrigger.TriggerEvent()
-    trigger.callback:AddListener(function()
-        _M.Click(item)
-    end)
-    item:Get("empty_eve").triggers:Add(trigger)
-    
-    item:Get("1P_text").text = Text.OneP
-    item:Get("2P_text").text = Text.TwoP
-    _M.onePSelectGo = item:GetGameObject("1PSelect_go")
-    _M.twoPSelectGo = item:GetGameObject("2PSelect_go")
-    _M.onePSelectGo:SetActive(false)
-    _M.twoPSelectGo:SetActive(false)
+    luaItem:Get("name_text").text = Character[heroId].name
+    luaItem:Get("1P_text").text = Text.OneP
+    luaItem:Get("2P_text").text = Text.TwoP
+    self.onePSelectGo = luaItem:GetGameObject("1PSelect_go")
+    self.twoPSelectGo = luaItem:GetGameObject("2PSelect_go")
+    self.onePSelectGo:SetActive(false)
+    self.twoPSelectGo:SetActive(false)
+    self.luaItem = luaItem
 end
 
-function _M.OnSelect(isSelect)
-    Debug.Log("OnSelect==" .. tostring(_M.index) .. ", isSelect==" .. tostring(isSelect))
-    local heroId = 1000 + _M.index + 1
-    
+function USelectHeroItem:OnOpen()
+    self.onePSelectGo:SetActive(false)
+    self.twoPSelectGo:SetActive(false)
+    self:InitSelect()
+end
+
+function USelectHeroItem:InitSelect()
+    self.luaItem:InitSelect()
+end
+
+function USelectHeroItem:OnSelect(isSelect)
+    local curSelectPlayer
+
     --1P已经被选中了
-    if MHero.Instance.selectHeroDic[1] ~= nil then
-        _M.onePSelectGo:SetActive(MHero.Instance.selectHeroDic[1] == heroId)
-        _M.twoPSelectGo:SetActive(isSelect)
+    if USelectHero.isOnePReady then
+        self.twoPSelectGo:SetActive(isSelect)
+        curSelectPlayer = GlobalDefine.TwoPId
     else
-        _M.onePSelectGo:SetActive(isSelect)
-        _M.twoPSelectGo:SetActive(false)
-    end
-end
-
-function _M.Click(item)
-    local isSelectOneP = MHero.Instance.selectHeroDic[1] ~= nil
-    local isSelectTwoP = MHero.Instance.selectHeroDic[2] ~= nil
-    if isSelectOneP and isSelectTwoP then
-        return
+        self.onePSelectGo:SetActive(isSelect)
+        self.twoPSelectGo:SetActive(false)
+        curSelectPlayer = GlobalDefine.OnePId
     end
 
-    item.behaviour.parent.gameObject:GetComponent(typeof(CS.LuaPanel)):Get("CharacterGrid_grid"):Select(_M.index)
-    _M._Parent:Call("Refresh")
+    USelectHero.PlayerSelectChange(curSelectPlayer, isSelect)
+    USelectHero.Refresh()
 end
 
-return _M
+return USelectHeroItem

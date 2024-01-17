@@ -4,7 +4,7 @@ ModeFactory = Class.Create("ModeFactory", Object)
 
 --根据游戏模式枚举获取mode对象
 function ModeFactory:GetModeObj()
-    local mode = MHero.Instance.mode
+    local mode = MSelectHero.Instance.mode
     local GameMode = GlobalEnum.GameMode
     if self.modeDic[mode] ~= nil then
         return self.modeDic[mode]

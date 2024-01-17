@@ -24,17 +24,17 @@ public class LuaItem : MonoBehaviour
 
     private Dictionary<string, GameObject> uiDic = new Dictionary<string, GameObject>();
     private int index;
-    private LuaTable mObjectInstance;    //对象实例
 
-    private void Start()
+    /// <summary>
+    /// 对象实例
+    /// </summary>
+    public LuaTable ObjectInstance { get; private set; } 
+
+    private void Awake()
     {
         behaviour = GetComponent<LuaBehaviour>();
-
-        Action<LuaTable, LuaItem, int> itemInit = behaviour.Table.Get<Action<LuaTable, LuaItem, int>>("ItemInit");
         Func<LuaTable> act = behaviour.Table.Get<Func<LuaTable>>("new");
-        mObjectInstance = act();
-        mObjectInstance.Get<Action<LuaTable>>("Test")(mObjectInstance);
-        itemInit?.Invoke(mObjectInstance, this, index);
+        ObjectInstance = act();
     }
 
     /// <summary>
@@ -51,9 +51,15 @@ public class LuaItem : MonoBehaviour
     /// <returns></returns>
     public GameObject GetGameObject(string goName) => LuaTools.GetGameObject(gameObject, uiList, uiDic, goName);
 
+    /// <summary>
+    /// 每次Grid SetCount相当于重新初始化所有item
+    /// </summary>
+    /// <param name="index"></param>
     public void SetIndex(int index)
     {
         this.index = index;
+        Action<LuaTable, LuaItem, int> itemInit = behaviour.Table.Get<Action<LuaTable, LuaItem, int>>("ItemInit");
+        itemInit?.Invoke(ObjectInstance, this, index);
     }
 
     /// <summary>
@@ -64,6 +70,8 @@ public class LuaItem : MonoBehaviour
     {
         isSelect = !isSelect;
         Action<LuaTable, bool> act = behaviour.Table.Get<Action<LuaTable, bool>>("OnSelect");
-        act?.Invoke(mObjectInstance, isSelect);
+        act?.Invoke(ObjectInstance, isSelect);
     }
+
+    public void InitSelect() => isSelect = false;
 }

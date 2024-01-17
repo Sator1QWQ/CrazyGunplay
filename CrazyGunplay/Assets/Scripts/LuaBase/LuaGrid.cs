@@ -4,6 +4,8 @@ using UnityEngine;
 using GameFramework;
 using UnityGameFramework.Runtime;
 using UnityEngine.EventSystems;
+using System;
+using XLua;
 
 /*
 * 作者：
@@ -14,7 +16,7 @@ using UnityEngine.EventSystems;
 public class LuaGrid : MonoBehaviour
 {
 	public LuaItem template;
-	private int curSelect = -1;
+	[SerializeField] private int curSelect = -1;
 	private List<LuaItem> itemList = new List<LuaItem>();
 
 	/// <summary>
@@ -89,4 +91,16 @@ public class LuaGrid : MonoBehaviour
 
 		return -1;
 	}
+
+	/// <summary>
+	/// 遍历item
+	/// </summary>
+	/// <param name="act"></param>
+	public void Foreach(Action<LuaTable, int> act)
+    {
+		for(int i = 0; i < itemList.Count; i++)
+        {
+			act(itemList[i].ObjectInstance, i + 1);
+        }
+    }
 }
