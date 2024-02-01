@@ -7,8 +7,9 @@ EventTrigger = EventSystems.EventTrigger
 EventTriggerType = EventSystems.EventTriggerType
 Time = UnityEngine.Time
 
-UI = CS.Module.UI
-Timer = CS.Module.Timer
+Module = CS.Module
+UI = Module.UI
+Timer = Module.Timer
 
 require "Base.Class"
 require "Global.GlobalDefine"

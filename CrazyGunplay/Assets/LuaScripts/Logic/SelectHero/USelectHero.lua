@@ -2,6 +2,7 @@
 require "Configs.Config.Character"
 require "Logic.Battle.Modes.NormalGameMode"
 require "Logic.Battle.GamePlayModeBase"
+require "Configs.Config.Scene"
 local _M = {}
 
 function _M.OnInit(panel)
@@ -16,8 +17,25 @@ function _M.OnInit(panel)
     panel:Get("Back_btn").onClick:AddListener(function()
         _M.ClickBack()
     end)
+    panel:Get("Left_btn").onClick:AddListener(_M.LeftBtnClick)
+    panel:Get("Right_btn").onClick:AddListener(_M.RightBtnClick)
     _M.panel = panel
     _M.grid = grid
+    _M.sceneNameText = panel:Get("SceneName_text")
+
+    --初始化场景列表
+    _M.sceneList = {}
+    Debug.Log("Scene==" .. tostring(Scene))
+    for id, config in pairs(Scene) do
+        if id ~= "Count" then
+            if config.sceneType == GlobalEnum.SceneType.Battle then
+                table.insert(_M.sceneList, id)
+            end    
+        end
+    end
+    table.sort(_M.sceneList, function(a, b)
+        return a < b
+    end)
 end
 
 function _M.OnOpen()
@@ -26,19 +44,19 @@ function _M.OnOpen()
     _M.isOnePReady = false
     _M.isTwoPReady = false
     _M.okText.text = Text.OK
+    _M.sceneIndex = nil
     _M.grid:Foreach(function(item)
         item:OnOpen()
     end)
+    _M.RefreshScene()
 end
 
 function _M.ClickOK(grid)
     local curSelect = grid:GetCurSelect()
-    Debug.Log("curSelect==" .. tostring(curSelect))
     if curSelect == -1 then
         return
     end
 
-    local heroId = 1000 + curSelect + 1
     if _M.isOnePSelect and not _M.isOnePReady then
         _M.isOnePReady = true
     end
@@ -48,6 +66,8 @@ function _M.ClickOK(grid)
 
     --测试用
     if _M.isOnePReady and _M.isTwoPReady then
+        local path = Scene[_M.sceneList[_M.sceneIndex]].assetPath
+        SceneTool.LoadScene(path)
         local normalMode = NormalGameMode.new()
         MBattleSetting.Instance:SetGameMode(normalMode)
         MBattleSetting.Instance:StartCountDown()
@@ -84,6 +104,32 @@ function _M.GetPlayerSelect(id)
     else
         return _M.isTwoPSelect
     end
+end
+
+function _M.LeftBtnClick()
+    Debug.Log("LeftClick")
+    _M.sceneIndex = _M.sceneIndex - 1
+    if _M.sceneIndex == 0 then
+        _M.sceneIndex = #_M.sceneList
+    end
+    _M.RefreshScene()
+end
+
+function _M.RightBtnClick()
+    _M.sceneIndex = _M.sceneIndex + 1
+    if _M.sceneIndex == #_M.sceneList + 1 then
+        _M.sceneIndex = 1
+    end
+    _M.RefreshScene()
+end
+
+function _M.RefreshScene()
+    if _M.sceneIndex == nil then
+        _M.sceneIndex = 1
+    end
+    Debug.Log("refrsh  index==" .. tostring(_M.sceneIndex) .. ", count==" .. tostring(#_M.sceneList))
+    local sceneId = _M.sceneList[_M.sceneIndex]
+    _M.sceneNameText.text = Scene[sceneId].name
 end
 
 return _M

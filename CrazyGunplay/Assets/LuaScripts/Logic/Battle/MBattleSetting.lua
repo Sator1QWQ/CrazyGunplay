@@ -2,6 +2,7 @@ MBattleSetting = Class.Create("MBattleSetting", Object)
 
 function MBattleSetting:ctor()
     self.countDown = 100  --倒计时
+    self.playerLife = 3 --玩家有几条命
     self.HPScale = 1  --血量系数，越高越难积累击飞值
 end
 
