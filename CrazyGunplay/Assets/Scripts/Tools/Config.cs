@@ -46,7 +46,7 @@ public class Config
     /// <typeparam name="T"></typeparam>
     /// <param name="configName"></param>
     /// <param name="id"></param>
-    /// <param name="key"></param>
+    /// <param name="key">配置表字段</param>
     /// <returns></returns>
 	public static T Get<T>(string configName, int id, string key)
     {

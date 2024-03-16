@@ -1,5 +1,5 @@
 require "Configs.Config.Character"
-require "Logic.GameMode.ModeFactory"
+--require "Logic.GameMode.ModeFactory"
 local USelectHero = require "Logic.SelectHero.USelectHero"
 
 --所有Item必须以通过Class创建

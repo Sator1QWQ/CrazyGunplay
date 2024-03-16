@@ -64,13 +64,11 @@ function _M.ClickOK(grid)
         _M.isTwoPReady = true
     end
 
-    --测试用
     if _M.isOnePReady and _M.isTwoPReady then
-        local path = Scene[_M.sceneList[_M.sceneIndex]].assetPath
-        SceneTool.LoadScene(path)
-        local normalMode = NormalGameMode.new()
-        MBattleSetting.Instance:SetGameMode(normalMode)
-        MBattleSetting.Instance:StartCountDown()
+        SceneTool.ChangeScene(_M.sceneList[_M.sceneIndex])
+        --local normalMode = NormalGameMode.new()
+        --MBattleSetting.Instance:SetGameMode(normalMode)
+        --MBattleSetting.Instance:StartCountDown()
     end
 
     grid:Foreach(function(item)
