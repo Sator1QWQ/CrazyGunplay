@@ -40,6 +40,16 @@ public class LuaBehaviour : MonoBehaviour
         onDestroy = Table.Get<Action>("OnDestroy");
     }
 
+    private void OnEnable()
+    {
+        Table.Get<Action>("OnEnable")?.Invoke();
+    }
+
+    private void OnDisable()
+    {
+        Table.Get<Action>("OnDisable")?.Invoke();
+    }
+
     private void Start()
     {
         Table.Get<Action>("Start")?.Invoke();
