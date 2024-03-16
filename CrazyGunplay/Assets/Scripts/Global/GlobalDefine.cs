@@ -18,7 +18,12 @@ public class GlobalDefine
 	/// <summary>
 	/// ui界面路径
 	/// </summary>
-	public static readonly string PANEL_PATH = Application.dataPath + "/Resource/UI/";
+	public static readonly string PANEL_PATH = "Assets/Resource/UI/";
+
+	/// <summary>
+	/// 场景路径
+	/// </summary>
+	public static readonly string SCENE_PATH = "Assets/Resource/Scenes/";
 
 	public const float DESIGN_WIDTH = 1920;	//设计宽
 	public const float DESIGN_HEIGHT = 1080;    //设计高
