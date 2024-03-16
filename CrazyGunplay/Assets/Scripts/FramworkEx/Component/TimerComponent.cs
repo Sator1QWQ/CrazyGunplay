@@ -18,6 +18,8 @@ public class TimerComponent : GameFrameworkComponent
         public float startTime;
         public float delay;
         public float duration;
+        public float continueTime;  //计时开始后经过了多长时间
+        public float remainTime;    //剩余时间
         public Action<TimerData> act;
         public Action<TimerData> endAct;
         public object userdata;
@@ -72,8 +74,10 @@ public class TimerComponent : GameFrameworkComponent
             //定时器开始
             if(Time.time >= data.startTime + data.delay)
             {
+                data.continueTime += Time.deltaTime;
+                data.remainTime = data.duration - data.continueTime;
                 //持续时间为-1，则永远不会结束，需要外部手动结束
-                if(data.duration == -1)
+                if (data.duration == -1)
                 {
                     data.act(data);
                     continue;
