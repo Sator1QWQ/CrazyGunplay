@@ -1,0 +1,9 @@
+Scene_Text = {}
+Scene_Text.name_4 = "开始场景"
+Scene_Text.assetPath_4 = "Start.unity"
+Scene_Text.name_5 = "战斗场景1"
+Scene_Text.assetPath_5 = "Battle_1.unity"
+Scene_Text.name_6 = "战斗场景2"
+Scene_Text.assetPath_6 = "Battle_1.unity"
+Scene_Text.name_7 = "战斗场景3"
+Scene_Text.assetPath_7 = "Battle_1.unity"
