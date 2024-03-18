@@ -26,6 +26,8 @@ public class SceneTool
         Module.Entity.HideAllLoadingEntities();
         Module.Entity.HideAllLoadedEntities();
 
+        Module.Timer.RemoveAllTimer();
+
         //卸载场景
         string[] loadedScene = Module.Scene.GetUnloadingSceneAssetNames();
         for(int i = 0; i < loadedScene.Length; i++)
