@@ -31,8 +31,9 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 2, 0, 0);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 3, 0, 0);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "ChangeScene", _m_ChangeScene_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "UnloadAllScene", _m_UnloadAllScene_xlua_st_);
             
 			
             
@@ -84,6 +85,29 @@ namespace XLua.CSObjectWrap
                     int _sceneId = LuaAPI.xlua_tointeger(L, 1);
                     
                     SceneTool.ChangeScene( _sceneId );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_UnloadAllScene_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    
+                    SceneTool.UnloadAllScene(  );
                     
                     
                     

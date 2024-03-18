@@ -36,4 +36,17 @@ public class SceneTool
         string path = GlobalDefine.SCENE_PATH + sceneName;
         Module.Scene.LoadScene(path);
     }
+
+    /// <summary>
+    /// 除了Start场景，其他的场景都卸载
+    /// </summary>
+    public static void UnloadAllScene()
+    {
+        //卸载场景
+        string[] loadedScene = Module.Scene.GetLoadedSceneAssetNames();
+        for (int i = 0; i < loadedScene.Length; i++)
+        {
+            Module.Scene.UnloadScene(loadedScene[i]);
+        }
+    }
 }

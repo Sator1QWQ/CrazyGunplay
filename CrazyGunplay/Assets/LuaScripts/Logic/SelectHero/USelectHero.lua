@@ -43,6 +43,8 @@ function _M.OnOpen()
     _M.isTwoPSelect = false
     _M.isOnePReady = false
     _M.isTwoPReady = false
+    _M.onePSelectId = nil
+    _M.twoPSelectId = nil
     _M.okText.text = Text.OK
     _M.sceneIndex = nil
     _M.grid:Foreach(function(item)
@@ -65,6 +67,12 @@ function _M.ClickOK(grid)
     end
 
     if _M.isOnePReady and _M.isTwoPReady then
+        local oneP = {id = GlobalDefine.OnePId, name = GlobalDefine.OnePName, hero = _M.onePSelectId, life = MBattleSetting.playerLife}
+        local twoP = {id = GlobalDefine.TwoPId, name = GlobalDefine.TwoPName, hero = _M.twoPSelectId, life = MBattleSetting.playerLife}
+        MPlayer.Instance:AddPlayer(oneP)
+        MPlayer.Instance:AddPlayer(twoP)
+        MTeam.Instance:AddTeamPlayer(GlobalDefine.BlueTeam, GlobalDefine.OnePId)
+        MTeam.Instance:AddTeamPlayer(GlobalDefine.RedTeam, GlobalDefine.OnePId)
         SceneTool.ChangeScene(_M.sceneList[_M.sceneIndex])
         --local normalMode = NormalGameMode.new()
         --MBattleSetting.Instance:SetGameMode(normalMode)
@@ -90,8 +98,10 @@ end
 function _M.PlayerSelectChange(id, b)
     if id == GlobalDefine.OnePId then
         _M.isOnePSelect = b
+        _M.onePSelectId = id
     else
         _M.isTwoPSelect = b
+        _M.twoPSelectId = id
     end
 end
 

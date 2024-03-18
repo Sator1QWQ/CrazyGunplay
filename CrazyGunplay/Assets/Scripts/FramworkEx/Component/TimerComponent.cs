@@ -102,4 +102,12 @@ public class TimerComponent : GameFrameworkComponent
             }
         }
     }
+
+    /// <summary>
+    /// 强制移除所有定时器
+    /// </summary>
+    public void RemoveAllTimer()
+    {
+        mTimerList.Clear();
+    }
 }
