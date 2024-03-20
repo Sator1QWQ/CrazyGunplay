@@ -13,35 +13,55 @@ using XLua;
 */
 public class PlayerEntity : CharacterEntity
 {
+    public class BattleData
+    {
+        private int heroId;
+        public int HeroId { get => heroId; set { heroId = value; SyncToLua(); } }
+
+        private int weaponId;
+        public int WeaponId { get => weaponId; set { weaponId = value; SyncToLua(); } }
+
+        private int life;   //生命数
+        public int Life { get => life; set { life = value; SyncToLua(); } }
+
+        public void SyncToLua()
+        {
+            Module.Lua.Env.Global.Get<LuaTable>("MPlayer").Get<LuaTable>("Instance").Get<LuaFunction>("SyncData").Call(this);
+        }
+    }
+
     /// <summary>
     /// 玩家id
     /// </summary>
     public int PlayerId { get; private set; }
-    public int HeroId { get; private set; }
-    public int WeaponId { get; private set; }
+    public BattleData Data { get; private set; }
     public Transform WeaponRoot { get; private set; }
 
     /// <summary>
     /// 玩家看的方向
     /// </summary>
     public Vector3 LookDirection { get; set; }
-	private PlayerController mController;
+	public PlayerController Controller { get; private set; }
+    public StateMachine<PlayerEntity> Machine { get; private set; }
     private SimpleGravity mGravity;
 
     protected override void OnInit(object userData)
     {
         base.OnInit(userData);
+        Data = new BattleData();
         PlayerId = ((int[])userData)[0];
-        HeroId = ((int[])userData)[1];
+        Data.HeroId = ((int[])userData)[1];
         WeaponRoot = transform.Find("WeaponRoot");
         InitController();
+        InitStateMachine();
         InitWeapon();
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
-        mController.OnUpdate();
+        Controller.OnUpdate();
+        Machine.OnUpdate();
     }
 
     protected override void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)
@@ -56,30 +76,40 @@ public class PlayerEntity : CharacterEntity
         mGravity = GetComponent<SimpleGravity>();
         if(PlayerId == 1)
         {
-            mController = new OnePController(this, mGravity);
+            Controller = new OnePController(this, mGravity);
         }
         else
         {
-            mController = new TwoPController(this, mGravity);
+            Controller = new TwoPController(this, mGravity);
         }
         
-        LuaTable data = Config.Get("CharacterData", HeroId);
+        LuaTable data = Config.Get("CharacterData", Data.HeroId);
 
         float speed = data.Get<float>("speed");
         float jumpSpeed = data.Get<float>("jump");
-        mController.AddControlAction(new MoveController(speed));
-        mController.AddControlAction(new JumpController(jumpSpeed));
-        mController.AddControlAction(new DushController());
-        mController.AddControlAction(new NormalAttackController());
+        Controller.AddControlAction(new MoveController(speed));
+        Controller.AddControlAction(new JumpController(jumpSpeed));
+        Controller.AddControlAction(new DushController());
+        Controller.AddControlAction(new NormalAttackController());
+    }
+
+    //初始化状态机
+    private void InitStateMachine()
+    {
+        //可改为配置表
+        Machine = new StateMachine<PlayerEntity>(this);
+        Machine.AddState(StateLayer.Control, new ControlIdleState());
+        Machine.AddState(StateLayer.Control, new MoveState());
+        Machine.AddState(StateLayer.Control, new JumpState());
     }
 
     //初始化玩家武器
     private void InitWeapon()
     {
         Module.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
-        LuaTable data = Config.Get("Character", HeroId);
-        WeaponId = data.Get<int>("initWeapon");
-        Module.Weapon.ShowWeapon("Weapon", WeaponId);
+        LuaTable data = Config.Get("Character", Data.HeroId);
+        Data.WeaponId = data.Get<int>("initWeapon");
+        Module.Weapon.ShowWeapon("Weapon", Data.WeaponId);
     }
 
     private void OnShowEntity(object userData, GameFrameworkEventArgs e)
@@ -95,7 +125,7 @@ public class PlayerEntity : CharacterEntity
         }
 
         int weaponId = (showEvent.UserData as Weapon).Id;
-        if(weaponId != WeaponId)
+        if(weaponId != Data.WeaponId)
         {
             return;
         }
@@ -110,5 +140,10 @@ public class PlayerEntity : CharacterEntity
         mGravity.AddForce("Force",  Vector3.right * 5);
         //mGravity.AddVelocity("BeatBack", Vector3.up*10, 0.5f, true);
         //mGravity.Jump((Vector3.up)*10);
+    }
+
+    public void LifeChange(int change)
+    {
+        Data.Life += change;
     }
 }

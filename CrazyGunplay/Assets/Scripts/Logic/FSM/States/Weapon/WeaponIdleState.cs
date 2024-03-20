@@ -10,7 +10,7 @@ using UnityGameFramework.Runtime;
 * 描述：
 		
 */
-public class WeaponIdleState : StateBase
+public class WeaponIdleState : PlayerState
 {
     public override StateType Type => StateType.WeaponIdle;
 }

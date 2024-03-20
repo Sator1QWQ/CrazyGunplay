@@ -10,7 +10,7 @@ using UnityGameFramework.Runtime;
 * 描述：
 		
 */
-public class ReloadState : StateBase
+public class ReloadState : PlayerState
 {
     public override StateType Type => StateType.Reload;
 }

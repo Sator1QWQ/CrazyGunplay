@@ -16,7 +16,7 @@ public class NormalAttackController : ControlActionBase
 
     public override void DoAction(PlayerController controller)
     {
-        Weapon weapon = Module.Weapon.GetWeapon(controller.Entity.WeaponId);
+        Weapon weapon = Module.Weapon.GetWeapon(controller.Entity.Data.WeaponId);
         weapon.Attack();
     }
 }

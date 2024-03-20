@@ -10,7 +10,7 @@ using UnityGameFramework.Runtime;
 * 描述：
 		状态基类
 */
-public abstract class StateBase
+public abstract class StateBase<T> where T : class
 {
 	/// <summary>
 	/// 状态类型
@@ -22,28 +22,23 @@ public abstract class StateBase
 	/// </summary>
 	public StateLayer Layer { get; private set; }
 
-	/// <summary>
-	/// new完后必须初始化
-	/// </summary>
-	/// <param name="layer"></param>
-	/// <param name="type"></param>
 	public void Init(StateLayer layer)
     {
 		Layer = layer;
-	}
+    }
 
 	/// <summary>
 	/// 进入时
 	/// </summary>
-	public virtual void OnEnter() { }
+	public virtual void OnEnter(T owner) { }
 
 	/// <summary>
-	/// 每帧调用
+	/// 每帧调用 返回true：状态改变，下一帧再操作状态机	fasle：状态未改变
 	/// </summary>
-	public virtual void OnExecute() { }
+	public virtual bool OnExecute(T owner) => false;
 
 	/// <summary>
 	/// 离开时
 	/// </summary>
-	public virtual void OnExit() { }
+	public virtual void OnExit(T owner) { }
 }

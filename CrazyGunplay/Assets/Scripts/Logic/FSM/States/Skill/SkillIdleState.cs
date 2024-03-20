@@ -10,7 +10,7 @@ using UnityGameFramework.Runtime;
 * 描述：
 		
 */
-public class SkillIdleState : StateBase
+public class SkillIdleState : PlayerState
 {
     public override StateType Type => StateType.SkillIdle;
 }

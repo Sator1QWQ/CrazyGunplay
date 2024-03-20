@@ -37,7 +37,7 @@ public class NormalBullet : Bullet
     {
         for(int i = 0; i < BulletEntityList.Count; i++)
         {
-            Debug.Log("随机角度为==" + randomAngle[i]);
+            //Debug.Log("随机角度为==" + randomAngle[i]);
             Vector3 newDire = Quaternion.Euler(0, 0, randomAngle[i]) * StartDirection;
             BulletEntityList[i].Gravity.AddVelocity("bullet", newDire.normalized * FlySpeed, -1, false);
         }

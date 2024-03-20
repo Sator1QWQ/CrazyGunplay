@@ -10,7 +10,7 @@ using UnityGameFramework.Runtime;
 * 描述：
 		
 */
-public class PassiveIdleState : StateBase
+public class PassiveIdleState : PlayerState
 {
     public override StateType Type => StateType.PassiveIdle;
 }

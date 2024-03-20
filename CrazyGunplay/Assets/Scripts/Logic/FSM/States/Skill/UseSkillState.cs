@@ -10,7 +10,7 @@ using UnityGameFramework.Runtime;
 * 描述：
 		
 */
-public class UseSkillState : StateBase
+public class UseSkillState : PlayerState
 {
     public override StateType Type => StateType.UseSkill;
 }

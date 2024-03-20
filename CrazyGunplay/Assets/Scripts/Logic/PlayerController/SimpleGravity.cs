@@ -207,7 +207,7 @@ public class SimpleGravity : MonoBehaviour
     /// </summary>
     private void ResetGravity()
     {
-        Debug.Log("还原重力");
+        //Debug.Log("还原重力");
         vt = Vector3.zero;
         v0 = Vector3.zero;
         upTime = 0;

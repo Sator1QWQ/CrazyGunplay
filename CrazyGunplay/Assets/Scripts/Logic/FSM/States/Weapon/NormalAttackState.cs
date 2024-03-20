@@ -10,7 +10,7 @@ using UnityGameFramework.Runtime;
 * 描述：
 		
 */
-public class NormalAttackState : StateBase
+public class NormalAttackState : PlayerState
 {
     public override StateType Type => StateType.NormalAttack;
 }

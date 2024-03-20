@@ -8,9 +8,9 @@ using UnityGameFramework.Runtime;
 * 作者：
 * 日期：
 * 描述：
-		
+		被击退
 */
-public class GetHitState : StateBase
+public class GetHitState : PlayerState
 {
     public override StateType Type => StateType.GetHit;
 }
