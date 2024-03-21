@@ -18,11 +18,20 @@ public class LuaBehaviour : MonoBehaviour
     public string luaScriptPath;    //require的内容
     public LuaBehaviour parent; //引用其他LuaBehaviour
 
-    private Action update;
-    private Action onDestroy;
+    private Action<LuaTable> update;
+    private Action<LuaTable> onDestroy;
 
     private void Awake()
     {
+        Init();
+    }
+
+    public void Init()
+    {
+        if(luaScriptPath == null)
+        {
+            return;
+        }
         byte[] bts = Module.Lua.GetByteAndLoad(luaScriptPath);
 
         //每次awake的时候重新加载lua
@@ -31,37 +40,37 @@ public class LuaBehaviour : MonoBehaviour
         string requirePath = "require '" + replace + "'";
         object[] obj = Module.Lua.Env.DoString("return " + requirePath, scriptName);
         Table = obj[0] as LuaTable;
-        if(parent != null)
+        if (parent != null)
         {
             Table.Set("_Parent", parent);
         }
-        Table.Get<Action>("Awake")?.Invoke();
-        update = Table.Get<Action>("Update");
-        onDestroy = Table.Get<Action>("OnDestroy");
+        Table.Get<Action<LuaTable>>("Awake")?.Invoke(Table);
+        update = Table.Get<Action<LuaTable>>("Update");
+        onDestroy = Table.Get<Action<LuaTable>>("OnDestroy");
     }
 
     private void OnEnable()
     {
-        Table.Get<Action>("OnEnable")?.Invoke();
+        Table.Get<Action<LuaTable>>("OnEnable")?.Invoke(Table);
     }
 
     private void OnDisable()
     {
-        Table.Get<Action>("OnDisable")?.Invoke();
+        Table.Get<Action<LuaTable>>("OnDisable")?.Invoke(Table);
     }
 
     private void Start()
     {
-        Table.Get<Action>("Start")?.Invoke();
+        Table.Get<Action<LuaTable>>("Start")?.Invoke(Table);
     }
 
     private void Update()
     {
-        update?.Invoke();
+        update?.Invoke(Table);
     }
 
     private void OnDestroy()
     {
-        onDestroy?.Invoke();
+        onDestroy?.Invoke(Table);
     }
 }

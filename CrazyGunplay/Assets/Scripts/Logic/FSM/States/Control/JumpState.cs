@@ -22,6 +22,12 @@ public class JumpState : PlayerState
             return true;
         }
 
+        if(owner.Controller.GetDush())
+        {
+            owner.Machine.ChangeState(StateLayer.Control, StateType.Dush);
+            return true;
+        }
+
         return false;
     }
 }

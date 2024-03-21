@@ -6,10 +6,13 @@ EventSystems = UnityEngine.EventSystems
 EventTrigger = EventSystems.EventTrigger
 EventTriggerType = EventSystems.EventTriggerType
 Time = UnityEngine.Time
+Input = UnityEngine.Input
+KeyCode = UnityEngine.KeyCode
 
 Module = CS.Module
 UI = Module.UI
 Timer = Module.Timer
+ReferencePool = CS.GameFramework.ReferencePool
 
 require "Base.Class"
 require "Global.GlobalDefine"

@@ -22,9 +22,9 @@ public class ControlIdleState : PlayerState
             return true;
         }
 
-        if(owner.Controller.GetJump())
+        if(owner.Controller.GetDush())
         {
-            owner.Machine.ChangeState(StateLayer.Control, StateType.Jump);
+            owner.Machine.ChangeState(StateLayer.Control, StateType.Dush);
             return true;
         }
 

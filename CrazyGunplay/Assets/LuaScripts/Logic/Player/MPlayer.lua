@@ -20,11 +20,6 @@ function MPlayer:AddPlayer(data)
     self.playerList[data.id] = data
 end
 
---数据同步到CS端
-function MPlayer:SyncDataToCS(playerId)
-    --Module.Event:
-end
-
 function MPlayer:Clear()
     self.playerList = {}
 end

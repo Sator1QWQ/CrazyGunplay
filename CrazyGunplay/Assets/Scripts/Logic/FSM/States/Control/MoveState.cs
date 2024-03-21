@@ -16,16 +16,17 @@ public class MoveState : PlayerState
 
     public override bool OnExecute(PlayerEntity owner)
     {
-        if(owner.Controller.GetJump())
-        {
-            owner.Machine.ChangeState(StateLayer.Control, StateType.Jump);
-            return true;
-        }
 
         if(!owner.Controller.GetMove())
         {
             Debug.Log("状态 IdleState!!");
             owner.Machine.ChangeState(StateLayer.Control, StateType.ControlIdle);
+            return true;
+        }
+
+        if(owner.Controller.GetDush())
+        {
+            owner.Machine.ChangeState(StateLayer.Control, StateType.Dush);
             return true;
         }
 

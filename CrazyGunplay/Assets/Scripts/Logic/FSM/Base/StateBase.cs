@@ -34,6 +34,7 @@ public abstract class StateBase<T> where T : class
 
 	/// <summary>
 	/// 每帧调用 返回true：状态改变，下一帧再操作状态机	fasle：状态未改变
+	/// 状态改变但是没有返回true时，会报错
 	/// </summary>
 	public virtual bool OnExecute(T owner) => false;
 

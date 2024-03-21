@@ -89,6 +89,7 @@ public abstract class PlayerController
         {
             UpdateControllerAction(ControllerType.NomralAttack);
         }
+        Debug.Log("IsAir==" + Gravity.IsAir);
     }
 
     private void UpdateControllerAction(ControllerType type)

@@ -13,4 +13,15 @@ using UnityGameFramework.Runtime;
 public class PassiveIdleState : PlayerState
 {
     public override StateType Type => StateType.PassiveIdle;
+
+    public override bool OnExecute(PlayerEntity owner)
+    {
+        if (owner.Data.Life <= 0)
+        {
+            Debug.Log("转变状态为死亡");
+            owner.Machine.ChangeState(Layer, StateType.Die);
+            return true;
+        }
+        return false;
+    }
 }

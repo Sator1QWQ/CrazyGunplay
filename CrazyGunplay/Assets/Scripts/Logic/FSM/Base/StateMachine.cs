@@ -29,6 +29,7 @@ public class StateMachine<T> where T : class
 			mStateDic.Add(layer, new Dictionary<StateType, StateBase<T>>());
 			mCurStateDic.Add(layer, state);
 		}
+		state.Init(layer);
 		mStateDic[layer].Add(state.Type, state);
     }
 
@@ -57,9 +58,8 @@ public class StateMachine<T> where T : class
 			if(pair.Value.OnExecute(mOwner))
             {
 				break;
-            }
-        }
-		Debug.Log("控制层当前状态==" + mCurStateDic[StateLayer.Control]);
-
+			}
+			Debug.Log($"当前层=={pair.Key}, 当前状态=={pair.Value}");
+		}
 	}
 }

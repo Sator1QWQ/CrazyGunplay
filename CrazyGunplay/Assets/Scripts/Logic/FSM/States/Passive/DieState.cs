@@ -17,7 +17,6 @@ public class DieState : PlayerState
     public override void OnEnter(PlayerEntity owner)
     {
         Debug.Log("玩家" + owner.PlayerId + "死亡");
-        owner.LifeChange(-1);
         PlayerDieEventArgs args = PlayerDieEventArgs.Create(owner.PlayerId, owner.Data.Life);
         Module.Event.FireNow(this, args);
     }

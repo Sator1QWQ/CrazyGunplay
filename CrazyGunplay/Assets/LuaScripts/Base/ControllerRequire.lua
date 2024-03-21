@@ -1,1 +1,1 @@
---require "Controller.CCharacterController"
+require "Logic.Player.CPlayer"

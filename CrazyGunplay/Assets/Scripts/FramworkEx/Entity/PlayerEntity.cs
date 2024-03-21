@@ -4,6 +4,7 @@ using UnityEngine;
 using GameFramework;
 using UnityGameFramework.Runtime;
 using XLua;
+using GameFramework.Event;
 
 /*
 * 作者：
@@ -13,28 +14,11 @@ using XLua;
 */
 public class PlayerEntity : CharacterEntity
 {
-    public class BattleData
-    {
-        private int heroId;
-        public int HeroId { get => heroId; set { heroId = value; SyncToLua(); } }
-
-        private int weaponId;
-        public int WeaponId { get => weaponId; set { weaponId = value; SyncToLua(); } }
-
-        private int life;   //生命数
-        public int Life { get => life; set { life = value; SyncToLua(); } }
-
-        public void SyncToLua()
-        {
-            Module.Lua.Env.Global.Get<LuaTable>("MPlayer").Get<LuaTable>("Instance").Get<LuaFunction>("SyncData").Call(this);
-        }
-    }
-
     /// <summary>
     /// 玩家id
     /// </summary>
     public int PlayerId { get; private set; }
-    public BattleData Data { get; private set; }
+    public PlayerBattleData Data { get; private set; }
     public Transform WeaponRoot { get; private set; }
 
     /// <summary>
@@ -48,9 +32,8 @@ public class PlayerEntity : CharacterEntity
     protected override void OnInit(object userData)
     {
         base.OnInit(userData);
-        Data = new BattleData();
         PlayerId = ((int[])userData)[0];
-        Data.HeroId = ((int[])userData)[1];
+        Data = Module.PlayerData.GetData(PlayerId);
         WeaponRoot = transform.Find("WeaponRoot");
         InitController();
         InitStateMachine();
@@ -101,6 +84,8 @@ public class PlayerEntity : CharacterEntity
         Machine.AddState(StateLayer.Control, new ControlIdleState());
         Machine.AddState(StateLayer.Control, new MoveState());
         Machine.AddState(StateLayer.Control, new JumpState());
+        Machine.AddState(StateLayer.Passive, new PassiveIdleState());
+        Machine.AddState(StateLayer.Passive, new DieState());
     }
 
     //初始化玩家武器
@@ -140,10 +125,5 @@ public class PlayerEntity : CharacterEntity
         mGravity.AddForce("Force",  Vector3.right * 5);
         //mGravity.AddVelocity("BeatBack", Vector3.up*10, 0.5f, true);
         //mGravity.Jump((Vector3.up)*10);
-    }
-
-    public void LifeChange(int change)
-    {
-        Data.Life += change;
     }
 }

@@ -20,5 +20,6 @@ public static class CSharpCallLuaWhite
         typeof(Action<LuaTable, LuaItem, int>),
         typeof(Action<LuaTable, bool>),
         typeof(Action<LuaTable, int>),
+        typeof(Action<PlayerBattleData>),
     };
 }
