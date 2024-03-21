@@ -20,9 +20,9 @@ function MPlayer:AddPlayer(data)
     self.playerList[data.id] = data
 end
 
---由C#端同步过来的数据
-function MPlayer:SyncData(battleData)
-    print("sync data==" .. tostring(battleData))
+--数据同步到CS端
+function MPlayer:SyncDataToCS(playerId)
+    --Module.Event:
 end
 
 function MPlayer:Clear()
