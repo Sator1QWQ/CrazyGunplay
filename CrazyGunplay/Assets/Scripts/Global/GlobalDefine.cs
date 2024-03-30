@@ -32,4 +32,9 @@ public class GlobalDefine
 	/// 重力加速度
 	/// </summary>
 	public static readonly Vector3 G = new Vector3(0, -15f, 0);
+
+	/// <summary>
+	/// 玩家身高
+	/// </summary>
+	public static float PLAYER_HEIGHT = 0.5f;
 }

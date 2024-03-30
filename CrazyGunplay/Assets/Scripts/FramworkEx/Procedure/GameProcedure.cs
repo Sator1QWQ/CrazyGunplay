@@ -15,18 +15,27 @@ using GameFramework.Resource;
 */
 public class GameProcedure : ProcedureBase
 {
+    private bool testMode = true;
+
     protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
     {
         Debug.Log("游戏流程");
-        //进入主界面
-        //Module.UI.OpenUIForm("Assets/Resource/UI/StartPanel.prefab", "NormalGroup");
-        //Module.Scene.LoadScene("Assets/Resource/Scenes/Battle_1.unity");
 
-        LuaBehaviour be = new GameObject().AddComponent<LuaBehaviour>();
-        be.luaScriptPath = "Test/Test";
-        be.Init();
-        Module.Entity.AddEntityGroup("normal", 1, 10, 10, 1);
-        Module.Entity.ShowEntity(123, typeof(PlayerEntity), "Assets/Resource/Models/Player/Player.prefab", "normal", new int[]{ 1, 1001 });
-        //Module.Entity.ShowEntity(124, typeof(PlayerEntity), "Assets/Resource/Models/Player/Player.prefab", "normal", new int[] { 2, 1002 });
+        if(!testMode)
+        {
+            //进入主界面
+            Module.UI.OpenUIForm("Assets/Resource/UI/StartPanel.prefab", "NormalGroup");
+        }
+        else
+        {
+            //战斗测试
+            Module.Scene.LoadScene("Assets/Resource/Scenes/Battle_1.unity");
+            LuaBehaviour be = new GameObject().AddComponent<LuaBehaviour>();
+            be.luaScriptPath = "Test/Test";
+            be.Init();
+            Module.Entity.AddEntityGroup("normal", 1, 10, 10, 1);
+            Module.Entity.ShowEntity(123, typeof(PlayerEntity), "Assets/Resource/Models/Player/Player.prefab", "normal", new int[] { 1, 1001 });
+            //Module.Entity.ShowEntity(124, typeof(PlayerEntity), "Assets/Resource/Models/Player/Player.prefab", "normal", new int[] { 2, 1002 });
+        }
     }
 }

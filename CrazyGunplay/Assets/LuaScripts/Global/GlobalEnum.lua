@@ -11,3 +11,11 @@ GlobalEnum.SceneType = {
     Start = 1,  --只有开始场景的类型是1
     Battle = 2, --战斗场景
 }
+
+--战斗状态
+GlobalEnum.BattleState = {
+    None = 1,
+    Ready = 2,  --准备状态
+    Battle = 3, --战斗状态
+    End = 4,    --结束状态
+}

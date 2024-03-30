@@ -19,7 +19,7 @@ public class PlayerDieEventArgs : GameEventArgs
     public int PlayerId { get; private set; }
 
     /// <summary>
-    /// 当前剩余血量
+    /// 当前剩余声明
     /// </summary>
     public int NowLife { get; private set; }
 

@@ -13,6 +13,8 @@ Module = CS.Module
 UI = Module.UI
 Timer = Module.Timer
 ReferencePool = CS.GameFramework.ReferencePool
+--事件
+PlayerDieEventArgs = CS.PlayerDieEventArgs
 
 require "Base.Class"
 require "Global.GlobalDefine"

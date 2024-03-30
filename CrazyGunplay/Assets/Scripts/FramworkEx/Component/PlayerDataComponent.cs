@@ -25,10 +25,12 @@ public class PlayerBattleData
 public class PlayerDataComponent : GameFrameworkComponent
 {
     private Dictionary<int, PlayerBattleData> dataDic = new Dictionary<int, PlayerBattleData>();
+    public BattleState State { get; private set; }
 
     private void Start()
     {
         Module.Event.Subscribe(SyncPlayerDataEventArgs.EventId, SyncPlayerData);
+        Module.Event.Subscribe(BattleStateChangeArgs.EventId, BattleStateChange);
     }
 
     public PlayerBattleData GetData(int playerId)
@@ -49,6 +51,13 @@ public class PlayerDataComponent : GameFrameworkComponent
         data.HeroId = args.Data.HeroId;
         data.WeaponId = args.Data.WeaponId;
         data.Life = args.Data.Life;
+    }
+
+    private void BattleStateChange(object sender, GameEventArgs e)
+    {
+        BattleStateChangeArgs args = e as BattleStateChangeArgs;
+        State = args.State;
+        Debug.Log("C# 战斗状态改变 状态==" + State);
     }
 
     private void OnDisable()

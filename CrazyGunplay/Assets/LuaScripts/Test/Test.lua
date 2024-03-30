@@ -14,9 +14,9 @@ end
 
 function Test:Update()
     if Input.GetKeyDown(KeyCode.K) then
-        local oneP = MPlayer.Instance.playerList[self.oneP.id]
-        oneP.life = oneP.life - 1
-        CPlayer.Instance:SyncBattleDataToCS(oneP.id)    
+        -- local oneP = MPlayer.Instance.playerList[self.oneP.id]
+        -- oneP.life = oneP.life - 1
+        -- CPlayer.Instance:SyncBattleDataToCS(oneP.id)    
     end
 end
 

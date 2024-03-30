@@ -27,6 +27,7 @@ public class PlayerEntity : CharacterEntity
     public Vector3 LookDirection { get; set; }
 	public PlayerController Controller { get; private set; }
     public StateMachine<PlayerEntity> Machine { get; private set; }
+
     private SimpleGravity mGravity;
 
     protected override void OnInit(object userData)
@@ -84,8 +85,11 @@ public class PlayerEntity : CharacterEntity
         Machine.AddState(StateLayer.Control, new ControlIdleState());
         Machine.AddState(StateLayer.Control, new MoveState());
         Machine.AddState(StateLayer.Control, new JumpState());
+        Machine.AddState(StateLayer.Control, new DushState());
+
         Machine.AddState(StateLayer.Passive, new PassiveIdleState());
         Machine.AddState(StateLayer.Passive, new DieState());
+        Machine.AddState(StateLayer.Passive, new RespawnState());
     }
 
     //初始化玩家武器

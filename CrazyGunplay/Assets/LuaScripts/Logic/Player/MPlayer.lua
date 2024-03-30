@@ -24,5 +24,11 @@ function MPlayer:Clear()
     self.playerList = {}
 end
 
+function MPlayer:ChangeLife(id, change)
+    self.playerList[id].life = self.playerList[id].life + change
+    print("change life")
+    CPlayer.Instance:SyncBattleDataToCS(id)
+end
+
 --单例模式
 MPlayer.Instance = MPlayer.new()

@@ -71,6 +71,7 @@ public enum StateType
 	GetHitFly,  //被击飞
 	GetHit, //被击退
 	Die,    //死亡
+	Respawn,	//重生
 
 	//技能层
 	SkillIdle,	//技能层闲置
@@ -91,4 +92,13 @@ public enum StateLayer
 	Passive,	//被动层
 	Skill,	//技能层
 	Weapon,	//武器层
+}
+
+//战斗状态
+public enum BattleState
+{
+	None = 1,
+	Ready = 2,  //准备阶段
+	Battle = 3, //战斗阶段
+	End = 4,    //结束阶段
 }
