@@ -25,6 +25,8 @@ public class GlobalDefine
 	/// </summary>
 	public static readonly string SCENE_PATH = "Assets/Resource/Scenes/";
 
+	public static readonly string PLAYER_MODEL_PATH = "Assets/Resource/Models/Player/";
+
 	public const float DESIGN_WIDTH = 1920;	//设计宽
 	public const float DESIGN_HEIGHT = 1080;    //设计高
 
@@ -37,4 +39,9 @@ public class GlobalDefine
 	/// 玩家身高
 	/// </summary>
 	public static float PLAYER_HEIGHT = 0.5f;
+
+	/// <summary>
+	/// 地面射线检测的长度
+	/// </summary>
+	public static float FLOOR_RAY_DISTANCE = 0.1f;
 }

@@ -27,13 +27,13 @@ public class MoveController : ControlActionBase
         float hori = controller.GetHorizontal();
         if(hori == -1)
         {
-            controller.Entity.LookDirection = Vector3.left;
+            controller.Entity.LookDirection = Vector3.forward;
             controller.Gravity.AddVelocity("Left", Vector3.left * mSpeed);
             controller.Entity.transform.right = controller.Entity.LookDirection;
         }
         else if(hori == 1)
         {
-            controller.Entity.LookDirection = Vector3.right;
+            controller.Entity.LookDirection = -Vector3.forward;
             controller.Gravity.AddVelocity("Right", Vector3.right * mSpeed);
             controller.Entity.transform.right = controller.Entity.LookDirection;
         }

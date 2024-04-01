@@ -34,7 +34,12 @@ public class GameProcedure : ProcedureBase
             be.luaScriptPath = "Test/Test";
             be.Init();
             Module.Entity.AddEntityGroup("normal", 1, 10, 10, 1);
-            Module.Entity.ShowEntity(123, typeof(PlayerEntity), "Assets/Resource/Models/Player/Player.prefab", "normal", new int[] { 1, 1001 });
+
+            int heroId = 1001;
+            string asset = Config.Get<string>("Character", heroId, "model");
+            Module.Entity.ShowEntity(123, typeof(PlayerEntity), GlobalDefine.PLAYER_MODEL_PATH + asset + ".prefab", "normal", new int[] { 1, heroId });
+
+            //Module.Entity.ShowEntity(123, typeof(PlayerEntity), "Assets/Resource/Models/Player/Player.prefab", "normal", new int[] { 1, heroId });
             //Module.Entity.ShowEntity(124, typeof(PlayerEntity), "Assets/Resource/Models/Player/Player.prefab", "normal", new int[] { 2, 1002 });
         }
     }

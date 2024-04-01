@@ -29,6 +29,7 @@ public class PlayerEntity : CharacterEntity
     public StateMachine<PlayerEntity> Machine { get; private set; }
 
     private SimpleGravity mGravity;
+    private Vector3 initPos = Vector3.up * 11;
 
     protected override void OnInit(object userData)
     {
@@ -39,6 +40,7 @@ public class PlayerEntity : CharacterEntity
         InitController();
         InitStateMachine();
         InitWeapon();
+        Entity.transform.position = initPos;
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -119,6 +121,7 @@ public class PlayerEntity : CharacterEntity
             return;
         }
         Module.Entity.AttachEntity(showEvent.Entity, Entity);
+        showEvent.Entity.transform.localPosition = Vector3.zero;
         (showEvent.Entity.Logic as WeaponEntity).SetPlayerEntity(this);
         Module.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
     }
