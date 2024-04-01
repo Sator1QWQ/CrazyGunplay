@@ -9,11 +9,14 @@ public class SimpleGravityEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        SimpleGravity g = serializedObject.targetObject as SimpleGravity;
-        if(g.GetComponent<SimpleGravityGizmos>() == null)
+        if(Application.isPlaying)
         {
-            g.gameObject.AddComponent<SimpleGravityGizmos>();
-            Debug.Log("AddCOmp");
+            SimpleGravity g = serializedObject.targetObject as SimpleGravity;
+            if (g.GetComponent<SimpleGravityGizmos>() == null)
+            {
+                g.gameObject.AddComponent<SimpleGravityGizmos>();
+                Debug.Log("AddCOmp");
+            }
         }
     }
 }
