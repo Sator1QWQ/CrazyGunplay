@@ -35,8 +35,8 @@ public class SimpleGravity : MonoBehaviour
         }
     }
 
-    [SerializeField] private Vector3 leftRaycastOffset;    //左脚射线偏移
-    [SerializeField] private Vector3 rightRaycastOffset;    //右脚射线偏移
+    public Vector3 leftRaycastOffset;    //左脚射线偏移
+    public Vector3 rightRaycastOffset;    //右脚射线偏移
 
     private Rigidbody mBody;
     private List<VelocityData> mVelocityDataList = new List<VelocityData>();  //速度数据列表
@@ -125,9 +125,9 @@ public class SimpleGravity : MonoBehaviour
 
     private void Update()
     {
-        for(int i = 0; i < mUpdateActionList.Count; i++)
+        for (int i = 0; i < mUpdateActionList.Count; i++)
         {
-            if(mUpdateActionList[i].isEnd)
+            if (mUpdateActionList[i].isEnd)
             {
                 mUpdateActionList.RemoveAt(i);
                 i--;
@@ -141,34 +141,25 @@ public class SimpleGravity : MonoBehaviour
         //触碰地面
         RaycastHit hitLeft;
         RaycastHit hitRight;
-        if (Physics.Raycast(transform.position + leftRaycastOffset, Vector3.down, out hitLeft, 20, ~LayerMask.GetMask("Player")) && Physics.Raycast(transform.position + rightRaycastOffset, Vector3.down, out hitRight, 20, ~LayerMask.GetMask("Player")))
+        if (Physics.Raycast(transform.position + leftRaycastOffset, Vector3.down, out hitLeft, GlobalDefine.FLOOR_RAY_DISTANCE, LayerMask.GetMask("Floor")) || Physics.Raycast(transform.position + rightRaycastOffset, Vector3.down, out hitRight, GlobalDefine.FLOOR_RAY_DISTANCE, LayerMask.GetMask("Floor")))
         {
-            float dis = transform.position.y - hitLeft.point.y;
-            float dis2 = transform.position.y - hitRight.point.y;
-            if (dis <= 0.5f || dis2 <= 0.5f)
+            if (IsAir)
             {
-                if (IsAir)
+                for (int i = 0; i < mUpdateActionList.Count; i++)
                 {
-                    for(int i = 0; i < mUpdateActionList.Count; i++)
-                    {
-                        mUpdateActionList[i].onFloorAct?.Invoke();
-                    }
-                    Debug.Log("触碰到地面了");
-                    gravityTime = 0;
+                    mUpdateActionList[i].onFloorAct?.Invoke();
                 }
-                IsAir = false;
+                Debug.Log("触碰到地面了");
+                gravityTime = 0;
             }
-            else
-            {
-                IsAir = true;
-            }
+            IsAir = false;
         }
         else
         {
             IsAir = true;
         }
 
-        if(useGravity)
+        if (useGravity)
         {
             GravityCaculate();
         }
@@ -207,7 +198,7 @@ public class SimpleGravity : MonoBehaviour
     /// </summary>
     private void ResetGravity()
     {
-        //Debug.Log("还原重力");
+        Debug.Log("还原重力");
         vt = Vector3.zero;
         v0 = Vector3.zero;
         upTime = 0;
@@ -223,13 +214,13 @@ public class SimpleGravity : MonoBehaviour
         for (int i = 0; i < dataCount; i++)
         {
             VelocityData data = mVelocityDataList[i];
-            
+
             //-1表示下一帧结束
-            if(data.endTime == -1)
+            if (data.endTime == -1)
             {
                 data.endTime = Time.time + 0.000001f;
             }
-            if(Time.time > data.endTime)
+            if (Time.time > data.endTime)
             {
                 bool useGravityFlag = false;
                 for (int j = 0; j < mVelocityDataList.Count; j++)
@@ -252,13 +243,18 @@ public class SimpleGravity : MonoBehaviour
                 useGravity = seetingUseGravity;
                 continue;
             }
-            if(!data.useGravity)
+            if (!data.useGravity)
             {
                 useGravity = false;
                 ResetGravity();
             }
             mBody.velocity += data.v;
         }
+
+        /**velocity碰到建筑时会做减法，比如下面
+        mBody.velocity = new Vector3(4, -3, 0); 速度只会变成Vector3(1, 0, 0)*/
+
+        Debug.Log("velocity==" + mBody.velocity);
     }
 
     private void AddUpdateAction(UpdateData data)
