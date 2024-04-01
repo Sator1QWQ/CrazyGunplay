@@ -37,6 +37,7 @@ public class PlayerEntity : CharacterEntity
         PlayerId = ((int[])userData)[0];
         Data = Module.PlayerData.GetData(PlayerId);
         WeaponRoot = transform.Find("WeaponRoot");
+        Entity.transform.forward = Vector3.right;
         InitController();
         InitStateMachine();
         InitWeapon();

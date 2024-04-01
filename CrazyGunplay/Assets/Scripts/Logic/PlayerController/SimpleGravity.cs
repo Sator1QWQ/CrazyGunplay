@@ -254,7 +254,6 @@ public class SimpleGravity : MonoBehaviour
         /**velocity碰到建筑时会做减法，比如下面
         mBody.velocity = new Vector3(4, -3, 0); 速度只会变成Vector3(1, 0, 0)*/
 
-        Debug.Log("velocity==" + mBody.velocity);
     }
 
     private void AddUpdateAction(UpdateData data)

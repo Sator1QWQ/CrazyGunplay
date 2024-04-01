@@ -27,15 +27,15 @@ public class MoveController : ControlActionBase
         float hori = controller.GetHorizontal();
         if(hori == -1)
         {
-            controller.Entity.LookDirection = Vector3.forward;
+            controller.Entity.LookDirection = controller.Entity.transform.forward;
             controller.Gravity.AddVelocity("Left", Vector3.left * mSpeed);
-            controller.Entity.transform.right = controller.Entity.LookDirection;
+            controller.Entity.transform.right = Vector3.forward;
         }
         else if(hori == 1)
         {
-            controller.Entity.LookDirection = -Vector3.forward;
+            controller.Entity.LookDirection = controller.Entity.transform.forward;
             controller.Gravity.AddVelocity("Right", Vector3.right * mSpeed);
-            controller.Entity.transform.right = controller.Entity.LookDirection;
+            controller.Entity.transform.right = -Vector3.forward;
         }
     }
 }
