@@ -68,7 +68,7 @@ public class GunWeapon : Weapon
     {
 		Debug.Log("枪射击");
 		int bulletId = Config.Get<int>("Gun", Id, "bulletId");
-		Module.Bullet.ShowBullet(bulletId, Id, Entity.PlayerEntity.WeaponRoot.position, Entity.PlayerEntity.LookDirection);
+		Module.Bullet.ShowBullet(this, bulletId, Id, Entity.PlayerEntity.WeaponRoot.position, Entity.PlayerEntity.LookDirection);
     }
 
 	/// <summary>

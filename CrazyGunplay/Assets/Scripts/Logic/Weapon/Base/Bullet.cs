@@ -42,11 +42,17 @@ public abstract class Bullet
 	public int GunId { get; private set; }
 
 	/// <summary>
+	/// 使用的武器
+	/// </summary>
+	public Weapon OwnerWeapon { get; private set; }
+
+	/// <summary>
 	/// 外部不允许new，只能由BulletComponent new
 	/// </summary>
 	/// <param name="bulletId"></param>
-	public Bullet(int bulletId, int gunId)
+	public Bullet(Weapon ownerWeapon, int bulletId, int gunId)
     {
+		OwnerWeapon = ownerWeapon;
 		Id = bulletId;
 		GunId = gunId;
 		BulletCount = Config.Get<int>("Bullet", bulletId, "bulletCount");
@@ -89,5 +95,7 @@ public abstract class Bullet
 	/// <summary>
 	/// 子弹碰撞时调用
 	/// </summary>
-	public abstract void OnCollision(GameObject target);
+	/// <param name="target"></param>
+	/// <returns>是否需要隐藏子弹</returns>
+	public abstract bool OnCollision(GameObject target);
 }

@@ -17,7 +17,7 @@ public class NormalBullet : Bullet
     private int[] bulletOffset; //[0]最小角度 [1]最大角度
     private int[] randomAngle;
 
-    public NormalBullet(int bulletId, int gunId) : base(bulletId, gunId)
+    public NormalBullet(Weapon ownerWeapon, int bulletId, int gunId) : base(ownerWeapon, bulletId, gunId)
     {
         weaponConfig = Config.Get("Weapon", gunId);
         bulletOffset = Config.Get<int[]>("Bullet", bulletId, "bulletOffset");
@@ -43,7 +43,7 @@ public class NormalBullet : Bullet
         }
     }
 
-    public override void OnCollision(GameObject target)
+    public override bool OnCollision(GameObject target)
     {
         PlayerEntity entity = target.GetComponent<PlayerEntity>();
         if(entity != null)
@@ -52,5 +52,7 @@ public class NormalBullet : Bullet
             float beatBack = weaponConfig.Get<float>("beatBack");
             entity.BeatBack(StartDirection.normalized * beatBack);
         }
+
+        return true;
     }
 }

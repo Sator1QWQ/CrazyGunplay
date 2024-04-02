@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6861808631325080475}
   - component: {fileID: 7720047351396317256}
   - component: {fileID: 7605591255912054632}
+  - component: {fileID: 4807824202859857592}
   m_Layer: 0
   m_Name: Bullet_1001
   m_TagString: Untagged
@@ -126,3 +127,15 @@ MonoBehaviour:
   leftRaycastOffset: {x: 0, y: 0, z: 0}
   rightRaycastOffset: {x: 0, y: 0, z: 0}
   useGravity: 0
+--- !u!114 &4807824202859857592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888667626663790986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f71727478e5d8d24faf2f266ed210631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

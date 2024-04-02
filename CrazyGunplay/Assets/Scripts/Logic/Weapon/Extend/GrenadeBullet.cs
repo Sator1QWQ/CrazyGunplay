@@ -12,7 +12,7 @@ using UnityGameFramework.Runtime;
 */
 public class GrenadeBullet : Bullet
 {
-    public GrenadeBullet(int bulletId, int gunId) : base(bulletId, gunId)
+    public GrenadeBullet(Weapon ownerWeapon, int bulletId, int gunId) : base(ownerWeapon, bulletId, gunId)
     {
     }
 
@@ -21,7 +21,7 @@ public class GrenadeBullet : Bullet
         throw new System.NotImplementedException();
     }
 
-    public override void OnCollision(GameObject target)
+    public override bool OnCollision(GameObject target)
     {
         throw new System.NotImplementedException();
     }

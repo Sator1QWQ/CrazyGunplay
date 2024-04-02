@@ -56,20 +56,20 @@ public class BulletComponent : GameFrameworkComponent
     /// 每一次的射击都会生成一个子弹对象
     /// 子弹的生成不需要对象池，因为实体已经实现了对象池
     /// </summary>
-	public void ShowBullet(int bulletId, int gunId, Vector3 startPos, Vector3 startDirection)
+	public void ShowBullet(Weapon ownerWeapon, int bulletId, int gunId, Vector3 startPos, Vector3 startDirection)
     {
         BulletType type = Config.Get<BulletType>("Bullet", bulletId, "bulletType");
         Bullet bullet = null;
         switch (type)
         {
             case BulletType.Normal:
-                bullet = new NormalBullet(bulletId, gunId);
+                bullet = new NormalBullet(ownerWeapon, bulletId, gunId);
                 break;
             case BulletType.Grenade:
-                bullet = new GrenadeBullet(bulletId, gunId);
+                bullet = new GrenadeBullet(ownerWeapon, bulletId, gunId);
                 break;
             case BulletType.RPG:
-                bullet = new RPGBullet(bulletId, gunId);
+                bullet = new RPGBullet(ownerWeapon, bulletId, gunId);
                 break;
         }
         Debug.Log("创建子弹对象");
@@ -89,7 +89,7 @@ public class BulletComponent : GameFrameworkComponent
     /// 需要手动隐藏所有实体
     /// </summary>
     /// <param name="bullet"></param>
-    private void HideBullet(Bullet bullet)
+    public void HideBullet(Bullet bullet)
     {
         for (int i = 0; i < bullet.BulletEntityList.Count; i++)
         {
@@ -123,11 +123,20 @@ public class BulletComponent : GameFrameworkComponent
             BulletEntity logic = bullet.BulletEntityList[0] as BulletEntity;
 
             //只检测碰撞到玩家和墙
-            if(Physics.Raycast(logic.transform.position, logic.LookAt, out hit, 0.35f, LayerMask.GetMask("Player", "Wall")))
+            if(Physics.Raycast(logic.transform.position, logic.LookAt, out hit, 0.35f, LayerMask.GetMask("Player", "MapBorder")))
             {
-                bullet.OnCollision(hit.transform.gameObject);
-                HideBullet(bullet);
-                i--;
+                PlayerEntity player = hit.transform.GetComponent<PlayerEntity>();
+                //打到自己不算
+                if(player != null && player.Equals(bullet.OwnerWeapon.Entity.PlayerEntity))
+                {
+                    bullet.Fly();
+                }
+                else
+                {
+                    bullet.OnCollision(hit.transform.gameObject);
+                    HideBullet(bullet);
+                    i--;
+                }
             }
             else
             {
