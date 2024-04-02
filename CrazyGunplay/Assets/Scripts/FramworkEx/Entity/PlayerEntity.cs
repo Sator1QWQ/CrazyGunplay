@@ -27,6 +27,7 @@ public class PlayerEntity : CharacterEntity
     public Vector3 LookDirection { get; set; }
 	public PlayerController Controller { get; private set; }
     public StateMachine<PlayerEntity> Machine { get; private set; }
+    public Animator Anim { get; private set; }
 
     private SimpleGravity mGravity;
     private Vector3 initPos = Vector3.up * 11;
@@ -38,10 +39,23 @@ public class PlayerEntity : CharacterEntity
         Data = Module.PlayerData.GetData(PlayerId);
         WeaponRoot = transform.Find("WeaponRoot");
         Entity.transform.forward = Vector3.right;
+        Anim = GetComponent<Animator>();
         InitController();
         InitStateMachine();
         InitWeapon();
         Entity.transform.position = initPos;
+    }
+
+    protected override void OnShow(object userData)
+    {
+        base.OnShow(userData);
+        Module.Event.Subscribe(ChangeStateEventArgs<PlayerEntity>.EventId, OnChangeState);
+    }
+
+    protected override void OnHide(bool isShutdown, object userData)
+    {
+        base.OnHide(isShutdown, userData);
+        Module.Event.Unsubscribe(ChangeStateEventArgs<PlayerEntity>.EventId, OnChangeState);
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -123,7 +137,10 @@ public class PlayerEntity : CharacterEntity
         }
         Module.Entity.AttachEntity(showEvent.Entity, Entity);
         showEvent.Entity.transform.localPosition = Vector3.zero;
-        (showEvent.Entity.Logic as WeaponEntity).SetPlayerEntity(this);
+        WeaponEntity weapon = (showEvent.Entity.Logic as WeaponEntity);
+        weapon.SetPlayerEntity(this);
+        weapon.Entity.transform.SetParent(WeaponRoot, false);
+        weapon.Entity.transform.localPosition = Vector3.zero;
         Module.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
     }
 
@@ -133,5 +150,22 @@ public class PlayerEntity : CharacterEntity
         mGravity.AddForce("Force",  Vector3.right * 5);
         //mGravity.AddVelocity("BeatBack", Vector3.up*10, 0.5f, true);
         //mGravity.Jump((Vector3.up)*10);
+    }
+
+    private void OnChangeState(object sender, GameEventArgs e)
+    {
+        ChangeStateEventArgs<PlayerEntity> args = e as ChangeStateEventArgs<PlayerEntity>;
+        if(!args.Owner.Equals(this))
+        {
+            return;
+        }
+
+        switch(args.Layer)
+        {
+            case StateLayer.Control:
+                Anim.SetInteger("controlState", (int)args.CurState);
+                break;
+        }
+        
     }
 }

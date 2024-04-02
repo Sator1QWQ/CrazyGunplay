@@ -42,7 +42,7 @@ public class SimpleGravity : MonoBehaviour
     private List<VelocityData> mVelocityDataList = new List<VelocityData>();  //速度数据列表
 
     private Vector3 v0;
-    private Vector3 vt;
+    public Vector3 vt { get; private set; }
     private float upTime; //上升经过的时间
     private float gravityTime;    //只受重力经过的时间
 
@@ -150,6 +150,7 @@ public class SimpleGravity : MonoBehaviour
                     mUpdateActionList[i].onFloorAct?.Invoke();
                 }
                 Debug.Log("触碰到地面了");
+                ResetGravity();
                 gravityTime = 0;
             }
             IsAir = false;
@@ -198,7 +199,6 @@ public class SimpleGravity : MonoBehaviour
     /// </summary>
     private void ResetGravity()
     {
-        Debug.Log("还原重力");
         vt = Vector3.zero;
         v0 = Vector3.zero;
         upTime = 0;

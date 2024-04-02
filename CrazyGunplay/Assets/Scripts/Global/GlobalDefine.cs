@@ -44,4 +44,9 @@ public class GlobalDefine
 	/// 地面射线检测的长度
 	/// </summary>
 	public static float FLOOR_RAY_DISTANCE = 0.1f;
+
+	/// <summary>
+	/// dush持续时间
+	/// </summary>
+	public static float DUSH_TIME = 0.1f;
 }

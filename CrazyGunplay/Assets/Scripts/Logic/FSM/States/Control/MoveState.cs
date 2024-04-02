@@ -30,6 +30,12 @@ public class MoveState : PlayerState
             return true;
         }
 
+        if(owner.Controller.GetJump())
+        {
+            owner.Machine.ChangeState(StateLayer.Control, StateType.Jump);
+            return true;
+        }
+
         return false;
     }
 }

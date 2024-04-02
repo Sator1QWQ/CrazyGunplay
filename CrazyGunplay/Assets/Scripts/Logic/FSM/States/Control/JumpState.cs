@@ -16,9 +16,16 @@ public class JumpState : PlayerState
 
     public override bool OnExecute(PlayerEntity owner)
     {
-        if(!owner.Controller.GetJump())
+        if (owner.Controller.Gravity.vt.y == 0 && !owner.Controller.Gravity.IsAir)
         {
             owner.Machine.ChangeState(StateLayer.Control, StateType.ControlIdle);
+            return true;
+        }
+
+        if(owner.Controller.GetJump())
+        {
+            owner.Machine.ChangeState(StateLayer.Control, StateType.Jump);
+            owner.Anim.SetTrigger("getJump");
             return true;
         }
 
@@ -27,7 +34,6 @@ public class JumpState : PlayerState
             owner.Machine.ChangeState(StateLayer.Control, StateType.Dush);
             return true;
         }
-
         return false;
     }
 }

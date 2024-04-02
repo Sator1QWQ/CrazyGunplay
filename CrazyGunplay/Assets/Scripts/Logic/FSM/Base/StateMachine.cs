@@ -33,6 +33,11 @@ public class StateMachine<T> where T : class
 		mStateDic[layer].Add(state.Type, state);
     }
 
+	/// <summary>
+	/// 转换状态
+	/// </summary>
+	/// <param name="layer">状态层级</param>
+	/// <param name="type">状态id</param>
 	public void ChangeState(StateLayer layer, StateType type)
     {
 		if(!mStateDic[layer].ContainsKey(type))
@@ -41,10 +46,19 @@ public class StateMachine<T> where T : class
 			return;
         }
 
+		StateBase<T> lastState = mCurStateDic[layer];
 		StateBase<T> changeState = mStateDic[layer][type];
 		mCurStateDic[layer].OnExit(mOwner);
 		mCurStateDic[layer] = changeState;
 		changeState.OnEnter(mOwner);
+
+		ChangeStateEventArgs<T> args = ChangeStateEventArgs<T>.Create(mOwner, layer, lastState.Type, changeState.Type);
+		Module.Event.FireNow(null, args);
+    }
+
+	public StateBase<T> GetState(StateLayer layer, StateType type)
+    {
+		return mStateDic[layer][type];
     }
 
 	/// <summary>

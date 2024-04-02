@@ -5542,7 +5542,7 @@ Animator:
   m_GameObject: {fileID: 187656}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: dbbc53a6bc8f5c64bb234194ce1380aa, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6d83781d73679414bb9a1a6180caf3c1, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5592,8 +5592,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f037a1ee6ddfa42bfd4a3172ec301d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftRaycastOffset: {x: -0.5, y: 0, z: 0}
-  rightRaycastOffset: {x: 0.5, y: 0, z: 0}
+  leftRaycastOffset: {x: -0.5, y: 0.1, z: 0}
+  rightRaycastOffset: {x: 0.5, y: 0.1, z: 0}
   useGravity: 1
 --- !u!114 &6504561073520243420
 MonoBehaviour:

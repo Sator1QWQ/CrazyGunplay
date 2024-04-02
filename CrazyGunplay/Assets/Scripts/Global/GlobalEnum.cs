@@ -81,6 +81,8 @@ public enum StateType
 	WeaponIdle,	//武器层闲置
 	NormalAttack,   //普攻
 	Reload, //换弹
+
+	None = -1,
 }
 
 /// <summary>
@@ -92,6 +94,8 @@ public enum StateLayer
 	Passive,	//被动层
 	Skill,	//技能层
 	Weapon,	//武器层
+
+	None = -1,
 }
 
 //战斗状态
