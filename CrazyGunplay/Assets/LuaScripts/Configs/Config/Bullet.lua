@@ -19,10 +19,10 @@ Bullet = {
 		bulletType = 1,
 		params = {
 		},
-		bulletCount = 7,
+		bulletCount = 8,
 		bulletOffset = {
-			[1] = -15,
-			[2] = 15,
+			[1] = -10,
+			[2] = 10,
 		},
 		flySpeed = 10,
 		assetPath = Bullet_Text.assetPath_5,

@@ -30,12 +30,14 @@ public class PlayerEntity : CharacterEntity
     public Animator Anim { get; private set; }
 
     private SimpleGravity mGravity;
-    private Vector3 initPos = Vector3.up * 11;
+    private Vector3 initPos = Vector3.up * 10;
 
+    //userData为playerid
     protected override void OnInit(object userData)
     {
         base.OnInit(userData);
-        PlayerId = ((int[])userData)[0];
+        LuaTable table = (LuaTable)userData;
+        PlayerId = table.Get<int>("playerId");
         Data = Module.PlayerData.GetData(PlayerId);
         WeaponRoot = transform.Find("WeaponRoot");
         Entity.transform.forward = Vector3.right;
@@ -44,6 +46,10 @@ public class PlayerEntity : CharacterEntity
         InitStateMachine();
         InitWeapon();
         Entity.transform.position = initPos;
+        if(PlayerId == 2)
+        {
+            Entity.transform.position = Vector3.up * 10 + Vector3.right * 10;
+        }
     }
 
     protected override void OnShow(object userData)
@@ -147,7 +153,7 @@ public class PlayerEntity : CharacterEntity
     public void BeatBack(Vector3 vector)
     {
         //mGravity.AddVelocity("BeatBack", vector, 0.1f, true);
-        mGravity.AddForce("Force",  Vector3.right * 5);
+        mGravity.AddForce("Force", vector * 5);
         //mGravity.AddVelocity("BeatBack", Vector3.up*10, 0.5f, true);
         //mGravity.Jump((Vector3.up)*10);
     }

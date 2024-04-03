@@ -33,14 +33,15 @@ public class GameProcedure : ProcedureBase
             LuaBehaviour be = new GameObject().AddComponent<LuaBehaviour>();
             be.luaScriptPath = "Test/Test";
             be.Init();
-            Module.Entity.AddEntityGroup("normal", 1, 10, 10, 1);
+            
+            //Module.Entity.AddEntityGroup("normal", 1, 10, 10, 1);
 
-            int heroId = 1001;
-            string asset = Config.Get<string>("Character", heroId, "model");
-            Module.Entity.ShowEntity(123, typeof(PlayerEntity), GlobalDefine.PLAYER_MODEL_PATH + asset + ".prefab", "normal", new int[] { 1, heroId });
-
-            //Module.Entity.ShowEntity(123, typeof(PlayerEntity), "Assets/Resource/Models/Player/Player.prefab", "normal", new int[] { 1, heroId });
-            //Module.Entity.ShowEntity(124, typeof(PlayerEntity), "Assets/Resource/Models/Player/Player.prefab", "normal", new int[] { 2, 1002 });
+            //int heroId = 1001;
+            //int heroId2 = 1002;
+            //string asset = Config.Get<string>("Character", heroId, "model");
+            //string asset2 = Config.Get<string>("Character", heroId2, "model");
+            //Module.Entity.ShowEntity(123, typeof(PlayerEntity), GlobalDefine.PLAYER_MODEL_PATH + asset + ".prefab", "normal", new int[] { 1, heroId });
+            //Module.Entity.ShowEntity(124, typeof(PlayerEntity), GlobalDefine.PLAYER_MODEL_PATH + asset2 + ".prefab", "normal", new int[] { 2, heroId2 });
         }
     }
 }
