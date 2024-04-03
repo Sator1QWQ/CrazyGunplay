@@ -17,6 +17,11 @@ public class StateMachine<T> where T : class
 	private Dictionary<StateLayer, StateBase<T>> mCurStateDic = new Dictionary<StateLayer, StateBase<T>>();   //每层当前状态
 	private T mOwner;
 
+	/// <summary>
+	/// 是否暂停状态机
+	/// </summary>
+	public bool IsPause { get; set; }
+
     public StateMachine(T owner)
     {
         mOwner = owner;
@@ -66,6 +71,10 @@ public class StateMachine<T> where T : class
 	/// </summary>
 	public void OnUpdate()
     {
+		if(IsPause)
+        {
+			return;
+        }
 		foreach(KeyValuePair<StateLayer, StateBase<T>> pair in mCurStateDic)
         {
 			//true的话，下一帧再执行

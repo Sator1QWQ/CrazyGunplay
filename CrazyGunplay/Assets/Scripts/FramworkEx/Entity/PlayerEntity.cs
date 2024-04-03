@@ -29,6 +29,7 @@ public class PlayerEntity : CharacterEntity
     public StateMachine<PlayerEntity> Machine { get; private set; }
     public Animator Anim { get; private set; }
 
+    private bool isPauseControl;   //是否暂停控制
     private SimpleGravity mGravity;
     private Vector3 initPos = Vector3.up * 10;
 
@@ -56,6 +57,7 @@ public class PlayerEntity : CharacterEntity
     {
         base.OnShow(userData);
         Module.Event.Subscribe(ChangeStateEventArgs<PlayerEntity>.EventId, OnChangeState);
+        Module.Event.Subscribe(BattleStateChangeArgs.EventId, OnBattleStateChange);
     }
 
     protected override void OnHide(bool isShutdown, object userData)
@@ -67,6 +69,10 @@ public class PlayerEntity : CharacterEntity
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
+        if(isPauseControl)
+        {
+            return;
+        }
         Controller.OnUpdate();
         Machine.OnUpdate();
     }
@@ -158,6 +164,7 @@ public class PlayerEntity : CharacterEntity
         //mGravity.Jump((Vector3.up)*10);
     }
 
+    //控制动画
     private void OnChangeState(object sender, GameEventArgs e)
     {
         ChangeStateEventArgs<PlayerEntity> args = e as ChangeStateEventArgs<PlayerEntity>;
@@ -172,6 +179,25 @@ public class PlayerEntity : CharacterEntity
                 Anim.SetInteger("controlState", (int)args.CurState);
                 break;
         }
-        
+    }
+
+    private void OnBattleStateChange(object sender, GameEventArgs e)
+    {
+        BattleStateChangeArgs args = e as BattleStateChangeArgs;
+        switch(args.State)
+        {
+            //结束时，所有玩家不可移动
+            case BattleState.End:
+                Controller.IsPause = true;
+                Machine.IsPause = true;
+                break;
+        }
+    }
+
+    //hide时会调用这个函数，重置数据
+    protected override void OnRecycle()
+    {
+        base.OnRecycle();
+        isPauseControl = false;
     }
 }

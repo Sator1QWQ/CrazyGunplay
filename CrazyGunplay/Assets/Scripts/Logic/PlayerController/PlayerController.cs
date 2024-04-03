@@ -30,6 +30,11 @@ public abstract class PlayerController
     public bool UseGravity { get; set; }
 
     /// <summary>
+    /// 是否暂停控制
+    /// </summary>
+    public bool IsPause { get; set; }
+
+    /// <summary>
     /// 控制器字典，移动、跳跃这些
     /// </summary>
     private Dictionary<ControllerType, ControlActionBase> mControllerDic = new Dictionary<ControllerType, ControlActionBase>();
@@ -67,6 +72,11 @@ public abstract class PlayerController
 
     public void OnUpdate()
     {
+        if(IsPause)
+        {
+            return;
+        }
+
         if (GetMove())
         {
             Debug.Log("Move");
