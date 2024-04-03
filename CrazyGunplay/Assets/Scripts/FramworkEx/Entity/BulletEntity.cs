@@ -21,4 +21,10 @@ public class BulletEntity : EntityLogic
         Gravity = GetComponent<SimpleGravity>();
         LookAt = transform.right;
     }
+
+    protected override void OnRecycle()
+    {
+        base.OnRecycle();
+        Entity.transform.position = GlobalDefine.FAY_WAY;
+    }
 }

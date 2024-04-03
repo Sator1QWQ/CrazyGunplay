@@ -49,4 +49,9 @@ public class GlobalDefine
 	/// dush持续时间
 	/// </summary>
 	public static float DUSH_TIME = 0.1f;
+
+	/// <summary>
+	/// 远离场景
+	/// </summary>
+	public static Vector3 FAY_WAY = Vector3.right * 1000;
 }
