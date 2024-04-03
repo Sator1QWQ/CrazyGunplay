@@ -26,7 +26,7 @@ end
 
 function MPlayer:ChangeLife(id, change)
     self.playerList[id].life = self.playerList[id].life + change
-    print("change life")
+    print("change life 同步数据")
     CPlayer.Instance:SyncBattleDataToCS(id)
 end
 

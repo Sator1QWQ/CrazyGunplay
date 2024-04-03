@@ -7,7 +7,6 @@ end
 
 function BattleModeScene:OnEnable()
     Module.Event:Subscribe(PlayerDieEventArgs.EventId, BattleModeScene.PlayerDieEvent)
-    print("注册死亡事件成功")
     self:ChangeBattleState(GlobalEnum.BattleState.Battle)
     Module.Timer:AddUpdateTimer(function(data)
         --print("countDown==" .. tostring(data.remainTime))

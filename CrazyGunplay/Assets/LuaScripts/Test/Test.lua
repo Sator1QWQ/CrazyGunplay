@@ -14,7 +14,7 @@ function Test:Awake()
     Module.Entity:ShowEntity(123, typeof(CS.PlayerEntity), "Assets/Resource/Models/Player/" .. asset1 .. ".prefab", "normal", {playerId = self.oneP.id})
     --2P
     MPlayer.Instance:AddPlayer(self.twoP)
-    MTeam.Instance:AddTeamPlayer(GlobalDefine.RedTeam, GlobalDefine.OnePId)
+    MTeam.Instance:AddTeamPlayer(GlobalDefine.RedTeam, GlobalDefine.TwoPId)
     CPlayer.Instance:SyncBattleDataToCS(self.twoP.id)
     local asset2 = Character[self.twoP.heroId].model
     Module.Entity:ShowEntity(124, typeof(CS.PlayerEntity), "Assets/Resource/Models/Player/" .. asset2 .. ".prefab", "normal", {playerId = self.twoP.id})

@@ -25,6 +25,10 @@ public class PlayerBattleData
 public class PlayerDataComponent : GameFrameworkComponent
 {
     private Dictionary<int, PlayerBattleData> dataDic = new Dictionary<int, PlayerBattleData>();
+
+    /// <summary>
+    /// 战斗状态
+    /// </summary>
     public BattleState State { get; private set; }
 
     private void Start()
