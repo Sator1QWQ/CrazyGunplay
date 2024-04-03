@@ -118,28 +118,41 @@ public class BulletComponent : GameFrameworkComponent
         for(int i = 0; i < flyingList.Count; i++)
         {
             Bullet bullet = flyingList[i];
-            RaycastHit hit;
+            RaycastHit hit = default;
 
-            BulletEntity logic = bullet.BulletEntityList[0] as BulletEntity;
-
-            //只检测碰撞到玩家和墙
-            if(Physics.Raycast(logic.transform.position, logic.LookAt, out hit, 0.35f, LayerMask.GetMask("Player", "MapBorder")))
+            bool isHit = false;
+            for(int j = 0; j < bullet.BulletEntityList.Count; j++)
             {
-                PlayerEntity player = hit.transform.GetComponent<PlayerEntity>();
-                //打到自己不算
-                if(player != null && player.Equals(bullet.OwnerWeapon.Entity.PlayerEntity))
+                BulletEntity logic = bullet.BulletEntityList[j];
+                //只检测碰撞到玩家和墙
+                if (Physics.Raycast(logic.transform.position, logic.LookAt, out hit, 0.35f, LayerMask.GetMask("Player", "MapBorder")))
                 {
-                    bullet.Fly();
+                    PlayerEntity player = hit.transform.GetComponent<PlayerEntity>();
+                    if(player != null)
+                    {
+                        if(!player.Equals(bullet.OwnerWeapon.Entity.PlayerEntity))
+                        {
+                            isHit = true;
+                            break;  //击中1发就算是全部命中
+                        }
+                    }
+                    else
+                    {
+                        isHit = true;
+                        break;
+                    }
                 }
-                else
-                {
-                    bullet.OnCollision(hit.transform.gameObject);
-                    HideBullet(bullet);
-                    i--;
-                }
+            }
+
+            if(isHit)
+            {
+                bullet.OnCollision(hit.transform.gameObject);
+                HideBullet(bullet);
+                i--;
             }
             else
             {
+                Debug.Log("bullet Fly");
                 bullet.Fly();
             }
         }
