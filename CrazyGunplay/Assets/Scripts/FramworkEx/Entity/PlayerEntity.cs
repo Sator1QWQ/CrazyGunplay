@@ -187,7 +187,11 @@ public class PlayerEntity : CharacterEntity
         switch(args.State)
         {
             //结束时，所有玩家不可移动
-            case BattleState.End:
+            case BattleState.TeamDead:
+                Controller.IsPause = true;
+                Machine.IsPause = true;
+                break;
+            case BattleState.Timeout:
                 Controller.IsPause = true;
                 Machine.IsPause = true;
                 break;

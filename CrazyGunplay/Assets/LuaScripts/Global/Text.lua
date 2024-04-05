@@ -9,6 +9,7 @@ _M.OK = "确定"
 _M.OneP = "1P"
 _M.TwoP = "2P"
 _M.StartBattle = "开始战斗！"
-_M.Victory = "游戏结束，%s方胜利"
+_M.Victory = "游戏结束，%s胜利"
+_M.DeadHeat = "游戏结束，平局"
 
 return _M
