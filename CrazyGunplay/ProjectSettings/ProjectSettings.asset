@@ -630,11 +630,21 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    1: ENABLE_LOG
-    4: ENABLE_LOG
-    7: ENABLE_LOG
-    13: ENABLE_LOG
-    14: ENABLE_LOG
+    1: ENABLE_LOG;DOTWEEN
+    4: ENABLE_LOG;DOTWEEN
+    7: ENABLE_LOG;DOTWEEN
+    13: ENABLE_LOG;DOTWEEN
+    14: ENABLE_LOG;DOTWEEN
+    19: DOTWEEN
+    21: DOTWEEN
+    25: DOTWEEN
+    27: DOTWEEN
+    28: DOTWEEN
+    29: DOTWEEN
+    30: DOTWEEN
+    31: DOTWEEN
+    32: DOTWEEN
+    33: DOTWEEN
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}
