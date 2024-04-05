@@ -25,7 +25,7 @@ public class DieState : PlayerState
     public override bool OnExecute(PlayerEntity owner)
     {
         //状态不为结束状态
-        if(Module.PlayerData.State != BattleState.End && Module.PlayerData.State != BattleState.None)
+        if(Module.PlayerData.State != BattleState.TeamDead && Module.PlayerData.State != BattleState.Timeout && Module.PlayerData.State != BattleState.None)
         {
             owner.Machine.ChangeState(StateLayer.Passive, StateType.Respawn);
             return true;

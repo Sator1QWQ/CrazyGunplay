@@ -104,5 +104,6 @@ public enum BattleState
 	None = 1,
 	Ready = 2,  //准备阶段
 	Battle = 3, //战斗阶段
-	End = 4,    //结束阶段
+	TeamDead = 4,    //队伍全灭
+	Timeout = 5,    //战斗倒计时结束
 }
