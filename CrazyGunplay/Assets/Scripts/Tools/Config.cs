@@ -19,6 +19,24 @@ public class Config
     /// 获取某个配置表
     /// </summary>
     /// <param name="configName"></param>
+    /// <returns></returns>
+    public static LuaTable Get(string configName)
+    {
+        if (configDic.ContainsKey(configName))
+        {
+            return configDic[configName];
+        }
+
+        Module.Lua.Env.DoString($"require 'Configs.Config.{configName}'");
+        LuaTable table = Module.Lua.Env.Global.Get<LuaTable>(configName);
+        configDic.Add(configName, table);  //小心内存释放问题
+        return table;
+    }
+
+    /// <summary>
+    /// 获取某个配置表
+    /// </summary>
+    /// <param name="configName"></param>
     /// <param name="id"></param>
     /// <returns></returns>
     public static LuaTable Get(string configName, int id)

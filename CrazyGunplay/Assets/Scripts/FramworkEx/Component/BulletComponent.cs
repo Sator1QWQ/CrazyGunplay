@@ -81,7 +81,7 @@ public class BulletComponent : GameFrameworkComponent
         {
             int entityId = EntityTool.GetBulletEntityId();
             Debug.Log("bullet show实体");
-            Module.Entity.ShowEntity<BulletEntity>(entityId, assetPath, "normal", bullet);
+            Module.Entity.ShowEntity<BulletEntity>(entityId, assetPath, "Bullet", bullet);
         }
     }
 

@@ -6,6 +6,7 @@ using UnityGameFramework.Runtime;
 using GameFramework.Procedure;
 using GameFramework.Fsm;
 using GameFramework.Resource;
+using XLua;
 
 /*
 * 作者：
@@ -21,7 +22,26 @@ public class GameProcedure : ProcedureBase
     {
         Debug.Log("游戏流程");
 
-        if(!testMode)
+        //设置实体组
+        LuaTable table = Config.Get("EntityGroupConfig");
+        IEnumerable en = table.GetKeys();
+        foreach(object item in en)
+        {
+            if(item is string)
+            {
+                continue;
+            }
+            int id = (int)(long)item;
+            LuaTable config = Config.Get("EntityGroupConfig", id);
+            string groupName = config.Get<string>("name");
+            int instanceAutoReleaseInterval = config.Get<int>("instanceAutoReleaseInterval");
+            int instanceCapacity = config.Get<int>("instanceCapacity");
+            int instanceExpireTime = config.Get<int>("instanceExpireTime");
+            int instancePriority = config.Get<int>("instancePriority");
+            Module.Entity.AddEntityGroup(groupName, instanceAutoReleaseInterval, instanceCapacity, instanceExpireTime, instancePriority);
+        }
+
+        if (!testMode)
         {
             //进入主界面
             Module.UI.OpenUIForm("Assets/Resource/UI/StartPanel.prefab", "NormalGroup");

@@ -19,6 +19,7 @@ public class WeaponComponent : GameFrameworkComponent
 	private void Start()
 	{
 		Module.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
+		Debug.Log("添加实体组Weapon");
 	}
 
 	//show成功的话会发送事件
@@ -63,7 +64,7 @@ public class WeaponComponent : GameFrameworkComponent
 		string path = config.Get<string>("path");
 		int entId = EntityTool.GetWeaponEntityId();
 		Debug.Log("show了一个武器 实体id==" + entId);
-		Module.Entity.ShowEntity(entId, typeof(WeaponEntity), path, "normal", weapon);
+		Module.Entity.ShowEntity(entId, typeof(WeaponEntity), path, "Weapon", weapon);
 		return weapon;
 	}
 
