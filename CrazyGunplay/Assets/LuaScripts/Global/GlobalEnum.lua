@@ -17,5 +17,6 @@ GlobalEnum.BattleState = {
     None = 1,
     Ready = 2,  --准备状态
     Battle = 3, --战斗状态
-    End = 4,    --结束状态
+    TeamDead = 4,    --队伍全灭
+    Timeout = 5,    --战斗倒计时结束
 }
