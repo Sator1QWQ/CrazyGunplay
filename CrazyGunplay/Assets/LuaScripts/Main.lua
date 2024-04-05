@@ -14,6 +14,7 @@ UI = Module.UI
 Timer = Module.Timer
 ReferencePool = CS.GameFramework.ReferencePool
 --事件
+GFRuntime = CS.UnityGameFramework.Runtime
 PlayerDieEventArgs = CS.PlayerDieEventArgs
 
 require "Base.Class"
