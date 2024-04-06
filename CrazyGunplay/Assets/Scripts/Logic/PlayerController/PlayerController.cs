@@ -35,14 +35,35 @@ public abstract class PlayerController
     public bool IsPause { get; set; }
 
     /// <summary>
+    /// 突进距离
+    /// </summary>
+    public float DushDistance { get; private set; }
+    
+    /// <summary>
+    /// 可突进次数
+    /// </summary>
+    public int CanDushNum { get; private set; }
+
+    /// <summary>
+    /// 空中可跳跃次数
+    /// </summary>
+    public int CanAirJumpNum { get; private set; }
+
+    /// <summary>
     /// 控制器字典，移动、跳跃这些
     /// </summary>
     private Dictionary<ControllerType, ControlActionBase> mControllerDic = new Dictionary<ControllerType, ControlActionBase>();
+    private int mDushCount; //dush次数 在空中时才计数
+    private int mJumpCount; //jump计数 在空中时才计数
 
     public PlayerController(PlayerEntity entity, SimpleGravity gravity)
     {
         Entity = entity;
         Gravity = gravity;
+        DushDistance = Config.Get<float>("CharacterData", Entity.Data.HeroId, "dushDistance");
+        CanDushNum = Config.Get<int>("CharacterData", Entity.Data.HeroId, "dushNum");
+        CanAirJumpNum = Config.Get<int>("CharacterData", Entity.Data.HeroId, "airJumpNum");
+        Gravity.OnTouchGround += OnTouchGround;
     }
 
     public void AddControlAction(ControlActionBase ctrl)
@@ -62,13 +83,81 @@ public abstract class PlayerController
     /// <returns></returns>
     public abstract float GetVertical();
 
-    public abstract bool GetJump();
+    public abstract bool GetJumpInput();
 
     public abstract bool GetMove();
 
-    public abstract bool GetDush();
+    public abstract bool GetDushInput();
 
     public abstract bool GetNormalAttack();
+
+    /// <summary>
+    /// 是否可跳跃
+    /// </summary>
+    /// <returns></returns>
+    public bool GetJump()
+    {
+        if (GetJumpInput())
+        {
+            if (Gravity.IsAir)
+            {
+                //可跳跃
+                if (mJumpCount < CanAirJumpNum)
+                {
+                    return true;
+                }
+                //超过最大跳跃次数，不可跳跃
+                else
+                {
+                    return false;
+                }
+            }
+            //地上无限跳跃
+            else
+            {
+                return true;
+            }
+        }
+        //没按下跳跃键
+        else
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// 是否可dush
+    /// </summary>
+    /// <returns></returns>
+    public bool GetDush()
+    {
+        if(GetDushInput())
+        {
+            if (Gravity.IsAir)
+            {
+                //可dush
+                if (mDushCount < CanDushNum)
+                {
+                    return true;
+                }
+                //空中超过最大dush次数，不可dush
+                else
+                {
+                    return false;
+                }
+            }
+            //地上无限dush
+            else
+            {
+                return true;
+            }
+        }
+        //没按下dush键
+        else
+        {
+            return false;
+        }
+    }
 
     public void OnUpdate()
     {
@@ -85,13 +174,19 @@ public abstract class PlayerController
 
         if (GetJump())
         {
-            Debug.Log("Jump");
+            if(Gravity.IsAir && mJumpCount < CanAirJumpNum)
+            {
+                mJumpCount++;
+            }
             UpdateControllerAction(ControllerType.Jump);
         }
 
         if(GetDush())
         {
-            Debug.Log("Dush");
+            if (Gravity.IsAir && mDushCount < CanDushNum)
+            {
+                mDushCount++;
+            }
             UpdateControllerAction(ControllerType.Dush);
         }
 
@@ -108,5 +203,11 @@ public abstract class PlayerController
         {
             mControllerDic[type].DoAction(this);
         }
+    }
+
+    private void OnTouchGround()
+    {
+        mJumpCount = 0;
+        mDushCount = 0;
     }
 }

@@ -35,7 +35,7 @@ public class OnePController : PlayerController
         return 0;
     }
 
-    public override bool GetJump() => Input.GetKeyDown(KeyCode.Space);
+    public override bool GetJumpInput() => Input.GetKeyDown(KeyCode.Space);
 
     public override bool GetMove()
     {
@@ -49,5 +49,5 @@ public class OnePController : PlayerController
 
     public override bool GetNormalAttack() => Input.GetKeyDown(KeyCode.J);
 
-    public override bool GetDush() => Input.GetKeyDown(KeyCode.K);
+    public override bool GetDushInput() => Input.GetKeyDown(KeyCode.K);
 }

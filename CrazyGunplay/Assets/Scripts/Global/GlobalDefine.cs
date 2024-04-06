@@ -48,7 +48,7 @@ public class GlobalDefine
 	/// <summary>
 	/// dush持续时间
 	/// </summary>
-	public static float DUSH_TIME = 0.1f;
+	public static float DUSH_TIME = 0.2f;
 
 	/// <summary>
 	/// 远离场景

@@ -51,6 +51,11 @@ public class SimpleGravity : MonoBehaviour
     private List<UpdateData> mUpdateActionList = new List<UpdateData>();
 
     [HideInInspector] public bool IsAir { get; private set; }
+
+    /// <summary>
+    /// 触碰到地面时调用
+    /// </summary>
+    public event Action OnTouchGround = () => { };
     
     private void Awake()
     {
@@ -150,6 +155,7 @@ public class SimpleGravity : MonoBehaviour
                     mUpdateActionList[i].onFloorAct?.Invoke();
                 }
                 Debug.Log("触碰到地面了");
+                OnTouchGround();
                 ResetGravity();
                 gravityTime = 0;
             }

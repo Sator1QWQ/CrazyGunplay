@@ -16,7 +16,7 @@ public class TwoPController : PlayerController
     {
     }
 
-    public override bool GetDush() => Input.GetKeyDown(KeyCode.Keypad0);
+    public override bool GetDushInput() => Input.GetKeyDown(KeyCode.Keypad0);
 
     public override float GetHorizontal()
     {
@@ -32,7 +32,7 @@ public class TwoPController : PlayerController
         return 0;
     }
 
-    public override bool GetJump() => Input.GetKeyDown(KeyCode.Keypad2);
+    public override bool GetJumpInput() => Input.GetKeyDown(KeyCode.Keypad2);
 
     public override bool GetMove()
     {

@@ -73,8 +73,8 @@ public class PlayerEntity : CharacterEntity
         {
             return;
         }
-        Controller.OnUpdate();
         Machine.OnUpdate();
+        Controller.OnUpdate();
     }
 
     protected override void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)

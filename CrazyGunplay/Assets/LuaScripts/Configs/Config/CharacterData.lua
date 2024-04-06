@@ -5,8 +5,8 @@ CharacterData = {
 		speed = 4,
 		jump = 6,
 		airJumpNum = 1,
-		dushDistance = 1.8,
-		dushNum = 1,
+		dushDistance = 10,
+		dushNum = 2,
 	},
 	[1002] = {
 		id = 1002,
