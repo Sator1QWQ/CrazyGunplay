@@ -6,7 +6,7 @@ Weapon = {
 		weaponType = 1,
 		targetId = 101,
 		beatType = 1,
-		beatBack = 1,
+		beatBack = 0.11,
 		path = Weapon_Text.path_4,
 	},
 	[102] = {
@@ -24,7 +24,7 @@ Weapon = {
 		weaponType = 1,
 		targetId = 103,
 		beatType = 1,
-		beatBack = 1,
+		beatBack = 0.35,
 		path = Weapon_Text.path_6,
 	},
 }
