@@ -73,5 +73,11 @@ public class LuaItem : MonoBehaviour
         act?.Invoke(ObjectInstance, isSelect);
     }
 
+    private void OnDisable()
+    {
+        Action<LuaTable> act = behaviour.Table.Get<Action<LuaTable>>("OnDisable");
+        act?.Invoke(ObjectInstance);
+    }
+
     public void InitSelect() => isSelect = false;
 }

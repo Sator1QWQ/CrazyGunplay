@@ -27,9 +27,12 @@ function BattleModeScene:OnEnable()
     function()
         print("倒计时结束，游戏结束，返回选择菜单")
         self:ChangeBattleState(GlobalEnum.BattleState.Timeout)
-        UITool.OpenUIForm("BattleEndPanel", true)
+        UITool.OpenUIForm("BattleEndPanel", false)
         --UI:OpenUIForm("Assets/Resource/UI/BattleEndPanel.prefab", "NormalGroup")
     end, 0, MBattleSetting.Instance.countDown)
+
+    --显示HUD
+    UITool.OpenUIForm("LocalBattleMainPanel", true)
 end
 
 function BattleModeScene:OnDisable()

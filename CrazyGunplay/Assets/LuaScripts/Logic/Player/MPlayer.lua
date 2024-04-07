@@ -3,6 +3,7 @@ MPlayer = Class.Create("MPlayer", Object)
 
 function MPlayer:ctor()
     self.playerList = {}
+    self.count = 0
 end
 
 --[[
@@ -18,12 +19,15 @@ function MPlayer:AddPlayer(data)
         return
     end
     self.playerList[data.id] = data
+    self.count = self.count + 1
+    data.index = self.count  --在列表里的索引，要保证遍历的顺序
     data.beatBackValue = 1
     data.beatBackPercent = 0
 end
 
 function MPlayer:Clear()
     self.playerList = {}
+    self.count = 0
 end
 
 function MPlayer:ChangeLife(id, change)
@@ -40,6 +44,17 @@ function MPlayer:ChangeBeatBackValue(id, value)
     --击退修正值：保证显示的百分比数不会太大
     self.playerList[id].beatBackPercent = math.floor(((self.playerList[id].beatBackValue - 1) * 100) * GlobalDefine.BeatBackRepair)
     CPlayer.Instance:SyncBattleDataToCS(id)
+end
+
+--根据索引获取数据
+function MPlayer:GetPlayerByIndex(index)
+    --数据过多的话这种方法有性能问题
+    --可以改成字典
+    for k, v in pairs(self.playerList) do
+        if v.index == index then
+            return v
+        end
+    end
 end
 
 --单例模式

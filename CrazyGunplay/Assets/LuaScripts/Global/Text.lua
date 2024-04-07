@@ -11,5 +11,8 @@ _M.TwoP = "2P"
 _M.StartBattle = "开始战斗！"
 _M.Victory = "游戏结束，%s胜利"
 _M.DeadHeat = "游戏结束，平局"
+_M.PercentLabel = "击退率"
+_M.PercentZero = "0%"
+_M.Percent = "%s%%"
 
 return _M
