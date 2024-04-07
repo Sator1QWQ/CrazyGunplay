@@ -107,3 +107,13 @@ public enum BattleState
 	TeamDead = 4,    //队伍全灭
 	Timeout = 5,    //战斗倒计时结束
 }
+
+/// <summary>
+/// 受击类型
+/// </summary>
+public enum GetHitType
+{
+	BeatBack = 1,	//击退
+	HitToFly = 2,	//击飞
+	No = 3,	//无效果
+}

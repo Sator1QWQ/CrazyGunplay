@@ -1,3 +1,5 @@
+require "Configs.Config.Weapon"
+
 --战斗模式的场景逻辑
 --基于LuaBehaviour，由C#调用声明周期
 BattleModeScene = Class.Create("BattleModeScene", Object)
@@ -9,6 +11,7 @@ end
 
 function BattleModeScene:OnEnable()
     Module.Event:Subscribe(PlayerDieEventArgs.EventId, BattleModeScene.PlayerDieEvent)
+    Module.Event:Subscribe(CS.BulletHitEventArgs.EventId, BattleModeScene.BulletHitPlayerEvent)
     self:ChangeBattleState(GlobalEnum.BattleState.Battle)
     Module.Timer:AddUpdateTimer(function(data)
         --print("countDown==" .. tostring(data.remainTime))
@@ -39,7 +42,8 @@ function BattleModeScene:ClearBattleData()
     MPlayer.Instance:Clear()
     MTeam.Instance:Clear()
     Module.Timer:RemoveAllTimer()
-    Module.Event:Unsubscribe(PlayerDieEventArgs.EventId, PlayerDieEvent)
+    Module.Event:Unsubscribe(PlayerDieEventArgs.EventId, BattleModeScene.PlayerDieEvent)
+    Module.Event:Unsubscribe(CS.BulletHitEventArgs.EventId, BattleModeScene.BulletHitPlayerEvent)
 end
 
 --战斗结束判断 需要提取出来
@@ -79,6 +83,12 @@ end
 function BattleModeScene.PlayerDieEvent(sender, args)
     print("lua 玩家死亡！self==" .. tostring(sender) .. ", id==" .. tostring(args.PlayerId) .. ", args==" .. tostring(args.NowLife))
     MPlayer.Instance:ChangeLife(args.PlayerId, -1)
+end
+
+--击中事件
+function BattleModeScene.BulletHitPlayerEvent(sender, args)
+    local value = Weapon[args.WeaponId].beatBack
+    MPlayer.Instance:ChangeBeatBackValue(args.GetHitPlayer, value)
 end
 
 function BattleModeScene:ChangeBattleState(state)

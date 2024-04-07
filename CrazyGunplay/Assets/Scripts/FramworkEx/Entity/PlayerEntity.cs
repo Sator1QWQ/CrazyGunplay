@@ -156,12 +156,26 @@ public class PlayerEntity : CharacterEntity
         Module.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
     }
 
-    public void BeatBack(Vector3 vector)
+    /// <summary>
+    /// 受伤
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="beatBackValue">此次攻击产生的击退值</param>
+    /// <param name="vector">受击方向</param>
+    public void GetDamage(GetHitType type, Vector3 vector)
     {
-        //mGravity.AddVelocity("BeatBack", vector, 0.1f, true);
-        mGravity.AddForce("Force", vector * 5);
-        //mGravity.AddVelocity("BeatBack", Vector3.up*10, 0.5f, true);
-        //mGravity.Jump((Vector3.up)*10);
+        switch(type)
+        {
+            case GetHitType.BeatBack:
+                BeatBack(vector);
+                break;
+        }
+    }
+
+    private void BeatBack(Vector3 vector)
+    {
+        mGravity.AddForce("Force", vector * Data.BeatBackValue);
+        Debug.Log("击退值为==" + Data.BeatBackValue + ", 击退百分比为：" + Data.BeatBackPercent);
     }
 
     //控制动画

@@ -18,6 +18,8 @@ function MPlayer:AddPlayer(data)
         return
     end
     self.playerList[data.id] = data
+    data.beatBackValue = 1
+    data.beatBackPercent = 0
 end
 
 function MPlayer:Clear()
@@ -26,7 +28,17 @@ end
 
 function MPlayer:ChangeLife(id, change)
     self.playerList[id].life = self.playerList[id].life + change
-    print("change life 同步数据")
+    CPlayer.Instance:SyncBattleDataToCS(id)
+end
+
+--击退值改变
+function MPlayer:ChangeBeatBackValue(id, value)
+    print("id==" .. tostring(id) .. ", value==" .. tostring(value))
+    self.playerList[id].beatBackValue = self.playerList[id].beatBackValue + value
+
+    --百分比计算：-1是当击退为1的时候，显示百分比为0
+    --击退修正值：保证显示的百分比数不会太大
+    self.playerList[id].beatBackPercent = math.floor(((self.playerList[id].beatBackValue - 1) * 100) * GlobalDefine.BeatBackRepair)
     CPlayer.Instance:SyncBattleDataToCS(id)
 end
 

@@ -11,6 +11,8 @@ function CPlayer:SyncBattleDataToCS(playerId)
     data.HeroId = player.heroId
     data.WeaponId = player.weaponId
     data.Life = player.life
+    data.BeatBackValue = player.beatBackValue
+    data.BeatBackPercent = player.beatBackPercent
     local args = CS.SyncPlayerDataEventArgs.Create(data)
     Module.Event:FireNow(nil, args)
 end

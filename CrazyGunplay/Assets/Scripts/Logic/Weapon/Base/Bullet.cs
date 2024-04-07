@@ -97,5 +97,14 @@ public abstract class Bullet
 	/// </summary>
 	/// <param name="target"></param>
 	/// <returns>是否需要隐藏子弹</returns>
-	public abstract bool OnCollision(GameObject target);
+	public virtual bool OnCollision(GameObject target)
+    {
+		PlayerEntity entity = target.GetComponent<PlayerEntity>();
+		if (entity != null)
+        {
+			BulletHitEventArgs args = BulletHitEventArgs.Create(entity.Data.PlayerId, OwnerWeapon.Id);
+			Module.Event.FireNow(this, args);
+		}
+		return true;
+    }
 }

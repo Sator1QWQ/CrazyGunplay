@@ -54,4 +54,6 @@ public class GlobalDefine
 	/// 远离场景
 	/// </summary>
 	public static Vector3 FAY_WAY = Vector3.right * 1000;
+
+	public static float HIT_VALUE_REPAIR = 1.0f;
 }

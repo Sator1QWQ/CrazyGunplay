@@ -6,17 +6,23 @@ using UnityGameFramework.Runtime;
 
 public class PlayerBattleData
 {
-    private int playerId;
-    public int PlayerId { get => playerId; set => playerId = value; }
+    public int PlayerId { get; set; }
+    public int HeroId { get; set;}
+    public int WeaponId { get; set; }
+    /// <summary>
+    /// 生命数
+    /// </summary>
+    public int Life { get; set; }
 
-    private int heroId;
-    public int HeroId { get => heroId; set { heroId = value; } }
-
-    private int weaponId;
-    public int WeaponId { get => weaponId; set { weaponId = value; } }
-
-    private int life;   //生命数
-    public int Life { get => life; set { life = value; } }
+    /// <summary>
+    /// 击退倍率，1为最低
+    /// </summary>
+    public float BeatBackValue { get; set; }
+    
+    /// <summary>
+    /// 击退百分比
+    /// </summary>
+    public int BeatBackPercent { get; set; }
 }
 
 /// <summary>
@@ -55,6 +61,8 @@ public class PlayerDataComponent : GameFrameworkComponent
         data.HeroId = args.Data.HeroId;
         data.WeaponId = args.Data.WeaponId;
         data.Life = args.Data.Life;
+        data.BeatBackValue = args.Data.BeatBackValue;
+        data.BeatBackPercent = args.Data.BeatBackPercent;
     }
 
     private void BattleStateChange(object sender, GameEventArgs e)
