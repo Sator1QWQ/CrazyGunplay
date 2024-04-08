@@ -32,6 +32,7 @@ public class PlayerEntity : CharacterEntity
     private bool isPauseControl;   //是否暂停控制
     private SimpleGravity mGravity;
     private Vector3 initPos = Vector3.up * 10;
+    private Weapon mWeapon;
 
     //userData为playerid
     protected override void OnInit(object userData)
@@ -58,6 +59,7 @@ public class PlayerEntity : CharacterEntity
         base.OnShow(userData);
         Module.Event.Subscribe(ChangeStateEventArgs<PlayerEntity>.EventId, OnChangeState);
         Module.Event.Subscribe(BattleStateChangeArgs.EventId, OnBattleStateChange);
+        mWeapon = Module.Weapon.GetWeapon(PlayerId);    //武器可能会变化
     }
 
     protected override void OnHide(bool isShutdown, object userData)
@@ -75,6 +77,7 @@ public class PlayerEntity : CharacterEntity
         }
         Machine.OnUpdate();
         Controller.OnUpdate();
+        mWeapon.OnUpdate();
     }
 
     protected override void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)

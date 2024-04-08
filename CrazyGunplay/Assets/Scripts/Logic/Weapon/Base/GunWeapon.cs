@@ -49,6 +49,9 @@ public class GunWeapon : Weapon
 	/// </summary>
 	public float MaxRecoil { get; private set; }
 
+	private float rateTemp;
+	private bool canAttack;
+
 	/// <summary>
 	/// 外部不允许直接new这个对象
 	/// </summary>
@@ -62,13 +65,30 @@ public class GunWeapon : Weapon
 		ReloadTime = newTable.Get<float>("reloadTime");
 		MainMag = newTable.Get<float>("mainMag");
 		SpareMag = newTable.Get<float>("spareMag");
+
+		canAttack = true;
 	}
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+		if(rateTemp >= FireRate)
+        {
+			canAttack = true;
+			rateTemp = 0;
+        }
+		rateTemp += Time.deltaTime;
+    }
 
     public override void Attack()
     {
-		Debug.Log("mWeapon 枪射击");
+		if(!canAttack)
+        {
+			return;
+        }
 		int bulletId = Config.Get<int>("Gun", Id, "bulletId");
 		Module.Bullet.ShowBullet(this, bulletId, Id, Entity.PlayerEntity.WeaponRoot.position, Entity.PlayerEntity.LookDirection);
+		canAttack = false;
     }
 
 	/// <summary>
