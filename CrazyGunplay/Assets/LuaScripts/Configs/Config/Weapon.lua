@@ -24,7 +24,7 @@ Weapon = {
 		weaponType = 1,
 		targetId = 103,
 		beatType = 1,
-		beatBack = 0.35,
+		beatBack = 0.12,
 		path = Weapon_Text.path_6,
 	},
 }

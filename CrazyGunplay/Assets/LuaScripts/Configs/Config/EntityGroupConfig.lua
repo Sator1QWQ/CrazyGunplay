@@ -20,8 +20,8 @@ EntityGroupConfig = {
 		id = 3,
 		name = EntityGroupConfig_Text.name_6,
 		instanceAutoReleaseInterval = 1,
-		instanceCapacity = 20,
-		instanceExpireTime = 3,
+		instanceCapacity = 50,
+		instanceExpireTime = 20,
 		instancePriority = 3,
 	},
 }
