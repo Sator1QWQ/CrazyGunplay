@@ -127,7 +127,7 @@ public class PlayerEntity : CharacterEntity
         Module.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
         LuaTable data = Config.Get("Character", Data.HeroId);
         Data.WeaponId = data.Get<int>("initWeapon");
-        Module.Weapon.ShowWeapon("Weapon", Data.WeaponId);
+        Module.Weapon.ShowWeapon("Weapon", Data.PlayerId, Data.WeaponId);
     }
 
     private void OnShowEntity(object userData, GameFrameworkEventArgs e)
@@ -142,17 +142,17 @@ public class PlayerEntity : CharacterEntity
             return;
         }
 
-        int weaponId = (showEvent.UserData as Weapon).Id;
-        if(weaponId != Data.WeaponId)
+        WeaponEntity entity = showEvent.Entity.Logic as WeaponEntity;
+        Weapon weapon = showEvent.UserData as Weapon;
+        int playerId = weapon.PlayerId;
+        if(playerId != Data.PlayerId)
         {
             return;
         }
-        Module.Entity.AttachEntity(showEvent.Entity, Entity);
-        showEvent.Entity.transform.localPosition = Vector3.zero;
-        WeaponEntity weapon = (showEvent.Entity.Logic as WeaponEntity);
-        weapon.SetPlayerEntity(this);
-        weapon.Entity.transform.SetParent(WeaponRoot, false);
-        weapon.Entity.transform.localPosition = Vector3.zero;
+        Module.Entity.AttachEntity(entity.Entity, Entity);
+        entity.SetPlayerEntity(this);
+        entity.Entity.transform.SetParent(WeaponRoot, false);
+        entity.Entity.transform.localPosition = Vector3.zero;
         Module.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
     }
 

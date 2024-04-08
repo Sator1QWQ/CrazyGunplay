@@ -72,7 +72,7 @@ public class BulletComponent : GameFrameworkComponent
                 bullet = new RPGBullet(ownerWeapon, bulletId, gunId);
                 break;
         }
-        Debug.Log("创建子弹对象");
+        Debug.Log("mWeapon 创建子弹对象==");
         bulletList.Add(bullet);
         string assetPath = Config.Get<string>("Bullet", bulletId, "assetPath");
         bullet.InitBullet(startPos, startDirection);

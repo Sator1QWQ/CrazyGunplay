@@ -44,7 +44,7 @@ public class TwoPController : PlayerController
         return false;
     }
 
-    public override bool GetNormalAttack() => Input.GetKey(KeyCode.Keypad1);
+    public override bool GetNormalAttack() => Input.GetKeyDown(KeyCode.Keypad1);
 
     public override float GetVertical() => 0;
 }

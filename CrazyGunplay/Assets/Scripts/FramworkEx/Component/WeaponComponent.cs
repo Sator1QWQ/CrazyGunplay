@@ -14,7 +14,8 @@ using GameFramework.Event;
 */
 public class WeaponComponent : GameFrameworkComponent
 {
-	private List<Weapon> weaponList = new List<Weapon>();
+	//key:playerId
+	private Dictionary<int, Weapon> weaponDic = new Dictionary<int, Weapon>();
 
 	private void Start()
 	{
@@ -41,7 +42,7 @@ public class WeaponComponent : GameFrameworkComponent
 	/// <param name="configName"></param>
 	/// <param name="id"></param>
 	/// <returns></returns>
-	public Weapon ShowWeapon(string configName, int id)
+	public Weapon ShowWeapon(string configName, int playerId, int id)
 	{
 		LuaTable config = Config.Get(configName, id);
 		Weapon weapon = null;
@@ -50,17 +51,17 @@ public class WeaponComponent : GameFrameworkComponent
 		switch (type)
 		{
 			case WeaponType.Gun:
-				weapon = new GunWeapon(config, id);
+				weapon = new GunWeapon(config, playerId, id);
 				break;
 			case WeaponType.Throw:
-				weapon = new ThrowWeapon(config, id);
+				weapon = new ThrowWeapon(config, playerId, id);
 				break;
 			case WeaponType.NearRange:
-				weapon = new NearRangeWeapon(config, id);
+				weapon = new NearRangeWeapon(config, playerId, id);
 				break;
 		}
 
-		weaponList.Add(weapon);
+		weaponDic.Add(playerId, weapon);
 		string path = config.Get<string>("path");
 		int entId = EntityTool.GetWeaponEntityId();
 		Debug.Log("show了一个武器 实体id==" + entId);
@@ -69,9 +70,9 @@ public class WeaponComponent : GameFrameworkComponent
 	}
 
 	/// <summary>
-	/// 获取武器
+	/// 获取玩家身上的武器
 	/// </summary>
-	/// <param name="id">武器id</param>
+	/// <param name="id">玩家id</param>
 	/// <returns></returns>
-	public Weapon GetWeapon(int id) => weaponList.Find(weapon => weapon.Id == id);
+	public Weapon GetWeapon(int playerId) => weaponDic[playerId];
 }

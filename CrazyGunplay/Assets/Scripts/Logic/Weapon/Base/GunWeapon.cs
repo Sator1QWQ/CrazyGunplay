@@ -54,7 +54,7 @@ public class GunWeapon : Weapon
 	/// </summary>
 	/// <param name="configName"></param>
 	/// <param name="id"></param>
-	public GunWeapon(LuaTable config, int id) : base(config, id)
+	public GunWeapon(LuaTable config, int playerId, int id) : base(config, playerId, id)
     {
 		LuaTable newTable = Config.Get("Gun", id);
 		FireRate = newTable.Get<float>("fireRate");
@@ -66,7 +66,7 @@ public class GunWeapon : Weapon
 
     public override void Attack()
     {
-		Debug.Log("枪射击");
+		Debug.Log("mWeapon 枪射击");
 		int bulletId = Config.Get<int>("Gun", Id, "bulletId");
 		Module.Bullet.ShowBullet(this, bulletId, Id, Entity.PlayerEntity.WeaponRoot.position, Entity.PlayerEntity.LookDirection);
     }

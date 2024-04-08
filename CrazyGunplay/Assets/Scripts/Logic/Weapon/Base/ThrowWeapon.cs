@@ -13,7 +13,7 @@ using XLua;
 */
 public class ThrowWeapon : Weapon
 {
-    public ThrowWeapon(LuaTable config, int id) : base(config, id)
+    public ThrowWeapon(LuaTable config, int playerId, int id) : base(config, playerId, id)
     {
     }
 
