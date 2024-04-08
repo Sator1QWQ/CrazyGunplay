@@ -41,7 +41,6 @@ public class BulletComponent : GameFrameworkComponent
 
         BulletEntity entity = showEvent.Entity.Logic as BulletEntity;
         Bullet bullet = (Bullet)showEvent.UserData;
-        Debug.Log("bullet 子弹生成ok id==" + bullet);
         bullet.AddBulletEntity(entity);
         
         //子弹全部加载完，开始飞行
@@ -72,7 +71,6 @@ public class BulletComponent : GameFrameworkComponent
                 bullet = new RPGBullet(ownerWeapon, bulletId, gunId);
                 break;
         }
-        Debug.Log("mWeapon 创建子弹对象==");
         bulletList.Add(bullet);
         string assetPath = Config.Get<string>("Bullet", bulletId, "assetPath");
         bullet.InitBullet(startPos, startDirection);
@@ -80,7 +78,6 @@ public class BulletComponent : GameFrameworkComponent
         for (int i = 0; i < bullet.BulletCount; i++)
         {
             int entityId = EntityTool.GetBulletEntityId();
-            Debug.Log("bullet show实体");
             Module.Entity.ShowEntity<BulletEntity>(entityId, assetPath, "Bullet", bullet);
         }
     }
@@ -98,7 +95,6 @@ public class BulletComponent : GameFrameworkComponent
         }
         bulletList.Remove(bullet);
         flyingList.Remove(bullet);  //隐藏时肯定是在飞的，所以flyingList里一定会有这个对象
-        Debug.Log("bullet 隐藏实体");
     }
 
     /// <summary>
@@ -109,7 +105,6 @@ public class BulletComponent : GameFrameworkComponent
     /// <param name="direction"></param>
     public void StartFly(Bullet bullet)
     {
-        Debug.Log("bullet startfly flyList添加");
         flyingList.Add(bullet);
     }
 
@@ -152,7 +147,6 @@ public class BulletComponent : GameFrameworkComponent
             }
             else
             {
-                Debug.Log("bullet Fly");
                 bullet.Fly();
             }
         }
