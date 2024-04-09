@@ -23,7 +23,6 @@ function _M.OnClickBack()
 
     CS.SceneTool.UnloadAllScene()
     --Module.Scene:UnloadScene("Assets/Resource/Scenes/Battle_1.unity")
-    _M.panel:Close()
     UI:OpenUIForm("Assets/Resource/UI/StartPanel.prefab", "NormalGroup")
     UI:OpenUIForm("Assets/Resource/UI/SelectHeroPanel.prefab", "NormalGroup")
 end
