@@ -50,9 +50,15 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        if (Module.PlayerData.State != BattleState.Battle && Module.PlayerData.State != BattleState.Ready)
+        {
+            return;
+        }
+
         //每帧计算fov
         float maxAngle = 0;
         Vector3 totalPos = new Vector3();
+
         for (int i = 0; i < entityArr.Length; i++)
         {
             IEntity entity = entityArr[i];
