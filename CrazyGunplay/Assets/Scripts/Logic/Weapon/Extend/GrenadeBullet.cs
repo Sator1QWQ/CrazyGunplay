@@ -16,13 +16,24 @@ public class GrenadeBullet : Bullet
     {
     }
 
+    public override void FirstFly()
+    {
+        for(int i = 0; i < BulletEntityList.Count; i++)
+        {
+            BulletEntityList[i].Gravity.useGravity = true;
+            BulletEntityList[i].Gravity.seetingUseGravity = true;
+            BulletEntityList[i].Gravity.AddForce("GrenadeBullet_" + Id, new Vector3(1, 1, 0) * 3);
+        }
+    }
+
     public override void Fly()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("手雷飞行");
     }
 
     public override bool OnCollision(GameObject target)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("子弹碰撞到了");
+        return true;
     }
 }

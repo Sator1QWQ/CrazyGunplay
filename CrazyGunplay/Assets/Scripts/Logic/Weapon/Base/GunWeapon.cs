@@ -71,7 +71,6 @@ public class GunWeapon : Weapon
 
     public override void OnUpdate()
     {
-        base.OnUpdate();
 		if(rateTemp >= FireRate)
         {
 			canAttack = true;

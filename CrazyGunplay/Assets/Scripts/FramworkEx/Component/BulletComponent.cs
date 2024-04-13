@@ -147,6 +147,11 @@ public class BulletComponent : GameFrameworkComponent
             }
             else
             {
+                if(bullet.IsFirstFly)
+                {
+                    bullet.FirstFly();
+                    bullet.IsFirstFly = false;
+                }
                 bullet.Fly();
             }
         }

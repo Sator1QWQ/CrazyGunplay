@@ -26,5 +26,14 @@ public class BulletEntity : EntityLogic
     {
         base.OnRecycle();
         Entity.transform.position = GlobalDefine.FAY_WAY;
+        Gravity.ResetGravity();
+        Gravity.ResetVelocity();
+    }
+
+    protected override void OnHide(bool isShutdown, object userData)
+    {
+        base.OnHide(isShutdown, userData);
+        Gravity.ResetGravity();
+        Gravity.ResetVelocity();
     }
 }

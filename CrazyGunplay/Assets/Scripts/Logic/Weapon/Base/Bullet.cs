@@ -46,6 +46,8 @@ public abstract class Bullet
 	/// </summary>
 	public Weapon OwnerWeapon { get; private set; }
 
+	public bool IsFirstFly { get; set; }
+
 	/// <summary>
 	/// 外部不允许new，只能由BulletComponent new
 	/// </summary>
@@ -58,6 +60,7 @@ public abstract class Bullet
 		BulletCount = Config.Get<int>("Bullet", bulletId, "bulletCount");
 		FlySpeed = Config.Get<float>("Bullet", bulletId, "flySpeed");
 		BulletEntityList = new List<BulletEntity>();
+		IsFirstFly = true;
     }
 
 	/// <summary>
@@ -91,6 +94,8 @@ public abstract class Bullet
 	/// 子弹飞行时每帧调用，子类自行实现飞行轨迹
 	/// </summary>
 	public abstract void Fly();
+
+	public virtual void FirstFly() { }
 
 	/// <summary>
 	/// 子弹碰撞时调用

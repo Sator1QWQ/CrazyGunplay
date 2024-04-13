@@ -47,7 +47,7 @@ public class SimpleGravity : MonoBehaviour
     private float gravityTime;    //只受重力经过的时间
 
     public bool useGravity;
-    private bool seetingUseGravity;
+    [HideInInspector] public bool seetingUseGravity;
     private List<UpdateData> mUpdateActionList = new List<UpdateData>();
 
     [HideInInspector] public bool IsAir { get; private set; }
@@ -118,7 +118,7 @@ public class SimpleGravity : MonoBehaviour
     }
 
     /// <summary>
-    /// 跳跃
+    /// 竖直向上的力
     /// </summary>
     /// <param name="v"></param>
     public void Jump(float speed)
@@ -203,12 +203,22 @@ public class SimpleGravity : MonoBehaviour
     /// <summary>
     /// 恢复重力从速度0开始
     /// </summary>
-    private void ResetGravity()
+    public void ResetGravity()
     {
         vt = Vector3.zero;
         v0 = Vector3.zero;
         upTime = 0;
         gravityTime = 0;
+    }
+
+    /// <summary>
+    /// 还原速度
+    /// </summary>
+    public void ResetVelocity()
+    {
+        mVelocityDataList.Clear();
+        mUpdateActionList.Clear();
+        mBody.velocity = Vector3.zero;
     }
 
     //每帧重新计算速度
