@@ -47,7 +47,7 @@ public class OnePController : PlayerController
         return false;
     }
 
-    public override bool GetNormalAttack() => Input.GetKeyDown(KeyCode.J);
+    public override bool GetNormalAttack() => Input.GetKey(KeyCode.J);
 
     public override bool GetDushInput() => Input.GetKeyDown(KeyCode.K);
 }
