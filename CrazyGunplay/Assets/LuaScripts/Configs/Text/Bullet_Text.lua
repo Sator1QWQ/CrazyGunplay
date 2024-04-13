@@ -7,3 +7,5 @@ Bullet_Text.assetPath_6 = "Assets/Resource/Models/Weapon/Bullet/Bullet_1001.pref
 Bullet_Text.effectPath_6 = ""
 Bullet_Text.assetPath_7 = "Assets/Resource/Models/Weapon/Bullet/Bullet_1001.prefab"
 Bullet_Text.effectPath_7 = ""
+Bullet_Text.assetPath_8 = "Assets/Resource/Models/Weapon/Bullet/Bullet_1001.prefab"
+Bullet_Text.effectPath_8 = ""

@@ -56,5 +56,19 @@ Bullet = {
 		assetPath = Bullet_Text.assetPath_7,
 		effectPath = Bullet_Text.effectPath_7,
 	},
+	[1005] = {
+		id = 1005,
+		bulletType = 2,
+		params = {
+		},
+		bulletCount = 1,
+		bulletOffset = {
+			[1] = 0,
+			[2] = 0,
+		},
+		flySpeed = 1,
+		assetPath = Bullet_Text.assetPath_8,
+		effectPath = Bullet_Text.effectPath_8,
+	},
 }
-Bullet.Count = 4
+Bullet.Count = 5
