@@ -11,14 +11,14 @@ using XLua;
 * 描述：
 		手雷
 */
-public class GranderWeapon : Weapon
+public class GrenadeWeapon : Weapon
 {
     public float FireRate { get; private set; }
 
     private float rateTemp;
     private bool canAttack;
 
-    public GranderWeapon(LuaTable config, int playerId, int id) : base(config, playerId, id)
+    public GrenadeWeapon(LuaTable config, int playerId, int id) : base(config, playerId, id)
     {
          FireRate = Config.Get<float>("Grenade", id, "fireRate");
     }
