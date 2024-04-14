@@ -54,7 +54,7 @@ public class WeaponComponent : GameFrameworkComponent
 				weapon = new GunWeapon(config, playerId, id);
 				break;
 			case WeaponType.Throw:
-				weapon = new GranderWeapon(config, playerId, id);
+				weapon = new GrenadeWeapon(config, playerId, id);
 				break;
 			case WeaponType.NearRange:
 				weapon = new NearRangeWeapon(config, playerId, id);
