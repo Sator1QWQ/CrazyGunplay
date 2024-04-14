@@ -20,9 +20,4 @@ public class RPGBullet : Bullet
     {
         throw new System.NotImplementedException();
     }
-
-    public override bool OnCollision(GameObject target)
-    {
-        throw new System.NotImplementedException();
-    }
 }

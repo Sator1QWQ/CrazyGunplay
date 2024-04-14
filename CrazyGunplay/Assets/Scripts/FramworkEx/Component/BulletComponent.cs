@@ -120,7 +120,7 @@ public class BulletComponent : GameFrameworkComponent
             {
                 BulletEntity logic = bullet.BulletEntityList[j];
                 //只检测碰撞到玩家和墙
-                if (Physics.Raycast(logic.transform.position, logic.LookAt, out hit, 0.35f, LayerMask.GetMask("Player", "MapBorder")))
+                if (Physics.Raycast(logic.transform.position, logic.LookAt, out hit, 0.35f, LayerMask.GetMask("Player", "MapBorder")) || Physics.Raycast(logic.transform.position, logic.Down, out hit, 0.3f, LayerMask.GetMask("Player", "MapBorder", "Floor")))
                 {
                     PlayerEntity player = hit.transform.GetComponent<PlayerEntity>();
                     if(player != null)
@@ -128,20 +128,23 @@ public class BulletComponent : GameFrameworkComponent
                         if(!player.Equals(bullet.OwnerWeapon.Entity.PlayerEntity))
                         {
                             isHit = true;
+                            bullet.OnHitPlayer(player);
+                            BulletHitEventArgs args = BulletHitEventArgs.Create(player.Data.PlayerId, bullet.OwnerWeapon.Id);
+                            Module.Event.FireNow(this, args);
                             break;  //击中1发就算是全部命中
                         }
                     }
                     else
                     {
                         isHit = true;
+                        bullet.OnCollision(hit.transform.gameObject);
                         break;
                     }
                 }
             }
 
-            if(isHit)
+            if(isHit && bullet.HideCheckOnHit())
             {
-                bullet.OnCollision(hit.transform.gameObject);
                 HideBullet(bullet);
                 i--;
             }

@@ -14,12 +14,14 @@ public class BulletEntity : EntityLogic
 {
 	public SimpleGravity Gravity { get; private set; }
     public Vector3 LookAt { get; private set; }
+    public Vector3 Down { get; private set; }
 
     protected override void OnInit(object userData)
     {
         base.OnInit(userData);
         Gravity = GetComponent<SimpleGravity>();
         LookAt = transform.right;
+        Down = -transform.up;
     }
 
     protected override void OnRecycle()

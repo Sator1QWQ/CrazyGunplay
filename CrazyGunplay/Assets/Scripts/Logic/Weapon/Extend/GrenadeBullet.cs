@@ -12,8 +12,12 @@ using UnityGameFramework.Runtime;
 */
 public class GrenadeBullet : Bullet
 {
+    private float delay;
+    private float tempTime;
+
     public GrenadeBullet(Weapon ownerWeapon, int bulletId, int gunId) : base(ownerWeapon, bulletId, gunId)
     {
+        delay = Config.Get<float>("Grenade", gunId, "delay");
     }
 
     public override void FirstFly()
@@ -28,12 +32,17 @@ public class GrenadeBullet : Bullet
 
     public override void Fly()
     {
-        Debug.Log("手雷飞行");
+        tempTime += Time.deltaTime;
     }
 
-    public override bool OnCollision(GameObject target)
+    public override bool HideCheckOnHit()
     {
-        Debug.Log("子弹碰撞到了");
-        return true;
+        if(tempTime >= delay)
+        {
+            tempTime = 0;
+            Debug.Log("手雷爆炸");
+            return true;
+        }
+        return false;
     }
 }

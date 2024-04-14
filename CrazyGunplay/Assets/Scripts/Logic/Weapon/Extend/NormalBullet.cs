@@ -43,17 +43,9 @@ public class NormalBullet : Bullet
         }
     }
 
-    public override bool OnCollision(GameObject target)
+    public override void OnHitPlayer(PlayerEntity entity)
     {
-        base.OnCollision(target);
-        PlayerEntity entity = target.GetComponent<PlayerEntity>();
-        if(entity != null)
-        {
-            Debug.Log("子弹击中！target==" + target);
-            GetHitType type = (GetHitType)weaponConfig.Get<int>("beatType");
-            entity.GetDamage(type, StartDirection.normalized);
-        }
-
-        return true;
+        GetHitType type = (GetHitType)weaponConfig.Get<int>("beatType");
+        entity.GetDamage(type, StartDirection.normalized);
     }
 }

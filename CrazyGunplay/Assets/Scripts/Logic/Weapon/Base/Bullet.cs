@@ -98,18 +98,27 @@ public abstract class Bullet
 	public virtual void FirstFly() { }
 
 	/// <summary>
-	/// 子弹碰撞时调用
+	/// 子弹碰撞到其他障碍物时时调用
 	/// </summary>
 	/// <param name="target"></param>
 	/// <returns>是否需要隐藏子弹</returns>
-	public virtual bool OnCollision(GameObject target)
+	public virtual void OnCollision(GameObject target)
     {
-		PlayerEntity entity = target.GetComponent<PlayerEntity>();
-		if (entity != null)
-        {
-			BulletHitEventArgs args = BulletHitEventArgs.Create(entity.Data.PlayerId, OwnerWeapon.Id);
-			Module.Event.FireNow(this, args);
-		}
-		return true;
+		
     }
+
+	/// <summary>
+	/// 子弹击中玩家时调用
+	/// </summary>
+	/// <returns>是否需要隐藏子弹</returns>
+	public virtual void OnHitPlayer(PlayerEntity entity)
+    {
+		
+    }
+
+	/// <summary>
+	/// 碰撞后需不需要隐藏
+	/// </summary>
+	/// <returns></returns>
+	public virtual bool HideCheckOnHit() => true;
 }
