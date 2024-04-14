@@ -172,12 +172,15 @@ public class PlayerEntity : CharacterEntity
             case GetHitType.BeatBack:
                 BeatBack(vector);
                 break;
+            case GetHitType.HitToFly:
+                BeatBack(vector);
+                break;
         }
     }
 
     private void BeatBack(Vector3 vector)
     {
-        mGravity.AddForce("Force", vector * Data.BeatBackValue);
+        mGravity.AddForce("Force", vector * Data.BeatBackValue, 0.3f);
         Debug.Log("击退值为==" + Data.BeatBackValue + ", 击退百分比为：" + Data.BeatBackPercent);
     }
 

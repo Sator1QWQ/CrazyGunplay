@@ -114,6 +114,7 @@ public class BulletComponent : GameFrameworkComponent
         {
             Bullet bullet = flyingList[i];
             RaycastHit hit = default;
+            BulletHideType hideType = bullet.HideType;
 
             bool isHit = false;
             for(int j = 0; j < bullet.BulletEntityList.Count; j++)
@@ -122,28 +123,32 @@ public class BulletComponent : GameFrameworkComponent
                 //只检测碰撞到玩家和墙
                 if (Physics.Raycast(logic.transform.position, logic.LookAt, out hit, 0.35f, LayerMask.GetMask("Player", "MapBorder")) || Physics.Raycast(logic.transform.position, logic.Down, out hit, 0.3f, LayerMask.GetMask("Player", "MapBorder", "Floor")))
                 {
-                    PlayerEntity player = hit.transform.GetComponent<PlayerEntity>();
-                    if(player != null)
+                    //击中玩家
+                    if((hideType & BulletHideType.HitPlayer) != 0 && hit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
                     {
-                        if(!player.Equals(bullet.OwnerWeapon.Entity.PlayerEntity))
+                        PlayerEntity player = hit.transform.GetComponent<PlayerEntity>();
+                        //不允许击中自己，则需要判断击中的玩家id是否是自己
+                        if (bullet.CanHitSelf || (!bullet.CanHitSelf && !player.Equals(bullet.OwnerWeapon.Entity.PlayerEntity)))
                         {
                             isHit = true;
-                            bullet.OnHitPlayer(player);
                             BulletHitEventArgs args = BulletHitEventArgs.Create(player.Data.PlayerId, bullet.OwnerWeapon.Id);
                             Module.Event.FireNow(this, args);
+                            bullet.OnHitPlayer(player);
                             break;  //击中1发就算是全部命中
                         }
                     }
-                    else
+
+                    //击中墙壁或地面
+                    if((hideType & BulletHideType.HitWall) != 0 && hit.transform.gameObject.layer == (LayerMask.NameToLayer("MapBorder") | LayerMask.NameToLayer("Floor")))
                     {
                         isHit = true;
-                        bullet.OnCollision(hit.transform.gameObject);
+                        bullet.OnHitWall(hit.transform.gameObject);
                         break;
                     }
                 }
             }
 
-            if(isHit && bullet.HideCheckOnHit())
+            if(isHit || (!isHit && bullet.CustomCheckHide()))
             {
                 HideBullet(bullet);
                 i--;

@@ -48,6 +48,9 @@ public abstract class Bullet
 
 	public bool IsFirstFly { get; set; }
 
+	public bool CanHitSelf { get; private set; }
+	public BulletHideType HideType { get; private set; }
+
 	/// <summary>
 	/// 外部不允许new，只能由BulletComponent new
 	/// </summary>
@@ -59,6 +62,8 @@ public abstract class Bullet
 		GunId = gunId;
 		BulletCount = Config.Get<int>("Bullet", bulletId, "bulletCount");
 		FlySpeed = Config.Get<float>("Bullet", bulletId, "flySpeed");
+		CanHitSelf = Config.Get<bool>("Bullet", bulletId, "canHitSelf");
+		HideType = (BulletHideType)Config.Get<int>("Bullet", bulletId, "bulletHideType");
 		BulletEntityList = new List<BulletEntity>();
 		IsFirstFly = true;
     }
@@ -102,7 +107,7 @@ public abstract class Bullet
 	/// </summary>
 	/// <param name="target"></param>
 	/// <returns>是否需要隐藏子弹</returns>
-	public virtual void OnCollision(GameObject target)
+	public virtual void OnHitWall(GameObject target)
     {
 		
     }
@@ -117,8 +122,8 @@ public abstract class Bullet
     }
 
 	/// <summary>
-	/// 碰撞后需不需要隐藏
+	/// 是否需要隐藏子弹
 	/// </summary>
 	/// <returns></returns>
-	public virtual bool HideCheckOnHit() => true;
+	public virtual bool CustomCheckHide() => false;
 }

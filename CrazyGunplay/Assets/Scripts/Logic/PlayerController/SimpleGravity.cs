@@ -76,31 +76,24 @@ public class SimpleGravity : MonoBehaviour
         AddVelocityInteral(id, v, time, useGravity);
     }
 
-    public void AddForce(string id, Vector3 v)
+    public void AddForce(string id, Vector3 v, float time = -1)
     {
         UpdateData data = null;
-        if(v.y != 0)
+        Jump(v.y);
+        data = new UpdateData(() =>
         {
-            Jump(v.y);
-            data = new UpdateData(() =>
+            Vector3 newV = new Vector3(v.x, 0, v.z);
+            if (time != -1)
             {
-                Vector3 newV = new Vector3(v.x, 0, v.z);
-                AddVelocityInteral(id, newV, -1, true);
-            });
-            data.onFloorAct = () => data.isEnd = true;
-        }
-        else
-        {
-            data = new UpdateData(() =>
-            {
-                AddVelocityInteral(id, v, -1, true);
-                if(data.tempTime >= 0.1f)
+                if (data.tempTime >= time)
                 {
                     data.isEnd = true;
                 }
                 data.tempTime += Time.deltaTime;
-            });
-        }
+            }
+            AddVelocityInteral(id, newV, -1, true);
+        });
+        data.onFloorAct = () => data.isEnd = true;
         AddUpdateAction(data);
     }
 

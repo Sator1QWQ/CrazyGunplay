@@ -117,3 +117,22 @@ public enum GetHitType
 	HitToFly = 2,	//击飞
 	No = 3,	//无效果
 }
+
+/// <summary>
+/// 手雷的爆炸范围类型
+/// </summary>
+public enum GrenadeRangeType
+{
+	Circle = 1,	//圆形
+	GroundCircle = 2,	//在地面上 圆形
+}
+
+/// <summary>
+/// 子弹隐藏类型
+/// </summary>
+public enum BulletHideType
+{
+	HitPlayer = 1,	//击中玩家隐藏
+	HitWall = 2,	//击中墙壁或者地板
+	Custom = 4,	//程序自定义
+}
