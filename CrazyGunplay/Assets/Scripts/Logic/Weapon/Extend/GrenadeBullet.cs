@@ -96,6 +96,7 @@ public class GrenadeBullet : Bullet
                 if (dis <= radius)
                 {
                     Vector3 dir = (entity.transform.position - BulletEntityList[0].Entity.transform.position).normalized;
+                    dir.z = 0;  //忽略z值
                     SendAttackEvent(player.PlayerId);
                     player.GetDamage(GetHitType.HitToFly, dir);
                 }
