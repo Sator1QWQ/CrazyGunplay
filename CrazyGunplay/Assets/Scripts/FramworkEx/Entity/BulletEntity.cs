@@ -20,7 +20,13 @@ public class BulletEntity : EntityLogic
     {
         base.OnInit(userData);
         Gravity = GetComponent<SimpleGravity>();
-        LookAt = transform.right;
+    }
+
+    protected override void OnShow(object userData)
+    {
+        base.OnShow(userData);
+        Bullet bullet = userData as Bullet;
+        LookAt = bullet.OwnerWeapon.Entity.PlayerEntity.LookDirection;
         Down = -transform.up;
     }
 
@@ -30,6 +36,8 @@ public class BulletEntity : EntityLogic
         Entity.transform.position = GlobalDefine.FAY_WAY;
         Gravity.ResetGravity();
         Gravity.ResetVelocity();
+        LookAt = Vector3.zero;
+        Down = Vector3.zero;
     }
 
     protected override void OnHide(bool isShutdown, object userData)

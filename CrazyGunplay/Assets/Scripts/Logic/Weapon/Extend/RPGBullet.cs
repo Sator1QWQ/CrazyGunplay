@@ -16,6 +16,11 @@ public class RPGBullet : Bullet
     {
     }
 
+    public override void DoAttackAction(PlayerEntity playerEntity)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void Fly()
     {
         throw new System.NotImplementedException();

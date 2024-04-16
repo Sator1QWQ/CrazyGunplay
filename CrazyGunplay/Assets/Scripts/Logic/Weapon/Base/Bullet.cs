@@ -86,7 +86,8 @@ public abstract class Bullet
 		for(int i = 0; i < BulletEntityList.Count; i++)
         {
 			BulletEntityList[i].transform.position = StartPos;
-			BulletEntityList[i].transform.rotation = Quaternion.Euler(StartDirection);
+			BulletEntityList[i].transform.rotation = Quaternion.LookRotation(StartDirection);
+			BulletEntityList[i].transform.right = BulletEntityList[i].transform.forward;	//right看向原来的forward
 		}
     }
 
@@ -115,15 +116,24 @@ public abstract class Bullet
 	/// <summary>
 	/// 子弹击中玩家时调用
 	/// </summary>
-	/// <returns>是否需要隐藏子弹</returns>
-	public virtual void OnHitPlayer(PlayerEntity entity)
-    {
-		
-    }
+	/// <returns>是否可以触发伤害</returns>
+	public virtual bool OnHitPlayer(PlayerEntity entity) => true;
 
 	/// <summary>
 	/// 是否需要隐藏子弹
 	/// </summary>
 	/// <returns></returns>
 	public virtual bool CustomCheckHide() => false;
+
+	public abstract void DoAttackAction(PlayerEntity playerEntity);
+
+	/// <summary>
+	/// 发送攻击事件，增加击退值
+	/// </summary>
+	/// <param name="playerId"></param>
+	protected void SendAttackEvent(int playerId)
+    {
+		BulletHitEventArgs args = BulletHitEventArgs.Create(playerId, OwnerWeapon.Id);
+		Module.Event.FireNow(this, args);
+	}
 }

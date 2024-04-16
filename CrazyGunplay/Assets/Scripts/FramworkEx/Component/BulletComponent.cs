@@ -127,14 +127,15 @@ public class BulletComponent : GameFrameworkComponent
                     if((hideType & BulletHideType.HitPlayer) != 0 && hit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
                     {
                         PlayerEntity player = hit.transform.GetComponent<PlayerEntity>();
-                        //不允许击中自己，则需要判断击中的玩家id是否是自己
-                        if (bullet.CanHitSelf || (!bullet.CanHitSelf && !player.Equals(bullet.OwnerWeapon.Entity.PlayerEntity)))
+                        //不允许击中自己
+                        if (player.PlayerId != bullet.OwnerWeapon.PlayerId)
                         {
-                            isHit = true;
-                            BulletHitEventArgs args = BulletHitEventArgs.Create(player.Data.PlayerId, bullet.OwnerWeapon.Id);
-                            Module.Event.FireNow(this, args);
-                            bullet.OnHitPlayer(player);
-                            break;  //击中1发就算是全部命中
+                            if(bullet.OnHitPlayer(player))
+                            {
+                                isHit = true;
+                                bullet.DoAttackAction(player);
+                                break;  //击中1发就算是全部命中
+                            }
                         }
                     }
 
@@ -148,7 +149,14 @@ public class BulletComponent : GameFrameworkComponent
                 }
             }
 
-            if(isHit || (!isHit && bullet.CustomCheckHide()))
+            bool customHit = false;
+            if(!isHit && bullet.CustomCheckHide())
+            {
+                customHit = true;
+                bullet.DoAttackAction(null);    //自定义模式，没有玩家实体传入
+            }
+
+            if(isHit || customHit)
             {
                 HideBullet(bullet);
                 i--;

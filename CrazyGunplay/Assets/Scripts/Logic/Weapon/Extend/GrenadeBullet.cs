@@ -31,7 +31,7 @@ public class GrenadeBullet : Bullet
         {
             BulletEntityList[i].Gravity.useGravity = true;
             BulletEntityList[i].Gravity.seetingUseGravity = true;
-            BulletEntityList[i].Gravity.AddForce("GrenadeBullet_" + Id, new Vector3(1, 1, 0) * 3);
+            BulletEntityList[i].Gravity.AddForce("GrenadeBullet_" + Id, (Vector3.up + OwnerWeapon.Entity.PlayerEntity.LookDirection).normalized * 5);
         }
     }
 
@@ -45,19 +45,31 @@ public class GrenadeBullet : Bullet
         if (tempTime >= delay)
         {
             tempTime = 0;
-            Boom();
             return true;
         }
         return false;
     }
 
-    public override void OnHitPlayer(PlayerEntity entity)
+    public override bool OnHitPlayer(PlayerEntity entity) => OwnerWeapon.PlayerId != entity.PlayerId;
+
+    public override void DoAttackAction(PlayerEntity playerEntity)
     {
-        Boom(); //击中玩家直接爆炸
+        //如果打在玩家身上，那么不判断距离，直接算命中该玩家
+        if (playerEntity != null)
+        {
+            Vector3 dir = (playerEntity.transform.position - BulletEntityList[0].Entity.transform.position).normalized;
+            SendAttackEvent(playerEntity.PlayerId);
+            playerEntity.GetDamage(GetHitType.HitToFly, dir);
+            Boom(playerEntity.PlayerId);
+        }
+        else
+        {
+            Boom();
+        }
     }
 
     //爆炸
-    private void Boom()
+    private void Boom(int ignorePlayer = -1)
     {
         if (rangeType == GrenadeRangeType.Circle)
         {
@@ -66,16 +78,25 @@ public class GrenadeBullet : Bullet
             for (int i = 0; i < entityArr.Length; i++)
             {
                 Entity entity = Module.Entity.GetEntity(entityArr[i].Id);
+                PlayerEntity player = entity.Logic as PlayerEntity;
+                
+                //忽略掉某个玩家
+                if(player.PlayerId == ignorePlayer)
+                {
+                    continue;
+                }
+
+                //不可击中自己时击中自己，则不会受伤
+                if (!CanHitSelf && player.PlayerId == OwnerWeapon.PlayerId)
+                {
+                    continue;
+                }
+
                 float dis = Vector3.Distance(BulletEntityList[0].Entity.transform.position, entity.transform.position);
                 if (dis <= radius)
                 {
                     Vector3 dir = (entity.transform.position - BulletEntityList[0].Entity.transform.position).normalized;
-                    PlayerEntity player = entity.Logic as PlayerEntity;
-
-                    //同步数据
-                    BulletHitEventArgs args = BulletHitEventArgs.Create(player.Data.PlayerId, OwnerWeapon.Id);
-                    Module.Event.FireNow(this, args);
-
+                    SendAttackEvent(player.PlayerId);
                     player.GetDamage(GetHitType.HitToFly, dir);
                 }
             }

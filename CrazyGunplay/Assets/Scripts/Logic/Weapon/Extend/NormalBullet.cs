@@ -43,9 +43,14 @@ public class NormalBullet : Bullet
         }
     }
 
-    public override void OnHitPlayer(PlayerEntity entity)
+    public override void DoAttackAction(PlayerEntity player)
     {
+        if (player == null)
+        {
+            return;
+        }
+        SendAttackEvent(player.PlayerId);
         GetHitType type = (GetHitType)weaponConfig.Get<int>("beatType");
-        entity.GetDamage(type, StartDirection.normalized);
+        player.GetDamage(type, StartDirection.normalized);
     }
 }
