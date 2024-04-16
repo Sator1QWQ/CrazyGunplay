@@ -180,6 +180,8 @@ public class PlayerEntity : CharacterEntity
 
     private void BeatBack(Vector3 vector)
     {
+        Entity.transform.position = new Vector3(Entity.transform.position.x, Entity.transform.position.y, 0);   //重置坐标
+
         mGravity.AddForce("Force", vector * Data.BeatBackValue, 0.3f);
         Debug.Log("击退值为==" + Data.BeatBackValue + ", 击退百分比为：" + Data.BeatBackPercent);
     }
