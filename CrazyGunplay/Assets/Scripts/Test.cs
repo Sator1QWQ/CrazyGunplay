@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+    public GameObject target;
+
     private void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.K))
-        //{
-        //    Debug.Log("K");
-        //    //GetComponent<Rigidbody>().velocity = new Vector3(2, 1, 0);
-        //    GetComponent<SimpleGravity>().AddForce("11", new Vector3(1, 1, 0) * 5);
-        //}
-        
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            transform.rotation = Quaternion.LookRotation(target.transform.right);
+            transform.right = transform.forward;
+        }
+
     }
 
 }
