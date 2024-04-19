@@ -3,7 +3,7 @@ Bullet = {
 	[1001] = {
 		id = 1001,
 		bulletType = 1,
-		params = {
+		bulletParams = {
 		},
 		bulletCount = 1,
 		bulletOffset = {
@@ -19,7 +19,7 @@ Bullet = {
 	[1002] = {
 		id = 1002,
 		bulletType = 1,
-		params = {
+		bulletParams = {
 		},
 		bulletCount = 8,
 		bulletOffset = {
@@ -35,7 +35,7 @@ Bullet = {
 	[1003] = {
 		id = 1003,
 		bulletType = 2,
-		params = {
+		bulletParams = {
 		},
 		bulletCount = 1,
 		bulletOffset = {
@@ -51,7 +51,7 @@ Bullet = {
 	[1004] = {
 		id = 1004,
 		bulletType = 3,
-		params = {
+		bulletParams = {
 		},
 		bulletCount = 1,
 		bulletOffset = {
@@ -67,7 +67,7 @@ Bullet = {
 	[1005] = {
 		id = 1005,
 		bulletType = 2,
-		params = {
+		bulletParams = {
 		},
 		bulletCount = 1,
 		bulletOffset = {
