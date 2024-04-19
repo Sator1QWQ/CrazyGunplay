@@ -175,6 +175,30 @@ namespace XLua.CSObjectWrap
             wrapInit0(luaenv, translator);
             
             
+            translator.AddInterfaceBridgeCreator(typeof(Config_Buff), Config_BuffBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(Config_Bullet), Config_BulletBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(Config_Character), Config_CharacterBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(Config_CharacterData), Config_CharacterDataBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(Config_EntityGroupConfig), Config_EntityGroupConfigBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(Config_Grenade), Config_GrenadeBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(Config_Gun), Config_GunBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(Config_Scene), Config_SceneBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(Config_Skill), Config_SkillBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(Config_SkillAsset), Config_SkillAssetBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(Config_TeamConfig), Config_TeamConfigBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(Config_Weapon), Config_WeaponBridge.__Create);
+            
             translator.AddInterfaceBridgeCreator(typeof(System.Collections.IEnumerator), SystemCollectionsIEnumeratorBridge.__Create);
             
             translator.AddInterfaceBridgeCreator(typeof(XLuaTest.IExchanger), XLuaTestIExchangerBridge.__Create);

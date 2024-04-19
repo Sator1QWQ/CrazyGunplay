@@ -136,3 +136,28 @@ public enum BulletHideType
 	HitWall = 2,	//击中墙壁或者地板
 	Custom = 4,	//程序自定义
 }
+
+/// <summary>
+/// 技能类型
+/// </summary>
+public enum SkillType
+{
+	zhudong = 1,
+	beidong = 2,
+}
+
+/// <summary>
+/// 技能施法模式
+/// </summary>
+public enum SkillCastMode
+{
+
+}
+
+/// <summary>
+/// 技能目标类型
+/// </summary>
+public enum SkillTargetType
+{
+
+}
