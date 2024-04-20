@@ -20,9 +20,10 @@ public class GrenadeBullet : Bullet
 
     public GrenadeBullet(Weapon ownerWeapon, int bulletId, int gunId) : base(ownerWeapon, bulletId, gunId)
     {
-        delay = Config.Get<float>("Grenade", gunId, "delay");
-        rangeType = (GrenadeRangeType)Config.Get<int>("Grenade", gunId, "rangeType");
-        radius = Config.Get<float>("Grenade", gunId, "radius");
+        Config_Grenade cfg = Config<Config_Grenade>.Get("Grenade", gunId);
+        delay = cfg.delay;
+        rangeType = cfg.rangeType;
+        radius = cfg.radius;
     }
 
     public override void FirstFly()

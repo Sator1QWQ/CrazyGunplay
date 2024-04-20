@@ -16,7 +16,7 @@ public class SceneTool
     /// <param name="sceneId"></param>
     public static void ChangeScene(int sceneId)
     {
-        string sceneName = Config.Get<string>("Scene", sceneId, "assetPath");
+        string sceneName = Config<Config_Scene>.Get("Scene", sceneId).assetPath;
         RemoveSceneAssets();
         string path = GlobalDefine.SCENE_PATH + sceneName;
         Module.Scene.LoadScene(path);

@@ -98,11 +98,10 @@ public class PlayerEntity : CharacterEntity
         {
             Controller = new TwoPController(this, mGravity);
         }
-        
-        LuaTable data = Config.Get("CharacterData", Data.HeroId);
 
-        float speed = data.Get<float>("speed");
-        float jumpSpeed = data.Get<float>("jump");
+        Config_CharacterData data = Config<Config_CharacterData>.Get("CharacterData", Data.HeroId);
+        float speed = data.speed;
+        float jumpSpeed = data.jump;
         Controller.AddControlAction(new MoveController(speed));
         Controller.AddControlAction(new JumpController(jumpSpeed));
         Controller.AddControlAction(new DushController());
@@ -128,8 +127,8 @@ public class PlayerEntity : CharacterEntity
     private void InitWeapon()
     {
         Module.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
-        LuaTable data = Config.Get("Character", Data.HeroId);
-        Data.WeaponId = data.Get<int>("initWeapon");
+        Config_Character data = Config<Config_Character>.Get("Character", Data.HeroId);
+        Data.WeaponId = data.initWeapon;
         Module.Weapon.ShowWeapon("Weapon", Data.PlayerId, Data.WeaponId);
     }
 

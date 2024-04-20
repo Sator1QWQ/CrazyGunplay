@@ -60,9 +60,10 @@ public abstract class PlayerController
     {
         Entity = entity;
         Gravity = gravity;
-        DushDistance = Config.Get<float>("CharacterData", Entity.Data.HeroId, "dushDistance");
-        CanDushNum = Config.Get<int>("CharacterData", Entity.Data.HeroId, "dushNum");
-        CanAirJumpNum = Config.Get<int>("CharacterData", Entity.Data.HeroId, "airJumpNum");
+        Config_CharacterData cfg = Config<Config_CharacterData>.Get("CharacterData", Entity.Data.HeroId);
+        DushDistance = cfg.dushDistance;
+        CanDushNum = cfg.dushNum;
+        CanAirJumpNum = cfg.airJumpNum;
         Gravity.OnTouchGround += OnTouchGround;
     }
 

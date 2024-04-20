@@ -12,7 +12,7 @@ public interface Config_Bullet : IConfigBase
 
 	int bulletCount { get; set; }
 
-	List<float> bulletOffset { get; set; }
+	List<int> bulletOffset { get; set; }
 
 	float flySpeed { get; set; }
 

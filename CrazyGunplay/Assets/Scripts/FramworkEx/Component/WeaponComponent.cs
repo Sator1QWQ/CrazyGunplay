@@ -44,25 +44,25 @@ public class WeaponComponent : GameFrameworkComponent
 	/// <returns></returns>
 	public Weapon ShowWeapon(string configName, int playerId, int id)
 	{
-		LuaTable config = Config.Get(configName, id);
+		Config_Weapon cfg = Config<Config_Weapon>.Get(configName, id);
 		Weapon weapon = null;
 
-		WeaponType type = config.Get<WeaponType>("weaponType");
+		WeaponType type = cfg.weaponType;
 		switch (type)
 		{
 			case WeaponType.Gun:
-				weapon = new GunWeapon(config, playerId, id);
+				weapon = new GunWeapon(cfg, playerId, id);
 				break;
 			case WeaponType.Throw:
-				weapon = new GrenadeWeapon(config, playerId, id);
+				weapon = new GrenadeWeapon(cfg, playerId, id);
 				break;
 			case WeaponType.NearRange:
-				weapon = new NearRangeWeapon(config, playerId, id);
+				weapon = new NearRangeWeapon(cfg, playerId, id);
 				break;
 		}
 
 		weaponDic.Add(playerId, weapon);
-		string path = config.Get<string>("path");
+		string path = cfg.path;
 		int entId = EntityTool.GetWeaponEntityId();
 		Debug.Log("show了一个武器 实体id==" + entId);
 		Module.Entity.ShowEntity(entId, typeof(WeaponEntity), path, "Weapon", weapon);

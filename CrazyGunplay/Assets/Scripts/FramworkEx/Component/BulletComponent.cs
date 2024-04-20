@@ -58,8 +58,7 @@ public class BulletComponent : GameFrameworkComponent
     /// </summary>
 	public void ShowBullet(Weapon ownerWeapon, int bulletId, int gunId, Vector3 startPos, Vector3 startDirection)
     {
-        //BulletType type = Config.Get<BulletType>("Bullet", bulletId, "bulletType");
-        Config_Bullet cfg = NewConfig<Config_Bullet>.Get("Bullet", bulletId);
+        Config_Bullet cfg = Config<Config_Bullet>.Get("Bullet", bulletId);
         BulletType type = cfg.bulletType;
 
         Bullet bullet = null;
@@ -76,7 +75,7 @@ public class BulletComponent : GameFrameworkComponent
                 break;
         }
         bulletList.Add(bullet);
-        string assetPath = Config.Get<string>("Bullet", bulletId, "assetPath");
+        string assetPath = cfg.assetPath;
         bullet.InitBullet(startPos, startDirection);
 
         for (int i = 0; i < bullet.BulletCount; i++)

@@ -232,7 +232,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        System.Collections.Generic.List<float> Config_Bullet.bulletOffset 
+        System.Collections.Generic.List<int> Config_Bullet.bulletOffset 
         {
             
             get 
@@ -250,7 +250,7 @@ namespace XLua.CSObjectWrap
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
 					}
-					System.Collections.Generic.List<float> __gen_ret = (System.Collections.Generic.List<float>)translator.GetObject(L, -1, typeof(System.Collections.Generic.List<float>));
+					System.Collections.Generic.List<int> __gen_ret = (System.Collections.Generic.List<int>)translator.GetObject(L, -1, typeof(System.Collections.Generic.List<int>));
 					LuaAPI.lua_pop(L, 2);
 					return __gen_ret;
 #if THREAD_SAFE || HOTFIX_ENABLE

@@ -20,12 +20,12 @@ public abstract class Weapon
 
 	public WeaponEntity Entity { get; private set; }
 
-	public Weapon(LuaTable config, int playerId, int id)
+	public Weapon(Config_Weapon config, int playerId, int id)
     {
 		PlayerId = playerId;
 		Id = id;
-		Type = config.Get<WeaponType>("weaponType");
-		TargetId = config.Get<int>("targetId");
+		Type = config.weaponType;
+		TargetId = config.targetId;
     }
 
 	/// <summary>

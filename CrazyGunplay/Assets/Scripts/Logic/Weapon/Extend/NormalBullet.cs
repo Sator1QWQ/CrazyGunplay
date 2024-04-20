@@ -13,14 +13,14 @@ using XLua;
 */
 public class NormalBullet : Bullet
 {
-    private LuaTable weaponConfig;
-    private int[] bulletOffset; //[0]最小角度 [1]最大角度
+    private Config_Weapon weaponConfig;
+    private List<int> bulletOffset; //[0]最小角度 [1]最大角度
     private int[] randomAngle;
 
     public NormalBullet(Weapon ownerWeapon, int bulletId, int gunId) : base(ownerWeapon, bulletId, gunId)
     {
-        weaponConfig = Config.Get("Weapon", gunId);
-        bulletOffset = Config.Get<int[]>("Bullet", bulletId, "bulletOffset");
+        weaponConfig = Config<Config_Weapon>.Get("Weapon", gunId);
+        bulletOffset = Config<Config_Bullet>.Get("Bullet", bulletId).bulletOffset;
         Init();
     }
 
@@ -50,7 +50,7 @@ public class NormalBullet : Bullet
             return;
         }
         SendAttackEvent(player.PlayerId);
-        GetHitType type = (GetHitType)weaponConfig.Get<int>("beatType");
+        GetHitType type = weaponConfig.beatType;
         player.GetDamage(type, StartDirection.normalized);
     }
 }

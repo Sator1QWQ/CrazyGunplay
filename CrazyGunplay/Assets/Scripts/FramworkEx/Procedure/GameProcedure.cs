@@ -23,21 +23,15 @@ public class GameProcedure : ProcedureBase
         Debug.Log("游戏流程");
 
         //设置实体组
-        LuaTable table = Config.Get("EntityGroupConfig");
-        IEnumerable en = table.GetKeys();
-        foreach(object item in en)
+        Dictionary<int, Config_EntityGroupConfig> table = Config<Config_EntityGroupConfig>.Get("EntityGroupConfig");
+        foreach(KeyValuePair<int, Config_EntityGroupConfig> pairs in table)
         {
-            if(item is string)
-            {
-                continue;
-            }
-            int id = (int)(long)item;
-            LuaTable config = Config.Get("EntityGroupConfig", id);
-            string groupName = config.Get<string>("name");
-            int instanceAutoReleaseInterval = config.Get<int>("instanceAutoReleaseInterval");
-            int instanceCapacity = config.Get<int>("instanceCapacity");
-            int instanceExpireTime = config.Get<int>("instanceExpireTime");
-            int instancePriority = config.Get<int>("instancePriority");
+            Config_EntityGroupConfig cfg = pairs.Value;
+            string groupName = cfg.name;
+            float instanceAutoReleaseInterval = cfg.instanceAutoReleaseInterval;
+            int instanceCapacity = cfg.instanceCapacity;
+            float instanceExpireTime = cfg.instanceExpireTime;
+            int instancePriority = cfg.instancePriority;
             Module.Entity.AddEntityGroup(groupName, instanceAutoReleaseInterval, instanceCapacity, instanceExpireTime, instancePriority);
         }
 

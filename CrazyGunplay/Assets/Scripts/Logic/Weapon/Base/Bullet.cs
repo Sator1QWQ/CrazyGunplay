@@ -60,10 +60,11 @@ public abstract class Bullet
 		OwnerWeapon = ownerWeapon;
 		Id = bulletId;
 		GunId = gunId;
-		BulletCount = Config.Get<int>("Bullet", bulletId, "bulletCount");
-		FlySpeed = Config.Get<float>("Bullet", bulletId, "flySpeed");
-		CanHitSelf = Config.Get<bool>("Bullet", bulletId, "canHitSelf");
-		HideType = (BulletHideType)Config.Get<int>("Bullet", bulletId, "bulletHideType");
+		Config_Bullet config = Config<Config_Bullet>.Get("Bullet", bulletId);
+		BulletCount = config.bulletCount;
+		FlySpeed = config.flySpeed;
+		CanHitSelf = config.canHitSelf;
+		HideType = config.bulletHideType;
 		BulletEntityList = new List<BulletEntity>();
 		IsFirstFly = true;
     }

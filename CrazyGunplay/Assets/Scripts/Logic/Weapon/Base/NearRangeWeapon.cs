@@ -13,7 +13,7 @@ using XLua;
 */
 public class NearRangeWeapon : Weapon
 {
-    public NearRangeWeapon(LuaTable config, int playerId, int id) : base(config, playerId, id)
+    public NearRangeWeapon(Config_Weapon config, int playerId, int id) : base(config, playerId, id)
     {
     }
 

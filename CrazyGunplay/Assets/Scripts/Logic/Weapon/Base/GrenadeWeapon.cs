@@ -18,9 +18,10 @@ public class GrenadeWeapon : Weapon
     private float rateTemp;
     private bool canAttack;
 
-    public GrenadeWeapon(LuaTable config, int playerId, int id) : base(config, playerId, id)
+    public GrenadeWeapon(Config_Weapon config, int playerId, int id) : base(config, playerId, id)
     {
-         FireRate = Config.Get<float>("Grenade", id, "fireRate");
+        Config_Grenade cfg = Config<Config_Grenade>.Get("Grenade", id);
+        FireRate = cfg.fireRate;
     }
 
     public override void OnUpdate()
@@ -40,7 +41,8 @@ public class GrenadeWeapon : Weapon
             return;
         }
         Debug.Log("投掷物攻击！");
-        int bulletId = Config.Get<int>("Grenade", Id, "bulletId");
+        Config_Grenade cfg = Config<Config_Grenade>.Get("Grenade", Id);
+        int bulletId = cfg.bulletId;
         Module.Bullet.ShowBullet(this, bulletId, Id, Entity.PlayerEntity.WeaponRoot.position, Entity.PlayerEntity.LookDirection);
         canAttack = false;
     }
