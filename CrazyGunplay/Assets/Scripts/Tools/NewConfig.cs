@@ -16,6 +16,11 @@ public class NewConfig<T> where T : class, IConfigBase
         if (!configDic.ContainsKey(configName))
         {
             Dictionary<int, T> cfg = Module.Lua.Env.Global.Get<Dictionary<int, T>>(configName);
+            if(cfg == null)
+            {
+                Module.Lua.Env.DoString($"require 'Configs.Config.{configName}'");
+                cfg = Module.Lua.Env.Global.Get<Dictionary<int, T>>(configName);
+            }
             configDic.Add(configName, cfg);
             return cfg;
         }
