@@ -42,6 +42,7 @@ public class BulletComponent : GameFrameworkComponent
         BulletEntity entity = showEvent.Entity.Logic as BulletEntity;
         Bullet bullet = (Bullet)showEvent.UserData;
         bullet.AddBulletEntity(entity);
+        entity.Gravity.RayCastDistance = GlobalDefine.BULLET_RAY_DISTANCE;  //重力射线长度过短会检测不到地面
         
         //子弹全部加载完，开始飞行
         if(bullet.BulletEntityList.Count == bullet.BulletCount)
@@ -57,7 +58,10 @@ public class BulletComponent : GameFrameworkComponent
     /// </summary>
 	public void ShowBullet(Weapon ownerWeapon, int bulletId, int gunId, Vector3 startPos, Vector3 startDirection)
     {
-        BulletType type = Config.Get<BulletType>("Bullet", bulletId, "bulletType");
+        //BulletType type = Config.Get<BulletType>("Bullet", bulletId, "bulletType");
+        Config_Bullet cfg = NewConfig<Config_Bullet>.Get("Bullet", bulletId);
+        BulletType type = cfg.bulletType;
+
         Bullet bullet = null;
         switch (type)
         {

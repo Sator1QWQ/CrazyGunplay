@@ -46,6 +46,11 @@ public class GlobalDefine
 	public static float FLOOR_RAY_DISTANCE = 0.2f;
 
 	/// <summary>
+	/// 子弹检测长度
+	/// </summary>
+	public static float BULLET_RAY_DISTANCE = 0.45f;
+
+	/// <summary>
 	/// dush持续时间
 	/// </summary>
 	public static float DUSH_TIME = 0.2f;

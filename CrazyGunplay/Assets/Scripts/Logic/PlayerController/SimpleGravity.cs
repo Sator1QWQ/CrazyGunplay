@@ -50,7 +50,12 @@ public class SimpleGravity : MonoBehaviour
     [HideInInspector] public bool seetingUseGravity;
     private List<UpdateData> mUpdateActionList = new List<UpdateData>();
 
-    [HideInInspector] public bool IsAir { get; private set; }
+    public bool IsAir { get; private set; }
+
+    /// <summary>
+    /// 射线检测长度
+    /// </summary>
+    public float RayCastDistance { get; set; }
 
     /// <summary>
     /// 触碰到地面时调用
@@ -62,6 +67,7 @@ public class SimpleGravity : MonoBehaviour
         mBody = GetComponent<Rigidbody>();
         mBody.useGravity = false;
         seetingUseGravity = useGravity;
+        RayCastDistance = GlobalDefine.FLOOR_RAY_DISTANCE;
     }
 
     /// <summary>
