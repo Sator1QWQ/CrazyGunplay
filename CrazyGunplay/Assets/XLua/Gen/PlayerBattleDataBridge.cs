@@ -14,21 +14,21 @@ using System;
 
 namespace XLua.CSObjectWrap
 {
-    public class Config_BuffBridge : LuaBase, Config_Buff
+    public class PlayerBattleDataBridge : LuaBase, PlayerBattleData
     {
 	    public static LuaBase __Create(int reference, LuaEnv luaenv)
 		{
-		    return new Config_BuffBridge(reference, luaenv);
+		    return new PlayerBattleDataBridge(reference, luaenv);
 		}
 		
-		public Config_BuffBridge(int reference, LuaEnv luaenv) : base(reference, luaenv)
+		public PlayerBattleDataBridge(int reference, LuaEnv luaenv) : base(reference, luaenv)
         {
         }
 		
         
 
         
-        int Config_Buff.id 
+        int PlayerBattleData.id 
         {
             
             get 
@@ -79,7 +79,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        BuffType Config_Buff.type 
+        int PlayerBattleData.heroId 
         {
             
             get 
@@ -90,14 +90,14 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					ObjectTranslator translator = luaEnv.translator;
+					
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "type");
+					LuaAPI.xlua_pushasciistring(L, "heroId");
 					if (0 != LuaAPI.xlua_pgettable(L, -2))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
 					}
-					BuffType __gen_ret;translator.Get(L, -1, out __gen_ret);
+					int __gen_ret = LuaAPI.xlua_tointeger(L, -1);
 					LuaAPI.lua_pop(L, 2);
 					return __gen_ret;
 #if THREAD_SAFE || HOTFIX_ENABLE
@@ -114,10 +114,10 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					ObjectTranslator translator = luaEnv.translator;
+					
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "type");
-					translator.Push(L, value);
+					LuaAPI.xlua_pushasciistring(L, "heroId");
+					LuaAPI.xlua_pushinteger(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
@@ -130,7 +130,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        float Config_Buff.triggerInterval 
+        int PlayerBattleData.weaponId 
         {
             
             get 
@@ -143,7 +143,109 @@ namespace XLua.CSObjectWrap
 					int oldTop = LuaAPI.lua_gettop(L);
 					
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "triggerInterval");
+					LuaAPI.xlua_pushasciistring(L, "weaponId");
+					if (0 != LuaAPI.xlua_pgettable(L, -2))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					int __gen_ret = LuaAPI.xlua_tointeger(L, -1);
+					LuaAPI.lua_pop(L, 2);
+					return __gen_ret;
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+            
+            set
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "weaponId");
+					LuaAPI.xlua_pushinteger(L, value);
+					if (0 != LuaAPI.xlua_psettable(L, -3))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					LuaAPI.lua_pop(L, 1);
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+        }
+        
+        int PlayerBattleData.life 
+        {
+            
+            get 
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "life");
+					if (0 != LuaAPI.xlua_pgettable(L, -2))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					int __gen_ret = LuaAPI.xlua_tointeger(L, -1);
+					LuaAPI.lua_pop(L, 2);
+					return __gen_ret;
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+            
+            set
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "life");
+					LuaAPI.xlua_pushinteger(L, value);
+					if (0 != LuaAPI.xlua_psettable(L, -3))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					LuaAPI.lua_pop(L, 1);
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+        }
+        
+        float PlayerBattleData.beatBackValue 
+        {
+            
+            get 
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "beatBackValue");
 					if (0 != LuaAPI.xlua_pgettable(L, -2))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
@@ -167,7 +269,7 @@ namespace XLua.CSObjectWrap
 					int oldTop = LuaAPI.lua_gettop(L);
 					
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "triggerInterval");
+					LuaAPI.xlua_pushasciistring(L, "beatBackValue");
 					LuaAPI.lua_pushnumber(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
@@ -181,7 +283,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        string Config_Buff.desc 
+        int PlayerBattleData.beatBackPercent 
         {
             
             get 
@@ -194,12 +296,12 @@ namespace XLua.CSObjectWrap
 					int oldTop = LuaAPI.lua_gettop(L);
 					
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "desc");
+					LuaAPI.xlua_pushasciistring(L, "beatBackPercent");
 					if (0 != LuaAPI.xlua_pgettable(L, -2))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
 					}
-					string __gen_ret = LuaAPI.lua_tostring(L, -1);
+					int __gen_ret = LuaAPI.xlua_tointeger(L, -1);
 					LuaAPI.lua_pop(L, 2);
 					return __gen_ret;
 #if THREAD_SAFE || HOTFIX_ENABLE
@@ -218,110 +320,8 @@ namespace XLua.CSObjectWrap
 					int oldTop = LuaAPI.lua_gettop(L);
 					
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "desc");
-					LuaAPI.lua_pushstring(L, value);
-					if (0 != LuaAPI.xlua_psettable(L, -3))
-					{
-						luaEnv.ThrowExceptionFromError(oldTop);
-					}
-					LuaAPI.lua_pop(L, 1);
-#if THREAD_SAFE || HOTFIX_ENABLE
-                }
-#endif
-            }
-            
-        }
-        
-        string Config_Buff.effectPath 
-        {
-            
-            get 
-            {
-#if THREAD_SAFE || HOTFIX_ENABLE
-                lock (luaEnv.luaEnvLock)
-                {
-#endif
-					RealStatePtr L = luaEnv.L;
-					int oldTop = LuaAPI.lua_gettop(L);
-					
-					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "effectPath");
-					if (0 != LuaAPI.xlua_pgettable(L, -2))
-					{
-						luaEnv.ThrowExceptionFromError(oldTop);
-					}
-					string __gen_ret = LuaAPI.lua_tostring(L, -1);
-					LuaAPI.lua_pop(L, 2);
-					return __gen_ret;
-#if THREAD_SAFE || HOTFIX_ENABLE
-                }
-#endif
-            }
-            
-            
-            set
-            {
-#if THREAD_SAFE || HOTFIX_ENABLE
-                lock (luaEnv.luaEnvLock)
-                {
-#endif
-					RealStatePtr L = luaEnv.L;
-					int oldTop = LuaAPI.lua_gettop(L);
-					
-					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "effectPath");
-					LuaAPI.lua_pushstring(L, value);
-					if (0 != LuaAPI.xlua_psettable(L, -3))
-					{
-						luaEnv.ThrowExceptionFromError(oldTop);
-					}
-					LuaAPI.lua_pop(L, 1);
-#if THREAD_SAFE || HOTFIX_ENABLE
-                }
-#endif
-            }
-            
-        }
-        
-        string Config_Buff.iconPath 
-        {
-            
-            get 
-            {
-#if THREAD_SAFE || HOTFIX_ENABLE
-                lock (luaEnv.luaEnvLock)
-                {
-#endif
-					RealStatePtr L = luaEnv.L;
-					int oldTop = LuaAPI.lua_gettop(L);
-					
-					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "iconPath");
-					if (0 != LuaAPI.xlua_pgettable(L, -2))
-					{
-						luaEnv.ThrowExceptionFromError(oldTop);
-					}
-					string __gen_ret = LuaAPI.lua_tostring(L, -1);
-					LuaAPI.lua_pop(L, 2);
-					return __gen_ret;
-#if THREAD_SAFE || HOTFIX_ENABLE
-                }
-#endif
-            }
-            
-            
-            set
-            {
-#if THREAD_SAFE || HOTFIX_ENABLE
-                lock (luaEnv.luaEnvLock)
-                {
-#endif
-					RealStatePtr L = luaEnv.L;
-					int oldTop = LuaAPI.lua_gettop(L);
-					
-					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "iconPath");
-					LuaAPI.lua_pushstring(L, value);
+					LuaAPI.xlua_pushasciistring(L, "beatBackPercent");
+					LuaAPI.xlua_pushinteger(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);

@@ -5,6 +5,7 @@ using GameFramework;
 using UnityGameFramework.Runtime;
 using XLua;
 using GameFramework.Event;
+using System;
 
 /*
 * 作者：
@@ -19,6 +20,8 @@ public class PlayerEntity : CharacterEntity
     /// </summary>
     public int PlayerId { get; private set; }
     public PlayerBattleData Data { get; private set; }
+    public BuffData BuffData { get; private set; }
+
     public Transform WeaponRoot { get; private set; }
 
     /// <summary>
@@ -28,6 +31,25 @@ public class PlayerEntity : CharacterEntity
 	public PlayerController Controller { get; private set; }
     public StateMachine<PlayerEntity> Machine { get; private set; }
     public Animator Anim { get; private set; }
+    public Config_CharacterData Config { get; private set; }
+
+    private event Action<BuffData> buffDataChange = _ => { };
+    /// <summary>
+    /// buff改变事件
+    /// 受PlayerEntity控制的模块，才注册这个事件
+    /// </summary>
+    public event Action<BuffData> OnBuffDataChange
+    {
+        add
+        {
+            buffDataChange += value;
+        }
+
+        remove
+        {
+            buffDataChange -= value;
+        }
+    }
 
     private bool isPauseControl;   //是否暂停控制
     private SimpleGravity mGravity;
@@ -41,6 +63,7 @@ public class PlayerEntity : CharacterEntity
         LuaTable table = (LuaTable)userData;
         PlayerId = table.Get<int>("playerId");
         Data = Module.PlayerData.GetData(PlayerId);
+        BuffData = Module.PlayerData.GetBuffData(PlayerId);
         WeaponRoot = transform.Find("WeaponRoot");
         Entity.transform.forward = Vector3.right;
         Anim = GetComponent<Animator>();
@@ -52,6 +75,8 @@ public class PlayerEntity : CharacterEntity
         {
             Entity.transform.position = Vector3.up * 10 + Vector3.right * 10;
         }
+
+        Config = Config<Config_CharacterData>.Get("CharacterData", Data.heroId);
     }
 
     protected override void OnShow(object userData)
@@ -59,6 +84,7 @@ public class PlayerEntity : CharacterEntity
         base.OnShow(userData);
         Module.Event.Subscribe(ChangeStateEventArgs<PlayerEntity>.EventId, OnChangeState);
         Module.Event.Subscribe(BattleStateChangeArgs.EventId, OnBattleStateChange);
+        Module.Event.Subscribe(SyncBuffDataEventArgs.EventId, OnSyncBuffData);
         mWeapon = Module.Weapon.GetWeapon(PlayerId);    //武器可能会变化
     }
 
@@ -66,6 +92,8 @@ public class PlayerEntity : CharacterEntity
     {
         base.OnHide(isShutdown, userData);
         Module.Event.Unsubscribe(ChangeStateEventArgs<PlayerEntity>.EventId, OnChangeState);
+        Module.Event.Unsubscribe(BattleStateChangeArgs.EventId, OnBattleStateChange);
+        Module.Event.Unsubscribe(SyncBuffDataEventArgs.EventId, OnSyncBuffData);
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -99,10 +127,10 @@ public class PlayerEntity : CharacterEntity
             Controller = new TwoPController(this, mGravity);
         }
 
-        Config_CharacterData data = Config<Config_CharacterData>.Get("CharacterData", Data.HeroId);
+        Config_CharacterData data = Config<Config_CharacterData>.Get("CharacterData", Data.heroId);
         float speed = data.speed;
         float jumpSpeed = data.jump;
-        Controller.AddControlAction(new MoveController(speed));
+        Controller.AddControlAction(new MoveController(speed, this));
         Controller.AddControlAction(new JumpController(jumpSpeed));
         Controller.AddControlAction(new DushController());
         Controller.AddControlAction(new NormalAttackController());
@@ -127,9 +155,9 @@ public class PlayerEntity : CharacterEntity
     private void InitWeapon()
     {
         Module.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
-        Config_Character data = Config<Config_Character>.Get("Character", Data.HeroId);
-        Data.WeaponId = data.initWeapon;
-        Module.Weapon.ShowWeapon("Weapon", Data.PlayerId, Data.WeaponId);
+        Config_Character data = Config<Config_Character>.Get("Character", Data.heroId);
+        Data.weaponId = data.initWeapon;
+        Module.Weapon.ShowWeapon("Weapon", Data.id, Data.weaponId);
     }
 
     private void OnShowEntity(object userData, GameFrameworkEventArgs e)
@@ -147,7 +175,7 @@ public class PlayerEntity : CharacterEntity
         WeaponEntity entity = showEvent.Entity.Logic as WeaponEntity;
         Weapon weapon = showEvent.UserData as Weapon;
         int playerId = weapon.PlayerId;
-        if(playerId != Data.PlayerId)
+        if(playerId != Data.id)
         {
             return;
         }
@@ -181,8 +209,8 @@ public class PlayerEntity : CharacterEntity
     {
         Entity.transform.position = new Vector3(Entity.transform.position.x, Entity.transform.position.y, 0);   //重置坐标
 
-        mGravity.AddForce("Force", vector * Data.BeatBackValue, 0.3f);
-        Debug.Log("击退值为==" + Data.BeatBackValue + ", 击退百分比为：" + Data.BeatBackPercent);
+        mGravity.AddForce("Force", vector * Data.beatBackValue, 0.3f);
+        Debug.Log("击退值为==" + Data.beatBackValue + ", 击退百分比为：" + Data.beatBackPercent);
     }
 
     //控制动画
@@ -217,6 +245,17 @@ public class PlayerEntity : CharacterEntity
                 Machine.IsPause = true;
                 break;
         }
+    }
+
+    private void OnSyncBuffData(object sender, GameEventArgs e)
+    {
+        SyncBuffDataEventArgs args = e as SyncBuffDataEventArgs;
+        if(args.playerId != PlayerId)
+        {
+            return;
+        }
+
+        buffDataChange(BuffData);
     }
 
     //hide时会调用这个函数，重置数据

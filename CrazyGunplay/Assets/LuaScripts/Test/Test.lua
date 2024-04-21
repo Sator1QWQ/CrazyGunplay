@@ -9,14 +9,12 @@ function Test:Awake()
     self.oneP.weaponId = Character[self.oneP.heroId].initWeapon
     MPlayer.Instance:AddPlayer(self.oneP)
     MTeam.Instance:AddTeamPlayer(GlobalDefine.BlueTeam, GlobalDefine.OnePId)
-    CPlayer.Instance:SyncBattleDataToCS(self.oneP.id)
     local asset1 = Character[self.oneP.heroId].model
     Module.Entity:ShowEntity(123, typeof(CS.PlayerEntity), "Assets/Resource/Models/Player/" .. asset1 .. ".prefab", "Player", {playerId = self.oneP.id})
     --2P
     self.twoP.weaponId = Character[self.twoP.heroId].initWeapon
     MPlayer.Instance:AddPlayer(self.twoP)
     MTeam.Instance:AddTeamPlayer(GlobalDefine.RedTeam, GlobalDefine.TwoPId)
-    CPlayer.Instance:SyncBattleDataToCS(self.twoP.id)
     local asset2 = Character[self.twoP.heroId].model
     Module.Entity:ShowEntity(124, typeof(CS.PlayerEntity), "Assets/Resource/Models/Player/" .. asset2 .. ".prefab", "Player", {playerId = self.twoP.id})
 end

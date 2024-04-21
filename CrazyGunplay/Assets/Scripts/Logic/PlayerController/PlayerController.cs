@@ -60,7 +60,7 @@ public abstract class PlayerController
     {
         Entity = entity;
         Gravity = gravity;
-        Config_CharacterData cfg = Config<Config_CharacterData>.Get("CharacterData", Entity.Data.HeroId);
+        Config_CharacterData cfg = Config<Config_CharacterData>.Get("CharacterData", Entity.Data.heroId);
         DushDistance = cfg.dushDistance;
         CanDushNum = cfg.dushNum;
         CanAirJumpNum = cfg.airJumpNum;

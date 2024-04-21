@@ -16,10 +16,18 @@ public class MoveController : ControlActionBase
     public override ControllerType CtrlType => ControllerType.Move;
 
     private float mSpeed;
+    private float defaultSpeed;
 
-    public MoveController(float speed)
+    public MoveController(float speed, PlayerEntity entity)
     {
-        mSpeed = speed;
+        defaultSpeed = speed;
+        mSpeed = defaultSpeed;
+        entity.OnBuffDataChange += OnBuffDataChange;
+    }
+
+    private void OnBuffDataChange(BuffData data)
+    {
+        mSpeed = defaultSpeed * data.moveSpeedScale;
     }
 
     public override void DoAction(PlayerController controller)

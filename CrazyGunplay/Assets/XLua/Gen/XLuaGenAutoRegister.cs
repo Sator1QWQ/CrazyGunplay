@@ -199,6 +199,10 @@ namespace XLua.CSObjectWrap
             
             translator.AddInterfaceBridgeCreator(typeof(Config_Weapon), Config_WeaponBridge.__Create);
             
+            translator.AddInterfaceBridgeCreator(typeof(PlayerBattleData), PlayerBattleDataBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(BuffData), BuffDataBridge.__Create);
+            
             translator.AddInterfaceBridgeCreator(typeof(System.Collections.IEnumerator), SystemCollectionsIEnumeratorBridge.__Create);
             
             translator.AddInterfaceBridgeCreator(typeof(XLuaTest.IExchanger), XLuaTestIExchangerBridge.__Create);

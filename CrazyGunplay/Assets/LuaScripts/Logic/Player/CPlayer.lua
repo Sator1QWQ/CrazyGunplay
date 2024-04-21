@@ -4,16 +4,17 @@ function CPlayer:ctor()
 end
 
 --玩家数据同步到CS端
+--不包括buff数据，虽然这里也会传，但是C#端不会获取buff
 function CPlayer:SyncBattleDataToCS(playerId)
     local player = MPlayer.Instance.playerList[playerId]
-    local data = CS.PlayerBattleData()
-    data.PlayerId = player.id
-    data.HeroId = player.heroId
-    data.WeaponId = player.weaponId
-    data.Life = player.life
-    data.BeatBackValue = player.beatBackValue
-    data.BeatBackPercent = player.beatBackPercent
-    local args = CS.SyncPlayerDataEventArgs.Create(data)
+    local args = CS.SyncPlayerDataEventArgs.Create(player)
+    Module.Event:FireNow(nil, args)
+end
+
+--玩家buff数据同步到CS端
+function CPlayer:SyncBuffDataToCS(playerId)
+    local buffData = MPlayer.Instance.playerList[playerId].buffData
+    local args = CS.SyncBuffDataEventArgs.Create(playerId, buffData)
     Module.Event:FireNow(nil, args)
 end
 

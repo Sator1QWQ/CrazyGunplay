@@ -95,7 +95,7 @@ namespace XLua
                 RealStatePtr L = luaEnv.rawL;
                 int errFunc = LuaAPI.pcall_prepare(L, errorFuncRef, luaReference);
                 ObjectTranslator translator = luaEnv.translator;
-                translator.Push(L, p0);
+                translator.PushAny(L, p0);
                 
                 PCall(L, 1, 0, errFunc);
                 

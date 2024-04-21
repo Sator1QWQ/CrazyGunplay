@@ -161,3 +161,34 @@ public enum SkillTargetType
 {
 
 }
+
+/// <summary>
+/// buff类型
+/// </summary>
+public enum BuffType
+{
+	/// <summary>
+	/// 移速修改
+	/// </summary>
+	MoveSpeed = 1,
+
+	/// <summary>
+	/// 受伤时的击退效果修改
+	/// </summary>
+	GetBeatBack = 2,
+
+	/// <summary>
+	/// 血量修改
+	/// </summary>
+	Hp = 3,
+
+	/// <summary>
+	/// 射速修改
+	/// </summary>
+	FireRate = 4,
+
+	/// <summary>
+	/// 攻击力修改
+	/// </summary>
+	BeatBackValue = 5,
+}

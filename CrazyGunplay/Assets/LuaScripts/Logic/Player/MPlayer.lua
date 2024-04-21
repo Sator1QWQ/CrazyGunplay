@@ -23,6 +23,18 @@ function MPlayer:AddPlayer(data)
     data.index = self.count  --在列表里的索引，要保证遍历的顺序
     data.beatBackValue = 1
     data.beatBackPercent = 0
+
+    --由buff系统操作的数据，在C#中也需要存
+    data.buffData = {
+        moveSpeedScale = 1,
+        getBeatScale = 1,   --受伤的倍率
+        hpAdd = 0,
+        fireRateScale = 1,
+        attackScale = 1,  --增加伤害的倍率
+    }
+
+    CPlayer.Instance:SyncBattleDataToCS(data.id)
+    CPlayer.Instance:SyncBuffDataToCS(data.id, data.buffData)
 end
 
 function MPlayer:Clear()
@@ -44,6 +56,11 @@ function MPlayer:ChangeBeatBackValue(id, value)
     --击退修正值：保证显示的百分比数不会太大
     self.playerList[id].beatBackPercent = math.floor(((self.playerList[id].beatBackValue - 1) * 100) * GlobalDefine.BeatBackRepair)
     CPlayer.Instance:SyncBattleDataToCS(id)
+end
+
+function MPlayer:BuffStart(id, key, value)
+    self.playerList[id].buffData[key] = value
+    CPlayer.Instance:SyncBuffDataToCS(id)
 end
 
 --根据索引获取数据
