@@ -20,8 +20,6 @@ public interface Config_Grenade : IConfigBase
 
 	float delay { get; set; }
 
-	float maxBeatBackValue { get; set; }
-
 	int buffId { get; set; }
 
 	float buffValue { get; set; }

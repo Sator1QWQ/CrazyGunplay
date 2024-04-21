@@ -76,7 +76,7 @@ Bullet = {
 		},
 		flySpeed = 1,
 		canHitSelf = false,
-		bulletHideType = 4,
+		bulletHideType = 5,
 		assetPath = Bullet_Text.assetPath_8,
 		effectPath = Bullet_Text.effectPath_8,
 	},

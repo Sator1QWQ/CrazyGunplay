@@ -32,8 +32,8 @@ Weapon = {
 		name = Weapon_Text.name_7,
 		weaponType = 2,
 		targetId = 201,
-		beatType = 1,
-		beatBack = 0,
+		beatType = 3,
+		beatBack = 1.5,
 		path = Weapon_Text.path_7,
 	},
 	[202] = {
