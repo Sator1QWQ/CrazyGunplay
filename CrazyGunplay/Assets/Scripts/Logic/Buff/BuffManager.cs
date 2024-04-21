@@ -7,8 +7,14 @@ using UnityEngine;
 public class BuffManager : IReference
 {
     private Dictionary<int, Buff> mBuffDic = new Dictionary<int, Buff>();
+    private int playerId;
 
-    public void AddBuff(PlayerEntity player, int buffId, float duration, float buffValue)
+    public BuffManager(int playerId)
+    {
+        this.playerId = playerId;
+    }
+
+    public void AddBuff(int buffId, float duration, float buffValue)
     {
         //buff已经有的话，则重置buff时间
         if(mBuffDic.ContainsKey(buffId))
@@ -19,8 +25,13 @@ public class BuffManager : IReference
 
         Buff buff = ReferencePool.Acquire<Buff>();
         mBuffDic.Add(buffId, buff);
-        buff.InitData(player, buffId, duration, buffValue);
+        buff.InitData(this, playerId, buffId, duration, buffValue);
         buff.OnBuffFirstStart();
+    }
+
+    public void RemoveBuff(int buffId)
+    {
+        mBuffDic.Remove(buffId);
     }
 
     public void Clear()

@@ -32,6 +32,8 @@ public class PlayerEntity : CharacterEntity
     public StateMachine<PlayerEntity> Machine { get; private set; }
     public Animator Anim { get; private set; }
     public Config_CharacterData Config { get; private set; }
+    public BuffManager BuffManager { get; private set; }
+
 
     private event Action<BuffData> buffDataChange = _ => { };
     /// <summary>
@@ -77,6 +79,7 @@ public class PlayerEntity : CharacterEntity
         }
 
         Config = Config<Config_CharacterData>.Get("CharacterData", Data.heroId);
+        BuffManager = new BuffManager(PlayerId);
     }
 
     protected override void OnShow(object userData)
@@ -194,7 +197,7 @@ public class PlayerEntity : CharacterEntity
     /// <param name="vector">受击方向</param>
     public void GetDamage(GetHitType type, Vector3 vector)
     {
-        switch(type)
+        switch (type)
         {
             case GetHitType.BeatBack:
                 BeatBack(vector);

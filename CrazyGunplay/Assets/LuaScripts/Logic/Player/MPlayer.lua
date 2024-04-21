@@ -4,6 +4,13 @@ MPlayer = Class.Create("MPlayer", Object)
 function MPlayer:ctor()
     self.playerList = {}
     self.count = 0
+    self.buffDefaultData = {
+        moveSpeedScale = 1,
+        getBeatScale = 1,   --受伤的倍率
+        hpAdd = 0,
+        fireRateScale = 1,
+        attackScale = 1,  --增加伤害的倍率
+    }
 end
 
 --[[
@@ -21,16 +28,16 @@ function MPlayer:AddPlayer(data)
     self.playerList[data.id] = data
     self.count = self.count + 1
     data.index = self.count  --在列表里的索引，要保证遍历的顺序
-    data.beatBackValue = 1
+    data.beatBackValue = 0
     data.beatBackPercent = 0
 
     --由buff系统操作的数据，在C#中也需要存
     data.buffData = {
-        moveSpeedScale = 1,
-        getBeatScale = 1,   --受伤的倍率
-        hpAdd = 0,
-        fireRateScale = 1,
-        attackScale = 1,  --增加伤害的倍率
+        moveSpeedScale = self.buffDefaultData.moveSpeedScale,
+        getBeatScale = self.buffDefaultData.getBeatScale,
+        hpAdd = self.buffDefaultData.hpAdd,
+        fireRateScale = self.buffDefaultData.fireRateScale,
+        attackScale = self.buffDefaultData.attackScale,
     }
 
     CPlayer.Instance:SyncBattleDataToCS(data.id)
@@ -52,14 +59,23 @@ function MPlayer:ChangeBeatBackValue(id, value)
     print("id==" .. tostring(id) .. ", value==" .. tostring(value))
     self.playerList[id].beatBackValue = self.playerList[id].beatBackValue + value
 
-    --百分比计算：-1是当击退为1的时候，显示百分比为0
+    --百分比计算：当击退为0的时候，显示百分比为0
     --击退修正值：保证显示的百分比数不会太大
-    self.playerList[id].beatBackPercent = math.floor(((self.playerList[id].beatBackValue - 1) * 100) * GlobalDefine.BeatBackRepair)
+    if self.playerList[id].beatBackValue == 0 then
+        self.playerList[id].beatBackPercent = 0    
+    else
+        self.playerList[id].beatBackPercent = math.floor(((self.playerList[id].beatBackValue - 1) * 100) * GlobalDefine.BeatBackRepair)
+    end
     CPlayer.Instance:SyncBattleDataToCS(id)
 end
 
 function MPlayer:BuffStart(id, key, value)
     self.playerList[id].buffData[key] = value
+    CPlayer.Instance:SyncBuffDataToCS(id)
+end
+
+function MPlayer:BuffEnd(id, key)
+    self.playerList[id].buffData[key] = self.buffDefaultData[key]
     CPlayer.Instance:SyncBuffDataToCS(id)
 end
 

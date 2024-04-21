@@ -12,6 +12,9 @@ end
 function BattleModeScene:OnEnable()
     Module.Event:Subscribe(PlayerDieEventArgs.EventId, BattleModeScene.PlayerDieEvent)
     Module.Event:Subscribe(CS.BulletHitEventArgs.EventId, BattleModeScene.BulletHitPlayerEvent)
+    Module.Event:Subscribe(CS.BuffStartEventArgs.EventId, BattleModeScene.BuffStartEvent)
+    Module.Event:Subscribe(CS.BuffEndEventArgs.EventId, BattleModeScene.BuffEndEvent)
+
     self:ChangeBattleState(GlobalEnum.BattleState.Battle)
     Module.Timer:AddUpdateTimer(function(data)
         --print("countDown==" .. tostring(data.remainTime))
@@ -47,6 +50,8 @@ function BattleModeScene:ClearBattleData()
     Module.Timer:RemoveAllTimer()
     Module.Event:Unsubscribe(PlayerDieEventArgs.EventId, BattleModeScene.PlayerDieEvent)
     Module.Event:Unsubscribe(CS.BulletHitEventArgs.EventId, BattleModeScene.BulletHitPlayerEvent)
+    Module.Event:Unsubscribe(CS.BuffStartEventArgs.EventId, BattleModeScene.BuffStartEvent)
+    Module.Event:Unsubscribe(CS.BuffEndEventArgs.EventId, BattleModeScene.BuffEndEvent)
 end
 
 --战斗结束判断 需要提取出来
@@ -98,6 +103,14 @@ function BattleModeScene:ChangeBattleState(state)
     self.battleState = state
     local args = CS.BattleStateChangeArgs.Create(state)
     Module.Event:FireNow(nil, args)
+end
+
+function BattleModeScene.BuffStartEvent(sender, args)
+    MPlayer.Instance:BuffStart(args.playerId, args.key, args.value)
+end
+
+function BattleModeScene.BuffEndEvent(sender, args)
+    MPlayer.Instance:BuffEnd(args.playerId, args.key)
 end
 
 BattleModeScene.Instance = BattleModeScene.new()

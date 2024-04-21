@@ -13,20 +13,19 @@ using XLua;
 */
 public class GrenadeWeapon : Weapon
 {
-    public float FireRate { get; private set; }
+    public Config_Grenade Config { get; set; }
 
     private float rateTemp;
     private bool canAttack;
 
     public GrenadeWeapon(Config_Weapon config, int playerId, int id) : base(config, playerId, id)
     {
-        Config_Grenade cfg = Config<Config_Grenade>.Get("Grenade", id);
-        FireRate = cfg.fireRate;
+        Config = Config<Config_Grenade>.Get("Grenade", id);
     }
 
     public override void OnUpdate()
     {
-        if (rateTemp >= FireRate)
+        if (rateTemp >= Config.fireRate)
         {
             canAttack = true;
             rateTemp = 0;

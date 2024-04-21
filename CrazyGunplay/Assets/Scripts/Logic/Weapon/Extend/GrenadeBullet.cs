@@ -13,17 +13,12 @@ using GameFramework.Entity;
 */
 public class GrenadeBullet : Bullet
 {
-    private GrenadeRangeType rangeType;
-    private float radius;
-    private float delay;
+    private Config_Grenade config;
     private float tempTime;
 
     public GrenadeBullet(Weapon ownerWeapon, int bulletId, int gunId) : base(ownerWeapon, bulletId, gunId)
     {
-        Config_Grenade cfg = Config<Config_Grenade>.Get("Grenade", gunId);
-        delay = cfg.delay;
-        rangeType = cfg.rangeType;
-        radius = cfg.radius;
+        config = Config<Config_Grenade>.Get("Grenade", gunId);
     }
 
     public override void FirstFly()
@@ -43,7 +38,7 @@ public class GrenadeBullet : Bullet
 
     public override bool CustomCheckHide()
     {
-        if (tempTime >= delay)
+        if (tempTime >= config.delay)
         {
             tempTime = 0;
             return true;
@@ -59,8 +54,7 @@ public class GrenadeBullet : Bullet
         if (playerEntity != null)
         {
             Vector3 dir = (playerEntity.transform.position - BulletEntityList[0].Entity.transform.position).normalized;
-            SendAttackEvent(playerEntity.PlayerId);
-            playerEntity.GetDamage(GetHitType.HitToFly, dir);
+            GetDamageToPlayer(playerEntity, dir);
             Boom(playerEntity.PlayerId);
         }
         else
@@ -72,7 +66,7 @@ public class GrenadeBullet : Bullet
     //爆炸
     private void Boom(int ignorePlayer = -1)
     {
-        if (rangeType == GrenadeRangeType.Circle)
+        if (config.rangeType == GrenadeRangeType.Circle)
         {
             IEntityGroup group = Module.Entity.GetEntityGroup("Player");
             IEntity[] entityArr = group.GetAllEntities();
@@ -94,14 +88,31 @@ public class GrenadeBullet : Bullet
                 }
 
                 float dis = Vector3.Distance(BulletEntityList[0].Entity.transform.position, entity.transform.position);
-                if (dis <= radius)
+                if (dis <= config.radius)
                 {
                     Vector3 dir = (entity.transform.position - BulletEntityList[0].Entity.transform.position).normalized;
                     dir.z = 0;  //忽略z值
-                    SendAttackEvent(player.PlayerId);
-                    player.GetDamage(GetHitType.HitToFly, dir);
+                    GetDamageToPlayer(player, dir);
                 }
             }
         }
+    }
+
+    private void GetDamageToPlayer(PlayerEntity player, Vector3 dir)
+    {
+        //先击中后上buff
+        SendAttackEvent(player.PlayerId);
+
+        if (config.buffId != -1)
+        {
+            player.BuffManager.AddBuff(config.buffId, config.buffDuration, config.buffValue);
+        }
+
+        if (OwnerWeapon.Config.beatType == GetHitType.No)
+        {
+            return;
+        }
+
+        player.GetDamage(GetHitType.HitToFly, dir);
     }
 }

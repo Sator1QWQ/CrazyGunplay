@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class Buff : IReference
 {
+    private BuffManager manager;
     private Config_Buff mConfig;
-    private PlayerEntity mPlayer;
+    private int mPlayerId;
     
     /// <summary>
     /// buff持续时间
@@ -37,7 +38,7 @@ public class Buff : IReference
     /// </summary>
     /// <param name="buffId"></param>
     /// <param name="duration"></param>
-    public void InitData(PlayerEntity player, int buffId, float duration, float buffValue)
+    public void InitData(BuffManager manager, int player, int buffId, float duration, float buffValue)
     {
         //对象池重新获取时不需要再读取数据
         if(mConfig == null)
@@ -45,11 +46,12 @@ public class Buff : IReference
             mConfig = Config<Config_Buff>.Get("Buff", buffId);
         }
         Duration = duration;
-        mPlayer = player;
+        mPlayerId = player;
         BuffValue = buffValue;
 
         //BuffManager无法暂停定时器，但是可以终止定时器
         Module.Timer.AddUpdateTimer(OnTimerUpdate, OnTimerEnd, 0, duration);
+        this.manager = manager;
     }
 
     /// <summary>
@@ -77,7 +79,7 @@ public class Buff : IReference
                 break;
         }
 
-        BuffStartEventArgs args = BuffStartEventArgs.Create(mPlayer.PlayerId, luaKey, BuffValue);
+        BuffStartEventArgs args = BuffStartEventArgs.Create(mPlayerId, luaKey, BuffValue);
         Module.Event.FireNow(this, args);
     }
 
@@ -88,7 +90,9 @@ public class Buff : IReference
 
     private void OnTimerEnd(TimerComponent.TimerData data)
     {
-
+        manager.RemoveBuff(mConfig.id);
+        BuffEndEventArgs args = BuffEndEventArgs.Create(mPlayerId, luaKey);
+        Module.Event.FireNow(this, args);
     }
 
     /// <summary>

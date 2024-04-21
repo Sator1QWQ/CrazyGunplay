@@ -15,17 +15,15 @@ public abstract class Weapon
 {
 	public int PlayerId { get; private set; }
 	public int Id { get; private set; }
-	public WeaponType Type { get; private set; }
-	public int TargetId { get; private set; }
 
 	public WeaponEntity Entity { get; private set; }
+	public Config_Weapon Config { get; private set; }
 
 	public Weapon(Config_Weapon config, int playerId, int id)
     {
 		PlayerId = playerId;
 		Id = id;
-		Type = config.weaponType;
-		TargetId = config.targetId;
+		Config = config;
     }
 
 	/// <summary>
