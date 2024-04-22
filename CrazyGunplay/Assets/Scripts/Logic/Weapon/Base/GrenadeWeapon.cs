@@ -13,19 +13,19 @@ using XLua;
 */
 public class GrenadeWeapon : Weapon
 {
-    public Config_Grenade Config { get; set; }
+    private Config_Grenade config;
 
     private float rateTemp;
     private bool canAttack;
 
-    public GrenadeWeapon(Config_Weapon config, int playerId, int id) : base(config, playerId, id)
+    public GrenadeWeapon(Config_Weapon weaponConfig, int playerId, int id, PlayerEntity entity) : base(weaponConfig, playerId, id, entity)
     {
-        Config = Config<Config_Grenade>.Get("Grenade", id);
+        config = Config<Config_Grenade>.Get("Grenade", id);
     }
 
     public override void OnUpdate()
     {
-        if (rateTemp >= Config.fireRate)
+        if (rateTemp >= config.fireRate)
         {
             canAttack = true;
             rateTemp = 0;
@@ -42,7 +42,7 @@ public class GrenadeWeapon : Weapon
         Debug.Log("投掷物攻击！");
         Config_Grenade cfg = Config<Config_Grenade>.Get("Grenade", Id);
         int bulletId = cfg.bulletId;
-        Module.Bullet.ShowBullet(this, bulletId, Id, Entity.PlayerEntity.WeaponRoot.position, Entity.PlayerEntity.LookDirection);
+        Module.Bullet.ShowBullet(this, bulletId, Id, PlayerEntity.WeaponRoot.position, PlayerEntity.LookDirection);
         canAttack = false;
     }
 }

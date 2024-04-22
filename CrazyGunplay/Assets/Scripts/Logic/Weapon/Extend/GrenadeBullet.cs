@@ -27,7 +27,7 @@ public class GrenadeBullet : Bullet
         {
             BulletEntityList[i].Gravity.useGravity = true;
             BulletEntityList[i].Gravity.seetingUseGravity = true;
-            BulletEntityList[i].Gravity.AddForce("GrenadeBullet_" + Id, (Vector3.up + OwnerWeapon.Entity.PlayerEntity.LookDirection).normalized * 5);
+            BulletEntityList[i].Gravity.AddForce("GrenadeBullet_" + Id, (Vector3.up + OwnerWeapon.PlayerEntity.LookDirection).normalized * 5);
         }
     }
 

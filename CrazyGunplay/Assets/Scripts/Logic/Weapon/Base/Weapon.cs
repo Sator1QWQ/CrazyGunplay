@@ -4,6 +4,7 @@ using UnityEngine;
 using GameFramework;
 using UnityGameFramework.Runtime;
 using XLua;
+using GameFramework.Entity;
 
 /*
 * 作者：
@@ -16,21 +17,23 @@ public abstract class Weapon
 	public int PlayerId { get; private set; }
 	public int Id { get; private set; }
 
+	public PlayerEntity PlayerEntity { get; private set; }
 	public WeaponEntity Entity { get; private set; }
 	public Config_Weapon Config { get; private set; }
 
-	public Weapon(Config_Weapon config, int playerId, int id)
+	public Weapon(Config_Weapon config, int playerId, int id, PlayerEntity playerEntity)
     {
 		PlayerId = playerId;
 		Id = id;
 		Config = config;
+		PlayerEntity = playerEntity;
     }
 
 	/// <summary>
-	/// 初始化武器实体
+	/// 设置武器实体
 	/// </summary>
 	/// <param name="entity"></param>
-	public void InitWeaponEntity(WeaponEntity entity)
+	public void SetWeaponEntity(WeaponEntity entity)
     {
 		Entity = entity;
 	}

@@ -5,6 +5,7 @@ using GameFramework;
 using UnityGameFramework.Runtime;
 using XLua;
 using GameFramework.Event;
+using System;
 
 /*
 * 作者：
@@ -14,9 +15,6 @@ using GameFramework.Event;
 */
 public class WeaponComponent : GameFrameworkComponent
 {
-	//key:playerId
-	private Dictionary<int, Weapon> weaponDic = new Dictionary<int, Weapon>();
-
 	private void Start()
 	{
 		Module.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
@@ -32,47 +30,39 @@ public class WeaponComponent : GameFrameworkComponent
 			return;
         }
 		Weapon weapon = (Weapon)showEvent.UserData;
-		weapon.InitWeaponEntity(showEvent.Entity.Logic as WeaponEntity);
+		weapon.SetWeaponEntity(showEvent.Entity.Logic as WeaponEntity);
 	}
 
 	/// <summary>
-	/// 所有武器都从这生成
+	/// 新生成武器
 	/// </summary>
 	/// <param name="entity"></param>
 	/// <param name="configName"></param>
 	/// <param name="id"></param>
 	/// <returns></returns>
-	public Weapon ShowWeapon(string configName, int playerId, int id)
+	public Weapon NewWeapon(PlayerEntity playerEntity, int id)
 	{
-		Config_Weapon cfg = Config<Config_Weapon>.Get(configName, id);
+		Config_Weapon cfg = Config<Config_Weapon>.Get("Weapon", id);
 		Weapon weapon = null;
+		int playerId = playerEntity.PlayerId;
 
 		WeaponType type = cfg.weaponType;
 		switch (type)
 		{
 			case WeaponType.Gun:
-				weapon = new GunWeapon(cfg, playerId, id);
+				weapon = new GunWeapon(cfg, playerId, id, playerEntity);
 				break;
 			case WeaponType.Throw:
-				weapon = new GrenadeWeapon(cfg, playerId, id);
+				weapon = new GrenadeWeapon(cfg, playerId, id, playerEntity);
 				break;
 			case WeaponType.NearRange:
-				weapon = new NearRangeWeapon(cfg, playerId, id);
+				weapon = new NearRangeWeapon(cfg, playerId, id, playerEntity);
 				break;
 		}
-
-		weaponDic.Add(playerId, weapon);
 		string path = cfg.path;
 		int entId = EntityTool.GetWeaponEntityId();
 		Debug.Log("show了一个武器 实体id==" + entId);
 		Module.Entity.ShowEntity(entId, typeof(WeaponEntity), path, "Weapon", weapon);
 		return weapon;
 	}
-
-	/// <summary>
-	/// 获取玩家身上的武器
-	/// </summary>
-	/// <param name="id">玩家id</param>
-	/// <returns></returns>
-	public Weapon GetWeapon(int playerId) => weaponDic[playerId];
 }

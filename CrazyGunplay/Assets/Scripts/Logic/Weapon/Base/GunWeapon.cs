@@ -57,7 +57,7 @@ public class GunWeapon : Weapon
 	/// </summary>
 	/// <param name="configName"></param>
 	/// <param name="id"></param>
-	public GunWeapon(Config_Weapon config, int playerId, int id) : base(config, playerId, id)
+	public GunWeapon(Config_Weapon config, int playerId, int id, PlayerEntity entity) : base(config, playerId, id, entity)
     {
 		Config_Gun cfg = Config<Config_Gun>.Get("Gun", id);
 		FireRate = cfg.fireRate;
@@ -86,7 +86,7 @@ public class GunWeapon : Weapon
 			return;
         }
 		int bulletId = Config<Config_Gun>.Get("Gun", Id).bulletId;
-		Module.Bullet.ShowBullet(this, bulletId, Id, Entity.PlayerEntity.WeaponRoot.position, Entity.PlayerEntity.LookDirection);
+		Module.Bullet.ShowBullet(this, bulletId, Id, PlayerEntity.WeaponRoot.position, PlayerEntity.LookDirection);
 		canAttack = false;
     }
 

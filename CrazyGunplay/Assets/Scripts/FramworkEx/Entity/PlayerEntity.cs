@@ -33,6 +33,7 @@ public class PlayerEntity : CharacterEntity
     public Animator Anim { get; private set; }
     public Config_CharacterData Config { get; private set; }
     public BuffManager BuffManager { get; private set; }
+    public WeaponManager WeaponManager { get; private set; }
 
 
     private event Action<BuffData> buffDataChange = _ => { };
@@ -56,7 +57,6 @@ public class PlayerEntity : CharacterEntity
     private bool isPauseControl;   //是否暂停控制
     private SimpleGravity mGravity;
     private Vector3 initPos = Vector3.up * 10;
-    private Weapon mWeapon;
 
     //userData为playerid
     protected override void OnInit(object userData)
@@ -69,6 +69,10 @@ public class PlayerEntity : CharacterEntity
         WeaponRoot = transform.Find("WeaponRoot");
         Entity.transform.forward = Vector3.right;
         Anim = GetComponent<Animator>();
+        Config = Config<Config_CharacterData>.Get("CharacterData", Data.heroId);
+        BuffManager = new BuffManager(PlayerId);
+        WeaponManager = new WeaponManager(this);
+
         InitController();
         InitStateMachine();
         InitWeapon();
@@ -77,9 +81,6 @@ public class PlayerEntity : CharacterEntity
         {
             Entity.transform.position = Vector3.up * 10 + Vector3.right * 10;
         }
-
-        Config = Config<Config_CharacterData>.Get("CharacterData", Data.heroId);
-        BuffManager = new BuffManager(PlayerId);
     }
 
     protected override void OnShow(object userData)
@@ -88,7 +89,6 @@ public class PlayerEntity : CharacterEntity
         Module.Event.Subscribe(ChangeStateEventArgs<PlayerEntity>.EventId, OnChangeState);
         Module.Event.Subscribe(BattleStateChangeArgs.EventId, OnBattleStateChange);
         Module.Event.Subscribe(SyncBuffDataEventArgs.EventId, OnSyncBuffData);
-        mWeapon = Module.Weapon.GetWeapon(PlayerId);    //武器可能会变化
     }
 
     protected override void OnHide(bool isShutdown, object userData)
@@ -108,7 +108,7 @@ public class PlayerEntity : CharacterEntity
         }
         Machine.OnUpdate();
         Controller.OnUpdate();
-        mWeapon.OnUpdate();
+        WeaponManager.OnUpdate();
     }
 
     protected override void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)
@@ -160,7 +160,7 @@ public class PlayerEntity : CharacterEntity
         Module.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
         Config_Character data = Config<Config_Character>.Get("Character", Data.heroId);
         Data.weaponId = data.initWeapon;
-        Module.Weapon.ShowWeapon("Weapon", Data.id, Data.weaponId);
+        WeaponManager.InitWeapon(Data.weaponId);
     }
 
     private void OnShowEntity(object userData, GameFrameworkEventArgs e)

@@ -26,7 +26,7 @@ public class BulletEntity : EntityLogic
     {
         base.OnShow(userData);
         Bullet bullet = userData as Bullet;
-        LookAt = bullet.OwnerWeapon.Entity.PlayerEntity.LookDirection;
+        LookAt = bullet.OwnerWeapon.PlayerEntity.LookDirection;
         Down = -transform.up;
     }
 
