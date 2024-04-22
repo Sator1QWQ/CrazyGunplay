@@ -40,11 +40,7 @@ public class Buff : IReference
     /// <param name="duration"></param>
     public void InitData(BuffManager manager, int player, int buffId, float duration, float buffValue)
     {
-        //对象池重新获取时不需要再读取数据
-        if(mConfig == null)
-        {
-            mConfig = Config<Config_Buff>.Get("Buff", buffId);
-        }
+        mConfig = Config<Config_Buff>.Get("Buff", buffId);
         Duration = duration;
         mPlayerId = player;
         BuffValue = buffValue;
@@ -90,9 +86,13 @@ public class Buff : IReference
 
     private void OnTimerEnd(TimerComponent.TimerData data)
     {
-        manager.RemoveBuff(mConfig.id);
-        BuffEndEventArgs args = BuffEndEventArgs.Create(mPlayerId, luaKey);
-        Module.Event.FireNow(this, args);
+        //切换场景，对象池清除，manager可能为空
+        if(manager != null)
+        {
+            manager.RemoveBuff(mConfig.id);
+            BuffEndEventArgs args = BuffEndEventArgs.Create(mPlayerId, luaKey);
+            Module.Event.FireNow(this, args);
+        }
     }
 
     /// <summary>
@@ -113,5 +113,10 @@ public class Buff : IReference
         RunTime = 0;
         Module.Timer.RemoveTimer(timerData);
         timerData = null;
+        mConfig = null;
+        manager = null;
+        mPlayerId = 0;
+        luaKey = null;
+        BuffValue = 0;
     }
 }
