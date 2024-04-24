@@ -1,4 +1,5 @@
 require "Configs.Text.Character_Text"
+--***********************代码由工具生成***********************--
 Character = {
 	[1001] = {
 		id = 1001,

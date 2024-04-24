@@ -1,4 +1,5 @@
 require "Configs.Text.EntityGroupConfig_Text"
+--***********************代码由工具生成***********************--
 EntityGroupConfig = {
 	[1] = {
 		id = 1,

@@ -1,4 +1,5 @@
 require "Configs.Text.Skill_Text"
+--***********************代码由工具生成***********************--
 Skill = {
 	[1001] = {
 		id = 1001,
@@ -8,8 +9,11 @@ Skill = {
 		mode = 1,
 		values = {
 			[1] = 201,
+			[2] = -1,
 		},
-		castTarget = 1,
+		castTarget = 2,
+		targetMode = nil,
+		targetValue = 1,
 		activeCondition = {
 			[1] = 0,
 		},
@@ -25,7 +29,9 @@ Skill = {
 		mode = 4,
 		values = {
 		},
-		castTarget = 1,
+		castTarget = 2,
+		targetMode = nil,
+		targetValue = 1.1,
 		activeCondition = {
 			[1] = 0,
 		},
@@ -41,7 +47,9 @@ Skill = {
 		mode = 2,
 		values = {
 		},
-		castTarget = 3,
+		castTarget = 4,
+		targetMode = nil,
+		targetValue = nil,
 		activeCondition = {
 			[1] = 1,
 			[2] = 30,

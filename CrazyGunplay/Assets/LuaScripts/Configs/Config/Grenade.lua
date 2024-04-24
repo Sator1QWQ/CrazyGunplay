@@ -1,4 +1,5 @@
 require "Configs.Text.Grenade_Text"
+--***********************代码由工具生成***********************--
 Grenade = {
 	[201] = {
 		id = 201,
@@ -10,7 +11,7 @@ Grenade = {
 		fireRate = 0.5,
 		delay = 1.5,
 		buffId = 101,
-		buffValue = 10,
+		buffValue = 0.5,
 		buffDuration = 2,
 		effectPath = Grenade_Text.effectPath_4,
 	},

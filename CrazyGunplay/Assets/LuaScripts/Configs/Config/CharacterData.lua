@@ -1,4 +1,5 @@
 require "Configs.Text.CharacterData_Text"
+--***********************代码由工具生成***********************--
 CharacterData = {
 	[1001] = {
 		id = 1001,

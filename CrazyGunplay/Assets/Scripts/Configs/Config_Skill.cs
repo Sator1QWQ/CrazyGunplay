@@ -1,3 +1,4 @@
+/***********************代码由工具生成***********************/
 using System.Collections.Generic;
 using XLua;
 
@@ -16,7 +17,11 @@ public interface Config_Skill : IConfigBase
 
 	List<int> values { get; set; }
 
-	SkillTargetType castTarget { get; set; }
+	TargetType castTarget { get; set; }
+
+	TargetSelectMode targetMode { get; set; }
+
+	object targetValue { get; set; }
 
 	List<int> activeCondition { get; set; }
 
