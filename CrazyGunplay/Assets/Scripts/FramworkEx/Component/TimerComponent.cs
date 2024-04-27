@@ -57,13 +57,17 @@ public class TimerComponent : GameFrameworkComponent
         return data;
     }
 
+
     /// <summary>
     /// 外部可能需要手动移除定时器
     /// </summary>
     /// <param name="data"></param>
     public void RemoveTimer(TimerData data)
     {
-        mTimerList.Remove(data);
+        if(mTimerList.Contains(data))
+        {
+            mTimerList.Remove(data);
+        }
     }
 
     private void Update()
