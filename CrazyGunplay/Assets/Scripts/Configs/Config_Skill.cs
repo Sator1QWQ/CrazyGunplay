@@ -13,7 +13,7 @@ public interface Config_Skill : IConfigBase
 
 	bool isBigSkill { get; set; }
 
-	SkillCastMode mode { get; set; }
+	SkillCastAction mode { get; set; }
 
 	List<int> values { get; set; }
 
@@ -21,7 +21,15 @@ public interface Config_Skill : IConfigBase
 
 	TargetSelectMode targetMode { get; set; }
 
-	object targetValue { get; set; }
+	CompareType compare { get; set; }
+
+	float targetValue { get; set; }
+
+	int targetNum { get; set; }
+
+	float beforeCast { get; set; }
+
+	float afterCast { get; set; }
 
 	List<int> activeCondition { get; set; }
 

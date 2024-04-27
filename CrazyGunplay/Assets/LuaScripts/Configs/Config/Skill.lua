@@ -9,11 +9,14 @@ Skill = {
 		mode = 1,
 		values = {
 			[1] = 201,
-			[2] = -1,
 		},
 		castTarget = 2,
 		targetMode = nil,
-		targetValue = 1,
+		compare = nil,
+		targetValue = nil,
+		targetNum = nil,
+		beforeCast = 0,
+		afterCast = 0,
 		activeCondition = {
 			[1] = 0,
 		},
@@ -31,7 +34,11 @@ Skill = {
 		},
 		castTarget = 2,
 		targetMode = nil,
-		targetValue = 1.1,
+		compare = nil,
+		targetValue = nil,
+		targetNum = nil,
+		beforeCast = 0.5,
+		afterCast = 0,
 		activeCondition = {
 			[1] = 0,
 		},
@@ -48,8 +55,12 @@ Skill = {
 		values = {
 		},
 		castTarget = 4,
-		targetMode = nil,
+		targetMode = 2,
+		compare = 4,
 		targetValue = nil,
+		targetNum = 1,
+		beforeCast = 1,
+		afterCast = 0,
 		activeCondition = {
 			[1] = 1,
 			[2] = 30,

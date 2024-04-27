@@ -232,7 +232,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        SkillCastMode Config_Skill.mode 
+        SkillCastAction Config_Skill.mode 
         {
             
             get 
@@ -250,7 +250,7 @@ namespace XLua.CSObjectWrap
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
 					}
-					SkillCastMode __gen_ret;translator.Get(L, -1, out __gen_ret);
+					SkillCastAction __gen_ret;translator.Get(L, -1, out __gen_ret);
 					LuaAPI.lua_pop(L, 2);
 					return __gen_ret;
 #if THREAD_SAFE || HOTFIX_ENABLE
@@ -334,7 +334,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        SkillTargetType Config_Skill.castTarget 
+        TargetType Config_Skill.castTarget 
         {
             
             get 
@@ -352,7 +352,7 @@ namespace XLua.CSObjectWrap
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
 					}
-					SkillTargetType __gen_ret;translator.Get(L, -1, out __gen_ret);
+					TargetType __gen_ret;translator.Get(L, -1, out __gen_ret);
 					LuaAPI.lua_pop(L, 2);
 					return __gen_ret;
 #if THREAD_SAFE || HOTFIX_ENABLE
@@ -373,6 +373,312 @@ namespace XLua.CSObjectWrap
 					LuaAPI.lua_getref(L, luaReference);
 					LuaAPI.xlua_pushasciistring(L, "castTarget");
 					translator.Push(L, value);
+					if (0 != LuaAPI.xlua_psettable(L, -3))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					LuaAPI.lua_pop(L, 1);
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+        }
+        
+        TargetSelectMode Config_Skill.targetMode 
+        {
+            
+            get 
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					ObjectTranslator translator = luaEnv.translator;
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "targetMode");
+					if (0 != LuaAPI.xlua_pgettable(L, -2))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					TargetSelectMode __gen_ret;translator.Get(L, -1, out __gen_ret);
+					LuaAPI.lua_pop(L, 2);
+					return __gen_ret;
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+            
+            set
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					ObjectTranslator translator = luaEnv.translator;
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "targetMode");
+					translator.Push(L, value);
+					if (0 != LuaAPI.xlua_psettable(L, -3))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					LuaAPI.lua_pop(L, 1);
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+        }
+        
+        CompareType Config_Skill.compare 
+        {
+            
+            get 
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					ObjectTranslator translator = luaEnv.translator;
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "compare");
+					if (0 != LuaAPI.xlua_pgettable(L, -2))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					CompareType __gen_ret;translator.Get(L, -1, out __gen_ret);
+					LuaAPI.lua_pop(L, 2);
+					return __gen_ret;
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+            
+            set
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					ObjectTranslator translator = luaEnv.translator;
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "compare");
+					translator.Push(L, value);
+					if (0 != LuaAPI.xlua_psettable(L, -3))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					LuaAPI.lua_pop(L, 1);
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+        }
+        
+        float Config_Skill.targetValue 
+        {
+            
+            get 
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "targetValue");
+					if (0 != LuaAPI.xlua_pgettable(L, -2))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					float __gen_ret = (float)LuaAPI.lua_tonumber(L, -1);
+					LuaAPI.lua_pop(L, 2);
+					return __gen_ret;
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+            
+            set
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "targetValue");
+					LuaAPI.lua_pushnumber(L, value);
+					if (0 != LuaAPI.xlua_psettable(L, -3))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					LuaAPI.lua_pop(L, 1);
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+        }
+        
+        int Config_Skill.targetNum 
+        {
+            
+            get 
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "targetNum");
+					if (0 != LuaAPI.xlua_pgettable(L, -2))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					int __gen_ret = LuaAPI.xlua_tointeger(L, -1);
+					LuaAPI.lua_pop(L, 2);
+					return __gen_ret;
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+            
+            set
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "targetNum");
+					LuaAPI.xlua_pushinteger(L, value);
+					if (0 != LuaAPI.xlua_psettable(L, -3))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					LuaAPI.lua_pop(L, 1);
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+        }
+        
+        float Config_Skill.beforeCast 
+        {
+            
+            get 
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "beforeCast");
+					if (0 != LuaAPI.xlua_pgettable(L, -2))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					float __gen_ret = (float)LuaAPI.lua_tonumber(L, -1);
+					LuaAPI.lua_pop(L, 2);
+					return __gen_ret;
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+            
+            set
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "beforeCast");
+					LuaAPI.lua_pushnumber(L, value);
+					if (0 != LuaAPI.xlua_psettable(L, -3))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					LuaAPI.lua_pop(L, 1);
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+        }
+        
+        float Config_Skill.afterCast 
+        {
+            
+            get 
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "afterCast");
+					if (0 != LuaAPI.xlua_pgettable(L, -2))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					float __gen_ret = (float)LuaAPI.lua_tonumber(L, -1);
+					LuaAPI.lua_pop(L, 2);
+					return __gen_ret;
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+            
+            set
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "afterCast");
+					LuaAPI.lua_pushnumber(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);

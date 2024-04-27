@@ -17,6 +17,8 @@ public interface Config_Grenade : IConfigBase
 
 	float radius { get; set; }
 
+	int mainMag { get; set; }
+
 	float fireRate { get; set; }
 
 	float delay { get; set; }
