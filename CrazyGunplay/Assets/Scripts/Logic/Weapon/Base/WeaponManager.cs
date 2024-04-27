@@ -36,7 +36,10 @@ public class WeaponManager
     {
         Weapon weapon = Module.Weapon.NewWeapon(mPlayerEntity, weaponId);
         mWeaponDic.Add(0, weapon);   //武器对象是当前帧生成的，但是武器实体不一定
-        Change(0, weapon);
+        CurrentWeapon = weapon;
+        mLastWeapon = CurrentWeapon;
+        CurrentSlot = 0;
+        mLastSlot = CurrentSlot;
     }
 
     /// <summary>
@@ -52,8 +55,9 @@ public class WeaponManager
         }
 
         Module.Entity.HideEntity(mLastWeapon.Entity.Entity.Id);
-        Change(weaponSlot, mWeaponDic[weaponSlot]);
-        Module.Entity.ShowEntity(CurrentWeapon.Entity.Entity.Id, typeof(WeaponEntity), CurrentWeapon.Entity.Entity.EntityAssetName, CurrentWeapon.Entity.Entity.EntityGroup.Name);
+        Weapon weapon = mWeaponDic[weaponSlot];
+        Change(weaponSlot, weapon);
+        Module.Entity.ShowEntity(CurrentWeapon.Entity.Entity.Id, typeof(WeaponEntity), CurrentWeapon.Entity.Entity.EntityAssetName, CurrentWeapon.Entity.Entity.EntityGroup.Name, weapon);
     }
 
     /// <summary>
@@ -71,36 +75,16 @@ public class WeaponManager
     /// </summary>
     /// <param name="weaponSlot"></param>
     /// <param name="weaponId"></param>
-    /// <param name="isNew">是否new对象 true：每次调用都会new一个武器对象 false：武器字典里没有该id时才会new</param>
-    public void AddAndChangeSlot(int weaponSlot, int weaponId, bool isNew = true)
+    public void AddAndChangeSlot(int weaponSlot, int weaponId)
     {
-        if(isNew)
+        if(mWeaponDic.ContainsKey(weaponSlot))
         {
-            Weapon weapon = Module.Weapon.NewWeapon(mPlayerEntity, weaponId);
-            mWeaponDic.Add(weaponSlot, weapon);   //武器对象是当前帧生成的，但是武器实体不一定
             ChangeSlot(weaponSlot);
-        }
-        else
-        {
-            bool isContain = false;
-            foreach(KeyValuePair<int, Weapon> pair in mWeaponDic)
-            {
-                Weapon item = pair.Value;
-                if(item.Id == weaponId)
-                {
-                    isContain = true;
-                }
-                break;
-            }
-
-            if(!isContain)
-            {
-                Weapon weapon = Module.Weapon.NewWeapon(mPlayerEntity, weaponId);
-                mWeaponDic.Add(weaponSlot, weapon);
-            }
+            return;
         }
 
-        //该槽里一定会有武器
+        Weapon weapon = Module.Weapon.NewWeapon(mPlayerEntity, weaponId);
+        mWeaponDic.Add(weaponSlot, weapon);   //武器对象是当前帧生成的，但是武器实体不一定
         ChangeSlot(weaponSlot);
     }
 

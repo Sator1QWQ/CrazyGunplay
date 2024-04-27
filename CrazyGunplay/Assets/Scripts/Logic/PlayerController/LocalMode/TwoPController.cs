@@ -16,6 +16,24 @@ public class TwoPController : PlayerController
     {
     }
 
+    public override int GetChangeWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            return 0;
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad5))
+        {
+            return 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad6))
+        {
+            return 2;
+        }
+
+        return -1;
+    }
+
     public override bool GetDushInput() => Input.GetKeyDown(KeyCode.Keypad0);
 
     public override float GetHorizontal()

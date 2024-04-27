@@ -50,4 +50,21 @@ public class OnePController : PlayerController
     public override bool GetNormalAttack() => Input.GetKey(KeyCode.J);
 
     public override bool GetDushInput() => Input.GetKeyDown(KeyCode.K);
+
+    public override int GetChangeWeapon()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            return 0;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            return 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            return 2;
+        }
+        return -1;
+    }
 }

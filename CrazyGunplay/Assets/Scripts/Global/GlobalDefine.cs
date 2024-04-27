@@ -61,4 +61,9 @@ public class GlobalDefine
 	public static Vector3 FAY_WAY = Vector3.right * 1000;
 
 	public static float HIT_VALUE_REPAIR = 1.0f;
+
+	/// <summary>
+	/// 用技能生成的武器槽，槽索引为4
+	/// </summary>
+	public static int SKILL_WEAPON_SLOT = 4;
 }

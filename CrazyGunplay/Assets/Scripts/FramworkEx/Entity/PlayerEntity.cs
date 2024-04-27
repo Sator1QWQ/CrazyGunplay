@@ -137,6 +137,7 @@ public class PlayerEntity : CharacterEntity
         Controller.AddControlAction(new JumpController(jumpSpeed));
         Controller.AddControlAction(new DushController());
         Controller.AddControlAction(new NormalAttackController());
+        Controller.AddControlAction(new ChangeWeaponController());
     }
 
     //初始化状态机

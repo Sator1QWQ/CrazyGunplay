@@ -93,6 +93,12 @@ public abstract class PlayerController
     public abstract bool GetNormalAttack();
 
     /// <summary>
+    /// 武器槽切换
+    /// </summary>
+    /// <returns></returns>
+    public abstract int GetChangeWeapon();
+
+    /// <summary>
     /// 是否可跳跃
     /// </summary>
     /// <returns></returns>
@@ -195,7 +201,11 @@ public abstract class PlayerController
         {
             UpdateControllerAction(ControllerType.NomralAttack);
         }
-        Debug.Log("IsAir==" + Gravity.IsAir);
+
+        if(GetChangeWeapon() != -1)
+        {
+            UpdateControllerAction(ControllerType.ChangeWeapon);
+        }
     }
 
     private void UpdateControllerAction(ControllerType type)
