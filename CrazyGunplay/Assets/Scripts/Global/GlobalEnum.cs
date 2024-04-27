@@ -22,6 +22,7 @@ public enum ControllerType
 	Dush,	//突进
 	NomralAttack,	//普攻
 	UseSkill,	//技能
+	ChangeWeapon,	//切换武器
 }
 
 /// <summary>
@@ -147,11 +148,34 @@ public enum SkillType
 }
 
 /// <summary>
-/// 技能施法模式
+/// 技能行为
 /// </summary>
-public enum SkillCastMode
+public enum SkillCastAction
 {
+	/// <summary>
+	/// 获取武器
+	/// </summary>
+	GetWeapon = 1,
 
+	/// <summary>
+	/// 召唤物
+	/// </summary>
+	Call = 2,
+
+	/// <summary>
+	/// 位移
+	/// </summary>
+	Move = 3,
+
+	/// <summary>
+	/// Buff
+	/// </summary>
+	Buff = 4,
+
+	/// <summary>
+	/// 护盾
+	/// </summary>
+	Shield = 5,
 }
 
 /// <summary>
@@ -160,6 +184,27 @@ public enum SkillCastMode
 public enum SkillTargetType
 {
 
+}
+
+/// <summary>
+/// 技能激活条件
+/// </summary>
+public enum SkillActiveConditionType
+{
+	/// <summary>
+	/// 根据时间激活
+	/// </summary>
+	Time = 1,
+
+	/// <summary>
+	/// 伤害量
+	/// </summary>
+	Damage = 2,
+
+	/// <summary>
+	/// 受伤量，beatBackValue
+	/// </summary>
+	GetHit = 3,
 }
 
 /// <summary>
@@ -191,4 +236,101 @@ public enum BuffType
 	/// 攻击力修改
 	/// </summary>
 	BeatBackValue = 5,
+}
+
+/// <summary>
+/// 目标类型
+/// </summary>
+public enum TargetType
+{
+	/// <summary>
+	/// 无目标
+	/// </summary>
+	NoTarget = 1,
+
+	/// <summary>
+	/// 玩家自己
+	/// </summary>
+	Self = 2,
+
+	/// <summary>
+	/// 友方
+	/// </summary>
+	SelfTeam = 3,
+
+	/// <summary>
+	/// 敌方
+	/// </summary>
+	EnemyTeam = 4,
+
+}
+
+/// <summary>
+/// 目标选择模式
+/// </summary>
+public enum TargetSelectMode
+{
+	/// <summary>
+	/// 距离
+	/// </summary>
+	Distance = 1,
+
+	/// <summary>
+	/// 血量，BeatbackValue 血量越少beatBackValue越大
+	/// </summary>
+	HP = 2,
+}
+
+/// <summary>
+/// 比较的类型
+/// </summary>
+public enum CompareType
+{
+	/// <summary>
+	/// 大于
+	/// </summary>
+	Greater = 1,
+
+	/// <summary>
+	/// 小于
+	/// </summary>
+	Less = 2,
+
+	/// <summary>
+	/// 等于
+	/// </summary>
+	Equal = 3,
+
+	/// <summary>
+	/// 最小
+	/// </summary>
+	Min = 4,
+
+	/// <summary>
+	/// 最大
+	/// </summary>
+	Max = 5,
+}
+
+public enum SkillState
+{
+	/// <summary>
+	/// 施法前摇
+	/// </summary>
+	BeforeCast,
+
+	/// <summary>
+	/// 使用技能
+	/// </summary>
+	UseSkill,
+
+	/// <summary>
+	/// 施法后摇
+	/// </summary>
+	AfterCast,
+
+	/// <summary>
+	/// 技能结束
+	/// </summary>
+	End,
 }
