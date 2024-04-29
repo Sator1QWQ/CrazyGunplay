@@ -70,6 +70,21 @@ public class TimerComponent : GameFrameworkComponent
         }
     }
 
+    /// <summary>
+    /// 结束定时器，但是会调用结束函数
+    /// </summary>
+    /// <param name="data"></param>
+    public void EndTimer(TimerData data)
+    {
+        if(!mTimerList.Contains(data))
+        {
+            return;
+        }
+
+        data.endAct(data);
+        mTimerList.Remove(data);
+    }
+
     private void Update()
     {
         for(int i = 0; i < mTimerList.Count; i++)
