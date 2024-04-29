@@ -11,12 +11,9 @@ public class WeaponManager
 {
     //key:武器槽索引
     private Dictionary<int, Weapon> mWeaponDic = new Dictionary<int, Weapon>();
+    private List<Weapon> loadingList = new List<Weapon>(); //实体加载中的武器列表
     private PlayerEntity mPlayerEntity;
-
-    private Weapon mLastWeapon;
     public Weapon CurrentWeapon { get; private set; }
-
-    private int mLastSlot;
     public int CurrentSlot { get; private set; }    //当前槽
 
     public WeaponManager(PlayerEntity playerEntity)
@@ -37,9 +34,7 @@ public class WeaponManager
         Weapon weapon = Module.Weapon.NewWeapon(mPlayerEntity, weaponId);
         mWeaponDic.Add(0, weapon);   //武器对象是当前帧生成的，但是武器实体不一定
         CurrentWeapon = weapon;
-        mLastWeapon = CurrentWeapon;
         CurrentSlot = 0;
-        mLastSlot = CurrentSlot;
     }
 
     /// <summary>
@@ -54,10 +49,15 @@ public class WeaponManager
             return;
         }
 
-        Module.Entity.HideEntity(mLastWeapon.Entity.Entity.Id);
+        Module.Entity.HideEntity(CurrentWeapon.EntityId);
         Weapon weapon = mWeaponDic[weaponSlot];
         Change(weaponSlot, weapon);
-        Module.Entity.ShowEntity(CurrentWeapon.Entity.Entity.Id, typeof(WeaponEntity), CurrentWeapon.Entity.Entity.EntityAssetName, CurrentWeapon.Entity.Entity.EntityGroup.Name, weapon);
+
+        if(!Module.Entity.IsLoadingEntity(CurrentWeapon.EntityId))
+        {
+            Debug.Log("没在loading show一次");
+            Module.Entity.ShowEntity(CurrentWeapon.EntityId, typeof(WeaponEntity), CurrentWeapon.Config.path, "Weapon", weapon);
+        }
     }
 
     /// <summary>
@@ -71,11 +71,11 @@ public class WeaponManager
     }
 
     /// <summary>
-    /// 添加并且切换武器槽
+    /// 添加或者切换武器槽
     /// </summary>
     /// <param name="weaponSlot"></param>
     /// <param name="weaponId"></param>
-    public void AddAndChangeSlot(int weaponSlot, int weaponId)
+    public void AddOrChangeSlot(int weaponSlot, int weaponId)
     {
         if(mWeaponDic.ContainsKey(weaponSlot))
         {
@@ -85,15 +85,45 @@ public class WeaponManager
 
         Weapon weapon = Module.Weapon.NewWeapon(mPlayerEntity, weaponId);
         mWeaponDic.Add(weaponSlot, weapon);   //武器对象是当前帧生成的，但是武器实体不一定
-        ChangeSlot(weaponSlot);
+        if (CurrentWeapon != null)
+        {
+            Module.Entity.HideEntity(CurrentWeapon.EntityId);
+        }
+        Change(weaponSlot, weapon);
     }
 
     private void Change(int slot, Weapon weapon)
     {
-        mLastWeapon = CurrentWeapon;
         CurrentWeapon = weapon;
-        mLastSlot = CurrentSlot;
         CurrentSlot = slot;
+    }
+
+    /// <summary>
+    /// 该武器槽是否有武器
+    /// </summary>
+    /// <param name="slot"></param>
+    /// <returns></returns>
+    public bool HasWeapon(int slot)
+    {
+        return mWeaponDic.ContainsKey(slot);
+    }
+
+    public Weapon GetWeapon(int slot)
+    {
+        return mWeaponDic[slot];
+    }
+
+    public void RemoveWeapon(int slot)
+    {
+        Weapon weapon = mWeaponDic[slot];
+        Module.Entity.HideEntity(weapon.Entity.Entity);
+        mWeaponDic.Remove(slot);
+
+        if(CurrentSlot == slot)
+        {
+            ChangeSlot(0);  //移除武器后默认为第0把
+        }
+        
     }
 
     public void Clear()
