@@ -41,8 +41,12 @@ public class GrenadeWeapon : Weapon
         }
         Debug.Log("投掷物攻击！");
         Config_Grenade cfg = Config<Config_Grenade>.Get("Grenade", Id);
-        int bulletId = cfg.bulletId;
-        Module.Bullet.ShowBullet(this, bulletId, Id, PlayerEntity.WeaponRoot.position, PlayerEntity.LookDirection);
-        canAttack = false;
+        bool hasBullet = ChangeMagazineNum(cfg.mainMag);
+        if(hasBullet)
+        {
+            int bulletId = cfg.bulletId;
+            Module.Bullet.ShowBullet(this, bulletId, Id, PlayerEntity.WeaponRoot.position, PlayerEntity.LookDirection);
+            canAttack = false;
+        }
     }
 }
