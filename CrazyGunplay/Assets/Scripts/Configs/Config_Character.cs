@@ -11,7 +11,7 @@ public interface Config_Character : IConfigBase
 
 	int initWeapon { get; set; }
 
-	int skillGroup { get; set; }
+	List<int> initSkill { get; set; }
 
 	string model { get; set; }
 

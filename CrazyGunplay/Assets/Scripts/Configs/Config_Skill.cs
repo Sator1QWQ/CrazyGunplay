@@ -13,7 +13,7 @@ public interface Config_Skill : IConfigBase
 
 	bool isBigSkill { get; set; }
 
-	SkillCastAction mode { get; set; }
+	SkillCastAction skillAction { get; set; }
 
 	List<int> values { get; set; }
 
@@ -34,6 +34,8 @@ public interface Config_Skill : IConfigBase
 	List<int> activeCondition { get; set; }
 
 	float skillDuration { get; set; }
+
+	SkillCoolingTiming coolingTiming { get; set; }
 
 	float coolingTime { get; set; }
 

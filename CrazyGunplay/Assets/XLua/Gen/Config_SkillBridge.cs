@@ -232,7 +232,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        SkillCastAction Config_Skill.mode 
+        SkillCastAction Config_Skill.skillAction 
         {
             
             get 
@@ -245,7 +245,7 @@ namespace XLua.CSObjectWrap
 					int oldTop = LuaAPI.lua_gettop(L);
 					ObjectTranslator translator = luaEnv.translator;
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "mode");
+					LuaAPI.xlua_pushasciistring(L, "skillAction");
 					if (0 != LuaAPI.xlua_pgettable(L, -2))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
@@ -269,7 +269,7 @@ namespace XLua.CSObjectWrap
 					int oldTop = LuaAPI.lua_gettop(L);
 					ObjectTranslator translator = luaEnv.translator;
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "mode");
+					LuaAPI.xlua_pushasciistring(L, "skillAction");
 					translator.Push(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
@@ -781,6 +781,57 @@ namespace XLua.CSObjectWrap
 					LuaAPI.lua_getref(L, luaReference);
 					LuaAPI.xlua_pushasciistring(L, "skillDuration");
 					LuaAPI.lua_pushnumber(L, value);
+					if (0 != LuaAPI.xlua_psettable(L, -3))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					LuaAPI.lua_pop(L, 1);
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+        }
+        
+        SkillCoolingTiming Config_Skill.coolingTiming 
+        {
+            
+            get 
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					ObjectTranslator translator = luaEnv.translator;
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "coolingTiming");
+					if (0 != LuaAPI.xlua_pgettable(L, -2))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					SkillCoolingTiming __gen_ret;translator.Get(L, -1, out __gen_ret);
+					LuaAPI.lua_pop(L, 2);
+					return __gen_ret;
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+            
+            set
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					ObjectTranslator translator = luaEnv.translator;
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "coolingTiming");
+					translator.Push(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);

@@ -181,7 +181,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        int Config_Character.skillGroup 
+        System.Collections.Generic.List<int> Config_Character.initSkill 
         {
             
             get 
@@ -192,14 +192,14 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					
+					ObjectTranslator translator = luaEnv.translator;
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "skillGroup");
+					LuaAPI.xlua_pushasciistring(L, "initSkill");
 					if (0 != LuaAPI.xlua_pgettable(L, -2))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
 					}
-					int __gen_ret = LuaAPI.xlua_tointeger(L, -1);
+					System.Collections.Generic.List<int> __gen_ret = (System.Collections.Generic.List<int>)translator.GetObject(L, -1, typeof(System.Collections.Generic.List<int>));
 					LuaAPI.lua_pop(L, 2);
 					return __gen_ret;
 #if THREAD_SAFE || HOTFIX_ENABLE
@@ -216,10 +216,10 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					
+					ObjectTranslator translator = luaEnv.translator;
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "skillGroup");
-					LuaAPI.xlua_pushinteger(L, value);
+					LuaAPI.xlua_pushasciistring(L, "initSkill");
+					translator.Push(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
