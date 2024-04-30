@@ -34,6 +34,7 @@ public class PlayerEntity : CharacterEntity
     public Config_CharacterData Config { get; private set; }
     public BuffManager BuffManager { get; private set; }
     public WeaponManager WeaponManager { get; private set; }
+    public SkillManager SkillManager { get; private set; }
 
 
     private event Action<BuffData> buffDataChange = _ => { };
@@ -72,10 +73,12 @@ public class PlayerEntity : CharacterEntity
         Config = Config<Config_CharacterData>.Get("CharacterData", Data.heroId);
         BuffManager = new BuffManager(PlayerId);
         WeaponManager = new WeaponManager(this);
+        SkillManager = new SkillManager(this);
 
         InitController();
         InitStateMachine();
         InitWeapon();
+        InitSkill();
         Entity.transform.position = initPos;
         if(PlayerId == 2)
         {
@@ -138,6 +141,7 @@ public class PlayerEntity : CharacterEntity
         Controller.AddControlAction(new DushController());
         Controller.AddControlAction(new NormalAttackController());
         Controller.AddControlAction(new ChangeWeaponController());
+        Controller.AddControlAction(new UseSkillController());
     }
 
     //初始化状态机
@@ -162,6 +166,17 @@ public class PlayerEntity : CharacterEntity
         Config_Character data = Config<Config_Character>.Get("Character", Data.heroId);
         Data.weaponId = data.initWeapon;
         WeaponManager.InitWeapon(Data.weaponId);
+    }
+
+    //初始化技能
+    private void InitSkill()
+    {
+        Config_Character data = Config<Config_Character>.Get("Character", Data.heroId);
+        List<int> skillList = data.initSkill;
+        for(int i = 0; i < skillList.Count; i++)
+        {
+            SkillManager.AddSkill(skillList[i]);
+        }
     }
 
     private void OnShowEntity(object userData, GameFrameworkEventArgs e)

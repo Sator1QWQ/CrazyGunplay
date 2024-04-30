@@ -55,6 +55,7 @@ Skill = {
 		isBigSkill = true,
 		skillAction = 2,
 		values = {
+			[1] = 102,
 		},
 		castTarget = 4,
 		targetMode = 2,

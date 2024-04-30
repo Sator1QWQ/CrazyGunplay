@@ -99,6 +99,12 @@ public abstract class PlayerController
     public abstract int GetChangeWeapon();
 
     /// <summary>
+    /// 使用哪个栏位的技能
+    /// </summary>
+    /// <returns></returns>
+    public abstract int GetUseSkill();
+
+    /// <summary>
     /// 是否可跳跃
     /// </summary>
     /// <returns></returns>
@@ -205,6 +211,12 @@ public abstract class PlayerController
         if(GetChangeWeapon() != -1)
         {
             UpdateControllerAction(ControllerType.ChangeWeapon);
+        }
+
+        int result = GetUseSkill();
+        if (result != -1)
+        {
+            UpdateControllerAction(ControllerType.UseSkill);
         }
     }
 

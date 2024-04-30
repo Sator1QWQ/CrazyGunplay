@@ -67,4 +67,18 @@ public class OnePController : PlayerController
         }
         return -1;
     }
+
+    public override int GetUseSkill()
+    {
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            return 1;
+        }
+        else if(Input.GetKeyDown(KeyCode.E))
+        {
+            return 2;
+        }
+
+        return -1;
+    }
 }

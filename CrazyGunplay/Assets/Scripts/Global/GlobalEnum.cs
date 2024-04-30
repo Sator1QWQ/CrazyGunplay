@@ -334,3 +334,19 @@ public enum SkillState
 	/// </summary>
 	End,
 }
+
+/// <summary>
+/// 技能进入冷却的时机
+/// </summary>
+public enum SkillCoolingTiming
+{
+	/// <summary>
+	/// 使用技能时
+	/// </summary>
+	WhenUseSkill = 1,
+
+	/// <summary>
+	/// 技能结束时
+	/// </summary>
+	WhenEndSkill = 2,
+}

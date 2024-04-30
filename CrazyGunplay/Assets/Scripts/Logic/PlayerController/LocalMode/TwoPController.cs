@@ -64,5 +64,18 @@ public class TwoPController : PlayerController
 
     public override bool GetNormalAttack() => Input.GetKeyDown(KeyCode.Keypad1);
 
+    public override int GetUseSkill()
+    {
+        if(Input.GetKeyDown(KeyCode.Keypad7))
+        {
+            return 1;
+        }
+        else if(Input.GetKeyDown(KeyCode.Keypad8))
+        {
+            return 2;
+        }
+        return -1;
+    }
+
     public override float GetVertical() => 0;
 }
