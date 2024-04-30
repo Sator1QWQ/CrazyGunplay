@@ -66,4 +66,9 @@ public class GlobalDefine
 	/// 用技能生成的武器槽，槽索引为4
 	/// </summary>
 	public static int SKILL_WEAPON_SLOT = 4;
+
+	/// <summary>
+	/// 地图高度
+	/// </summary>
+	public static float MAP_MAX_HEIGHT = 10;
 }
