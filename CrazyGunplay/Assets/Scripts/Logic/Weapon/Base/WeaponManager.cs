@@ -11,7 +11,6 @@ public class WeaponManager
 {
     //key:武器槽索引
     private Dictionary<int, Weapon> mWeaponDic = new Dictionary<int, Weapon>();
-    private List<Weapon> loadingList = new List<Weapon>(); //实体加载中的武器列表
     private PlayerEntity mPlayerEntity;
     public Weapon CurrentWeapon { get; private set; }
     public int CurrentSlot { get; private set; }    //当前槽
@@ -115,15 +114,11 @@ public class WeaponManager
 
     public void RemoveWeapon(int slot)
     {
-        Weapon weapon = mWeaponDic[slot];
-        Module.Entity.HideEntity(weapon.Entity.Entity);
-        mWeaponDic.Remove(slot);
-
         if(CurrentSlot == slot)
         {
             ChangeSlot(0);  //移除武器后默认为第0把
         }
-        
+        mWeaponDic.Remove(slot);
     }
 
     public void Clear()
