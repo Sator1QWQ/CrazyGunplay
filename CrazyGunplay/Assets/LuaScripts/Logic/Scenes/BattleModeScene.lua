@@ -78,7 +78,6 @@ function BattleModeScene:CheckBattleEnd()
 
     --winnerTeam，除了allDeadTeam以外的第一个队伍获胜
     for teamId in pairs(teamTable) do
-        print("team1 teamId==" .. tostring(teamId))
         if allDeadTeamId ~= nil and allDeadTeamId ~= teamId then
             winnerTeam = teamId
         end
