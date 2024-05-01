@@ -46,7 +46,7 @@ public class SummonEntity : EntityLogic
         if (targetPlayer != null)
         {
             Entity.transform.right = endPoint - Entity.transform.position;
-            Entity.transform.Translate(new Vector3(2f * Time.deltaTime, 0, 0));
+            Entity.transform.Translate(new Vector3(config.moveSpeed * Time.deltaTime, 0, 0));
         }
     }
 

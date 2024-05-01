@@ -11,6 +11,8 @@ public interface Config_Summon : IConfigBase
 
 	float spawnInterval { get; set; }
 
+	float moveSpeed { get; set; }
+
 	TargetType castTarget { get; set; }
 
 	TargetSelectMode targetMode { get; set; }
