@@ -62,7 +62,8 @@ function BattleModeScene:CheckBattleEnd()
     local winnerTeam
     for teamId, pList in pairs(teamTable) do
         local isPlayerDead = true
-        for i, playerId in ipairs(pList) do
+        for i, teamData in ipairs(pList) do
+            local playerId = teamData.playerId
             local playerData = MPlayer.Instance.playerList[playerId]
             if playerData.life > 0 then
                 isPlayerDead = false

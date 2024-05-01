@@ -14,18 +14,24 @@ function MTeam:AddTeamPlayer(teamId, playerId)
         print("Error！！玩家已经在队伍中 teamId==" .. tostring(teamId) .. ", playerId==" .. tostring(playerId))
     end
 
-    table.insert(self.teamTable[teamId], playerId)
+    local data = {
+        playerId = playerId,
+    }
+    table.insert(self.teamTable[teamId], data)
+    CTeam.Instance:SyncTeamDataToCS(teamId)
 end
 
 --移除某个队员
 function MTeam:RemoveTeamPlayer(teamId, playerId)
     local playerList = self.teamTable[teamId]
     for i, v in ipairs(playerList) do
-        if v == playerId then
+        if v.playerId == playerId then
             table.remove(playerList, i)
             break
         end
     end
+
+    CTeam.Instance:SyncTeamDataToCS(teamId)
 end
 
 --玩家是否在队中
@@ -33,7 +39,7 @@ function MTeam:IsPlayerInTeam(teamId, playerId)
     local playerList = self.teamTable[teamId]
     local isInTeam = false
     for i, v in ipairs(playerList) do
-        if v == playerId then
+        if v.playerId == playerId then
             isInTeam = true
             break
         end
