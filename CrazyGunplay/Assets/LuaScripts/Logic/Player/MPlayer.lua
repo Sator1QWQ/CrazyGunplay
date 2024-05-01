@@ -56,15 +56,15 @@ end
 
 --击退值改变
 function MPlayer:ChangeBeatBackValue(id, value)
-    print("id==" .. tostring(id) .. ", value==" .. tostring(value))
     self.playerList[id].beatBackValue = self.playerList[id].beatBackValue + value
+    print("id==" .. tostring(id) .. ", value==" .. tostring(self.playerList[id].beatBackValue))
 
     --百分比计算：当击退为0的时候，显示百分比为0
     --击退修正值：保证显示的百分比数不会太大
     if self.playerList[id].beatBackValue == 0 then
         self.playerList[id].beatBackPercent = 0    
     else
-        self.playerList[id].beatBackPercent = math.floor(((self.playerList[id].beatBackValue - 1) * 100) * GlobalDefine.BeatBackRepair)
+        self.playerList[id].beatBackPercent = math.floor((self.playerList[id].beatBackValue * 100) * GlobalDefine.BeatBackRepair)
     end
     CPlayer.Instance:SyncBattleDataToCS(id)
 end
