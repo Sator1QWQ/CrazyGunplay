@@ -4,14 +4,14 @@ Summon = {
 	[101] = {
 		id = 101,
 		spawnCount = 10,
-		spawnInterval = 0.3,
+		spawnInterval = 0.8,
 		castTarget = 4,
 		targetMode = 2,
 		compare = 4,
 		targetValue = nil,
 		targetNum = 1,
+		isContinueFollow = false,
 		assetPath = Summon_Text.assetPath_4,
-		isContinueFollow = nil,
 	},
 	[102] = {
 		id = 102,
@@ -22,8 +22,8 @@ Summon = {
 		compare = nil,
 		targetValue = nil,
 		targetNum = nil,
+		isContinueFollow = true,
 		assetPath = Summon_Text.assetPath_5,
-		isContinueFollow = nil,
 	},
 	[103] = {
 		id = 103,
@@ -34,8 +34,8 @@ Summon = {
 		compare = nil,
 		targetValue = nil,
 		targetNum = nil,
-		assetPath = Summon_Text.assetPath_6,
 		isContinueFollow = nil,
+		assetPath = Summon_Text.assetPath_6,
 	},
 }
 Summon.Count = 3

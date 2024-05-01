@@ -70,5 +70,5 @@ public class GlobalDefine
 	/// <summary>
 	/// 地图高度
 	/// </summary>
-	public static float MAP_MAX_HEIGHT = 10;
+	public static float MAP_MAX_HEIGHT = 16;
 }

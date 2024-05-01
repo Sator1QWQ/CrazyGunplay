@@ -55,7 +55,7 @@ Skill = {
 		isBigSkill = true,
 		skillAction = 2,
 		values = {
-			[1] = 102,
+			[1] = 101,
 		},
 		castTarget = 4,
 		targetMode = 2,
@@ -66,11 +66,11 @@ Skill = {
 		afterCast = 0,
 		activeCondition = {
 			[1] = 1,
-			[2] = 30,
+			[2] = 0,
 		},
-		skillDuration = 10,
+		skillDuration = 8,
 		coolingTiming = 1,
-		coolingTime = 30,
+		coolingTime = 5,
 		canUseNum = 1,
 	},
 }

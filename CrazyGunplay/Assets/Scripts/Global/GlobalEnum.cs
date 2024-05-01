@@ -160,7 +160,7 @@ public enum SkillCastAction
 	/// <summary>
 	/// 召唤物
 	/// </summary>
-	Call = 2,
+	Summon = 2,
 
 	/// <summary>
 	/// 位移

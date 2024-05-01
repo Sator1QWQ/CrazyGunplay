@@ -34,6 +34,7 @@ public class SummonAction : SkillAction
             if(spawnCount < config.spawnCount)
             {
                 Module.Entity.ShowEntity(entitys[index], typeof(SummonEntity), config.assetPath, "Summon", new object[] { config, owner});
+                spawnCount++;
             }
             index++;
         }
@@ -49,7 +50,19 @@ public class SummonAction : SkillAction
                 Module.Entity.HideEntity(entitys[i]);
             }
         }
+        index = 0;
+        spawnCount = 0;
+        tempTime = 0;
     }
+
+    //public override bool EndCondition(TimerComponent.TimerData timer)
+    //{
+    //    if(spawnCount > config.spawnCount)
+    //    {
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
     public override void ClearData()
     {

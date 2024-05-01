@@ -7,8 +7,7 @@ Character = {
 		initWeapon = 101,
 		initSkill = {
 			[1] = 1001,
-			[2] = 1002,
-			[3] = 1003,
+			[2] = 1003,
 		},
 		model = Character_Text.model_4,
 		desc = Character_Text.desc_4,

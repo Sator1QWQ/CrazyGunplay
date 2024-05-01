@@ -21,8 +21,8 @@ public interface Config_Summon : IConfigBase
 
 	int targetNum { get; set; }
 
-	string assetPath { get; set; }
-
 	bool isContinueFollow { get; set; }
+
+	string assetPath { get; set; }
 
 }

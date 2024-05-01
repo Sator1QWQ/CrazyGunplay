@@ -37,16 +37,11 @@ public abstract class SkillAction : IReference
 
     /// <summary>
     /// 判断什么时候结束技能
+    /// 优先于skillDuration，如果这个条件满足，则不管剩余时间直接结束技能
     /// </summary>
     /// <returns></returns>
     public virtual bool EndCondition(TimerData timer)
     {
-        if(timer.duration != -1)
-        {
-            return timer.remainTime >= 0;
-        }
-
-        //技能无限时间，需要子类实现条件
         return false;
     }
 

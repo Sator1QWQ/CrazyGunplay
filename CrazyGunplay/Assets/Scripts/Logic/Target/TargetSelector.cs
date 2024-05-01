@@ -72,12 +72,12 @@ public class TargetSelector : IReference
             isInit = true;
         }
 
-        if (CompareType == CompareType.Max && curValue > maxValue)
+        if (CompareType == CompareType.Max && curValue >= maxValue)
         {
             maxValue = curValue;
             MaxPlayer = curPlayer;
         }
-        else if (CompareType == CompareType.Min && curValue < minValue)
+        else if (CompareType == CompareType.Min && curValue <= minValue)
         {
             minValue = curValue;
             MinPlayer = curPlayer;

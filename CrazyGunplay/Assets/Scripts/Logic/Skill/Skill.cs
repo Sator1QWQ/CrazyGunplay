@@ -40,11 +40,16 @@ public class Skill : IReference
         {
             Action = ReferencePool.Acquire<GetWeaponAction>();
         }
+        else if(Config.skillAction == SkillCastAction.Summon)
+        {
+            Action = ReferencePool.Acquire<SummonAction>();
+        }
 
         if(Action != null)
         {
             Action.Init(ownerPlayer, Config);
-        }   
+        }
+        Debug.Log($"玩家{ownerPlayer.PlayerId}初始化技能{skillId}");
     }
 
     public void UseSkill()
@@ -53,7 +58,7 @@ public class Skill : IReference
         {
             UseTimeSpan = Time.time;
         }
-
+        Debug.Log($"玩家{OwnerPlayer.PlayerId}使用技能{Config.id}");
         Action.OnEnter();
         skillTimer = Module.Timer.AddUpdateTimer(SkillTimer, EndSkillTimer, 0, Config.skillDuration);
         //玩家状态修改

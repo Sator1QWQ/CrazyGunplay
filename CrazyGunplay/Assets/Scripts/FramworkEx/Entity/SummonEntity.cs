@@ -31,6 +31,7 @@ public class SummonEntity : EntityLogic
             startPoint = new Vector3(Random.Range(0, 5) + targetPlayer.Entity.transform.position.x, GlobalDefine.MAP_MAX_HEIGHT, 0);
         }
         endPoint = targetPlayer.Entity.transform.position;
+        Entity.transform.position = startPoint;
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -45,7 +46,7 @@ public class SummonEntity : EntityLogic
         if (targetPlayer != null)
         {
             Entity.transform.right = endPoint - Entity.transform.position;
-            Entity.transform.Translate(new Vector3(0.5f * Time.deltaTime, 0, 0));
+            Entity.transform.Translate(new Vector3(2f * Time.deltaTime, 0, 0));
         }
     }
 
