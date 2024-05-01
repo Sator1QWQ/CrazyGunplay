@@ -64,6 +64,8 @@ public sealed class Module : MonoBehaviour
     /// </summary>
     public static PlayerDataComponent PlayerData { get; private set; }
 
+    public static TeamComponent Team { get; private set; }
+
     private void Start()
     {
         InitModuleComponent();
@@ -83,6 +85,7 @@ public sealed class Module : MonoBehaviour
         Bullet = GameEntry.GetComponent<BulletComponent>();
         Timer = GameEntry.GetComponent<TimerComponent>();
         PlayerData = GameEntry.GetComponent<PlayerDataComponent>();
+        Team = GameEntry.GetComponent<TeamComponent>();
         Debug.Log("模块初始化完成");
     }
 }

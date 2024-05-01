@@ -44,6 +44,13 @@ public class TargetSelector : IReference
         return 0;
     }
 
+    /// <summary>
+    /// 比较大小
+    /// </summary>
+    /// <param name="curPlayer"></param>
+    /// <param name="curValue"></param>
+    /// <param name="targetValue"></param>
+    /// <returns></returns>
     public bool Compare(PlayerEntity curPlayer, float curValue, float targetValue)
     {
         UpdateMinMax(curPlayer, curValue);

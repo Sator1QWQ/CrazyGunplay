@@ -111,6 +111,17 @@ public class SkillManager
             Entity entity = Module.Entity.GetEntity(entityArr[i].Id);
             PlayerEntity other = entity.Logic as PlayerEntity;
 
+            //找敌方，如果同队则不找
+            if (targetType == TargetType.EnemyTeam && Module.Team.IsSameTeam(player.PlayerId, other.PlayerId))
+            {
+                continue;
+            }
+            //找友方，如果不同队则不找
+            else if(targetType == TargetType.SelfTeam && !Module.Team.IsSameTeam(player.PlayerId, other.PlayerId))
+            {
+                continue;
+            }
+
             float v = selector.GetValueBySelectMode(player, other);
             bool compareResult = selector.Compare(other, v, value);
             if (compare != CompareType.Max && compare != CompareType.Greater && compareResult)
