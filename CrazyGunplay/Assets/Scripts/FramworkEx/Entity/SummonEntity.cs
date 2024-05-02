@@ -14,6 +14,8 @@ public class SummonEntity : EntityLogic
     private PlayerEntity targetPlayer;
     private Vector3 startPoint;
     private Vector3 endPoint;
+    private List<Vector3> routeList;    //移动路径
+    private int curRouteIndex;
 
     protected override void OnShow(object userData)
     {
@@ -28,10 +30,19 @@ public class SummonEntity : EntityLogic
         if (config.castTarget == TargetType.EnemyTeam && targetPlayer != null)
         {
             //从玩家头顶起
-            startPoint = new Vector3(Random.Range(0, 5) + targetPlayer.Entity.transform.position.x, GlobalDefine.MAP_MAX_HEIGHT, 0);
+            //startPoint = new Vector3(Random.Range(0, 5) + targetPlayer.Entity.transform.position.x, GlobalDefine.MAP_MAX_HEIGHT, 0);
+            startPoint = new Vector3(targetPlayer.Entity.transform.position.x, GlobalDefine.MAP_MAX_HEIGHT, 0);
         }
         endPoint = targetPlayer.Entity.transform.position;
         Entity.transform.position = startPoint;
+
+        BezierTool.RandomBezierData data = new BezierTool.RandomBezierData();
+        data.routeCount = 20;
+        data.controlPointCount = 4;
+        data.range = 5f;
+        data.isControlSameWithNormal = false;
+        data.normal = Vector3.Cross(endPoint - startPoint, Vector3.forward).normalized;
+        routeList = BezierTool.GetRandomLine(startPoint, endPoint, data);
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -43,10 +54,15 @@ public class SummonEntity : EntityLogic
             endPoint = targetPlayer.Entity.transform.position;
         }
 
-        if (targetPlayer != null)
+        if (targetPlayer != null && curRouteIndex < routeList.Count)
         {
             Entity.transform.right = endPoint - Entity.transform.position;
-            Entity.transform.Translate(new Vector3(config.moveSpeed * Time.deltaTime, 0, 0));
+            Entity.transform.position = Vector3.MoveTowards(Entity.transform.position, routeList[curRouteIndex], config.moveSpeed * Time.deltaTime);
+            //Entity.transform.Translate(new Vector3(config.moveSpeed * Time.deltaTime, 0, 0));
+            if (Vector3.Distance(Entity.transform.position, routeList[curRouteIndex]) <= 0.01f)
+            {
+                curRouteIndex++;
+            }
         }
     }
 
@@ -58,5 +74,7 @@ public class SummonEntity : EntityLogic
         targetPlayer = null;
         startPoint = default;
         endPoint = default;
+        routeList = null;
+        curRouteIndex = 0;
     }
 }

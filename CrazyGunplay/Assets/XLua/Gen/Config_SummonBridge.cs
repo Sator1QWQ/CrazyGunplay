@@ -538,6 +538,108 @@ namespace XLua.CSObjectWrap
             
         }
         
+        bool Config_Summon.isRandomStartPoint 
+        {
+            
+            get 
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "isRandomStartPoint");
+					if (0 != LuaAPI.xlua_pgettable(L, -2))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					bool __gen_ret = LuaAPI.lua_toboolean(L, -1);
+					LuaAPI.lua_pop(L, 2);
+					return __gen_ret;
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+            
+            set
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "isRandomStartPoint");
+					LuaAPI.lua_pushboolean(L, value);
+					if (0 != LuaAPI.xlua_psettable(L, -3))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					LuaAPI.lua_pop(L, 1);
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+        }
+        
+        bool Config_Summon.isRandomRoute 
+        {
+            
+            get 
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "isRandomRoute");
+					if (0 != LuaAPI.xlua_pgettable(L, -2))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					bool __gen_ret = LuaAPI.lua_toboolean(L, -1);
+					LuaAPI.lua_pop(L, 2);
+					return __gen_ret;
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+            
+            set
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "isRandomRoute");
+					LuaAPI.lua_pushboolean(L, value);
+					if (0 != LuaAPI.xlua_psettable(L, -3))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					LuaAPI.lua_pop(L, 1);
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+        }
+        
         string Config_Summon.assetPath 
         {
             

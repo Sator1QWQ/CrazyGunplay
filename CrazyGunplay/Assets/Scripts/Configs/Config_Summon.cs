@@ -25,6 +25,10 @@ public interface Config_Summon : IConfigBase
 
 	bool isContinueFollow { get; set; }
 
+	bool isRandomStartPoint { get; set; }
+
+	bool isRandomRoute { get; set; }
+
 	string assetPath { get; set; }
 
 }

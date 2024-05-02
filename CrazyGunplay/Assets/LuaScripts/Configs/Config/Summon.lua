@@ -4,7 +4,7 @@ Summon = {
 	[101] = {
 		id = 101,
 		spawnCount = 10,
-		spawnInterval = 0.4,
+		spawnInterval = 0.3,
 		moveSpeed = 8,
 		castTarget = 4,
 		targetMode = 2,
@@ -12,6 +12,8 @@ Summon = {
 		targetValue = nil,
 		targetNum = 1,
 		isContinueFollow = false,
+		isRandomStartPoint = true,
+		isRandomRoute = true,
 		assetPath = Summon_Text.assetPath_4,
 	},
 	[102] = {
@@ -25,6 +27,8 @@ Summon = {
 		targetValue = nil,
 		targetNum = nil,
 		isContinueFollow = true,
+		isRandomStartPoint = false,
+		isRandomRoute = false,
 		assetPath = Summon_Text.assetPath_5,
 	},
 	[103] = {
@@ -38,6 +42,8 @@ Summon = {
 		targetValue = nil,
 		targetNum = nil,
 		isContinueFollow = nil,
+		isRandomStartPoint = nil,
+		isRandomRoute = nil,
 		assetPath = Summon_Text.assetPath_6,
 	},
 }
