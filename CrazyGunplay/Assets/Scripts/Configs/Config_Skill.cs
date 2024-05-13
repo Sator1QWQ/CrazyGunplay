@@ -39,6 +39,8 @@ public interface Config_Skill : IConfigBase
 
 	float coolingTime { get; set; }
 
+	List<int> expressionList { get; set; }
+
 	int canUseNum { get; set; }
 
 }

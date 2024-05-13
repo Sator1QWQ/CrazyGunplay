@@ -1,0 +1,13 @@
+SkillExpression_Text = {}
+SkillExpression_Text.animationPath_4 = ""
+SkillExpression_Text.audioPath_4 = ""
+SkillExpression_Text.effectPath_4 = "Assets/Arts/ParticlePack/EffectExamples/Fire/Prefabs/PlasmaExplosionEffect2.prefab"
+SkillExpression_Text.animationPath_5 = ""
+SkillExpression_Text.audioPath_5 = ""
+SkillExpression_Text.effectPath_5 = "Assets/Arts/ParticlePack/EffectExamples/Fire/Prefabs/PlasmaExplosionEffect3.prefab"
+SkillExpression_Text.animationPath_6 = ""
+SkillExpression_Text.audioPath_6 = ""
+SkillExpression_Text.effectPath_6 = "Assets/Arts/ParticlePack/EffectExamples/Fire/Prefabs/LargeFlames.prefab"
+SkillExpression_Text.animationPath_7 = ""
+SkillExpression_Text.audioPath_7 = ""
+SkillExpression_Text.effectPath_7 = "Assets/Arts/ParticlePack/EffectExamples/Fire/Prefabs/SmallExplosion.prefab"

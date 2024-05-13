@@ -23,6 +23,9 @@ Skill = {
 		skillDuration = -1,
 		coolingTiming = 2,
 		coolingTime = 10,
+		expressionList = {
+			[1] = 2001,
+		},
 		canUseNum = 2,
 	},
 	[1002] = {
@@ -46,6 +49,9 @@ Skill = {
 		skillDuration = 3.5,
 		coolingTiming = 1,
 		coolingTime = 8,
+		expressionList = {
+			[1] = 2010,
+		},
 		canUseNum = 5,
 	},
 	[1003] = {
@@ -71,6 +77,8 @@ Skill = {
 		skillDuration = 8,
 		coolingTiming = 1,
 		coolingTime = 5,
+		expressionList = {
+		},
 		canUseNum = 1,
 	},
 }

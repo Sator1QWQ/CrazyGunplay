@@ -350,3 +350,19 @@ public enum SkillCoolingTiming
 	/// </summary>
 	WhenEndSkill = 2,
 }
+
+/// <summary>
+/// 技能特效删除的时机
+/// </summary>
+public enum SkillEffectDeleteTiming
+{
+	/// <summary>
+	/// 当特效结束时
+	/// </summary>
+	WhenEffectEnd = 1,
+
+	/// <summary>
+	/// 当技能结束时
+	/// </summary>
+	WhenSkillEnd = 2,
+}
