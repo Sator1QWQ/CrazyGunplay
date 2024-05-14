@@ -124,7 +124,8 @@ public class PlayerEntity : CharacterEntity
     private void InitController()
     {
         mGravity = GetComponent<SimpleGravity>();
-        if(PlayerId == 1)
+        mGravity.OnIsAirChange += IsAirChange;
+        if (PlayerId == 1)
         {
             Controller = new OnePController(this, mGravity);
         }
@@ -247,6 +248,11 @@ public class PlayerEntity : CharacterEntity
                 Anim.SetInteger("controlState", (int)args.CurState);
                 break;
         }
+    }
+
+    private void IsAirChange(bool b)
+    {
+        Anim.SetBool("isAir", b);
     }
 
     private void OnBattleStateChange(object sender, GameEventArgs e)

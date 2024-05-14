@@ -50,7 +50,16 @@ public class SimpleGravity : MonoBehaviour
     [HideInInspector] public bool seetingUseGravity;
     private List<UpdateData> mUpdateActionList = new List<UpdateData>();
 
-    public bool IsAir { get; private set; }
+    private bool isAir;
+    public bool IsAir 
+    {
+        get => isAir;
+        private set
+        {
+            isAir = value;
+            OnIsAirChange(isAir);
+        }
+    }
 
     /// <summary>
     /// 射线检测长度
@@ -61,6 +70,8 @@ public class SimpleGravity : MonoBehaviour
     /// 触碰到地面时调用
     /// </summary>
     public event Action OnTouchGround = () => { };
+
+    public event Action<bool> OnIsAirChange = _ => { };
     
     private void Awake()
     {
