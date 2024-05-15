@@ -27,13 +27,14 @@ public class TimerComponent : GameFrameworkComponent
 
     private List<TimerData> mTimerList = new List<TimerData>();
 
-    public TimerData AddTimer(Action<TimerData> act, float delayTime)
+    public TimerData AddTimer(Action<TimerData> act, float delayTime, object userData = null)
     {
         TimerData data = new TimerData();
         data.startTime = Time.time;
         data.delay = delayTime;
         data.duration = 0;
         data.act = act;
+        data.userdata = userData;
         mTimerList.Add(data);
         return data;
     }
@@ -45,7 +46,7 @@ public class TimerComponent : GameFrameworkComponent
     /// <param name="endAct">结束函数</param>
     /// <param name="delayTime">延迟时间 单位：秒</param>
     /// <param name="duration">持续时间 单位：秒</param>
-    public TimerData AddUpdateTimer(Action<TimerData> act, Action<TimerData> endAct, float delayTime = 0, float duration = 0)
+    public TimerData AddUpdateTimer(Action<TimerData> act, Action<TimerData> endAct, float delayTime = 0, float duration = 0, object userdata = null)
     {
         TimerData data = new TimerData();
         data.startTime = Time.time;
@@ -53,6 +54,7 @@ public class TimerComponent : GameFrameworkComponent
         data.duration = duration;
         data.act = act;
         data.endAct = endAct;
+        data.userdata = userdata;
         mTimerList.Add(data);
         return data;
     }
