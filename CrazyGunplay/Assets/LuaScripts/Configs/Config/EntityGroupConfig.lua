@@ -33,5 +33,13 @@ EntityGroupConfig = {
 		instanceExpireTime = 60,
 		instancePriority = 4,
 	},
+	[5] = {
+		id = 5,
+		name = EntityGroupConfig_Text.name_8,
+		instanceAutoReleaseInterval = 60,
+		instanceCapacity = 100,
+		instanceExpireTime = 60,
+		instancePriority = 5,
+	},
 }
-EntityGroupConfig.Count = 4
+EntityGroupConfig.Count = 5

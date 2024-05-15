@@ -183,6 +183,8 @@ namespace XLua.CSObjectWrap
             
             translator.AddInterfaceBridgeCreator(typeof(Config_CharacterData), Config_CharacterDataBridge.__Create);
             
+            translator.AddInterfaceBridgeCreator(typeof(Config_Effect), Config_EffectBridge.__Create);
+            
             translator.AddInterfaceBridgeCreator(typeof(Config_EntityGroupConfig), Config_EntityGroupConfigBridge.__Create);
             
             translator.AddInterfaceBridgeCreator(typeof(Config_Grenade), Config_GrenadeBridge.__Create);

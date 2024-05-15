@@ -14,21 +14,21 @@ using System;
 
 namespace XLua.CSObjectWrap
 {
-    public class Config_SkillExpressionBridge : LuaBase, Config_SkillExpression
+    public class Config_EffectBridge : LuaBase, Config_Effect
     {
 	    public static LuaBase __Create(int reference, LuaEnv luaenv)
 		{
-		    return new Config_SkillExpressionBridge(reference, luaenv);
+		    return new Config_EffectBridge(reference, luaenv);
 		}
 		
-		public Config_SkillExpressionBridge(int reference, LuaEnv luaenv) : base(reference, luaenv)
+		public Config_EffectBridge(int reference, LuaEnv luaenv) : base(reference, luaenv)
         {
         }
 		
         
 
         
-        int Config_SkillExpression.id 
+        int Config_Effect.id 
         {
             
             get 
@@ -79,7 +79,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        int Config_SkillExpression.nextExpression 
+        string Config_Effect.effectPath 
         {
             
             get 
@@ -92,160 +92,7 @@ namespace XLua.CSObjectWrap
 					int oldTop = LuaAPI.lua_gettop(L);
 					
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "nextExpression");
-					if (0 != LuaAPI.xlua_pgettable(L, -2))
-					{
-						luaEnv.ThrowExceptionFromError(oldTop);
-					}
-					int __gen_ret = LuaAPI.xlua_tointeger(L, -1);
-					LuaAPI.lua_pop(L, 2);
-					return __gen_ret;
-#if THREAD_SAFE || HOTFIX_ENABLE
-                }
-#endif
-            }
-            
-            
-            set
-            {
-#if THREAD_SAFE || HOTFIX_ENABLE
-                lock (luaEnv.luaEnvLock)
-                {
-#endif
-					RealStatePtr L = luaEnv.L;
-					int oldTop = LuaAPI.lua_gettop(L);
-					
-					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "nextExpression");
-					LuaAPI.xlua_pushinteger(L, value);
-					if (0 != LuaAPI.xlua_psettable(L, -3))
-					{
-						luaEnv.ThrowExceptionFromError(oldTop);
-					}
-					LuaAPI.lua_pop(L, 1);
-#if THREAD_SAFE || HOTFIX_ENABLE
-                }
-#endif
-            }
-            
-        }
-        
-        float Config_SkillExpression.delayTime 
-        {
-            
-            get 
-            {
-#if THREAD_SAFE || HOTFIX_ENABLE
-                lock (luaEnv.luaEnvLock)
-                {
-#endif
-					RealStatePtr L = luaEnv.L;
-					int oldTop = LuaAPI.lua_gettop(L);
-					
-					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "delayTime");
-					if (0 != LuaAPI.xlua_pgettable(L, -2))
-					{
-						luaEnv.ThrowExceptionFromError(oldTop);
-					}
-					float __gen_ret = (float)LuaAPI.lua_tonumber(L, -1);
-					LuaAPI.lua_pop(L, 2);
-					return __gen_ret;
-#if THREAD_SAFE || HOTFIX_ENABLE
-                }
-#endif
-            }
-            
-            
-            set
-            {
-#if THREAD_SAFE || HOTFIX_ENABLE
-                lock (luaEnv.luaEnvLock)
-                {
-#endif
-					RealStatePtr L = luaEnv.L;
-					int oldTop = LuaAPI.lua_gettop(L);
-					
-					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "delayTime");
-					LuaAPI.lua_pushnumber(L, value);
-					if (0 != LuaAPI.xlua_psettable(L, -3))
-					{
-						luaEnv.ThrowExceptionFromError(oldTop);
-					}
-					LuaAPI.lua_pop(L, 1);
-#if THREAD_SAFE || HOTFIX_ENABLE
-                }
-#endif
-            }
-            
-        }
-        
-        int Config_SkillExpression.animationSkillId 
-        {
-            
-            get 
-            {
-#if THREAD_SAFE || HOTFIX_ENABLE
-                lock (luaEnv.luaEnvLock)
-                {
-#endif
-					RealStatePtr L = luaEnv.L;
-					int oldTop = LuaAPI.lua_gettop(L);
-					
-					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "animationSkillId");
-					if (0 != LuaAPI.xlua_pgettable(L, -2))
-					{
-						luaEnv.ThrowExceptionFromError(oldTop);
-					}
-					int __gen_ret = LuaAPI.xlua_tointeger(L, -1);
-					LuaAPI.lua_pop(L, 2);
-					return __gen_ret;
-#if THREAD_SAFE || HOTFIX_ENABLE
-                }
-#endif
-            }
-            
-            
-            set
-            {
-#if THREAD_SAFE || HOTFIX_ENABLE
-                lock (luaEnv.luaEnvLock)
-                {
-#endif
-					RealStatePtr L = luaEnv.L;
-					int oldTop = LuaAPI.lua_gettop(L);
-					
-					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "animationSkillId");
-					LuaAPI.xlua_pushinteger(L, value);
-					if (0 != LuaAPI.xlua_psettable(L, -3))
-					{
-						luaEnv.ThrowExceptionFromError(oldTop);
-					}
-					LuaAPI.lua_pop(L, 1);
-#if THREAD_SAFE || HOTFIX_ENABLE
-                }
-#endif
-            }
-            
-        }
-        
-        string Config_SkillExpression.audioPath 
-        {
-            
-            get 
-            {
-#if THREAD_SAFE || HOTFIX_ENABLE
-                lock (luaEnv.luaEnvLock)
-                {
-#endif
-					RealStatePtr L = luaEnv.L;
-					int oldTop = LuaAPI.lua_gettop(L);
-					
-					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "audioPath");
+					LuaAPI.xlua_pushasciistring(L, "effectPath");
 					if (0 != LuaAPI.xlua_pgettable(L, -2))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
@@ -269,7 +116,7 @@ namespace XLua.CSObjectWrap
 					int oldTop = LuaAPI.lua_gettop(L);
 					
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "audioPath");
+					LuaAPI.xlua_pushasciistring(L, "effectPath");
 					LuaAPI.lua_pushstring(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
@@ -283,7 +130,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        int Config_SkillExpression.effectId 
+        bool Config_Effect.isEffectFollow 
         {
             
             get 
@@ -296,12 +143,12 @@ namespace XLua.CSObjectWrap
 					int oldTop = LuaAPI.lua_gettop(L);
 					
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "effectId");
+					LuaAPI.xlua_pushasciistring(L, "isEffectFollow");
 					if (0 != LuaAPI.xlua_pgettable(L, -2))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
 					}
-					int __gen_ret = LuaAPI.xlua_tointeger(L, -1);
+					bool __gen_ret = LuaAPI.lua_toboolean(L, -1);
 					LuaAPI.lua_pop(L, 2);
 					return __gen_ret;
 #if THREAD_SAFE || HOTFIX_ENABLE
@@ -320,8 +167,59 @@ namespace XLua.CSObjectWrap
 					int oldTop = LuaAPI.lua_gettop(L);
 					
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "effectId");
-					LuaAPI.xlua_pushinteger(L, value);
+					LuaAPI.xlua_pushasciistring(L, "isEffectFollow");
+					LuaAPI.lua_pushboolean(L, value);
+					if (0 != LuaAPI.xlua_psettable(L, -3))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					LuaAPI.lua_pop(L, 1);
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+        }
+        
+        SkillEffectDeleteTiming Config_Effect.effectDeleteTiming 
+        {
+            
+            get 
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					ObjectTranslator translator = luaEnv.translator;
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "effectDeleteTiming");
+					if (0 != LuaAPI.xlua_pgettable(L, -2))
+					{
+						luaEnv.ThrowExceptionFromError(oldTop);
+					}
+					SkillEffectDeleteTiming __gen_ret;translator.Get(L, -1, out __gen_ret);
+					LuaAPI.lua_pop(L, 2);
+					return __gen_ret;
+#if THREAD_SAFE || HOTFIX_ENABLE
+                }
+#endif
+            }
+            
+            
+            set
+            {
+#if THREAD_SAFE || HOTFIX_ENABLE
+                lock (luaEnv.luaEnvLock)
+                {
+#endif
+					RealStatePtr L = luaEnv.L;
+					int oldTop = LuaAPI.lua_gettop(L);
+					ObjectTranslator translator = luaEnv.translator;
+					LuaAPI.lua_getref(L, luaReference);
+					LuaAPI.xlua_pushasciistring(L, "effectDeleteTiming");
+					translator.Push(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);

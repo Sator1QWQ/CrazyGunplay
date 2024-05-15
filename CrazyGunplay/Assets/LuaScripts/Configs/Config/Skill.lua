@@ -78,6 +78,8 @@ Skill = {
 		coolingTiming = 1,
 		coolingTime = 5,
 		expressionList = {
+			[1] = 2020,
+			[2] = 2021,
 		},
 		canUseNum = 1,
 	},

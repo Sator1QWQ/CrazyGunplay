@@ -7,18 +7,14 @@ public interface Config_SkillExpression : IConfigBase
 {
 	int id { get; set; }
 
+	int nextExpression { get; set; }
+
 	float delayTime { get; set; }
 
-	string animationPath { get; set; }
+	int animationSkillId { get; set; }
 
 	string audioPath { get; set; }
 
-	string effectPath { get; set; }
-
-	bool isEffectFollow { get; set; }
-
-	List<float> effectScale { get; set; }
-
-	SkillEffectDeleteTiming effectDeleteTiming { get; set; }
+	int effectId { get; set; }
 
 }
