@@ -11,6 +11,7 @@ public class SummonEntity : EntityLogic
 {
     private Config_Summon config;
     private PlayerEntity skillOwner;
+    private Skill skill;
     private PlayerEntity targetPlayer;
     private Vector3 startPoint;
     private Vector3 endPoint;
@@ -23,6 +24,7 @@ public class SummonEntity : EntityLogic
         object[] objs = userData as object[];
         config = objs[0] as Config_Summon;
         skillOwner = objs[1] as PlayerEntity;
+        skill = objs[2] as Skill;
 
         //每个召唤物只找一次，之后目标不会再变
         targetPlayer = skillOwner.SkillManager.FindTarget(config.castTarget, config.targetMode, config.compare, config.targetValue);
@@ -64,6 +66,15 @@ public class SummonEntity : EntityLogic
                 curRouteIndex++;
             }
         }
+
+        float targetDis = Vector3.Distance(Entity.transform.position, endPoint);
+        Debug.Log("targetDis==" + targetDis);
+        //到达目标点，触发命中判定
+        if (targetDis <= 0.01f)
+        {
+            skill.PlayExpression(skill.Config.expressionList[1], targetPlayer.Entity.transform);
+            Module.Entity.HideEntity(Entity);
+        }
     }
 
     protected override void OnRecycle()
@@ -76,5 +87,6 @@ public class SummonEntity : EntityLogic
         endPoint = default;
         routeList = null;
         curRouteIndex = 0;
+        skill = null;
     }
 }

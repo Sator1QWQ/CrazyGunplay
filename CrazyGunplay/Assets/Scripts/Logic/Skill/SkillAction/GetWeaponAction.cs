@@ -6,9 +6,9 @@ public class GetWeaponAction : SkillAction
 {
     private Weapon weapon;
 
-    public override void Init(PlayerEntity player, Config_Skill config)
+    public override void Init(PlayerEntity player, Config_Skill config, Skill skill)
     {
-        base.Init(player, config);
+        base.Init(player, config, skill);
     }
 
     public override void ClearData()
@@ -18,8 +18,6 @@ public class GetWeaponAction : SkillAction
 
     public override void OnEnter()
     {
-        Debug.Log("吓我一跳释放武器");
-
         if (!player.WeaponManager.HasWeapon(GlobalDefine.SKILL_WEAPON_SLOT))
         {
             player.WeaponManager.AddOrChangeSlot(GlobalDefine.SKILL_WEAPON_SLOT, skillConfig.values[0]);
@@ -33,8 +31,6 @@ public class GetWeaponAction : SkillAction
 
     public override void OnExit()
     {
-        Debug.Log("技能结束");
-        
         //技能结束时移除武器
         player.WeaponManager.RemoveWeapon(GlobalDefine.SKILL_WEAPON_SLOT);
     }

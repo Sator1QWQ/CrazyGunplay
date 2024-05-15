@@ -16,6 +16,7 @@ public class EntityTool
     private static int weaponEntityId = 100;
     private static int bulletEntityId = 1000;
     private static int summonEntityId = 2000;
+    private static int particleEntityId = 3000;
 
     /// <summary>
     /// 角色实体id
@@ -64,5 +65,21 @@ public class EntityTool
         }
         summonEntityId++;
         return summonEntityId;
+    }
+
+    /// <summary>
+    /// 获取粒子id
+    /// </summary>
+    /// <returns></returns>
+    public static int GetParticleEntityId()
+    {
+        //粒子最多只能同时存在1000个
+        if(particleEntityId >= 4000)
+        {
+            particleEntityId = 3000;
+        }
+
+        particleEntityId++;
+        return particleEntityId;
     }
 }

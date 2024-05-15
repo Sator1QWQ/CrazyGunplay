@@ -12,18 +12,18 @@ public class SummonAction : SkillAction
     private int index;
     private float spawnCount;
     private float tempTime;
-    private PlayerEntity owner;
+    private PlayerEntity ownerPlayer;
 
-    public override void Init(PlayerEntity player, Config_Skill skillConfig)
+    public override void Init(PlayerEntity player, Config_Skill skillConfig, Skill skill)
     {
-        base.Init(player, skillConfig);
+        base.Init(player, skillConfig, skill);
         config = Config<Config_Summon>.Get("Summon", skillConfig.values[0]);
         entitys = new List<int>();
         for (int i = 0; i < config.spawnCount; i++)
         {
             entitys.Add(EntityTool.GetSummonEntityId());
         }
-        owner = player;
+        ownerPlayer = player;
     }
 
     public override void OnUpdate()
@@ -33,7 +33,7 @@ public class SummonAction : SkillAction
             tempTime = Time.time + config.spawnInterval;
             if(spawnCount < config.spawnCount)
             {
-                Module.Entity.ShowEntity(entitys[index], typeof(SummonEntity), config.assetPath, "Summon", new object[] { config, owner});
+                Module.Entity.ShowEntity(entitys[index], typeof(SummonEntity), config.assetPath, "Summon", new object[] { config, ownerPlayer, skill});
                 spawnCount++;
             }
             index++;
@@ -78,6 +78,6 @@ public class SummonAction : SkillAction
         index = 0;
         spawnCount = 0;
         tempTime = 0;
-        owner = null;
+        ownerPlayer = null;
     }
 }

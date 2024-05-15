@@ -27,6 +27,9 @@ public class Skill : IReference
 
     private TimerData skillTimer;
 
+    //第一个int是表现队列的第一个id， 第二个int是每个表现id
+    private Dictionary<int, Dictionary<int, SkillExpression>> expressionDic = new Dictionary<int, Dictionary<int, SkillExpression>>();
+
     /// <summary>
     /// 初始化技能
     /// </summary>
@@ -47,8 +50,27 @@ public class Skill : IReference
 
         if(Action != null)
         {
-            Action.Init(ownerPlayer, Config);
+            Action.Init(ownerPlayer, Config, this);
         }
+
+        //初始化技能表现
+        List<int> expressionList = Config.expressionList;
+        for(int i = 0; i < expressionList.Count; i++)
+        {
+            int firstExpression = expressionList[i];
+            int currentExpression = firstExpression;
+            expressionDic.Add(firstExpression, new Dictionary<int, SkillExpression>());
+            do
+            {
+                Config_SkillExpression expCfg = Config<Config_SkillExpression>.Get("SkillExpression", currentExpression);
+                SkillExpression expression = ReferencePool.Acquire<SkillExpression>();
+                expression.Init(this, currentExpression);
+                expressionDic[firstExpression].Add(currentExpression, expression);
+                currentExpression = expCfg.nextExpression;
+            }
+            while (currentExpression != -1);
+        }
+
         Debug.Log($"玩家{ownerPlayer.PlayerId}初始化技能{skillId}");
     }
 
@@ -61,6 +83,7 @@ public class Skill : IReference
         Debug.Log($"玩家{OwnerPlayer.PlayerId}使用技能{Config.id}");
         Action.OnEnter();
         skillTimer = Module.Timer.AddUpdateTimer(SkillTimer, EndSkillTimer, 0, Config.skillDuration);
+        PlayExpression(Config.expressionList[0], OwnerPlayer.Entity.transform); //规定索引0为动画
         //玩家状态修改
     }
 
@@ -87,6 +110,36 @@ public class Skill : IReference
         }
     }
 
+    /// <summary>
+    /// 播放技能表现
+    /// </summary>
+    /// <param name="startExpressionId">表现队列的一个id</param>
+    /// <param name="target">表现的目标</param>
+    public void PlayExpression(int startExpressionId, Transform target)
+    {
+        int currentExpressionId = startExpressionId;
+        Module.Timer.AddUpdateTimer(data =>
+        {
+            Dictionary<int, SkillExpression> dic = expressionDic[startExpressionId];    //这里用闭包是为了避免使用userdata造成拆箱
+            foreach(KeyValuePair<int, SkillExpression> pairs in dic)
+            {
+                int expressionId = pairs.Key;
+                SkillExpression expression = pairs.Value;
+                if(data.continueTime >= pairs.Value.Config.delayTime)
+                {
+                    currentExpressionId = pairs.Value.Config.nextExpression;
+                    expression.PlayClip(target);
+                }
+            }
+
+            //-1为表现队列播放完
+            if(currentExpressionId == -1)
+            {
+                Module.Timer.RemoveTimer(data);
+            }
+        }, null, 0, -1, "SkillExpression"); //加标签，防止启用多次定时器时，同时触发Clear，这时找不到原来的定时器
+    }
+
     public void Clear()
     {
         ReferencePool.Release(Action);
@@ -97,5 +150,7 @@ public class Skill : IReference
         OwnerPlayer = null;
         UseTimeSpan = 0;
         StartTime = 0;
+        expressionDic.Clear();
+        Module.Timer.RemoveTimersByTag("SkillExpression");
     }
 }

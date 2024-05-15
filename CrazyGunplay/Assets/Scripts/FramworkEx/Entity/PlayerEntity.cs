@@ -36,6 +36,8 @@ public class PlayerEntity : CharacterEntity
     public WeaponManager WeaponManager { get; private set; }
     public SkillManager SkillManager { get; private set; }
 
+    public AudioSource AudioSource { get; private set; }
+
 
     private event Action<BuffData> buffDataChange = _ => { };
     /// <summary>
@@ -74,6 +76,7 @@ public class PlayerEntity : CharacterEntity
         BuffManager = new BuffManager(PlayerId);
         WeaponManager = new WeaponManager(this);
         SkillManager = new SkillManager(this);
+        AudioSource = GetComponent<AudioSource>();
 
         InitController();
         InitStateMachine();
@@ -223,6 +226,12 @@ public class PlayerEntity : CharacterEntity
                 BeatBack(vector);
                 break;
         }
+    }
+
+    public void PlaySkill(int skillId)
+    {
+        Anim.SetInteger("skillId", skillId);
+        Anim.SetTrigger("skillAnimTigger");
     }
 
     private void BeatBack(Vector3 vector)

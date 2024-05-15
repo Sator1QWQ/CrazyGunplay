@@ -22,6 +22,11 @@ public class SkillManager
         skillDic.Add(skillId, skill);
     }
 
+    public Skill GetSkill(int skillId)
+    {
+        return skillDic[skillId];
+    }
+
     public bool TryUseSkill(int skillId)
     {
         if(!SkillCondition(skillId))

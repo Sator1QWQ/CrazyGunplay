@@ -95,7 +95,7 @@ public class BezierTool
             controlList.Add(randomPoint);
         }
         controlList.Add(endPoint);
-        for (int i = 0; i < data.routeCount; i++)
+        for (int i = 0; i < data.routeCount + 1; i++)
         {
             Vector3 point = GetPoint(controlList, i * step);
             routeList.Add(point);
