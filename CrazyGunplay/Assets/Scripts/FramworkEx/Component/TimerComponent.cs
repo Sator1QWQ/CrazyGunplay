@@ -23,11 +23,12 @@ public class TimerComponent : GameFrameworkComponent
         public Action<TimerData> act;
         public Action<TimerData> endAct;
         public object userdata;
+        public string tag;  //定时器标签，可以不根据对象而根据标签来删除定时器
     }
 
     private List<TimerData> mTimerList = new List<TimerData>();
 
-    public TimerData AddTimer(Action<TimerData> act, float delayTime, object userData = null)
+    public TimerData AddTimer(Action<TimerData> act, float delayTime, object userData = null, string tag = null)
     {
         TimerData data = new TimerData();
         data.startTime = Time.time;
@@ -35,6 +36,7 @@ public class TimerComponent : GameFrameworkComponent
         data.duration = 0;
         data.act = act;
         data.userdata = userData;
+        data.tag = tag;
         mTimerList.Add(data);
         return data;
     }
@@ -46,7 +48,7 @@ public class TimerComponent : GameFrameworkComponent
     /// <param name="endAct">结束函数</param>
     /// <param name="delayTime">延迟时间 单位：秒</param>
     /// <param name="duration">持续时间 单位：秒</param>
-    public TimerData AddUpdateTimer(Action<TimerData> act, Action<TimerData> endAct, float delayTime = 0, float duration = 0, object userdata = null)
+    public TimerData AddUpdateTimer(Action<TimerData> act, Action<TimerData> endAct, float delayTime = 0, float duration = 0, object userdata = null, string tag = null)
     {
         TimerData data = new TimerData();
         data.startTime = Time.time;
@@ -55,6 +57,7 @@ public class TimerComponent : GameFrameworkComponent
         data.act = act;
         data.endAct = endAct;
         data.userdata = userdata;
+        data.tag = tag;
         mTimerList.Add(data);
         return data;
     }
@@ -130,5 +133,19 @@ public class TimerComponent : GameFrameworkComponent
     public void RemoveAllTimer()
     {
         mTimerList.Clear();
+    }
+
+    /// <summary>
+    /// 根据标签移除定时器
+    /// </summary>
+    /// <param name="tag">标签</param>
+    public void RemoveTimersByTag(string tag)
+    {
+        TimerData data = mTimerList.Find(d => d.tag.Equals(tag));
+        while(data != null)
+        {
+            mTimerList.Remove(data);
+            data = mTimerList.Find(d => d.tag.Equals(tag));
+        }
     }
 }
