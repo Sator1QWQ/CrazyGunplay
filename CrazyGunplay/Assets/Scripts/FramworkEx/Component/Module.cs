@@ -66,6 +66,8 @@ public sealed class Module : MonoBehaviour
 
     public static TeamComponent Team { get; private set; }
 
+    public static AudioComponent Audio { get; private set; }
+
     private void Start()
     {
         InitModuleComponent();
@@ -86,6 +88,8 @@ public sealed class Module : MonoBehaviour
         Timer = GameEntry.GetComponent<TimerComponent>();
         PlayerData = GameEntry.GetComponent<PlayerDataComponent>();
         Team = GameEntry.GetComponent<TeamComponent>();
+        Audio = GameEntry.GetComponent<AudioComponent>();
+
         Debug.Log("模块初始化完成");
     }
 }

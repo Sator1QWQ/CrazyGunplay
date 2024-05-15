@@ -24,8 +24,17 @@ public class GlobalDefine
 	/// 场景路径
 	/// </summary>
 	public static readonly string SCENE_PATH = "Assets/Resource/Scenes/";
+	
+	/// <summary>
+	/// 玩家模型路径
+	/// </summary>
 
 	public static readonly string PLAYER_MODEL_PATH = "Assets/Resource/Models/Player/";
+
+	/// <summary>
+	/// 音效路径
+	/// </summary>
+	public static readonly string AUDIO_PATH = "Assets/Resource/Audio";
 
 	public const float DESIGN_WIDTH = 1920;	//设计宽
 	public const float DESIGN_HEIGHT = 1080;    //设计高
