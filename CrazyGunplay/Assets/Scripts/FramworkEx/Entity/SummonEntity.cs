@@ -68,11 +68,10 @@ public class SummonEntity : EntityLogic
         }
 
         float targetDis = Vector3.Distance(Entity.transform.position, endPoint);
-        Debug.Log("targetDis==" + targetDis);
         //到达目标点，触发命中判定
         if (targetDis <= 0.01f)
         {
-            skill.PlayExpression(skill.Config.expressionList[1], targetPlayer.Entity.transform);
+            skill.PlayExpression(SkillExpressionPlayTiming.WhenHit, Entity.transform, targetPlayer.Entity.transform);
             Module.Entity.HideEntity(Entity);
         }
     }

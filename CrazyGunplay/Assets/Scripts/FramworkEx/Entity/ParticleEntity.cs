@@ -10,6 +10,8 @@ public class ParticleEntity : EntityLogic
 {
     private ParticleSystem particle;
     private Transform target;
+    private Transform owner;
+    private Vector3 targetPoint;
     private Config_Effect config;
     private float tempTime = 0;
 
@@ -26,18 +28,27 @@ public class ParticleEntity : EntityLogic
     {
         base.OnShow(userData);
         object[] objs = userData as object[];
-        target = objs[1] as Transform;
-        Entity.transform.position = target.transform.position;
+        owner = objs[1] as Transform;
+        target = objs[2] as Transform;
+        if (config.isEffectFollow)
+        {
+            if (target == null)
+            {
+                Debug.LogError("特效配置为跟随目标，但是没有目标参数！检查调用PlayClip时传入的参数");
+                return;
+            }
+            Entity.transform.SetParent(target, false);
+            Entity.transform.position = target.position;
+        }
+        else
+        {
+            Entity.transform.position = owner.position;
+        }
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
-
-        if(config.isEffectFollow)
-        {
-            Entity.transform.position = target.transform.position;
-        }
 
         //时间到了自动删除
         if(config.effectDeleteTiming == SkillEffectDeleteTiming.WhenEffectEnd)

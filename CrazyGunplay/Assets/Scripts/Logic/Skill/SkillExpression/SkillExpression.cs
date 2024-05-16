@@ -10,44 +10,44 @@ public class SkillExpression : IReference
 {
     public Config_SkillExpression Config { get; private set; }
 
-    private Skill owner;
+    private Skill ownerSkill;
     private int particleEntityId;
-    private Transform target;
 
     public void Init(Skill owner, int expId)
     {
-        this.owner = owner;
+        ownerSkill = owner;
         Config = Config<Config_SkillExpression>.Get("SkillExpression", expId);
         particleEntityId = EntityTool.GetParticleEntityId();
     }
 
     /// <summary>
-    /// 
+    /// 播放效果
     /// </summary>
-    /// <param name="target">技能目标</param>
-    public void PlayClip(Transform target)
+    /// <param name="owner">调用者，不能为空</param>
+    /// <param name="target">技能目标，可以为空</param>
+    public void PlayClip(Transform owner, Transform target)
     {
         Debug.Log("播放效果");
         if(Config.animationSkillId != 0)
         {
-            owner.OwnerPlayer.PlaySkill(Config.animationSkillId);   //播放动作
+            ownerSkill.OwnerPlayer.PlaySkill(Config.animationSkillId);   //播放动作
         }
         
         if (!string.IsNullOrEmpty(Config.audioPath))
         {
-            Module.Audio.PlayAudio(owner.OwnerPlayer.AudioSource, Config.audioPath);
+            Module.Audio.PlayAudio(ownerSkill.OwnerPlayer.AudioSource, Config.audioPath);
         }
 
-        if (Config.effectId != 0 && target != null)
+        if (Config.effectId != 0)
         {
             Config_Effect effectConfig = Config<Config_Effect>.Get("Effect", Config.effectId);
-            Module.Entity.ShowEntity(particleEntityId, typeof(ParticleEntity), effectConfig.effectPath, "Particle", new object[] { Config.effectId, target });
+            Module.Entity.ShowEntity(particleEntityId, typeof(ParticleEntity), effectConfig.effectPath, "Particle", new object[] { Config.effectId, owner, target });
         }
     }
 
     public void StopClip()
     {
-        owner.OwnerPlayer.PlaySkill(0);
+        ownerSkill.OwnerPlayer.PlaySkill(0);
 
         //回收时可能有找不到实体id的情况
         if (Module.Entity.HasEntity(particleEntityId))
@@ -59,9 +59,8 @@ public class SkillExpression : IReference
     public void Clear()
     {
         StopClip();
-        owner = null;
+        ownerSkill = null;
         Config = null;
         particleEntityId = 0;
-        target = null;
     }
 }

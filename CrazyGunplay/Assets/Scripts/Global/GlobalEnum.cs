@@ -366,3 +366,19 @@ public enum SkillEffectDeleteTiming
 	/// </summary>
 	WhenSkillEnd = 2,
 }
+
+/// <summary>
+/// 技能表现播放的时机
+/// </summary>
+public enum SkillExpressionPlayTiming
+{
+	/// <summary>
+	/// 使用技能时
+	/// </summary>
+	WhenUseSkill = 1,
+
+	/// <summary>
+	/// 当命中时
+	/// </summary>
+	WhenHit = 2,
+}
