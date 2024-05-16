@@ -57,6 +57,13 @@ public class SkillManager
             return false;
         }
 
+        //当前技能正在使用中
+        if(skill.IsSkillRunning)
+        {
+            Debug.Log("当前技能正在使用");
+            return false;
+        }
+
         //能不能找到目标
 
         return true;

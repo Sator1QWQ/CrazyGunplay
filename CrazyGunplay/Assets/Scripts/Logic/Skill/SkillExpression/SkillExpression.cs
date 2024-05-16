@@ -11,13 +11,13 @@ public class SkillExpression : IReference
     public Config_SkillExpression Config { get; private set; }
 
     private Skill ownerSkill;
-    private int particleEntityId;
+    private List<int> particleEntityList;
 
     public void Init(Skill owner, int expId)
     {
         ownerSkill = owner;
         Config = Config<Config_SkillExpression>.Get("SkillExpression", expId);
-        particleEntityId = EntityTool.GetParticleEntityId();
+        particleEntityList = new List<int>();
     }
 
     /// <summary>
@@ -38,6 +38,9 @@ public class SkillExpression : IReference
             Module.Audio.PlayAudio(ownerSkill.OwnerPlayer.AudioSource, Config.audioPath);
         }
 
+        int particleEntityId = EntityTool.GetParticleEntityId();
+        particleEntityList.Add(particleEntityId);
+
         if (Config.effectId != 0)
         {
             Config_Effect effectConfig = Config<Config_Effect>.Get("Effect", Config.effectId);
@@ -49,11 +52,16 @@ public class SkillExpression : IReference
     {
         ownerSkill.OwnerPlayer.PlaySkill(0);
 
-        //回收时可能有找不到实体id的情况
-        if (Module.Entity.HasEntity(particleEntityId))
+        for(int i = 0; i < particleEntityList.Count; i++)
         {
-            Module.Entity.HideEntity(particleEntityId);
+            int particleEntityId = particleEntityList[i];
+            //回收时可能有找不到实体id的情况
+            if (Module.Entity.HasEntity(particleEntityId))
+            {
+                Module.Entity.HideEntity(particleEntityId);
+            }
         }
+        particleEntityList.Clear();
     }
 
     public void Clear()
@@ -61,6 +69,5 @@ public class SkillExpression : IReference
         StopClip();
         ownerSkill = null;
         Config = null;
-        particleEntityId = 0;
     }
 }
