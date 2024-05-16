@@ -3,6 +3,7 @@ require "Configs.Text.SkillExpression_Text"
 SkillExpression = {
 	[2001] = {
 		id = 2001,
+		playTiming = 1,
 		nextExpression = -1,
 		delayTime = 0,
 		animationSkillId = nil,
@@ -11,6 +12,7 @@ SkillExpression = {
 	},
 	[2002] = {
 		id = 2002,
+		playTiming = 2,
 		nextExpression = -1,
 		delayTime = 0,
 		animationSkillId = nil,
@@ -19,6 +21,7 @@ SkillExpression = {
 	},
 	[2010] = {
 		id = 2010,
+		playTiming = 1,
 		nextExpression = -1,
 		delayTime = 0,
 		animationSkillId = nil,
@@ -27,6 +30,7 @@ SkillExpression = {
 	},
 	[2020] = {
 		id = 2020,
+		playTiming = 1,
 		nextExpression = -1,
 		delayTime = 0,
 		animationSkillId = 1003,
@@ -35,6 +39,7 @@ SkillExpression = {
 	},
 	[2021] = {
 		id = 2021,
+		playTiming = 2,
 		nextExpression = -1,
 		delayTime = 0,
 		animationSkillId = nil,

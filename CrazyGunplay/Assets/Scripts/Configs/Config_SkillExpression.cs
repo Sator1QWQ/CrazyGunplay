@@ -7,6 +7,8 @@ public interface Config_SkillExpression : IConfigBase
 {
 	int id { get; set; }
 
+	SkillExpressionPlayTiming playTiming { get; set; }
+
 	int nextExpression { get; set; }
 
 	float delayTime { get; set; }
