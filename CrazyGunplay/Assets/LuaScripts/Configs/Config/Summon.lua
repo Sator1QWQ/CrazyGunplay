@@ -3,7 +3,7 @@ require "Configs.Text.Summon_Text"
 Summon = {
 	[101] = {
 		id = 101,
-		spawnCount = 1,
+		spawnCount = 10,
 		spawnInterval = 0.3,
 		moveSpeed = 8,
 		castTarget = 4,

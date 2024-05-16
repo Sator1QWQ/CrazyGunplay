@@ -76,7 +76,7 @@ Skill = {
 		},
 		skillDuration = 8,
 		coolingTiming = 1,
-		coolingTime = 5,
+		coolingTime = 10,
 		expressionList = {
 			[1] = 2020,
 			[2] = 2021,
