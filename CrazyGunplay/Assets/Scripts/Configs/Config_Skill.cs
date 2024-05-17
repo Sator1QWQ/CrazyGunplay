@@ -17,15 +17,9 @@ public interface Config_Skill : IConfigBase
 
 	List<int> values { get; set; }
 
-	TargetType castTarget { get; set; }
+	int findTargetId { get; set; }
 
-	TargetSelectMode targetMode { get; set; }
-
-	CompareType compare { get; set; }
-
-	float targetValue { get; set; }
-
-	int targetNum { get; set; }
+	int areaId { get; set; }
 
 	float beforeCast { get; set; }
 

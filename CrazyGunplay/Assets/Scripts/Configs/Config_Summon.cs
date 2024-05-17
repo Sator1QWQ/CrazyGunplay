@@ -13,16 +13,6 @@ public interface Config_Summon : IConfigBase
 
 	float moveSpeed { get; set; }
 
-	TargetType castTarget { get; set; }
-
-	TargetSelectMode targetMode { get; set; }
-
-	CompareType compare { get; set; }
-
-	float targetValue { get; set; }
-
-	int targetNum { get; set; }
-
 	bool isContinueFollow { get; set; }
 
 	bool isRandomStartPoint { get; set; }

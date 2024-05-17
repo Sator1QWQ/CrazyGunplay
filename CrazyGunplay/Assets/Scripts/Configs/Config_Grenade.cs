@@ -13,9 +13,9 @@ public interface Config_Grenade : IConfigBase
 
 	bool isSkill { get; set; }
 
-	GrenadeRangeType rangeType { get; set; }
+	int areaId { get; set; }
 
-	float radius { get; set; }
+	int targetId { get; set; }
 
 	int mainMag { get; set; }
 
