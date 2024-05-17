@@ -10,7 +10,7 @@ using UnityGameFramework.Runtime;
 public class SummonEntity : EntityLogic
 {
     private Config_Summon config;
-    private PlayerEntity skillOwner;
+    private PlayerEntity ownerPlayer;
     private Skill skill;
     private PlayerEntity targetPlayer;
     private Vector3 startPoint;
@@ -23,11 +23,11 @@ public class SummonEntity : EntityLogic
         base.OnShow(userData);
         object[] objs = userData as object[];
         config = objs[0] as Config_Summon;
-        skillOwner = objs[1] as PlayerEntity;
+        ownerPlayer = objs[1] as PlayerEntity;
         skill = objs[2] as Skill;
 
         //每个召唤物只找一次，之后目标不会再变
-        targetPlayer = skillOwner.SkillManager.FindTarget(config.castTarget, config.targetMode, config.compare, config.targetValue);
+        targetPlayer = Module.Target.FindTarget(ownerPlayer, config.castTarget, config.targetMode, config.compare, config.targetValue);
 
         if (config.castTarget == TargetType.EnemyTeam && targetPlayer != null)
         {
@@ -80,7 +80,7 @@ public class SummonEntity : EntityLogic
     {
         base.OnRecycle();
         config = null;
-        skillOwner = null;
+        ownerPlayer = null;
         targetPlayer = null;
         startPoint = default;
         endPoint = default;

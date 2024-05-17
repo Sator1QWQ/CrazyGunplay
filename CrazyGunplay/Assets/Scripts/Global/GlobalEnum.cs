@@ -179,14 +179,6 @@ public enum SkillCastAction
 }
 
 /// <summary>
-/// 技能目标类型
-/// </summary>
-public enum SkillTargetType
-{
-
-}
-
-/// <summary>
 /// 技能激活条件
 /// </summary>
 public enum SkillActiveConditionType
@@ -279,6 +271,11 @@ public enum TargetSelectMode
 	/// 血量，BeatbackValue 血量越少beatBackValue越大
 	/// </summary>
 	HP = 2,
+
+	/// <summary>
+	/// 自定义函数
+	/// </summary>
+	Custom = 3,
 }
 
 /// <summary>
