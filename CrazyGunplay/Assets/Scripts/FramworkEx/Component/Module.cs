@@ -68,7 +68,15 @@ public sealed class Module : MonoBehaviour
 
     public static AudioComponent Audio { get; private set; }
 
+    /// <summary>
+    /// 目标查找组件
+    /// </summary>
     public static TargetComponent Target { get; private set; }
+
+    /// <summary>
+    /// 命中范围检查组件
+    /// </summary>
+    public static HitAreaComponent HitArea { get; private set; }
 
     private void Start()
     {
@@ -92,6 +100,7 @@ public sealed class Module : MonoBehaviour
         Team = GameEntry.GetComponent<TeamComponent>();
         Audio = GameEntry.GetComponent<AudioComponent>();
         Target = GameEntry.GetComponent<TargetComponent>();
+        HitArea = GameEntry.GetComponent<HitAreaComponent>();
 
         Debug.Log("模块初始化完成");
     }

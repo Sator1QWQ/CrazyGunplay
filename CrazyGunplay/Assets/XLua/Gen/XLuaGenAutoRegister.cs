@@ -187,9 +187,13 @@ namespace XLua.CSObjectWrap
             
             translator.AddInterfaceBridgeCreator(typeof(Config_EntityGroupConfig), Config_EntityGroupConfigBridge.__Create);
             
+            translator.AddInterfaceBridgeCreator(typeof(Config_FindTarget), Config_FindTargetBridge.__Create);
+            
             translator.AddInterfaceBridgeCreator(typeof(Config_Grenade), Config_GrenadeBridge.__Create);
             
             translator.AddInterfaceBridgeCreator(typeof(Config_Gun), Config_GunBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(Config_HitArea), Config_HitAreaBridge.__Create);
             
             translator.AddInterfaceBridgeCreator(typeof(Config_Scene), Config_SceneBridge.__Create);
             
