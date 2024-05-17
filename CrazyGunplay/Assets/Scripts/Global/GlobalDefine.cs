@@ -34,7 +34,7 @@ public class GlobalDefine
 	/// <summary>
 	/// 音效路径
 	/// </summary>
-	public static readonly string AUDIO_PATH = "Assets/Resource/Audio";
+	public static readonly string AUDIO_PATH = "Assets/Resource/Audio/";
 
 	public const float DESIGN_WIDTH = 1920;	//设计宽
 	public const float DESIGN_HEIGHT = 1080;    //设计高

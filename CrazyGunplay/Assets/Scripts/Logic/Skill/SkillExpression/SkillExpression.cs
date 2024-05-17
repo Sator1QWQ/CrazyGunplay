@@ -35,7 +35,7 @@ public class SkillExpression : IReference
         
         if (!string.IsNullOrEmpty(Config.audioPath))
         {
-            Module.Audio.PlayAudio(ownerSkill.OwnerPlayer.AudioSource, Config.audioPath);
+            Module.Audio.PlayAudio(ownerSkill.OwnerPlayer.AudioSource, GlobalDefine.AUDIO_PATH + Config.audioPath + ".wav");
         }
 
         int particleEntityId = EntityTool.GetParticleEntityId();
@@ -46,6 +46,7 @@ public class SkillExpression : IReference
             Config_Effect effectConfig = Config<Config_Effect>.Get("Effect", Config.effectId);
             Module.Entity.ShowEntity(particleEntityId, typeof(ParticleEntity), effectConfig.effectPath, "Particle", new object[] { Config.effectId, owner, target });
         }
+
     }
 
     public void StopClip()
