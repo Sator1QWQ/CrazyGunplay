@@ -255,6 +255,10 @@ public enum TargetType
 	/// </summary>
 	EnemyTeam = 4,
 
+	/// <summary>
+	/// 所有玩家
+	/// </summary>
+	AllTeam = 5,
 }
 
 /// <summary>
@@ -273,9 +277,9 @@ public enum TargetSelectMode
 	HP = 2,
 
 	/// <summary>
-	/// 自定义函数
+	/// 无
 	/// </summary>
-	Custom = 3,
+	None = 3,
 }
 
 /// <summary>
@@ -307,6 +311,11 @@ public enum CompareType
 	/// 最大
 	/// </summary>
 	Max = 5,
+
+	/// <summary>
+	/// 无
+	/// </summary>
+	None = 6,
 }
 
 public enum SkillState
@@ -378,4 +387,30 @@ public enum SkillExpressionPlayTiming
 	/// 当命中时
 	/// </summary>
 	WhenHit = 2,
+}
+
+/// <summary>
+/// 范围类型
+/// </summary>
+public enum AreaType
+{
+	/// <summary>
+	/// 圆形
+	/// </summary>
+	Circle = 1,
+
+	/// <summary>
+	/// 直线型
+	/// </summary>
+	Line = 2,
+
+	/// <summary>
+	/// 矩形
+	/// </summary>
+	Rectangle = 3,
+
+	/// <summary>
+	/// 扇形
+	/// </summary>
+	fanshaped = 4,
 }

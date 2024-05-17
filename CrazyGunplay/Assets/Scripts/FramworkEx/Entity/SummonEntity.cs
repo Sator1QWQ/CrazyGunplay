@@ -27,9 +27,14 @@ public class SummonEntity : EntityLogic
         skill = objs[2] as Skill;
 
         //每个召唤物只找一次，之后目标不会再变
-        targetPlayer = Module.Target.FindTarget(ownerPlayer, config.castTarget, config.targetMode, config.compare, config.targetValue);
+        targetPlayer = skill.TargetList[0];
+        if(targetPlayer == null)
+        {
+            return;
+        }
 
-        if (config.castTarget == TargetType.EnemyTeam && targetPlayer != null)
+        Config_FindTarget targetConfig = Config<Config_FindTarget>.Get("FindTarget", skill.Config.findTargetId);
+        if (targetConfig.targetType == TargetType.EnemyTeam && targetPlayer != null)
         {
             //从玩家头顶起
             //startPoint = new Vector3(Random.Range(0, 5) + targetPlayer.Entity.transform.position.x, GlobalDefine.MAP_MAX_HEIGHT, 0);
@@ -50,6 +55,10 @@ public class SummonEntity : EntityLogic
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
+        if(targetPlayer == null)
+        {
+            return;
+        }
 
         if(config.isContinueFollow)
         {
@@ -71,6 +80,7 @@ public class SummonEntity : EntityLogic
         //到达目标点，触发命中判定
         if (targetDis <= 0.01f)
         {
+
             skill.PlayExpression(SkillExpressionPlayTiming.WhenHit, Entity.transform, targetPlayer.Entity.transform);
             Module.Entity.HideEntity(Entity);
         }

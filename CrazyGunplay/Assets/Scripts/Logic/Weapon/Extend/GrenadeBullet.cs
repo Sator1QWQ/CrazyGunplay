@@ -66,36 +66,39 @@ public class GrenadeBullet : Bullet
     //爆炸
     private void Boom(int ignorePlayer = -1)
     {
-        if (config.rangeType == GrenadeRangeType.Circle)
-        {
-            IEntityGroup group = Module.Entity.GetEntityGroup("Player");
-            IEntity[] entityArr = group.GetAllEntities();
-            for (int i = 0; i < entityArr.Length; i++)
-            {
-                Entity entity = Module.Entity.GetEntity(entityArr[i].Id);
-                PlayerEntity player = entity.Logic as PlayerEntity;
-                
-                //忽略掉某个玩家
-                if(player.PlayerId == ignorePlayer)
-                {
-                    continue;
-                }
 
-                //不可击中自己时击中自己，则不会受伤
-                if (!CanHitSelf && player.PlayerId == OwnerWeapon.PlayerId)
-                {
-                    continue;
-                }
+        Module.HitArea.HitPlayerAction(OwnerWeapon.PlayerEntity, config.targetId, config.areaId, BulletEntityList[0].Entity.transform.position);
+        Debug.LogError("函数未实现！！！！！！！！！！！");
+        //if (config.rangeType == GrenadeRangeType.Circle)
+        //{
+        //    IEntityGroup group = Module.Entity.GetEntityGroup("Player");
+        //    IEntity[] entityArr = group.GetAllEntities();
+        //    for (int i = 0; i < entityArr.Length; i++)
+        //    {
+        //        Entity entity = Module.Entity.GetEntity(entityArr[i].Id);
+        //        PlayerEntity player = entity.Logic as PlayerEntity;
 
-                float dis = Vector3.Distance(BulletEntityList[0].Entity.transform.position, entity.transform.position);
-                if (dis <= config.radius)
-                {
-                    Vector3 dir = (entity.transform.position - BulletEntityList[0].Entity.transform.position).normalized;
-                    dir.z = 0;  //忽略z值
-                    GetDamageToPlayer(player, dir);
-                }
-            }
-        }
+        //        //忽略掉某个玩家
+        //        if (player.PlayerId == ignorePlayer)
+        //        {
+        //            continue;
+        //        }
+
+        //        //不可击中自己时击中自己，则不会受伤
+        //        if (!CanHitSelf && player.PlayerId == OwnerWeapon.PlayerId)
+        //        {
+        //            continue;
+        //        }
+
+        //        float dis = Vector3.Distance(BulletEntityList[0].Entity.transform.position, entity.transform.position);
+        //        if (dis <= config.radius)
+        //        {
+        //            Vector3 dir = (entity.transform.position - BulletEntityList[0].Entity.transform.position).normalized;
+        //            dir.z = 0;  //忽略z值
+        //            GetDamageToPlayer(player, dir);
+        //        }
+        //    }
+        //}
     }
 
     private void GetDamageToPlayer(PlayerEntity player, Vector3 dir)

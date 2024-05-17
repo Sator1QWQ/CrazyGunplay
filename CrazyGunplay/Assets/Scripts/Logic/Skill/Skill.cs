@@ -31,6 +31,8 @@ public class Skill : IReference
     /// </summary>
     public bool IsSkillRunning { get; private set; }
 
+    public List<PlayerEntity> TargetList { get; private set; }
+
     private TimerData skillTimer;
 
     //存放技能表现 每个时机为一个key值，内层的Dictionary为某个时机的表现队列
@@ -79,7 +81,7 @@ public class Skill : IReference
             while (currentExpressionId != -1);
         }
         IsSkillRunning = false;
-
+        TargetList = new List<PlayerEntity>();
         Debug.Log($"玩家{ownerPlayer.PlayerId}初始化技能{skillId}");
     }
 
@@ -90,6 +92,7 @@ public class Skill : IReference
             UseTimeSpan = Time.time;
         }
         Debug.Log($"玩家{OwnerPlayer.PlayerId}使用技能{Config.id}");
+        TargetList = Module.Target.FindTarget(OwnerPlayer, Config.findTargetId);
         Action.OnEnter();
         skillTimer = Module.Timer.AddUpdateTimer(SkillTimer, EndSkillTimer, 0, Config.skillDuration);
         PlayExpression(SkillExpressionPlayTiming.WhenUseSkill, OwnerPlayer.Entity.transform, OwnerPlayer.Entity.transform);
@@ -179,6 +182,7 @@ public class Skill : IReference
         StartTime = 0;
         expressionDic.Clear();
         IsSkillRunning = false;
+        TargetList.Clear();
         Module.Timer.RemoveTimersByTag("SkillExpression");
     }
 }
