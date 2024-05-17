@@ -1,1 +1,0 @@
-SkillAsset_Text = {}
