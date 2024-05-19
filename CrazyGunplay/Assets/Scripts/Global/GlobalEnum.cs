@@ -153,29 +153,39 @@ public enum SkillType
 public enum SkillCastAction
 {
 	/// <summary>
+	/// 无行为
+	/// </summary>
+	None = 1,
+
+	/// <summary>
 	/// 获取武器
 	/// </summary>
-	GetWeapon = 1,
+	GetWeapon = 2,
 
 	/// <summary>
 	/// 召唤物
 	/// </summary>
-	Summon = 2,
+	Summon = 3,
 
 	/// <summary>
 	/// 位移
 	/// </summary>
-	Move = 3,
+	Move = 4,
 
 	/// <summary>
 	/// Buff
 	/// </summary>
-	Buff = 4,
+	Buff = 5,
 
 	/// <summary>
-	/// 护盾
+	/// 伤害
 	/// </summary>
-	Shield = 5,
+	Damage = 6,
+
+	/// <summary>
+	/// 击飞
+	/// </summary>
+	Beatback = 7,
 }
 
 /// <summary>

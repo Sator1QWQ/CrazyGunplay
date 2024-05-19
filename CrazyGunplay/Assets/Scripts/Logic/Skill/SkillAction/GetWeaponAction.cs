@@ -6,9 +6,9 @@ public class GetWeaponAction : SkillAction
 {
     private Weapon weapon;
 
-    public override void Init(PlayerEntity player, Config_Skill config, Skill skill)
+    public override void Init(PlayerEntity player, Config_Skill config, Skill skill, Config_SkillActionTree actionConfig)
     {
-        base.Init(player, config, skill);
+        base.Init(player, config, skill, actionConfig);
     }
 
     public override void ClearData()
