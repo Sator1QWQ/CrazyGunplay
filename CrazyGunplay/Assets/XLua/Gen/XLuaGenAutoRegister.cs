@@ -199,6 +199,8 @@ namespace XLua.CSObjectWrap
             
             translator.AddInterfaceBridgeCreator(typeof(Config_Skill), Config_SkillBridge.__Create);
             
+            translator.AddInterfaceBridgeCreator(typeof(Config_SkillActionTree), Config_SkillActionTreeBridge.__Create);
+            
             translator.AddInterfaceBridgeCreator(typeof(Config_SkillExpression), Config_SkillExpressionBridge.__Create);
             
             translator.AddInterfaceBridgeCreator(typeof(Config_Summon), Config_SummonBridge.__Create);
