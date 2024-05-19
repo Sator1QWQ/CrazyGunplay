@@ -20,7 +20,7 @@ public class GetWeaponAction : SkillAction
     {
         if (!player.WeaponManager.HasWeapon(GlobalDefine.SKILL_WEAPON_SLOT))
         {
-            player.WeaponManager.AddOrChangeSlot(GlobalDefine.SKILL_WEAPON_SLOT, skillConfig.values[0]);
+            player.WeaponManager.AddOrChangeSlot(GlobalDefine.SKILL_WEAPON_SLOT, (int)actionConfig.actionValue[0]);
         }
         else
         {

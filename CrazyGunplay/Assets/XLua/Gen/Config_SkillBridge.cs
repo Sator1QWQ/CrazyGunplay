@@ -232,7 +232,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        SkillCastAction Config_Skill.skillAction 
+        int Config_Skill.skillActionId 
         {
             
             get 
@@ -243,14 +243,14 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					ObjectTranslator translator = luaEnv.translator;
+					
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "skillAction");
+					LuaAPI.xlua_pushasciistring(L, "skillActionId");
 					if (0 != LuaAPI.xlua_pgettable(L, -2))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
 					}
-					SkillCastAction __gen_ret;translator.Get(L, -1, out __gen_ret);
+					int __gen_ret = LuaAPI.xlua_tointeger(L, -1);
 					LuaAPI.lua_pop(L, 2);
 					return __gen_ret;
 #if THREAD_SAFE || HOTFIX_ENABLE
@@ -267,61 +267,10 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					ObjectTranslator translator = luaEnv.translator;
+					
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "skillAction");
-					translator.Push(L, value);
-					if (0 != LuaAPI.xlua_psettable(L, -3))
-					{
-						luaEnv.ThrowExceptionFromError(oldTop);
-					}
-					LuaAPI.lua_pop(L, 1);
-#if THREAD_SAFE || HOTFIX_ENABLE
-                }
-#endif
-            }
-            
-        }
-        
-        System.Collections.Generic.List<int> Config_Skill.values 
-        {
-            
-            get 
-            {
-#if THREAD_SAFE || HOTFIX_ENABLE
-                lock (luaEnv.luaEnvLock)
-                {
-#endif
-					RealStatePtr L = luaEnv.L;
-					int oldTop = LuaAPI.lua_gettop(L);
-					ObjectTranslator translator = luaEnv.translator;
-					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "values");
-					if (0 != LuaAPI.xlua_pgettable(L, -2))
-					{
-						luaEnv.ThrowExceptionFromError(oldTop);
-					}
-					System.Collections.Generic.List<int> __gen_ret = (System.Collections.Generic.List<int>)translator.GetObject(L, -1, typeof(System.Collections.Generic.List<int>));
-					LuaAPI.lua_pop(L, 2);
-					return __gen_ret;
-#if THREAD_SAFE || HOTFIX_ENABLE
-                }
-#endif
-            }
-            
-            
-            set
-            {
-#if THREAD_SAFE || HOTFIX_ENABLE
-                lock (luaEnv.luaEnvLock)
-                {
-#endif
-					RealStatePtr L = luaEnv.L;
-					int oldTop = LuaAPI.lua_gettop(L);
-					ObjectTranslator translator = luaEnv.translator;
-					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "values");
-					translator.Push(L, value);
+					LuaAPI.xlua_pushasciistring(L, "skillActionId");
+					LuaAPI.xlua_pushinteger(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);

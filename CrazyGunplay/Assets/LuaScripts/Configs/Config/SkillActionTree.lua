@@ -3,7 +3,7 @@ require "Configs.Text.SkillActionTree_Text"
 SkillActionTree = {
 	[301] = {
 		id = 301,
-		actionType = 1,
+		actionType = 2,
 		actionValue = [201],
 		conditionType = 1,
 		nextActionList = {
@@ -12,7 +12,7 @@ SkillActionTree = {
 	},
 	[302] = {
 		id = 302,
-		actionType = 4,
+		actionType = 5,
 		actionValue = nil,
 		conditionType = 1,
 		nextActionList = {
@@ -21,7 +21,7 @@ SkillActionTree = {
 	},
 	[303] = {
 		id = 303,
-		actionType = 2,
+		actionType = 3,
 		actionValue = [101],
 		conditionType = 1,
 		nextActionList = {

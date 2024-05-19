@@ -11,6 +11,7 @@ public abstract class SkillAction : IReference
 {
     protected PlayerEntity player;
     protected Config_Skill skillConfig;
+    protected Config_SkillActionTree actionConfig;
     protected Skill skill;
 
     public virtual void Init(PlayerEntity player, Config_Skill skillConfig, Skill skill)
@@ -18,6 +19,7 @@ public abstract class SkillAction : IReference
         this.player = player;
         this.skillConfig = skillConfig;
         this.skill = skill;
+        //Config<Config_SkillActionTree>.Get("SkillActionTree", skillConfig.s)
     }
 
     /// <summary>

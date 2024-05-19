@@ -79,7 +79,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        int Config_SkillActionTree.actionType 
+        SkillCastAction Config_SkillActionTree.actionType 
         {
             
             get 
@@ -90,14 +90,14 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					
+					ObjectTranslator translator = luaEnv.translator;
 					LuaAPI.lua_getref(L, luaReference);
 					LuaAPI.xlua_pushasciistring(L, "actionType");
 					if (0 != LuaAPI.xlua_pgettable(L, -2))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
 					}
-					int __gen_ret = LuaAPI.xlua_tointeger(L, -1);
+					SkillCastAction __gen_ret;translator.Get(L, -1, out __gen_ret);
 					LuaAPI.lua_pop(L, 2);
 					return __gen_ret;
 #if THREAD_SAFE || HOTFIX_ENABLE
@@ -114,10 +114,10 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					
+					ObjectTranslator translator = luaEnv.translator;
 					LuaAPI.lua_getref(L, luaReference);
 					LuaAPI.xlua_pushasciistring(L, "actionType");
-					LuaAPI.xlua_pushinteger(L, value);
+					translator.Push(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);

@@ -7,7 +7,7 @@ public interface Config_SkillActionTree : IConfigBase
 {
 	int id { get; set; }
 
-	int actionType { get; set; }
+	SkillCastAction actionType { get; set; }
 
 	List<object> actionValue { get; set; }
 

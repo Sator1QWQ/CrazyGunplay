@@ -13,9 +13,7 @@ public interface Config_Skill : IConfigBase
 
 	bool isBigSkill { get; set; }
 
-	SkillCastAction skillAction { get; set; }
-
-	List<int> values { get; set; }
+	int skillActionId { get; set; }
 
 	int findTargetId { get; set; }
 

@@ -17,7 +17,7 @@ public class SummonAction : SkillAction
     public override void Init(PlayerEntity player, Config_Skill skillConfig, Skill skill)
     {
         base.Init(player, skillConfig, skill);
-        config = Config<Config_Summon>.Get("Summon", skillConfig.values[0]);
+        config = Config<Config_Summon>.Get("Summon", (int)actionConfig.actionValue[0]);
         entitys = new List<int>();
         for (int i = 0; i < config.spawnCount; i++)
         {

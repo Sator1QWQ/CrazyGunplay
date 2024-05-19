@@ -47,19 +47,20 @@ public class Skill : IReference
         OwnerPlayer = ownerPlayer;
         StartTime = Time.time;
 
-        if(Config.skillAction == SkillCastAction.GetWeapon)
-        {
-            Action = ReferencePool.Acquire<GetWeaponAction>();
-        }
-        else if(Config.skillAction == SkillCastAction.Summon)
-        {
-            Action = ReferencePool.Acquire<SummonAction>();
-        }
+        Debug.LogError("未实现技能！！！");
+        //if(Config.skillAction == SkillCastAction.GetWeapon)
+        //{
+        //    Action = ReferencePool.Acquire<GetWeaponAction>();
+        //}
+        //else if(Config.skillAction == SkillCastAction.Summon)
+        //{
+        //    Action = ReferencePool.Acquire<SummonAction>();
+        //}
 
-        if(Action != null)
-        {
-            Action.Init(ownerPlayer, Config, this);
-        }
+        //if(Action != null)
+        //{
+        //    Action.Init(ownerPlayer, Config, this);
+        //}
 
         //初始化技能表现
         List<int> expressionList = Config.expressionList;
