@@ -20,7 +20,7 @@ public class GetWeaponAction : SkillAction
     {
         if (!player.WeaponManager.HasWeapon(GlobalDefine.SKILL_WEAPON_SLOT))
         {
-            player.WeaponManager.AddOrChangeSlot(GlobalDefine.SKILL_WEAPON_SLOT, (int)actionConfig.actionValue[0]);
+            player.WeaponManager.AddOrChangeSlot(GlobalDefine.SKILL_WEAPON_SLOT, (int)ActionConfig.actionValue[0]);
         }
         else
         {
@@ -35,7 +35,7 @@ public class GetWeaponAction : SkillAction
         player.WeaponManager.RemoveWeapon(GlobalDefine.SKILL_WEAPON_SLOT);
     }
 
-    public override bool EndCondition(TimerComponent.TimerData timer)
+    public override bool EndCondition()
     {
         return weapon.MainMagazine == 0 && weapon.SpareMagazine == 0;
     }

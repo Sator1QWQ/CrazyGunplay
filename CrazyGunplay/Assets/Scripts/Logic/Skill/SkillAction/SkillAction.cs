@@ -11,15 +11,27 @@ public abstract class SkillAction : IReference
 {
     protected PlayerEntity player;
     protected Config_Skill skillConfig;
-    protected Config_SkillActionTree actionConfig;
-    protected Skill skill;
+    public Skill OwnerSkill { get; private set; }
+
+    /// <summary>
+    /// 判定区应该放到SkillActionTree里
+    /// </summary>
+    public Config_SkillActionTree ActionConfig { get; private set; }
+
+    public Dictionary<int, SkillAction> SubActionDic { get; private set; }
 
     public virtual void Init(PlayerEntity player, Config_Skill skillConfig, Skill skill, Config_SkillActionTree actionConfig)
     {
         this.player = player;
         this.skillConfig = skillConfig;
-        this.skill = skill;
-        this.actionConfig = actionConfig;
+        OwnerSkill = skill;
+        ActionConfig = actionConfig;
+        SubActionDic = new Dictionary<int, SkillAction>();
+    }
+
+    public void SetSubAction(Dictionary<int, SkillAction> actionDic)
+    {
+        SubActionDic = actionDic;
     }
 
     /// <summary>
@@ -44,7 +56,7 @@ public abstract class SkillAction : IReference
     /// 优先于skillDuration，如果这个条件满足，则不管剩余时间直接结束技能
     /// </summary>
     /// <returns></returns>
-    public virtual bool EndCondition(TimerData timer)
+    public virtual bool EndCondition()
     {
         return false;
     }
@@ -53,9 +65,18 @@ public abstract class SkillAction : IReference
     {
         player = null;
         skillConfig = null;
-        skill = null;
+        OwnerSkill = null;
         ClearData();
     }
 
     public abstract void ClearData();
+
+    /// <summary>
+    /// 是否有下一个行为
+    /// </summary>
+    /// <returns></returns>
+    public bool HasNextAction()
+    {
+        return SubActionDic.Count > 0;
+    }
 }

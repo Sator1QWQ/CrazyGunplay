@@ -6,6 +6,8 @@ SkillActionTree = {
 		actionType = 2,
 		actionValue = [201],
 		conditionType = 1,
+		delayTime = 0,
+		continueTime = -1,
 		nextActionList = {
 			[1] = -1,
 		},
@@ -15,6 +17,8 @@ SkillActionTree = {
 		actionType = 5,
 		actionValue = nil,
 		conditionType = 1,
+		delayTime = 0,
+		continueTime = -1,
 		nextActionList = {
 			[1] = -1,
 		},
@@ -24,6 +28,8 @@ SkillActionTree = {
 		actionType = 3,
 		actionValue = [101],
 		conditionType = 1,
+		delayTime = 0,
+		continueTime = -1,
 		nextActionList = {
 			[1] = -1,
 		},

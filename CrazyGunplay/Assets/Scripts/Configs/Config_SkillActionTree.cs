@@ -11,7 +11,11 @@ public interface Config_SkillActionTree : IConfigBase
 
 	List<object> actionValue { get; set; }
 
-	int conditionType { get; set; }
+	ActionConditionType conditionType { get; set; }
+
+	float delayTime { get; set; }
+
+	float continueTime { get; set; }
 
 	List<int> nextActionList { get; set; }
 

@@ -24,8 +24,6 @@ public class Skill : IReference
     /// </summary>
     public float StartTime { get; private set; }
 
-    public SkillAction Action { get; private set; }
-
     /// <summary>
     /// 技能是否正在执行
     /// </summary>
@@ -38,6 +36,8 @@ public class Skill : IReference
     //存放技能表现 每个时机为一个key值，内层的Dictionary为某个时机的表现队列
     private Dictionary<SkillExpressionPlayTiming, Dictionary<int, SkillExpression>> expressionDic = new Dictionary<SkillExpressionPlayTiming, Dictionary<int, SkillExpression>>();
 
+    private SkillActionTree actionTree;
+
     /// <summary>
     /// 初始化技能
     /// </summary>
@@ -48,19 +48,6 @@ public class Skill : IReference
         StartTime = Time.time;
 
         Debug.LogError("未实现技能！！！");
-        //if(Config.skillAction == SkillCastAction.GetWeapon)
-        //{
-        //    Action = ReferencePool.Acquire<GetWeaponAction>();
-        //}
-        //else if(Config.skillAction == SkillCastAction.Summon)
-        //{
-        //    Action = ReferencePool.Acquire<SummonAction>();
-        //}
-
-        //if(Action != null)
-        //{
-        //    Action.Init(ownerPlayer, Config, this);
-        //}
 
         //初始化技能表现
         List<int> expressionList = Config.expressionList;
@@ -83,6 +70,7 @@ public class Skill : IReference
         }
         IsSkillRunning = false;
         TargetList = new List<PlayerEntity>();
+        actionTree = ReferencePool.Acquire<SkillActionTree>();
         Debug.Log($"玩家{ownerPlayer.PlayerId}初始化技能{skillId}");
     }
 
@@ -94,30 +82,14 @@ public class Skill : IReference
         }
         Debug.Log($"玩家{OwnerPlayer.PlayerId}使用技能{Config.id}");
         TargetList = Module.Target.FindTarget(OwnerPlayer, Config.findTargetId);
-        Action.OnEnter();
-        skillTimer = Module.Timer.AddUpdateTimer(SkillTimer, EndSkillTimer, 0, Config.skillDuration);
+        skillTimer = Module.Timer.AddTimer(EndSkillTimer, Config.skillDuration);
         PlayExpression(SkillExpressionPlayTiming.WhenUseSkill, OwnerPlayer.Entity.transform, OwnerPlayer.Entity.transform);
         IsSkillRunning = true;
         //玩家状态修改
     }
 
-    private void SkillTimer(TimerData data)
-    {
-        Action.OnUpdate();
-        if(Action.EndCondition(data))
-        {
-            Debug.Log("技能结束条件已满足");
-            Module.Timer.EndTimer(data);
-        }
-        else
-        {
-            Debug.Log("技能结束条件不满足");
-        }
-    }
-
     private void EndSkillTimer(TimerData data)
     {
-        Action.OnExit();
         if(Config.coolingTiming == SkillCoolingTiming.WhenEndSkill)
         {
             UseTimeSpan = Time.time;
@@ -166,7 +138,6 @@ public class Skill : IReference
 
     public void Clear()
     {
-        ReferencePool.Release(Action);
         foreach(Dictionary<int, SkillExpression> queue in expressionDic.Values)
         {
             foreach(SkillExpression exp in queue.Values)
@@ -174,7 +145,6 @@ public class Skill : IReference
                 ReferencePool.Release(exp);
             }
         }
-        Action = null;
         Module.Timer.RemoveTimer(skillTimer);
         skillTimer = null;
         Config = null;
@@ -184,6 +154,7 @@ public class Skill : IReference
         expressionDic.Clear();
         IsSkillRunning = false;
         TargetList.Clear();
+        ReferencePool.Release(actionTree);
         Module.Timer.RemoveTimersByTag("SkillExpression");
     }
 }

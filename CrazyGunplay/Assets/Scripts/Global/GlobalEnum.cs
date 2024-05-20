@@ -424,3 +424,19 @@ public enum AreaType
 	/// </summary>
 	fanshaped = 4,
 }
+
+/// <summary>
+/// 技能行为的进入条件
+/// </summary>
+public enum ActionConditionType
+{
+	/// <summary>
+	/// 不需要条件
+	/// </summary>
+	None = 1,
+
+	/// <summary>
+	/// 血量
+	/// </summary>
+	Hp = 2,
+}
