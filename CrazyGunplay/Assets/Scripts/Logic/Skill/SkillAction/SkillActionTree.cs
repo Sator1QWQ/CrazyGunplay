@@ -136,5 +136,6 @@ public class SkillActionTree : IReference
     {
         actionDic.Clear();
         currentActionDic.Clear();
+        Module.Timer.RemoveTimersByTag("SkillAction");
     }
 }
