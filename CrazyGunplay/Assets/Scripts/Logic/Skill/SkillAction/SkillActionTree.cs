@@ -15,9 +15,10 @@ public class SkillActionTree : IReference
     public void Init(int rootActionId, PlayerEntity player, Config_Skill skillConfig, Skill skill)
     {
         InitInternal(rootActionId, player, skillConfig, skill);
+        currentActionDic.Add(rootActionId, actionDic[rootActionId]); //初始化结束时只应该有一个节点
 
         //设置子Action结构
-        foreach(KeyValuePair<int, SkillAction> pairs in actionDic)
+        foreach (KeyValuePair<int, SkillAction> pairs in actionDic)
         {
             Config_SkillActionTree tree = Config<Config_SkillActionTree>.Get("SkillActionTree", pairs.Key);
             Dictionary<int, SkillAction> subActionDic = new Dictionary<int, SkillAction>();
@@ -39,21 +40,20 @@ public class SkillActionTree : IReference
     private void InitInternal(int rootActionId, PlayerEntity player, Config_Skill skillConfig, Skill skill)
     {
         Config_SkillActionTree tree = Config<Config_SkillActionTree>.Get("SkillActionTree", rootActionId);
+        SkillAction action = CreateAction(tree.actionType);
+        action.Init(player, skillConfig, skill, tree);
+        actionDic.Add(tree.id, action);
+
         for (int i = 0; i < tree.nextActionList.Count; i++)
         {
-            int currentId = tree.nextActionList[i];
-            if (currentId == -1)
+            int nextId = tree.nextActionList[i];
+            if (nextId == -1)
             {
                 break;
             }
 
-            SkillAction action = CreateAction(tree.actionType);
-            action.Init(player, skillConfig, skill, tree);
-            actionDic.Add(currentId, action);
-            InitInternal(currentId, player, skillConfig, skill);    //深度优先递归
+            InitInternal(nextId, player, skillConfig, skill);    //深度优先递归
         }
-
-        currentActionDic.Add(tree.id, actionDic[rootActionId]); //初始化结束时只应该有一个节点
     }
 
     private SkillAction CreateAction(SkillCastAction actionType)
@@ -72,7 +72,7 @@ public class SkillActionTree : IReference
         return action;
     }
 
-    public void OnEnter()
+    public void StartAction()
     {
         foreach(KeyValuePair<int, SkillAction> pairs in currentActionDic)
         {

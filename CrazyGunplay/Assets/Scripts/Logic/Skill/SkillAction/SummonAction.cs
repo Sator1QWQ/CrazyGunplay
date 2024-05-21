@@ -17,7 +17,7 @@ public class SummonAction : SkillAction
     public override void Init(PlayerEntity player, Config_Skill skillConfig, Skill skill, Config_SkillActionTree actionConfig)
     {
         base.Init(player, skillConfig, skill, actionConfig);
-        config = Config<Config_Summon>.Get("Summon", (int)actionConfig.actionValue[0]);
+        config = Config<Config_Summon>.Get("Summon", (int)(long)actionConfig.actionValue[0]);
         entitys = new List<int>();
         for (int i = 0; i < config.spawnCount; i++)
         {
@@ -33,7 +33,7 @@ public class SummonAction : SkillAction
             tempTime = Time.time + config.spawnInterval;
             if(spawnCount < config.spawnCount)
             {
-                Module.Entity.ShowEntity(entitys[index], typeof(SummonEntity), config.assetPath, "Summon", new object[] { config, ownerPlayer, skill});
+                Module.Entity.ShowEntity(entitys[index], typeof(SummonEntity), config.assetPath, "Summon", new object[] { config, ownerPlayer, OwnerSkill});
                 spawnCount++;
             }
             index++;

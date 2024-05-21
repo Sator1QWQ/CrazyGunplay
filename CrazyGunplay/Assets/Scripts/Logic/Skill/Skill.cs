@@ -47,8 +47,6 @@ public class Skill : IReference
         OwnerPlayer = ownerPlayer;
         StartTime = Time.time;
 
-        Debug.LogError("未实现技能！！！");
-
         //初始化技能表现
         List<int> expressionList = Config.expressionList;
         for(int i = 0; i < expressionList.Count; i++)
@@ -71,6 +69,7 @@ public class Skill : IReference
         IsSkillRunning = false;
         TargetList = new List<PlayerEntity>();
         actionTree = ReferencePool.Acquire<SkillActionTree>();
+        actionTree.Init(Config.skillActionId, ownerPlayer, Config, this);
         Debug.Log($"玩家{ownerPlayer.PlayerId}初始化技能{skillId}");
     }
 
@@ -83,6 +82,7 @@ public class Skill : IReference
         Debug.Log($"玩家{OwnerPlayer.PlayerId}使用技能{Config.id}");
         TargetList = Module.Target.FindTarget(OwnerPlayer, Config.findTargetId);
         skillTimer = Module.Timer.AddTimer(EndSkillTimer, Config.skillDuration);
+        actionTree.StartAction();
         PlayExpression(SkillExpressionPlayTiming.WhenUseSkill, OwnerPlayer.Entity.transform, OwnerPlayer.Entity.transform);
         IsSkillRunning = true;
         //玩家状态修改
