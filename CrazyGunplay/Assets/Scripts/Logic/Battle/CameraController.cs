@@ -33,6 +33,10 @@ public class CameraController : MonoBehaviour
 
     private void OnDisable()
     {
+        if(Module.Event.Check(UnityGameFramework.Runtime.ShowEntitySuccessEventArgs.EventId, OnShowEntity))
+        {
+            return;
+        }
         Module.Event.Unsubscribe(UnityGameFramework.Runtime.ShowEntitySuccessEventArgs.EventId, OnShowEntity);
     }
 
