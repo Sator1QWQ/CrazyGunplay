@@ -11,11 +11,6 @@ public struct HitData
     public int receiverId;  //被命中的id
     public List<BuffValue> buffList;    //buff列表
     public GetHitType hitType;  //受击类型 是给receiver的
-
-    public void SetReceiverId(int id)
-    {
-        receiverId = id;
-    }
 }
 
 public struct BuffValue

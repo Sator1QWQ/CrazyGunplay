@@ -12,7 +12,7 @@ function ULocalBattleMainItem:ItemInit(luaItem, index)
 
     --不能在item中使用Subscribe，因为不同item的函数是同一个引用，不允许重复注册
     --不管使不使用self都是一样
-    --Module.Event:Subscribe(CS.BulletHitEventArgs.EventId, self.BulletHitEvent)
+    --Module.Event:Subscribe(CS.HitEventArgs.EventId, self.BulletHitEvent)
 end
 
 function ULocalBattleMainItem:RefreshBeatBackPercent()

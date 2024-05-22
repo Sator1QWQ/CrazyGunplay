@@ -17,6 +17,7 @@ public class SummonEntity : EntityLogic
     private Vector3 endPoint;
     private List<Vector3> routeList;    //移动路径
     private int curRouteIndex;
+    private SkillAction ownerAction;
 
     protected override void OnShow(object userData)
     {
@@ -25,6 +26,7 @@ public class SummonEntity : EntityLogic
         config = objs[0] as Config_Summon;
         ownerPlayer = objs[1] as PlayerEntity;
         skill = objs[2] as Skill;
+        ownerAction = objs[3] as SkillAction;
 
         //每个召唤物只找一次，之后目标不会再变
         targetPlayer = skill.TargetList[0];
@@ -80,7 +82,10 @@ public class SummonEntity : EntityLogic
         //到达目标点，触发命中判定
         if (targetDis <= 0.01f)
         {
-
+            if(ownerAction.ActionConfig.areaTriggerType == ActionAreaTriggerTiming.Custom)
+            {
+                Module.HitArea.HitPlayerAction(ownerPlayer, skill.Config.findTargetId, ownerAction.ActionConfig.areaId, endPoint, ownerAction.HitData);
+            }
             skill.PlayExpression(SkillExpressionPlayTiming.WhenHit, Entity.transform, targetPlayer.Entity.transform);
             Module.Entity.HideEntity(Entity);
         }
@@ -97,5 +102,6 @@ public class SummonEntity : EntityLogic
         routeList = null;
         curRouteIndex = 0;
         skill = null;
+        ownerAction = null;
     }
 }

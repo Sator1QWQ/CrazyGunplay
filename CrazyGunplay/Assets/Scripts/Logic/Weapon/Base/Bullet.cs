@@ -134,7 +134,13 @@ public abstract class Bullet
 	/// <param name="playerId"></param>
 	protected void SendAttackEvent(int playerId)
     {
-		BulletHitEventArgs args = BulletHitEventArgs.Create(playerId, OwnerWeapon.Id);
+		HitData data = new HitData();
+		data.dealerId = OwnerWeapon.PlayerId;
+		data.receiverId = playerId;
+		data.buffList = new List<BuffValue>();
+		data.hitType = GetHitType.BeatBack;
+		data.buffList.Add(new BuffValue() { buffId = 110, continueTime = 0, value = OwnerWeapon.Config.beatBack });
+		HitEventArgs args = HitEventArgs.Create(data);
 		Module.Event.FireNow(this, args);
 	}
 }

@@ -8,3 +8,4 @@ GlobalDefine.ScenePath = "Assets/Resource/Scenes/"
 GlobalDefine.BlueTeam = 1   --蓝队id
 GlobalDefine.RedTeam = 2    --红队id
 GlobalDefine.BeatBackRepair = 0.1  --击退修正值
+GlobalDefine.GetHurtBuff = 110  --直接扣血buff

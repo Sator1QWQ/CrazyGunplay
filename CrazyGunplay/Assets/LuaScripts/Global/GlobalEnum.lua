@@ -20,3 +20,20 @@ GlobalEnum.BattleState = {
     TeamDead = 4,    --队伍全灭
     Timeout = 5,    --战斗倒计时结束
 }
+
+--击飞类型
+GlobalEnum.HitType =
+{
+	BeatBack = 1,	--击退
+	HitToFly = 2,	--击飞
+	No = 3,	--无效果
+}
+
+GlobalEnum.BuffType =
+{
+	MoveSpeed = 1,  --移速修改
+	GetBeatBack = 2,    --受伤时的击退效果修改
+	Hp = 3, --血量修改
+	FireRate = 4,   --射速修改
+	BeatBackValue = 5,  --攻击力修改
+}

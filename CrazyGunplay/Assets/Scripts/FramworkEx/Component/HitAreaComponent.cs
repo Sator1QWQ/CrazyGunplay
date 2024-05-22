@@ -38,7 +38,16 @@ public class HitAreaComponent : GameFrameworkComponent
             }
         }
 
-
+        for (int i = 0; i < result.Count; i++)
+        {
+            HitData newData = new HitData();
+            newData.buffList = data.buffList;
+            newData.dealerId = data.dealerId;
+            newData.hitType = data.hitType;
+            newData.receiverId = result[i].PlayerId;    //旧data的receiverId无法确定，只有在这里才能确定
+            HitEventArgs args = HitEventArgs.Create(newData);
+            Module.Event.FireNow(this, args);
+        }
     }
 
     private bool CheckByCircle(Transform findEntity, Vector3 startPoint, float radius)

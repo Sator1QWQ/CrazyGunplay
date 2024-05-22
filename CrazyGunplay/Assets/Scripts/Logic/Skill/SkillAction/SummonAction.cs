@@ -33,7 +33,7 @@ public class SummonAction : SkillAction
             tempTime = Time.time + config.spawnInterval;
             if(spawnCount < config.spawnCount)
             {
-                Module.Entity.ShowEntity(entitys[index], typeof(SummonEntity), config.assetPath, "Summon", new object[] { config, ownerPlayer, OwnerSkill});
+                Module.Entity.ShowEntity(entitys[index], typeof(SummonEntity), config.assetPath, "Summon", new object[] { config, ownerPlayer, OwnerSkill, this});
                 spawnCount++;
             }
             index++;

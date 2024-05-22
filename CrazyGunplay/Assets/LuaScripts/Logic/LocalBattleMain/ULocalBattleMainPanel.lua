@@ -9,11 +9,11 @@ function _M.OnInit(panel)
 end
 
 function _M.OnOpen(panel)
-    Module.Event:Subscribe(CS.BulletHitEventArgs.EventId, _M.BulletHitEvent)
+    Module.Event:Subscribe(CS.HitEventArgs.EventId, _M.BulletHitEvent)
 end
 
 function _M.OnClose()
-    Module.Event:Unsubscribe(CS.BulletHitEventArgs.EventId, _M.BulletHitEvent)
+    Module.Event:Unsubscribe(CS.HitEventArgs.EventId, _M.BulletHitEvent)
 end
 
 function _M.BulletHitEvent(sender, args)

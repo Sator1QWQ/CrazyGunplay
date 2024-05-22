@@ -16,7 +16,12 @@ public abstract class SkillAction : IReference
     public Config_SkillActionTree ActionConfig { get; private set; }
 
     public Dictionary<int, SkillAction> SubActionDic { get; private set; }
-    private HitData hitData;
+
+    /// <summary>
+    /// 命中数据
+    /// </summary>
+    public HitData HitData { get; private set; }
+
     private float tempTime;
 
     public virtual void Init(PlayerEntity player, Config_Skill skillConfig, Skill skill, Config_SkillActionTree actionConfig)
@@ -26,7 +31,7 @@ public abstract class SkillAction : IReference
         OwnerSkill = skill;
         ActionConfig = actionConfig;
         SubActionDic = new Dictionary<int, SkillAction>();
-        hitData = CreateHitData();
+        HitData = CreateHitData();
     }
 
     public void SetSubAction(Dictionary<int, SkillAction> actionDic)
@@ -41,7 +46,7 @@ public abstract class SkillAction : IReference
     {
         if (ActionConfig.areaTriggerType == ActionAreaTriggerTiming.OnActionEnter)
         {
-            Module.HitArea.HitPlayerAction(OwnerSkill.OwnerPlayer, OwnerSkill.Config.findTargetId, ActionConfig.areaId, player.Entity.transform.position, hitData);
+            Module.HitArea.HitPlayerAction(OwnerSkill.OwnerPlayer, OwnerSkill.Config.findTargetId, ActionConfig.areaId, player.Entity.transform.position, HitData);
         }
     }
 
@@ -55,7 +60,7 @@ public abstract class SkillAction : IReference
             tempTime += Time.deltaTime;
             if(tempTime >= ActionConfig.areaTriggerInterval)
             {
-                Module.HitArea.HitPlayerAction(OwnerSkill.OwnerPlayer, OwnerSkill.Config.findTargetId, ActionConfig.areaId, player.Entity.transform.position, hitData);
+                Module.HitArea.HitPlayerAction(OwnerSkill.OwnerPlayer, OwnerSkill.Config.findTargetId, ActionConfig.areaId, player.Entity.transform.position, HitData);
                 tempTime = 0;
             }
         }
@@ -82,7 +87,7 @@ public abstract class SkillAction : IReference
         player = null;
         skillConfig = null;
         OwnerSkill = null;
-        hitData = default;
+        HitData = default;
         ClearData();
     }
 

@@ -1,4 +1,5 @@
 require "Configs.Config.Weapon"
+require "Configs.Config.Buff"
 
 --战斗模式的场景逻辑
 --基于LuaBehaviour，由C#调用声明周期
@@ -11,7 +12,7 @@ end
 
 function BattleModeScene:OnEnable()
     Module.Event:Subscribe(PlayerDieEventArgs.EventId, BattleModeScene.PlayerDieEvent)
-    Module.Event:Subscribe(CS.BulletHitEventArgs.EventId, BattleModeScene.BulletHitPlayerEvent)
+    Module.Event:Subscribe(CS.HitEventArgs.EventId, BattleModeScene.BulletHitPlayerEvent)
     Module.Event:Subscribe(CS.BuffStartEventArgs.EventId, BattleModeScene.BuffStartEvent)
     Module.Event:Subscribe(CS.BuffEndEventArgs.EventId, BattleModeScene.BuffEndEvent)
 
@@ -49,7 +50,7 @@ function BattleModeScene:ClearBattleData()
     MTeam.Instance:Clear()
     Module.Timer:RemoveAllTimer()
     Module.Event:Unsubscribe(PlayerDieEventArgs.EventId, BattleModeScene.PlayerDieEvent)
-    Module.Event:Unsubscribe(CS.BulletHitEventArgs.EventId, BattleModeScene.BulletHitPlayerEvent)
+    Module.Event:Unsubscribe(CS.HitEventArgs.EventId, BattleModeScene.BulletHitPlayerEvent)
     Module.Event:Unsubscribe(CS.BuffStartEventArgs.EventId, BattleModeScene.BuffStartEvent)
     Module.Event:Unsubscribe(CS.BuffEndEventArgs.EventId, BattleModeScene.BuffEndEvent)
 end
@@ -95,8 +96,20 @@ end
 
 --击中事件
 function BattleModeScene.BulletHitPlayerEvent(sender, args)
-    local value = Weapon[args.WeaponId].beatBack
-    MPlayer.Instance:ChangeBeatBackValue(args.GetHitPlayer, value)
+    local beatBackValue = 0
+    local data = args.Data
+    
+    --此处的buffList为C#传来的List<int>对象，索引为0开始，所以不能用ipairs遍历
+    for i, buffValue in pairs(data.buffList) do
+        -- --该buff为直接扣血的话，则设定击退值
+        if buffValue.buffId == GlobalDefine.GetHurtBuff then
+            beatBackValue = beatBackValue + buffValue.value
+        end
+    end
+
+    if data.hitType ~= GlobalEnum.HitType.No then
+        MPlayer.Instance:ChangeBeatBackValue(data.receiverId, beatBackValue)    
+    end
 end
 
 function BattleModeScene:ChangeBattleState(state)
