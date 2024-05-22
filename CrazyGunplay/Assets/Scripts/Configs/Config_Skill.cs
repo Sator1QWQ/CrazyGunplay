@@ -17,8 +17,6 @@ public interface Config_Skill : IConfigBase
 
 	int findTargetId { get; set; }
 
-	int areaId { get; set; }
-
 	float beforeCast { get; set; }
 
 	float afterCast { get; set; }
