@@ -13,6 +13,7 @@ public class SummonAction : SkillAction
     private float spawnCount;
     private float tempTime;
     private PlayerEntity ownerPlayer;
+    private int hitCount;
 
     public override void Init(PlayerEntity player, Config_Skill skillConfig, Skill skill, Config_SkillActionTree actionConfig)
     {
@@ -53,16 +54,23 @@ public class SummonAction : SkillAction
         index = 0;
         spawnCount = 0;
         tempTime = 0;
+        hitCount = 0;
     }
 
-    //public override bool EndCondition(TimerComponent.TimerData timer)
-    //{
-    //    if(spawnCount > config.spawnCount)
-    //    {
-    //        return true;
-    //    }
-    //    return false;
-    //}
+    //全部实体命中时，定时器结束
+    public override bool EndCondition()
+    {
+        return hitCount >= entitys.Count;
+    }
+
+    /// <summary>
+    /// 当实体命中时
+    /// </summary>
+    public void OnEntityHit()
+    {
+        //这里只判断有多少个实体命中了，如果存在1个实体命中多次，则有错误
+        hitCount++;
+    }
 
     public override void ClearData()
     {
@@ -79,5 +87,6 @@ public class SummonAction : SkillAction
         spawnCount = 0;
         tempTime = 0;
         ownerPlayer = null;
+        hitCount = 0;
     }
 }

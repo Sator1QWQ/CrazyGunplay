@@ -466,3 +466,55 @@ public enum ActionAreaTriggerTiming
 	/// </summary>
 	Custom = 4,
 }
+
+/// <summary>
+/// 定时器持续时间类型
+/// </summary>
+public enum TimerContinueType
+{
+	/// <summary>
+	/// 无定时器
+	/// </summary>
+	None = 1,
+
+	/// <summary>
+	/// 固定时间
+	/// </summary>
+	Fixed = 2,
+
+	/// <summary>
+	/// 自定义类型1
+	/// </summary>
+	Custom1 = 3,
+
+	/// <summary>
+	/// 自定义类型2
+	/// </summary>
+	Custom2 = 4,
+}
+
+/// <summary>
+/// 技能行为树状态
+/// </summary>
+public enum SkillActionTreeState
+{
+	/// <summary>
+	/// 异常
+	/// </summary>
+	None = 1,
+
+	/// <summary>
+	/// 未运行
+	/// </summary>
+	NotRun = 2,
+
+	/// <summary>
+	/// 运行中
+	/// </summary>
+	Running = 3,
+
+	/// <summary>
+	/// 全部行为执行完毕
+	/// </summary>
+	AllEnd = 4,
+}

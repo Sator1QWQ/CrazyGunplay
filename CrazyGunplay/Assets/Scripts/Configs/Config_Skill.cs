@@ -23,6 +23,8 @@ public interface Config_Skill : IConfigBase
 
 	List<int> activeCondition { get; set; }
 
+	TimerContinueType timerContinueType { get; set; }
+
 	float skillDuration { get; set; }
 
 	SkillCoolingTiming coolingTiming { get; set; }

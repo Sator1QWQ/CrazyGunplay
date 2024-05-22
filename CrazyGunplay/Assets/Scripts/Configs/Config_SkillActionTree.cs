@@ -15,6 +15,8 @@ public interface Config_SkillActionTree : IConfigBase
 
 	float delayTime { get; set; }
 
+	TimerContinueType timerContinueType { get; set; }
+
 	float continueTime { get; set; }
 
 	int areaId { get; set; }

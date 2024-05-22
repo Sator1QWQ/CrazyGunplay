@@ -81,7 +81,26 @@ public class Skill : IReference
         }
         Debug.Log($"玩家{OwnerPlayer.PlayerId}使用技能{Config.id}");
         TargetList = Module.Target.FindTarget(OwnerPlayer, Config.findTargetId);
-        skillTimer = Module.Timer.AddTimer(EndSkillTimer, Config.skillDuration);
+        
+        switch(Config.timerContinueType)
+        {
+            case TimerContinueType.Fixed:
+                skillTimer = Module.Timer.AddTimer(EndSkillTimer, Config.skillDuration);
+                break;
+            
+            //Custom1：全部行为都执行完毕时结束定时器
+            case TimerContinueType.Custom1:
+                skillTimer = Module.Timer.AddUpdateTimer(data =>
+                {
+                    if(actionTree.TreeState == SkillActionTreeState.AllEnd)
+                    {
+                        Debug.Log("所有子行为都执行完毕，技能结束！");
+                        Module.Timer.EndTimer(data);
+                    }
+                }, EndSkillTimer, 0, -1);
+                break;
+        }
+        
         actionTree.StartAction();
         PlayExpression(SkillExpressionPlayTiming.WhenUseSkill, OwnerPlayer.Entity.transform, OwnerPlayer.Entity.transform);
         IsSkillRunning = true;
@@ -90,6 +109,7 @@ public class Skill : IReference
 
     private void EndSkillTimer(TimerData data)
     {
+        Debug.Log("移除技能定时器");
         if(Config.coolingTiming == SkillCoolingTiming.WhenEndSkill)
         {
             UseTimeSpan = Time.time;
@@ -105,7 +125,7 @@ public class Skill : IReference
     /// <param name="target">特效的目标</param>
     public void PlayExpression(SkillExpressionPlayTiming timing, Transform owner, Transform target)
     {
-        if(!expressionDic.ContainsKey(timing))
+        if (!expressionDic.ContainsKey(timing))
         {
             return;
         }
@@ -134,6 +154,14 @@ public class Skill : IReference
                 Module.Timer.RemoveTimer(data);
             }
         }, null, 0, -1, "SkillExpression"); //加标签，防止启用多次定时器、同时触发Clear时，无法移除原来的定时器
+    }
+
+    /// <summary>
+    /// 当所有行为执行结束时调用
+    /// </summary>
+    public void OnAllActionEnd()
+    {
+        //if()
     }
 
     public void Clear()

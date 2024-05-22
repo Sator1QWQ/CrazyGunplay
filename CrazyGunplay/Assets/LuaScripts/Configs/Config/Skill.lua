@@ -13,7 +13,8 @@ Skill = {
 		activeCondition = {
 			[1] = 0,
 		},
-		skillDuration = -1,
+		timerContinueType = 3,
+		skillDuration = nil,
 		coolingTiming = 2,
 		coolingTime = 10,
 		expressionList = {
@@ -33,6 +34,7 @@ Skill = {
 		activeCondition = {
 			[1] = 0,
 		},
+		timerContinueType = 2,
 		skillDuration = 3.5,
 		coolingTiming = 1,
 		coolingTime = 8,
@@ -54,7 +56,8 @@ Skill = {
 			[1] = 1,
 			[2] = 0,
 		},
-		skillDuration = 8,
+		timerContinueType = 3,
+		skillDuration = nil,
 		coolingTiming = 1,
 		coolingTime = 10,
 		expressionList = {

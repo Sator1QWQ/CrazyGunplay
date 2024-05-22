@@ -3,7 +3,7 @@ require "Configs.Text.Summon_Text"
 Summon = {
 	[101] = {
 		id = 101,
-		spawnCount = 10,
+		spawnCount = 1,
 		spawnInterval = 0.3,
 		moveSpeed = 8,
 		isContinueFollow = false,
@@ -21,5 +21,15 @@ Summon = {
 		isRandomRoute = false,
 		assetPath = Summon_Text.assetPath_5,
 	},
+	[103] = {
+		id = 103,
+		spawnCount = 1,
+		spawnInterval = 0,
+		moveSpeed = 15,
+		isContinueFollow = true,
+		isRandomStartPoint = true,
+		isRandomRoute = true,
+		assetPath = Summon_Text.assetPath_6,
+	},
 }
-Summon.Count = 2
+Summon.Count = 3

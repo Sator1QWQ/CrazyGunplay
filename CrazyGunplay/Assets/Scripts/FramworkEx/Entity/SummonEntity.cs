@@ -87,6 +87,7 @@ public class SummonEntity : EntityLogic
                 Module.HitArea.HitPlayerAction(ownerPlayer, skill.Config.findTargetId, ownerAction.ActionConfig.areaId, endPoint, ownerAction.HitData);
             }
             skill.PlayExpression(SkillExpressionPlayTiming.WhenHit, Entity.transform, targetPlayer.Entity.transform);
+            (ownerAction as SummonAction).OnEntityHit();
             Module.Entity.HideEntity(Entity);
         }
     }

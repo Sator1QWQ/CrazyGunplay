@@ -11,11 +11,17 @@ public class SkillActionTree : IReference
 {
     private Dictionary<int, SkillAction> actionDic = new Dictionary<int, SkillAction>();    //所有Action
     private Dictionary<int, SkillAction> currentActionDic = new Dictionary<int, SkillAction>(); //当前正在执行的Action
+    private int rootActionId = 0;
+
+    /// <summary>
+    /// 技能行为树状态
+    /// </summary>
+    public SkillActionTreeState TreeState { get; private set; }
 
     public void Init(int rootActionId, PlayerEntity player, Config_Skill skillConfig, Skill skill)
     {
         InitInternal(rootActionId, player, skillConfig, skill);
-        currentActionDic.Add(rootActionId, actionDic[rootActionId]); //初始化结束时只应该有一个节点
+        this.rootActionId = rootActionId;
 
         //设置子Action结构
         foreach (KeyValuePair<int, SkillAction> pairs in actionDic)
@@ -34,6 +40,7 @@ public class SkillActionTree : IReference
             }
             pairs.Value.SetSubAction(subActionDic);
         }
+        TreeState = SkillActionTreeState.NotRun;
     }
 
     //初始化actionDic
@@ -74,7 +81,12 @@ public class SkillActionTree : IReference
 
     public void StartAction()
     {
-        foreach(KeyValuePair<int, SkillAction> pairs in currentActionDic)
+        TreeState = SkillActionTreeState.Running;
+
+        //每次使用技能行为时，currentActionDic必须没有数据，如果有则说明有问题
+        //初始化结束时只应该有一个节点
+        currentActionDic.Add(rootActionId, actionDic[rootActionId]);
+        foreach (KeyValuePair<int, SkillAction> pairs in currentActionDic)
         {
             SkillAction action = pairs.Value;
             StartActionTimer(action);
@@ -83,13 +95,30 @@ public class SkillActionTree : IReference
 
     private void StartActionTimer(SkillAction action)
     {
+        if(!currentActionDic.ContainsKey(action.ActionConfig.id))
+        {
+            currentActionDic.Add(action.ActionConfig.id, action);
+        }
+
         action.OnEnter();
         //action.ActionConfig.conditionType 暂时不做条件 有需求再做
 
-        float continueTime = action.ActionConfig.continueTime;
-        if (action.ActionConfig.continueTime == -1)
+        float continueTime = 0;
+        switch(action.ActionConfig.timerContinueType)
         {
-            continueTime = action.OwnerSkill.Config.skillDuration;
+            case TimerContinueType.Fixed:
+                continueTime = action.ActionConfig.continueTime;
+                break;
+
+            //SkillAction中的Custom1表示根据技能时间来确定定时器时间
+            case TimerContinueType.Custom1:
+                continueTime = action.OwnerSkill.Config.skillDuration;
+                break;
+
+            //Custom2为自定义时间，必须要确定结束定时器的条件
+            case TimerContinueType.Custom2:
+                continueTime = -1;
+                break;
         }
         Module.Timer.AddUpdateTimer(DoActionTimer, EndActionTimer, action.ActionConfig.delayTime, continueTime, action, "SkillAction");
     }
@@ -118,10 +147,17 @@ public class SkillActionTree : IReference
     {
         SkillAction action = data.userdata as SkillAction;
         action.OnExit();
+        if(currentActionDic.ContainsKey(action.ActionConfig.id))
+        {
+            currentActionDic.Remove(action.ActionConfig.id);
+        }
 
-        //全部行为结束
         if(!action.HasNextAction())
         {
+            if (currentActionDic.Count == 0)
+            {
+                TreeState = SkillActionTreeState.AllEnd;
+            }
             return;
         }
 
