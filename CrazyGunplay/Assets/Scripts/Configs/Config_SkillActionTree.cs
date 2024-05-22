@@ -25,6 +25,14 @@ public interface Config_SkillActionTree : IConfigBase
 
 	float areaTriggerInterval { get; set; }
 
+	List<int> buffIdList { get; set; }
+
+	List<float> buffValueList { get; set; }
+
+	List<float> buffContinueList { get; set; }
+
+	GetHitType getHitType { get; set; }
+
 	List<int> nextActionList { get; set; }
 
 }

@@ -16,6 +16,8 @@ public abstract class SkillAction : IReference
     public Config_SkillActionTree ActionConfig { get; private set; }
 
     public Dictionary<int, SkillAction> SubActionDic { get; private set; }
+    private HitData hitData;
+    private float tempTime;
 
     public virtual void Init(PlayerEntity player, Config_Skill skillConfig, Skill skill, Config_SkillActionTree actionConfig)
     {
@@ -24,6 +26,7 @@ public abstract class SkillAction : IReference
         OwnerSkill = skill;
         ActionConfig = actionConfig;
         SubActionDic = new Dictionary<int, SkillAction>();
+        hitData = CreateHitData();
     }
 
     public void SetSubAction(Dictionary<int, SkillAction> actionDic)
@@ -31,39 +34,32 @@ public abstract class SkillAction : IReference
         SubActionDic = actionDic;
     }
 
-    public void Enter()
-    {
-        if(ActionConfig.areaTriggerType == ActionAreaTriggerTiming.OnActionEnter)
-        {
-            //触发区域判定
-        }
-        OnEnter();
-    }
-
-    public void Update()
-    {
-        if(ActionConfig.areaTriggerType == ActionAreaTriggerTiming.OnActionUpdate)
-        {
-            //触发区域判定
-        }
-        OnUpdate();
-    }
-
-    public void Exit()
-    {
-        OnExit();
-    }
-
     /// <summary>
     /// 进入时调用
     /// </summary>
-    public virtual void OnEnter() { }
+    public virtual void OnEnter() 
+    {
+        if (ActionConfig.areaTriggerType == ActionAreaTriggerTiming.OnActionEnter)
+        {
+            Module.HitArea.HitPlayerAction(OwnerSkill.OwnerPlayer, OwnerSkill.Config.findTargetId, ActionConfig.areaId, player.Entity.transform.position, hitData);
+        }
+    }
 
     /// <summary>
     /// 每帧调用
     /// </summary>
-
-    public virtual void OnUpdate() { }
+    public virtual void OnUpdate() 
+    {
+        if (ActionConfig.areaTriggerType == ActionAreaTriggerTiming.OnActionUpdate)
+        {
+            tempTime += Time.deltaTime;
+            if(tempTime >= ActionConfig.areaTriggerInterval)
+            {
+                Module.HitArea.HitPlayerAction(OwnerSkill.OwnerPlayer, OwnerSkill.Config.findTargetId, ActionConfig.areaId, player.Entity.transform.position, hitData);
+                tempTime = 0;
+            }
+        }
+    }
 
     /// <summary>
     /// 离开时调用
@@ -86,6 +82,7 @@ public abstract class SkillAction : IReference
         player = null;
         skillConfig = null;
         OwnerSkill = null;
+        hitData = default;
         ClearData();
     }
 
@@ -98,5 +95,21 @@ public abstract class SkillAction : IReference
     public bool HasNextAction()
     {
         return SubActionDic.Count > 0;
+    }
+
+    private HitData CreateHitData()
+    {
+        HitData data = new HitData();
+        data.dealerId = player.PlayerId;
+        data.buffList = new List<BuffValue>();
+        for (int i = 0; i < ActionConfig.buffIdList.Count; i++)
+        {
+            BuffValue value = new BuffValue();
+            value.buffId = ActionConfig.buffIdList[i];
+            value.value = ActionConfig.buffValueList[i];
+            value.continueTime = ActionConfig.buffContinueList[i];
+            data.buffList.Add(value);
+        }
+        return data;
     }
 }

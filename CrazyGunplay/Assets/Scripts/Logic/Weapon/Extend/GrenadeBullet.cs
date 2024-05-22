@@ -67,7 +67,7 @@ public class GrenadeBullet : Bullet
     private void Boom(int ignorePlayer = -1)
     {
 
-        Module.HitArea.HitPlayerAction(OwnerWeapon.PlayerEntity, config.targetId, config.areaId, BulletEntityList[0].Entity.transform.position);
+        //Module.HitArea.HitPlayerAction(OwnerWeapon.PlayerEntity, config.targetId, config.areaId, BulletEntityList[0].Entity.transform.position);
         Debug.LogError("函数未实现！！！！！！！！！！！");
         //if (config.rangeType == GrenadeRangeType.Circle)
         //{

@@ -14,6 +14,13 @@ SkillActionTree = {
 		areaTriggerType = 1,
 		areaTriggerCount = 0,
 		areaTriggerInterval = 0,
+		buffIdList = {
+		},
+		buffValueList = {
+		},
+		buffContinueList = {
+		},
+		getHitType = 3,
 		nextActionList = {
 			[1] = -1,
 		},
@@ -30,6 +37,13 @@ SkillActionTree = {
 		areaTriggerType = 1,
 		areaTriggerCount = 0,
 		areaTriggerInterval = 0,
+		buffIdList = {
+		},
+		buffValueList = {
+		},
+		buffContinueList = {
+		},
+		getHitType = 3,
 		nextActionList = {
 			[1] = -1,
 		},
@@ -47,6 +61,19 @@ SkillActionTree = {
 		areaTriggerType = 4,
 		areaTriggerCount = 0,
 		areaTriggerInterval = 0,
+		buffIdList = {
+			[1] = 110,
+			[2] = 109,
+		},
+		buffValueList = {
+			[1] = 4,
+			[2] = 20,
+		},
+		buffContinueList = {
+			[1] = 0,
+			[2] = 5,
+		},
+		getHitType = 2,
 		nextActionList = {
 			[1] = -1,
 		},

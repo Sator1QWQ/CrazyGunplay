@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
+/// <summary>
+/// 命中区域判定组件
+/// </summary>
 public class HitAreaComponent : GameFrameworkComponent
 {
     /// <summary>
@@ -13,7 +16,7 @@ public class HitAreaComponent : GameFrameworkComponent
     /// <param name="targetId">目标表id</param>
     /// <param name="areaId">范围表id</param>
     /// <param name="startPoint"></param>
-    public void HitPlayerAction(PlayerEntity owner, int targetId, int areaId, Vector3 startPoint)
+    public void HitPlayerAction(PlayerEntity owner, int targetId, int areaId, Vector3 startPoint, HitData data)
     {
         Config_HitArea areaConfig = Config<Config_HitArea>.Get("HitArea", areaId);
         List<PlayerEntity> entitys = Module.Target.FindTarget(owner, targetId);

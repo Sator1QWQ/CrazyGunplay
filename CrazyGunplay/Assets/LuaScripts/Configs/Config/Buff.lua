@@ -73,5 +73,13 @@ Buff = {
 		effectPath = Buff_Text.effectPath_12,
 		iconPath = Buff_Text.iconPath_12,
 	},
+	[110] = {
+		id = 110,
+		type = 3,
+		triggerInterval = -1,
+		desc = Buff_Text.desc_13,
+		effectPath = Buff_Text.effectPath_13,
+		iconPath = Buff_Text.iconPath_13,
+	},
 }
-Buff.Count = 9
+Buff.Count = 10
