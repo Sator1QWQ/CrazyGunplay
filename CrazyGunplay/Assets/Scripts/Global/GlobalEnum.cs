@@ -440,3 +440,29 @@ public enum ActionConditionType
 	/// </summary>
 	Hp = 2,
 }
+
+/// <summary>
+/// 技能行为判定区触发时机
+/// </summary>
+public enum ActionAreaTriggerTiming
+{
+	/// <summary>
+	/// 无
+	/// </summary>
+	None = 1,
+
+	/// <summary>
+	/// 行为进入时触发
+	/// </summary>
+	OnActionEnter = 2,
+
+	/// <summary>
+	/// 行为每帧调用时触发
+	/// </summary>
+	OnActionUpdate = 3,
+
+	/// <summary>
+	/// 自定义
+	/// </summary>
+	Custom = 4,
+}

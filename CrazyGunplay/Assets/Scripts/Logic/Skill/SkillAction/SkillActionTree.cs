@@ -83,7 +83,7 @@ public class SkillActionTree : IReference
 
     private void StartActionTimer(SkillAction action)
     {
-        action.OnEnter();
+        action.Enter();
         //action.ActionConfig.conditionType 暂时不做条件 有需求再做
 
         float continueTime = action.ActionConfig.continueTime;
@@ -102,7 +102,7 @@ public class SkillActionTree : IReference
             Debug.LogError("技能已经结束，但是Action还在执行 配置有错误！");
             return;
         }
-        action.OnUpdate();
+        action.Update();
         if (action.EndCondition())
         {
             Debug.Log("技能结束条件已满足");
@@ -117,7 +117,7 @@ public class SkillActionTree : IReference
     private void EndActionTimer(TimerData data)
     {
         SkillAction action = data.userdata as SkillAction;
-        action.OnExit();
+        action.Exit();
 
         //全部行为结束
         if(!action.HasNextAction())

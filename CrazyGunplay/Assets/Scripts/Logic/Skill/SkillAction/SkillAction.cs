@@ -13,9 +13,6 @@ public abstract class SkillAction : IReference
     protected Config_Skill skillConfig;
     public Skill OwnerSkill { get; private set; }
 
-    /// <summary>
-    /// 判定区应该放到SkillActionTree里
-    /// </summary>
     public Config_SkillActionTree ActionConfig { get; private set; }
 
     public Dictionary<int, SkillAction> SubActionDic { get; private set; }
@@ -32,6 +29,29 @@ public abstract class SkillAction : IReference
     public void SetSubAction(Dictionary<int, SkillAction> actionDic)
     {
         SubActionDic = actionDic;
+    }
+
+    public void Enter()
+    {
+        if(ActionConfig.areaTriggerType == ActionAreaTriggerTiming.OnActionEnter)
+        {
+            //触发区域判定
+        }
+        OnEnter();
+    }
+
+    public void Update()
+    {
+        if(ActionConfig.areaTriggerType == ActionAreaTriggerTiming.OnActionUpdate)
+        {
+            //触发区域判定
+        }
+        OnUpdate();
+    }
+
+    public void Exit()
+    {
+        OnExit();
     }
 
     /// <summary>

@@ -17,6 +17,14 @@ public interface Config_SkillActionTree : IConfigBase
 
 	float continueTime { get; set; }
 
+	int areaId { get; set; }
+
+	ActionAreaTriggerTiming areaTriggerType { get; set; }
+
+	int areaTriggerCount { get; set; }
+
+	float areaTriggerInterval { get; set; }
+
 	List<int> nextActionList { get; set; }
 
 }
