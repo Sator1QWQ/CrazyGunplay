@@ -78,17 +78,22 @@ public class SummonEntity : EntityLogic
             }
         }
 
-        float targetDis = Vector3.Distance(Entity.transform.position, endPoint);
-        //到达目标点，触发命中判定
-        if (targetDis <= 0.01f)
+        if(curRouteIndex >= routeList.Count)
         {
-            if(ownerAction.ActionConfig.areaTriggerType == ActionAreaTriggerTiming.Custom)
+            Entity.transform.right = endPoint - Entity.transform.position;
+            Entity.transform.Translate(config.moveSpeed * Time.deltaTime, 0, 0, Space.Self);
+        }
+
+        RaycastHit hit;
+        if (PhysicsExtension.RayCastHitPlayer(Entity.transform.position, Entity.transform.right, out hit, GlobalDefine.BULLET_RAY_DISTANCE, LayerMask.GetMask("Player", "Wall", "Floor"), ownerPlayer.PlayerId, skill.Config.findTargetId))
+        {
+            if (ownerAction.ActionConfig.areaTriggerType == ActionAreaTriggerTiming.Custom)
             {
                 Module.HitArea.HitPlayerAction(ownerPlayer, skill.Config.findTargetId, ownerAction.ActionConfig.areaId, endPoint, ownerAction.HitData);
+                skill.PlayExpression(SkillExpressionPlayTiming.WhenHit, Entity.transform, targetPlayer.Entity.transform);
+                (ownerAction as SummonAction).OnEntityHit();
+                Module.Entity.HideEntity(Entity);
             }
-            skill.PlayExpression(SkillExpressionPlayTiming.WhenHit, Entity.transform, targetPlayer.Entity.transform);
-            (ownerAction as SummonAction).OnEntityHit();
-            Module.Entity.HideEntity(Entity);
         }
     }
 

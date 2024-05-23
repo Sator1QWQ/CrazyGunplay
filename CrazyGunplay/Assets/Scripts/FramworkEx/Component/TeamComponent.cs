@@ -64,6 +64,35 @@ public class TeamComponent : GameFrameworkComponent
         return -1;
     }
 
+    /// <summary>
+    /// 根据tagetId查找findPlayer是否为目标
+    /// </summary>
+    /// <param name="ownerPlayer"></param>
+    /// <param name="findPlayer"></param>
+    /// <param name="targetId"></param>
+    /// <returns></returns>
+    public bool IsPlayerIsTarget(int ownerPlayer, int findPlayer, int targetId)
+    {
+        Config_FindTarget config = Config<Config_FindTarget>.Get("FindTarget", targetId);
+        if(config.targetType == TargetType.Self)
+        {
+            return ownerPlayer == findPlayer;
+        }
+        else if(config.targetType == TargetType.SelfTeam)
+        {
+            return IsSameTeam(ownerPlayer, findPlayer);
+        }
+        else if(config.targetType == TargetType.EnemyTeam)
+        {
+            return !IsSameTeam(ownerPlayer, findPlayer);
+        }
+        else if(config.targetType == TargetType.AllTeam)
+        {
+            return true;
+        }
+        return false;
+    }
+
     private void SyncTeamData(object sender, GameEventArgs e)
     {
         SyncTeamDataEventArgs args = e as SyncTeamDataEventArgs;

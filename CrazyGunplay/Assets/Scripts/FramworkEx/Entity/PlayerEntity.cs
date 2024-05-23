@@ -161,6 +161,7 @@ public class PlayerEntity : CharacterEntity
         Machine.AddState(StateLayer.Passive, new PassiveIdleState());
         Machine.AddState(StateLayer.Passive, new DieState());
         Machine.AddState(StateLayer.Passive, new RespawnState());
+        Machine.AddState(StateLayer.Passive, new GetHitFlyState());
     }
 
     //初始化玩家武器
@@ -223,7 +224,7 @@ public class PlayerEntity : CharacterEntity
                 BeatBack(vector);
                 break;
             case GetHitType.HitToFly:
-                BeatBack(vector);
+                BeatFly(vector);
                 break;
         }
     }
@@ -240,6 +241,25 @@ public class PlayerEntity : CharacterEntity
 
         mGravity.AddForce("Force", vector * Data.beatBackValue, 0.3f);
         Debug.Log("击退值为==" + Data.beatBackValue + ", 击退百分比为：" + Data.beatBackPercent);
+    }
+
+    /// <summary>
+    /// 击飞
+    /// </summary>
+    private void BeatFly(Vector3 vector)
+    {
+        Entity.transform.position = new Vector3(Entity.transform.position.x, Entity.transform.position.y, 0);   //重置坐标
+        if(vector.y != 0)
+        {
+            mGravity.AddForce("Force", vector * Data.beatBackValue);
+        }
+        else
+        {
+            mGravity.AddForce("Force", vector * Data.beatBackValue, 0.3f);
+        }
+
+        PlayerBeatFlyEventArgs args = PlayerBeatFlyEventArgs.Create(PlayerId, vector);
+        Module.Event.FireNow(this, args);
     }
 
     //控制动画

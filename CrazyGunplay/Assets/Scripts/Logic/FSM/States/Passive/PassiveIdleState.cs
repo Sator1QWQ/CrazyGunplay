@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameFramework;
 using UnityGameFramework.Runtime;
+using GameFramework.Event;
 
 /*
 * 作者：
@@ -13,6 +14,24 @@ using UnityGameFramework.Runtime;
 public class PassiveIdleState : PlayerState
 {
     public override StateType Type => StateType.PassiveIdle;
+    private bool isBeatFly;
+    private int playerId;
+
+    public override void OnEnter(PlayerEntity owner)
+    {
+        Module.Event.Subscribe(PlayerBeatFlyEventArgs.EventId, OnHitFly);
+        playerId = owner.PlayerId;
+    }
+
+    public override void OnExit(PlayerEntity owner)
+    {
+        if(Module.Event.Check(PlayerBeatFlyEventArgs.EventId, OnHitFly))
+        {
+            Module.Event.Unsubscribe(PlayerBeatFlyEventArgs.EventId, OnHitFly);
+        }
+        playerId = 0;
+        isBeatFly = false;
+    }
 
     public override bool OnExecute(PlayerEntity owner)
     {
@@ -55,6 +74,13 @@ public class PassiveIdleState : PlayerState
             owner.Machine.ChangeState(Layer, StateType.Die);
             return true;
         }
+
+        //击飞状态
+        if(isBeatFly)
+        {
+            owner.Machine.ChangeState(Layer, StateType.GetHitFly);
+            return true;
+        }
         return false;
     }
 
@@ -62,9 +88,17 @@ public class PassiveIdleState : PlayerState
     {
         if(Physics.Raycast(pos, dire, out hit, GlobalDefine.PLAYER_HEIGHT + 0.1f, LayerMask.GetMask("MapBorder")))
         {
-            
             return true;
         }
         return false;
+    }
+
+    private void OnHitFly(object sender, GameEventArgs e)
+    {
+        PlayerBeatFlyEventArgs args = e as PlayerBeatFlyEventArgs;
+        if(args.HitPlayer == playerId)
+        {
+            isBeatFly = true;
+        }
     }
 }

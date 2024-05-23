@@ -13,4 +13,10 @@ using UnityGameFramework.Runtime;
 public class GetHitFlyState : PlayerState
 {
     public override StateType Type => StateType.GetHitFly;
+
+    public override bool OnExecute(PlayerEntity owner)
+    {
+        Debug.Log("正在被击飞");
+        return false;
+    }
 }

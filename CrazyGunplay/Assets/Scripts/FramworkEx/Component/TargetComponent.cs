@@ -13,11 +13,6 @@ public class TargetComponent : GameFrameworkComponent
     /// <summary>
     /// 寻找目标
     /// </summary>
-    /// <param name="player"></param>
-    /// <param name="targetType">目标类型</param>
-    /// <param name="selectMode">选择模式</param>
-    /// <param name="value">数值</param>
-    /// <returns></returns>
     public List<PlayerEntity> FindTarget(PlayerEntity owner, int targetId)
     {
         Config_FindTarget config = Config<Config_FindTarget>.Get("FindTarget", targetId);
