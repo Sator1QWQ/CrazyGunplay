@@ -104,6 +104,8 @@ function BattleModeScene.BulletHitPlayerEvent(sender, args)
         -- --该buff为直接扣血的话，则设定击退值
         if buffValue.buffId == GlobalDefine.GetHurtBuff then
             beatBackValue = beatBackValue + buffValue.value
+        else
+            CBuff.Instance:AddBuff(data.receiverId, buffValue.buffId, buffValue.duration, buffValue.value)
         end
     end
 

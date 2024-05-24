@@ -37,3 +37,21 @@ GlobalEnum.BuffType =
 	FireRate = 4,   --射速修改
 	BeatBackValue = 5,  --攻击力修改
 }
+
+GlobalEnum.BuffKey = 
+{
+    [1] = "moveSpeedScale",
+    [2] = "getBeatScale",
+    [3] = "hpAdd",
+    [4] = "fireRateScale",
+    [5] = "attackScale",
+}
+
+--运算符
+GlobalEnum.OperatorType =
+{
+    Add = 1,    --加
+    Sub = 2,    --减
+    Multi = 3,  --乘
+    Divi = 4,   --除
+}

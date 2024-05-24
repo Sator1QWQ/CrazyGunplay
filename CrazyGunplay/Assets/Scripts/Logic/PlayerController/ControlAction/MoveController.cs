@@ -25,9 +25,10 @@ public class MoveController : ControlActionBase
         entity.OnBuffDataChange += OnBuffDataChange;
     }
 
-    private void OnBuffDataChange(BuffData data)
+    private void OnBuffDataChange(PlayerEntity player)
     {
-        mSpeed = defaultSpeed * data.moveSpeedScale;
+        float buffScale = Module.PlayerData.GetBuffData(player.PlayerId).moveSpeedScale;
+        mSpeed = defaultSpeed * buffScale;
     }
 
     public override void DoAction(PlayerController controller)

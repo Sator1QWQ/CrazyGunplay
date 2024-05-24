@@ -111,7 +111,7 @@ public abstract class SkillAction : IReference
             BuffValue value = new BuffValue();
             value.buffId = ActionConfig.buffIdList[i];
             value.value = ActionConfig.buffValueList[i];
-            value.continueTime = ActionConfig.buffContinueList[i];
+            value.duration = ActionConfig.buffContinueList[i];
             data.buffList.Add(value);
         }
         return data;

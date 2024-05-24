@@ -139,7 +139,7 @@ public abstract class Bullet
 		data.receiverId = playerId;
 		data.buffList = new List<BuffValue>();
 		data.hitType = GetHitType.BeatBack;
-		data.buffList.Add(new BuffValue() { buffId = 110, continueTime = 0, value = OwnerWeapon.Config.beatBack });
+		data.buffList.Add(new BuffValue() { buffId = 110, duration = 0, value = OwnerWeapon.Config.beatBack });
 		HitEventArgs args = HitEventArgs.Create(data);
 		Module.Event.FireNow(this, args);
 	}

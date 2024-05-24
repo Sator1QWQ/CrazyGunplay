@@ -1,4 +1,5 @@
-﻿using GameFramework.Event;
+﻿using GameFramework.Entity;
+using GameFramework.Event;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -109,6 +110,7 @@ public class PlayerDataComponent : GameFrameworkComponent
 
     private void SyncPlayerBuffData(object sender, GameEventArgs e)
     {
+        Debug.Log("同步buff数据到C#端了");
         SyncBuffDataEventArgs args = e as SyncBuffDataEventArgs;
         if(!buffDataDic.ContainsKey(args.playerId))
         {
@@ -116,6 +118,27 @@ public class PlayerDataComponent : GameFrameworkComponent
         }
 
         buffDataDic[args.playerId] = args.data;
+    }
+
+    /// <summary>
+    /// 根据playerId获取玩家实体
+    /// </summary>
+    /// <param name="playerId"></param>
+    /// <returns></returns>
+    public PlayerEntity GetPlayerEntity(int playerId)
+    {
+        IEntityGroup group = Module.Entity.GetEntityGroup("Player");
+        IEntity[] entitys = group.GetAllEntities();
+        for(int i = 0; i < entitys.Length; i++)
+        {
+            PlayerEntity player = entitys[i] as PlayerEntity;
+            if(player.PlayerId == playerId)
+            {
+                return player;
+            }
+        }
+
+        return null;
     }
 
     private void OnDisable()

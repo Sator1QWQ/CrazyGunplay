@@ -2,3 +2,4 @@
 require "Logic.Player.MPlayer"
 require "Logic.Battle.MBattleSetting"
 require "Logic.Team.MTeam"
+require "Logic.Battle.Buff.MBuff"

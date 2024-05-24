@@ -39,12 +39,12 @@ public class PlayerEntity : CharacterEntity
     public AudioSource AudioSource { get; private set; }
 
 
-    private event Action<BuffData> buffDataChange = _ => { };
+    private event Action<PlayerEntity> buffDataChange = _ => { };
     /// <summary>
     /// buff改变事件
     /// 受PlayerEntity控制的模块，才注册这个事件
     /// </summary>
-    public event Action<BuffData> OnBuffDataChange
+    public event Action<PlayerEntity> OnBuffDataChange
     {
         add
         {
@@ -308,8 +308,7 @@ public class PlayerEntity : CharacterEntity
         {
             return;
         }
-
-        buffDataChange(BuffData);
+        buffDataChange(this);
     }
 
     //hide时会调用这个函数，重置数据

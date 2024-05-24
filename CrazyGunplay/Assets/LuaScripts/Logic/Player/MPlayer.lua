@@ -41,7 +41,7 @@ function MPlayer:AddPlayer(data)
     }
 
     CPlayer.Instance:SyncBattleDataToCS(data.id)
-    CPlayer.Instance:SyncBuffDataToCS(data.id, data.buffData)
+    CBuff.Instance:InitData(data.id)
 end
 
 function MPlayer:Clear()
@@ -57,7 +57,6 @@ end
 --击退值改变
 function MPlayer:ChangeBeatBackValue(id, value)
     self.playerList[id].beatBackValue = self.playerList[id].beatBackValue + value
-    print("id==" .. tostring(id) .. ", value==" .. tostring(self.playerList[id].beatBackValue))
 
     --百分比计算：当击退为0的时候，显示百分比为0
     --击退修正值：保证显示的百分比数不会太大
@@ -77,6 +76,10 @@ end
 function MPlayer:BuffEnd(id, key)
     self.playerList[id].buffData[key] = self.buffDefaultData[key]
     CPlayer.Instance:SyncBuffDataToCS(id)
+end
+
+function MPlayer:SetBuffData(id, buffDataTable)
+    self.playerList[id].buffData = buffDataTable
 end
 
 --根据索引获取数据

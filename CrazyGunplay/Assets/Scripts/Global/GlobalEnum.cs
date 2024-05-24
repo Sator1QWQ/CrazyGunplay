@@ -518,3 +518,31 @@ public enum SkillActionTreeState
 	/// </summary>
 	AllEnd = 4,
 }
+
+public enum OperatorType
+{
+	/// <summary>
+	/// 加
+	/// </summary>
+	Add = 1,   
+
+	/// <summary>
+	/// 减
+	/// </summary>
+	Sub = 2,    
+
+	/// <summary>
+	/// 乘
+	/// </summary>
+	Multi = 3, 
+
+	/// <summary>
+	/// 除
+	/// </summary>
+	Divi = 4,
+
+	/// <summary>
+	/// 无
+	/// </summary>
+	None = 5,
+}
