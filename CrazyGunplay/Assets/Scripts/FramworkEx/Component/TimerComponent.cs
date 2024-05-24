@@ -141,11 +141,11 @@ public class TimerComponent : GameFrameworkComponent
     /// <param name="tag">标签</param>
     public void RemoveTimersByTag(string tag)
     {
-        TimerData data = mTimerList.Find(d => d.tag.Equals(tag));
+        TimerData data = mTimerList.Find(d => !string.IsNullOrEmpty(d.tag) && d.tag.Equals(tag));
         while(data != null)
         {
             mTimerList.Remove(data);
-            data = mTimerList.Find(d => d.tag.Equals(tag));
+            data = mTimerList.Find(d => !string.IsNullOrEmpty(d.tag) && d.tag.Equals(tag));
         }
     }
 }
