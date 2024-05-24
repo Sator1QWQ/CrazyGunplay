@@ -23,11 +23,11 @@ public interface Config_Grenade : IConfigBase
 
 	float delay { get; set; }
 
-	int buffId { get; set; }
+	List<int> buffIdList { get; set; }
 
-	float buffValue { get; set; }
+	List<float> buffValueList { get; set; }
 
-	float buffDuration { get; set; }
+	List<float> buffContinueList { get; set; }
 
 	string effectPath { get; set; }
 

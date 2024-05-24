@@ -11,9 +11,15 @@ Grenade = {
 		mainMag = 8,
 		fireRate = 0.5,
 		delay = 1.5,
-		buffId = 101,
-		buffValue = 0.5,
-		buffDuration = 2,
+		buffIdList = {
+			[1] = 102,
+		},
+		buffValueList = {
+			[1] = -0.5,
+		},
+		buffContinueList = {
+			[1] = 3,
+		},
 		effectPath = Grenade_Text.effectPath_4,
 	},
 	[202] = {
@@ -26,9 +32,12 @@ Grenade = {
 		mainMag = 15,
 		fireRate = 0.5,
 		delay = 2,
-		buffId = -1,
-		buffValue = nil,
-		buffDuration = nil,
+		buffIdList = {
+		},
+		buffValueList = {
+		},
+		buffContinueList = {
+		},
 		effectPath = Grenade_Text.effectPath_5,
 	},
 }

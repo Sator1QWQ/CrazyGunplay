@@ -487,7 +487,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        int Config_Grenade.buffId 
+        System.Collections.Generic.List<int> Config_Grenade.buffIdList 
         {
             
             get 
@@ -498,14 +498,14 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					
+					ObjectTranslator translator = luaEnv.translator;
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "buffId");
+					LuaAPI.xlua_pushasciistring(L, "buffIdList");
 					if (0 != LuaAPI.xlua_pgettable(L, -2))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
 					}
-					int __gen_ret = LuaAPI.xlua_tointeger(L, -1);
+					System.Collections.Generic.List<int> __gen_ret = (System.Collections.Generic.List<int>)translator.GetObject(L, -1, typeof(System.Collections.Generic.List<int>));
 					LuaAPI.lua_pop(L, 2);
 					return __gen_ret;
 #if THREAD_SAFE || HOTFIX_ENABLE
@@ -522,10 +522,10 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					
+					ObjectTranslator translator = luaEnv.translator;
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "buffId");
-					LuaAPI.xlua_pushinteger(L, value);
+					LuaAPI.xlua_pushasciistring(L, "buffIdList");
+					translator.Push(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
@@ -538,7 +538,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        float Config_Grenade.buffValue 
+        System.Collections.Generic.List<float> Config_Grenade.buffValueList 
         {
             
             get 
@@ -549,14 +549,14 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					
+					ObjectTranslator translator = luaEnv.translator;
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "buffValue");
+					LuaAPI.xlua_pushasciistring(L, "buffValueList");
 					if (0 != LuaAPI.xlua_pgettable(L, -2))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
 					}
-					float __gen_ret = (float)LuaAPI.lua_tonumber(L, -1);
+					System.Collections.Generic.List<float> __gen_ret = (System.Collections.Generic.List<float>)translator.GetObject(L, -1, typeof(System.Collections.Generic.List<float>));
 					LuaAPI.lua_pop(L, 2);
 					return __gen_ret;
 #if THREAD_SAFE || HOTFIX_ENABLE
@@ -573,10 +573,10 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					
+					ObjectTranslator translator = luaEnv.translator;
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "buffValue");
-					LuaAPI.lua_pushnumber(L, value);
+					LuaAPI.xlua_pushasciistring(L, "buffValueList");
+					translator.Push(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
@@ -589,7 +589,7 @@ namespace XLua.CSObjectWrap
             
         }
         
-        float Config_Grenade.buffDuration 
+        System.Collections.Generic.List<float> Config_Grenade.buffContinueList 
         {
             
             get 
@@ -600,14 +600,14 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					
+					ObjectTranslator translator = luaEnv.translator;
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "buffDuration");
+					LuaAPI.xlua_pushasciistring(L, "buffContinueList");
 					if (0 != LuaAPI.xlua_pgettable(L, -2))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);
 					}
-					float __gen_ret = (float)LuaAPI.lua_tonumber(L, -1);
+					System.Collections.Generic.List<float> __gen_ret = (System.Collections.Generic.List<float>)translator.GetObject(L, -1, typeof(System.Collections.Generic.List<float>));
 					LuaAPI.lua_pop(L, 2);
 					return __gen_ret;
 #if THREAD_SAFE || HOTFIX_ENABLE
@@ -624,10 +624,10 @@ namespace XLua.CSObjectWrap
 #endif
 					RealStatePtr L = luaEnv.L;
 					int oldTop = LuaAPI.lua_gettop(L);
-					
+					ObjectTranslator translator = luaEnv.translator;
 					LuaAPI.lua_getref(L, luaReference);
-					LuaAPI.xlua_pushasciistring(L, "buffDuration");
-					LuaAPI.lua_pushnumber(L, value);
+					LuaAPI.xlua_pushasciistring(L, "buffContinueList");
+					translator.Push(L, value);
 					if (0 != LuaAPI.xlua_psettable(L, -3))
 					{
 						luaEnv.ThrowExceptionFromError(oldTop);

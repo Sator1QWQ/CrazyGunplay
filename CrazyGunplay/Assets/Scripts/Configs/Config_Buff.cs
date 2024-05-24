@@ -9,6 +9,8 @@ public interface Config_Buff : IConfigBase
 
 	BuffType type { get; set; }
 
+	OperatorType operatorType { get; set; }
+
 	float triggerInterval { get; set; }
 
 	string desc { get; set; }

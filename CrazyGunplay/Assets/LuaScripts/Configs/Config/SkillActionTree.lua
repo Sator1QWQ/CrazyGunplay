@@ -70,7 +70,7 @@ SkillActionTree = {
 		},
 		buffValueList = {
 			[1] = 4,
-			[2] = 20,
+			[2] = 0.7,
 		},
 		buffContinueList = {
 			[1] = 0,
@@ -97,12 +97,15 @@ SkillActionTree = {
 		areaTriggerInterval = 0,
 		buffIdList = {
 			[1] = 110,
+			[2] = 101,
 		},
 		buffValueList = {
 			[1] = 8,
+			[2] = -0.8,
 		},
 		buffContinueList = {
 			[1] = 0,
+			[2] = 3,
 		},
 		getHitType = 2,
 		nextActionList = {

@@ -67,6 +67,11 @@ public class GrenadeBullet : Bullet
     private void Boom(int ignorePlayer = -1)
     {
 
+        HitData data = new HitData();
+        data.dealerId = OwnerWeapon.PlayerEntity.PlayerId;
+        data.buffList = new List<BuffValue>();
+
+
         //Module.HitArea.HitPlayerAction(OwnerWeapon.PlayerEntity, config.targetId, config.areaId, BulletEntityList[0].Entity.transform.position);
         Debug.LogError("函数未实现！！！！！！！！！！！");
         //if (config.rangeType == GrenadeRangeType.Circle)
@@ -105,17 +110,5 @@ public class GrenadeBullet : Bullet
     {
         //先击中后上buff
         SendAttackEvent(player.PlayerId);
-
-        if (config.buffId != -1)
-        {
-            player.BuffManager.AddBuff(config.buffId, config.buffDuration, config.buffValue);
-        }
-
-        if (OwnerWeapon.Config.beatType == GetHitType.No)
-        {
-            return;
-        }
-
-        player.GetDamage(GetHitType.HitToFly, dir);
     }
 }
