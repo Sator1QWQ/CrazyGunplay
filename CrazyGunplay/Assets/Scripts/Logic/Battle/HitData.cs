@@ -19,7 +19,6 @@ public struct HitData
 public struct BuffValue
 {
     public int buffId;
-    public int valueType;   //变量类型 固定值还是百分比
     public float value;
     public float duration;
 }

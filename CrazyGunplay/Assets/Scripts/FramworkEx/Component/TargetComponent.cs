@@ -54,7 +54,7 @@ public class TargetComponent : GameFrameworkComponent
             bool compareResult = selector.Compare(other, v, config.targetValue);
             if (config.compare != CompareType.Max && config.compare != CompareType.Greater && compareResult)
             {
-                if(findCount != -1 && findCount >= config.targetNum)
+                if(config.targetNum != -1 && findCount >= config.targetNum)
                 {
                     break;
                 }

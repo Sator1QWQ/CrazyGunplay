@@ -66,14 +66,22 @@ public class GrenadeBullet : Bullet
     //爆炸
     private void Boom(int ignorePlayer = -1)
     {
-
         HitData data = new HitData();
         data.dealerId = OwnerWeapon.PlayerEntity.PlayerId;
+        data.hitType = GetHitType.No;
         data.buffList = new List<BuffValue>();
+        for(int i = 0; i < config.buffIdList.Count; i++)
+        {
+            BuffValue value = new BuffValue();
+            value.buffId = config.buffIdList[i];
+            value.value = config.buffValueList[i];
+            value.duration = config.buffContinueList[i];
+            data.buffList.Add(value);
+        }
 
-
-        //Module.HitArea.HitPlayerAction(OwnerWeapon.PlayerEntity, config.targetId, config.areaId, BulletEntityList[0].Entity.transform.position);
-        Debug.LogError("函数未实现！！！！！！！！！！！");
+        Module.HitArea.HitPlayerAction(OwnerWeapon.PlayerEntity, config.targetId, config.areaId, BulletEntityList[0].Entity.transform.position, data);
+        
+        //Debug.LogError("函数未实现！！！！！！！！！！！");
         //if (config.rangeType == GrenadeRangeType.Circle)
         //{
         //    IEntityGroup group = Module.Entity.GetEntityGroup("Player");

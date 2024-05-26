@@ -66,6 +66,10 @@ public class TargetSelector : IReference
         {
             return true;
         }
+        if(CompareType == CompareType.None)
+        {
+            return true;
+        }
 
         return false;
     }

@@ -62,6 +62,10 @@ public class HitAreaComponent : GameFrameworkComponent
             {
                 isFind = CheckByCircle(entity.Entity.transform, startPoint, areaConfig.value[0]);
             }
+            else if(areaConfig.areaType == AreaType.Line)
+            {
+                isFind = CheckByLine(entity.Entity.transform, startPoint, areaConfig.value[0]);
+            }
 
             if (isFind)
             {
@@ -75,5 +79,12 @@ public class HitAreaComponent : GameFrameworkComponent
     private bool CheckByCircle(Transform findEntity, Vector3 startPoint, float radius)
     {
         return Vector3.Distance(findEntity.transform.position, startPoint) <= radius;
+    }
+
+    private bool CheckByLine(Transform findEntity, Vector3 startPoint, float radius)
+    {
+        Vector3 v1 = findEntity.position.GetVector3NotY();
+        Vector3 v2 = startPoint.GetVector3NotY();
+        return Vector3.Distance(v1, v2) <= radius;
     }
 }
