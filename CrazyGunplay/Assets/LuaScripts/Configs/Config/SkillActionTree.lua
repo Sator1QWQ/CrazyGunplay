@@ -45,7 +45,7 @@ SkillActionTree = {
 		},
 		buffContinueList = {
 		},
-		getHitType = 3,
+		getHitType = 1,
 		nextActionList = {
 			[1] = -1,
 		},
@@ -79,7 +79,7 @@ SkillActionTree = {
 			[2] = 5,
 			[3] = 1,
 		},
-		getHitType = 2,
+		getHitType = 1,
 		nextActionList = {
 			[1] = 304,
 		},

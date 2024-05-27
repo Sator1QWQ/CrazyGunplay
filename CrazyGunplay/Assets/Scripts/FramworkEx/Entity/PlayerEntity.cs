@@ -240,10 +240,17 @@ public class PlayerEntity : CharacterEntity
         Anim.SetTrigger("skillAnimTigger");
     }
 
+    /// <summary>
+    /// 禁止移动
+    /// </summary>
+    public void SetCanMove(bool canMove)
+    {
+        Controller.IsPause = !canMove;
+    }
+
     private void BeatBack(Vector3 vector)
     {
         Entity.transform.position = new Vector3(Entity.transform.position.x, Entity.transform.position.y, 0);   //重置坐标
-
         mGravity.AddForce("Force", vector * Data.beatBackValue, 0.3f);
         Debug.Log("击退值为==" + Data.beatBackValue + ", 击退百分比为：" + Data.beatBackPercent);
     }
@@ -273,6 +280,9 @@ public class PlayerEntity : CharacterEntity
         {
             case StateLayer.Control:
                 Anim.SetInteger("controlState", (int)args.CurState);
+                break;
+            case StateLayer.Passive:
+                Anim.SetInteger("passiveState", (int)args.CurState);
                 break;
         }
     }

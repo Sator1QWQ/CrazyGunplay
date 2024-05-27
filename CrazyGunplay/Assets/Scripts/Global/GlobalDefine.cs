@@ -80,4 +80,9 @@ public class GlobalDefine
 	/// 地图高度
 	/// </summary>
 	public static float MAP_MAX_HEIGHT = 16;
+
+	/// <summary>
+	/// 被击飞的时间
+	/// </summary>
+	public static float HIT_FLY_TIME = 2;
 }
