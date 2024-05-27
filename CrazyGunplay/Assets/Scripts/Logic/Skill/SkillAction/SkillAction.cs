@@ -106,6 +106,7 @@ public abstract class SkillAction : IReference
         HitData data = new HitData();
         data.dealerId = player.PlayerId;
         data.buffList = new List<BuffValue>();
+        data.hitType = ActionConfig.getHitType;
         for (int i = 0; i < ActionConfig.buffIdList.Count; i++)
         {
             BuffValue value = new BuffValue();

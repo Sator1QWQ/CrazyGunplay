@@ -66,6 +66,14 @@ public class StateMachine<T> where T : class
 		return mStateDic[layer][type];
     }
 
+	public void StartMachine()
+    {
+		foreach(KeyValuePair<StateLayer, StateBase<T>> pairs in mCurStateDic)
+        {
+			pairs.Value.OnEnter(mOwner);
+        }
+    }
+
 	/// <summary>
 	/// 每帧调用
 	/// </summary>
@@ -77,12 +85,13 @@ public class StateMachine<T> where T : class
         }
 		foreach(KeyValuePair<StateLayer, StateBase<T>> pair in mCurStateDic)
         {
+			Debug.Log($"当前层=={pair.Key}, 当前状态=={pair.Value}");
+
 			//true的话，下一帧再执行
-			if(pair.Value.OnExecute(mOwner))
+			if (pair.Value.OnExecute(mOwner))
             {
 				break;
 			}
-			Debug.Log($"当前层=={pair.Key}, 当前状态=={pair.Value}");
 		}
 	}
 }

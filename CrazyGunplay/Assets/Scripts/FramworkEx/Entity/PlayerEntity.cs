@@ -95,6 +95,7 @@ public class PlayerEntity : CharacterEntity
         Module.Event.Subscribe(ChangeStateEventArgs<PlayerEntity>.EventId, OnChangeState);
         Module.Event.Subscribe(BattleStateChangeArgs.EventId, OnBattleStateChange);
         Module.Event.Subscribe(SyncBuffDataEventArgs.EventId, OnSyncBuffData);
+        Module.Event.Subscribe(PlayerGetDamageEventArgs.EventId, OnHitPlayer);
     }
 
     protected override void OnHide(bool isShutdown, object userData)
@@ -103,6 +104,7 @@ public class PlayerEntity : CharacterEntity
         Module.Event.Unsubscribe(ChangeStateEventArgs<PlayerEntity>.EventId, OnChangeState);
         Module.Event.Unsubscribe(BattleStateChangeArgs.EventId, OnBattleStateChange);
         Module.Event.Unsubscribe(SyncBuffDataEventArgs.EventId, OnSyncBuffData);
+        Module.Event.Unsubscribe(PlayerGetDamageEventArgs.EventId, OnHitPlayer);
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -162,6 +164,8 @@ public class PlayerEntity : CharacterEntity
         Machine.AddState(StateLayer.Passive, new DieState());
         Machine.AddState(StateLayer.Passive, new RespawnState());
         Machine.AddState(StateLayer.Passive, new GetHitFlyState());
+
+        Machine.StartMachine();
     }
 
     //初始化玩家武器
@@ -218,13 +222,14 @@ public class PlayerEntity : CharacterEntity
     /// <param name="vector">受击方向</param>
     public void GetDamage(GetHitType type, Vector3 vector)
     {
+        Vector3 dire = vector.normalized;
         switch (type)
         {
             case GetHitType.BeatBack:
-                BeatBack(vector);
+                BeatBack(dire);
                 break;
             case GetHitType.HitToFly:
-                BeatFly(vector);
+                BeatFly(dire);
                 break;
         }
     }
@@ -249,14 +254,7 @@ public class PlayerEntity : CharacterEntity
     private void BeatFly(Vector3 vector)
     {
         Entity.transform.position = new Vector3(Entity.transform.position.x, Entity.transform.position.y, 0);   //重置坐标
-        if(vector.y != 0)
-        {
-            mGravity.AddForce("Force", vector * Data.beatBackValue);
-        }
-        else
-        {
-            mGravity.AddForce("Force", vector * Data.beatBackValue, 0.3f);
-        }
+        mGravity.AddForce("Force", vector * Data.beatBackValue);
 
         PlayerBeatFlyEventArgs args = PlayerBeatFlyEventArgs.Create(PlayerId, vector);
         Module.Event.FireNow(this, args);
@@ -309,6 +307,17 @@ public class PlayerEntity : CharacterEntity
             return;
         }
         buffDataChange(this);
+    }
+
+    private void OnHitPlayer(object sender, GameEventArgs e)
+    {
+        PlayerGetDamageEventArgs args = e as PlayerGetDamageEventArgs;
+        if(args.HitPlayer != PlayerId)
+        {
+            return;
+        }
+
+        GetDamage(args.HitType, args.Direction);
     }
 
     //hide时会调用这个函数，重置数据

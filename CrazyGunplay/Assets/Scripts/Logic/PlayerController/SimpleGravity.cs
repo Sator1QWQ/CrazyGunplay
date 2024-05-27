@@ -97,6 +97,7 @@ public class SimpleGravity : MonoBehaviour
     {
         UpdateData data = null;
         Jump(v.y);
+        float floorTime = 0;
         data = new UpdateData(() =>
         {
             Vector3 newV = new Vector3(v.x, 0, v.z);
@@ -107,6 +108,14 @@ public class SimpleGravity : MonoBehaviour
                     data.isEnd = true;
                 }
                 data.tempTime += Time.deltaTime;
+            }
+            if(!isAir)
+            {
+                floorTime += Time.deltaTime;
+                if(floorTime >= 0.5f)
+                {
+                    data.isEnd = true;
+                }
             }
             AddVelocityInteral(id, newV, -1, true);
         });
