@@ -16,9 +16,23 @@ public class HitAreaComponent : GameFrameworkComponent
     /// <param name="targetId">目标表id</param>
     /// <param name="areaId">范围表id</param>
     /// <param name="startPoint"></param>
-    public void HitPlayerAction(PlayerEntity owner, int targetId, int areaId, Vector3 startPoint, HitData data)
+    public void HitPlayerAction(PlayerEntity owner, int targetId, int areaId, Vector3 startPoint, HitData data, List<PlayerEntity> whiteList = null)
     {
         List<PlayerEntity> result = GetHitResult(owner, targetId, areaId, startPoint, data);
+
+        //白名单
+        if(whiteList != null)
+        {
+            for(int i = 0; i < whiteList.Count; i++)
+            {
+                if (result.Contains(whiteList[i]))
+                {
+                    continue;
+                }
+                result.Add(whiteList[i]);
+            }
+        }
+
         for (int i = 0; i < result.Count; i++)
         {
             HitData newData = new HitData();
@@ -26,6 +40,10 @@ public class HitAreaComponent : GameFrameworkComponent
             newData.dealerId = data.dealerId;
             newData.hitType = data.hitType;
             newData.receiverId = result[i].PlayerId;    //旧data的receiverId无法确定，只有在这里才能确定
+            if(newData.hitType != GetHitType.No)
+            {
+                newData.direction = result[i].Entity.transform.position - startPoint;
+            }
             HitEventArgs args = HitEventArgs.Create(newData);
             Module.Event.FireNow(this, args);
         }
