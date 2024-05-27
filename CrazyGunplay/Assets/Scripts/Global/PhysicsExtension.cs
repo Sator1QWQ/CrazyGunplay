@@ -20,18 +20,28 @@ public class PhysicsExtension
     /// <param name="ownerPlayer"></param>
     /// <param name="targetId"></param>
     /// <returns></returns>
-    public static bool RayCastHitPlayer(Vector3 origin, Vector3 direction, out RaycastHit hitInfo, float maxDistance, int layerMask, int ownerPlayer, int targetId)
+    public static RayHitPlayerResult RayCastHitPlayer(Vector3 origin, Vector3 direction, out RaycastHit hitInfo, float maxDistance, int layerMask, int ownerPlayer, int targetId, out PlayerEntity outPlayer)
     {
-        if(Physics.Raycast(origin, direction, out hitInfo, maxDistance, layerMask))
+        RayHitPlayerResult result;
+        if (Physics.Raycast(origin, direction, out hitInfo, maxDistance, layerMask))
         {
             PlayerEntity player = hitInfo.transform.GetComponent<PlayerEntity>();
-            if(player != null)
+            outPlayer = player;
+            if (player != null)
             {
                 bool isTarget = Module.Team.IsPlayerIsTarget(ownerPlayer, player.PlayerId, targetId);
-                return isTarget;
+                result = isTarget ? RayHitPlayerResult.HitTargetPlayer : RayHitPlayerResult.HitNotTargetPlayer;
             }
-            return true;
+            else
+            {
+                result = RayHitPlayerResult.HitFloor;
+            }
         }
-        return false;
+        else
+        {
+            result = RayHitPlayerResult.HitNone;
+            outPlayer = null;
+        }
+        return result;
     }
 }

@@ -80,20 +80,32 @@ public class SummonEntity : EntityLogic
 
         if(curRouteIndex >= routeList.Count)
         {
-            Entity.transform.right = endPoint - Entity.transform.position;
+            if(config.isContinueFollow)
+            {
+                Entity.transform.right = endPoint - Entity.transform.position;
+            }
             Entity.transform.Translate(config.moveSpeed * Time.deltaTime, 0, 0, Space.Self);
         }
 
         RaycastHit hit;
-        if (PhysicsExtension.RayCastHitPlayer(Entity.transform.position, Entity.transform.right, out hit, GlobalDefine.BULLET_RAY_DISTANCE, LayerMask.GetMask("Player", "Wall", "Floor"), ownerPlayer.PlayerId, skill.Config.findTargetId))
+        PlayerEntity hitPlayer;
+        RayHitPlayerResult hitResult = PhysicsExtension.RayCastHitPlayer(Entity.transform.position, Entity.transform.right, out hit, GlobalDefine.BULLET_RAY_DISTANCE, LayerMask.GetMask("Player", "Wall", "Floor"), ownerPlayer.PlayerId, skill.Config.findTargetId, out hitPlayer);
+
+        if (hitResult == RayHitPlayerResult.HitTargetPlayer)
         {
             if (ownerAction.ActionConfig.areaTriggerType == ActionAreaTriggerTiming.Custom)
             {
-                Module.HitArea.HitPlayerAction(ownerPlayer, skill.Config.findTargetId, ownerAction.ActionConfig.areaId, endPoint, ownerAction.HitData);
-                skill.PlayExpression(SkillExpressionPlayTiming.WhenHit, Entity.transform, targetPlayer.Entity.transform);
-                (ownerAction as SummonAction).OnEntityHit();
-                Module.Entity.HideEntity(Entity);
+                List<PlayerEntity> list = new List<PlayerEntity>();
+                list.Add(hitPlayer);
+                Module.HitArea.HitPlayerAction(ownerPlayer, skill.Config.findTargetId, ownerAction.ActionConfig.areaId, Entity.transform.position, ownerAction.HitData, list);
             }
+        }
+
+        if (hitResult != RayHitPlayerResult.HitNone && hitResult != RayHitPlayerResult.HitNotTargetPlayer)
+        {
+            skill.PlayExpression(SkillExpressionPlayTiming.WhenHit, Entity.transform, targetPlayer.Entity.transform);
+            (ownerAction as SummonAction).OnEntityHit();
+            Module.Entity.HideEntity(Entity);
         }
     }
 

@@ -546,3 +546,29 @@ public enum OperatorType
 	/// </summary>
 	None = 5,
 }
+
+/// <summary>
+/// 射线命中的结果
+/// </summary>
+public enum RayHitPlayerResult
+{
+	/// <summary>
+	/// 无命中
+	/// </summary>
+	HitNone,
+
+	/// <summary>
+	/// 命中目标玩家
+	/// </summary>
+	HitTargetPlayer,
+
+	/// <summary>
+	/// 命中非目标玩家
+	/// </summary>
+	HitNotTargetPlayer,
+
+	/// <summary>
+	/// 命中地面
+	/// </summary>
+	HitFloor,
+}
