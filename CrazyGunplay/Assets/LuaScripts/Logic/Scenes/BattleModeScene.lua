@@ -12,7 +12,7 @@ end
 
 function BattleModeScene:OnEnable()
     Module.Event:Subscribe(PlayerDieEventArgs.EventId, BattleModeScene.PlayerDieEvent)
-    Module.Event:Subscribe(CS.HitEventArgs.EventId, BattleModeScene.BulletHitPlayerEvent)
+    Module.Event:Subscribe(CS.HitEventArgs.EventId, BattleModeScene.HitPlayerEvent)
     Module.Event:Subscribe(CS.BuffStartEventArgs.EventId, BattleModeScene.BuffStartEvent)
     Module.Event:Subscribe(CS.BuffEndEventArgs.EventId, BattleModeScene.BuffEndEvent)
 
@@ -50,7 +50,7 @@ function BattleModeScene:ClearBattleData()
     MTeam.Instance:Clear()
     Module.Timer:RemoveAllTimer()
     Module.Event:Unsubscribe(PlayerDieEventArgs.EventId, BattleModeScene.PlayerDieEvent)
-    Module.Event:Unsubscribe(CS.HitEventArgs.EventId, BattleModeScene.BulletHitPlayerEvent)
+    Module.Event:Unsubscribe(CS.HitEventArgs.EventId, BattleModeScene.HitPlayerEvent)
     Module.Event:Unsubscribe(CS.BuffStartEventArgs.EventId, BattleModeScene.BuffStartEvent)
     Module.Event:Unsubscribe(CS.BuffEndEventArgs.EventId, BattleModeScene.BuffEndEvent)
 end
@@ -95,7 +95,7 @@ function BattleModeScene.PlayerDieEvent(sender, args)
 end
 
 --击中事件
-function BattleModeScene.BulletHitPlayerEvent(sender, args)
+function BattleModeScene.HitPlayerEvent(sender, args)
     local beatBackValue = 0
     local data = args.Data
     
@@ -112,6 +112,9 @@ function BattleModeScene.BulletHitPlayerEvent(sender, args)
     if data.hitType ~= GlobalEnum.HitType.No then
         MPlayer.Instance:ChangeBeatBackValue(data.receiverId, beatBackValue)    
     end
+
+    local args = CS.PlayerGetDamageEventArgs.Create(data.receiverId, data.hitType, data.direction)
+    Module.Event:FireNow(nil, args)
 end
 
 function BattleModeScene:ChangeBattleState(state)

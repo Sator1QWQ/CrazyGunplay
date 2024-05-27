@@ -67,14 +67,17 @@ SkillActionTree = {
 		buffIdList = {
 			[1] = 110,
 			[2] = 109,
+			[3] = 101,
 		},
 		buffValueList = {
 			[1] = 4,
 			[2] = 0.7,
+			[3] = -0.5,
 		},
 		buffContinueList = {
 			[1] = 0,
 			[2] = 5,
+			[3] = 1,
 		},
 		getHitType = 2,
 		nextActionList = {
