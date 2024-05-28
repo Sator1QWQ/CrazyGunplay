@@ -13,4 +13,10 @@ using UnityGameFramework.Runtime;
 public class NormalAttackState : PlayerState
 {
     public override StateType Type => StateType.NormalAttack;
+
+    public override bool OnExecute(PlayerEntity owner)
+    {
+
+        return false;
+    }
 }

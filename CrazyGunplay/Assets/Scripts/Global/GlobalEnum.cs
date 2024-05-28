@@ -23,6 +23,7 @@ public enum ControllerType
 	NomralAttack,	//普攻
 	UseSkill,	//技能
 	ChangeWeapon,	//切换武器
+	WeaponReload,	//换弹
 }
 
 /// <summary>
@@ -555,20 +556,33 @@ public enum RayHitPlayerResult
 	/// <summary>
 	/// 无命中
 	/// </summary>
-	HitNone,
+	HitNone = 1,
 
 	/// <summary>
 	/// 命中目标玩家
 	/// </summary>
-	HitTargetPlayer,
+	HitTargetPlayer = 2,
 
 	/// <summary>
 	/// 命中非目标玩家
 	/// </summary>
-	HitNotTargetPlayer,
+	HitNotTargetPlayer = 3,
 
 	/// <summary>
 	/// 命中地面
 	/// </summary>
-	HitFloor,
+	HitFloor = 4,
+}
+
+/// <summary>
+/// 武器动画类型
+/// </summary>
+public enum WeaponAnimType
+{
+	AutoGun = 1,
+	HandGun = 2,
+	ShootGun = 3,
+	Grenade = 4,
+	RPG = 5,
+	MiniGun = 6,
 }

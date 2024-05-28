@@ -24,6 +24,8 @@ public class PlayerEntity : CharacterEntity
 
     public Transform WeaponRoot { get; private set; }
 
+    public Transform WeaponModelRoot { get; private set; }
+
     /// <summary>
     /// 玩家看的方向
     /// </summary>
@@ -70,6 +72,7 @@ public class PlayerEntity : CharacterEntity
         Data = Module.PlayerData.GetData(PlayerId);
         BuffData = Module.PlayerData.GetBuffData(PlayerId);
         WeaponRoot = transform.Find("WeaponRoot");
+        WeaponModelRoot = transform.Find("Hips_jnt/Spine_jnt/Spine_jnt 1/Chest_jnt/Shoulder_Right_jnt/Arm_Right_jnt/Forearm_Right_jnt/Hand_Right_jnt");
         Entity.transform.forward = Vector3.right;
         Anim = GetComponent<Animator>();
         Config = Config<Config_CharacterData>.Get("CharacterData", Data.heroId);
@@ -96,6 +99,7 @@ public class PlayerEntity : CharacterEntity
         Module.Event.Subscribe(BattleStateChangeArgs.EventId, OnBattleStateChange);
         Module.Event.Subscribe(SyncBuffDataEventArgs.EventId, OnSyncBuffData);
         Module.Event.Subscribe(PlayerGetDamageEventArgs.EventId, OnHitPlayer);
+        Module.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
     }
 
     protected override void OnHide(bool isShutdown, object userData)
@@ -105,6 +109,7 @@ public class PlayerEntity : CharacterEntity
         Module.Event.Unsubscribe(BattleStateChangeArgs.EventId, OnBattleStateChange);
         Module.Event.Unsubscribe(SyncBuffDataEventArgs.EventId, OnSyncBuffData);
         Module.Event.Unsubscribe(PlayerGetDamageEventArgs.EventId, OnHitPlayer);
+        Module.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -122,7 +127,7 @@ public class PlayerEntity : CharacterEntity
     protected override void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)
     {
         base.OnAttached(childEntity, parentTransform, userData);
-        childEntity.transform.SetParent(WeaponRoot, false);
+        childEntity.transform.SetParent(WeaponModelRoot, false);
     }
 
     //初始化控制器
@@ -148,6 +153,7 @@ public class PlayerEntity : CharacterEntity
         Controller.AddControlAction(new NormalAttackController());
         Controller.AddControlAction(new ChangeWeaponController());
         Controller.AddControlAction(new UseSkillController());
+        Controller.AddControlAction(new WeaponReloadController());
     }
 
     //初始化状态机
@@ -165,13 +171,16 @@ public class PlayerEntity : CharacterEntity
         Machine.AddState(StateLayer.Passive, new RespawnState());
         Machine.AddState(StateLayer.Passive, new GetHitFlyState());
 
+        Machine.AddState(StateLayer.Weapon, new WeaponIdleState());
+        Machine.AddState(StateLayer.Weapon, new NormalAttackState());
+        Machine.AddState(StateLayer.Weapon, new ReloadState());
+
         Machine.StartMachine();
     }
 
     //初始化玩家武器
     private void InitWeapon()
     {
-        Module.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
         Config_Character data = Config<Config_Character>.Get("Character", Data.heroId);
         Data.weaponId = data.initWeapon;
         WeaponManager.InitWeapon(Data.weaponId);
@@ -209,9 +218,9 @@ public class PlayerEntity : CharacterEntity
         }
         Module.Entity.AttachEntity(entity.Entity, Entity);
         entity.SetPlayerEntity(this);
-        entity.Entity.transform.SetParent(WeaponRoot, false);
+        entity.Entity.transform.SetParent(WeaponModelRoot, false);
         entity.Entity.transform.localPosition = Vector3.zero;
-        Module.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
+        entity.Entity.transform.localRotation = Quaternion.Euler(new Vector3(0, 90, 90));
     }
 
     /// <summary>
@@ -284,7 +293,13 @@ public class PlayerEntity : CharacterEntity
             case StateLayer.Passive:
                 Anim.SetInteger("passiveState", (int)args.CurState);
                 break;
+            case StateLayer.Weapon:
+                Anim.SetInteger("weaponState", (int)args.CurState);
+                break;
         }
+
+        WeaponAnimType type = WeaponManager.CurrentWeapon.Config.animType;
+        Anim.SetInteger("weaponAnimType", (int)type);
     }
 
     private void IsAirChange(bool b)

@@ -92,6 +92,8 @@ public abstract class PlayerController
 
     public abstract bool GetNormalAttack();
 
+    public abstract bool GetWeaponReload();
+
     /// <summary>
     /// 武器槽切换
     /// </summary>
@@ -206,6 +208,11 @@ public abstract class PlayerController
         if (GetNormalAttack())
         {
             UpdateControllerAction(ControllerType.NomralAttack);
+        }
+
+        if(GetWeaponReload())
+        {
+            UpdateControllerAction(ControllerType.WeaponReload);
         }
 
         if(GetChangeWeapon() != -1)

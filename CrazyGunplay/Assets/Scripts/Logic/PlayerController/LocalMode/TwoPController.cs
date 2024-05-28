@@ -78,4 +78,6 @@ public class TwoPController : PlayerController
     }
 
     public override float GetVertical() => 0;
+
+    public override bool GetWeaponReload() => Input.GetKeyDown(KeyCode.KeypadPeriod);
 }

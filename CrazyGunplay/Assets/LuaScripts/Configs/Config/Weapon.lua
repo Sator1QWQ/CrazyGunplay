@@ -8,6 +8,7 @@ Weapon = {
 		targetId = 101,
 		beatType = 1,
 		beatBack = 0.11,
+		animType = 1,
 		path = Weapon_Text.path_4,
 	},
 	[102] = {
@@ -17,6 +18,7 @@ Weapon = {
 		targetId = 102,
 		beatType = 1,
 		beatBack = 1,
+		animType = 2,
 		path = Weapon_Text.path_5,
 	},
 	[103] = {
@@ -26,6 +28,7 @@ Weapon = {
 		targetId = 103,
 		beatType = 1,
 		beatBack = 0.12,
+		animType = 3,
 		path = Weapon_Text.path_6,
 	},
 	[201] = {
@@ -35,6 +38,7 @@ Weapon = {
 		targetId = 201,
 		beatType = 3,
 		beatBack = 1.5,
+		animType = 4,
 		path = Weapon_Text.path_7,
 	},
 	[202] = {
@@ -44,6 +48,7 @@ Weapon = {
 		targetId = 202,
 		beatType = 2,
 		beatBack = 1.5,
+		animType = 4,
 		path = Weapon_Text.path_8,
 	},
 }

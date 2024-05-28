@@ -81,4 +81,6 @@ public class OnePController : PlayerController
 
         return -1;
     }
+
+    public override bool GetWeaponReload() => Input.GetKeyDown(KeyCode.R);
 }

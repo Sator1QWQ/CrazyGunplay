@@ -17,6 +17,8 @@ public interface Config_Weapon : IConfigBase
 
 	float beatBack { get; set; }
 
+	WeaponAnimType animType { get; set; }
+
 	string path { get; set; }
 
 }
