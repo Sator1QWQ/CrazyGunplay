@@ -85,4 +85,10 @@ public class GlobalDefine
 	/// 被击飞的时间
 	/// </summary>
 	public static float HIT_FLY_TIME = 2;
+
+	/// <summary>
+	/// 限制坐标高度
+	/// </summary>
+	public static float MIN_Y = -100;
+	public static float MAX_Y = 100;
 }

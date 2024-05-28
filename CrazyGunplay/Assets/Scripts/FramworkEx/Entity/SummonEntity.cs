@@ -107,6 +107,13 @@ public class SummonEntity : EntityLogic
             (ownerAction as SummonAction).OnEntityHit();
             Module.Entity.HideEntity(Entity);
         }
+
+        if(Entity.transform.position.y >= GlobalDefine.MAX_Y || Entity.transform.position.y <= GlobalDefine.MIN_Y)
+        {
+            skill.PlayExpression(SkillExpressionPlayTiming.WhenHit, Entity.transform, targetPlayer.Entity.transform);
+            (ownerAction as SummonAction).OnEntityHit();
+            Module.Entity.HideEntity(Entity);
+        }
     }
 
     protected override void OnRecycle()
