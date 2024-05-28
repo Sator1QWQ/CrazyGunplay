@@ -32,7 +32,6 @@ public class GunWeapon : Weapon
 	public Config_Gun GunConfig { get; private set; }
 
 	private float rateTemp;
-	private bool canAttack;
 	private float reloadTemp;
 	private bool reloadState;
 	private bool isFireCooling;
@@ -47,8 +46,6 @@ public class GunWeapon : Weapon
 		GunConfig = Config<Config_Gun>.Get("Gun", id);
 		MainMag = GunConfig.mainMag;
 		SpareMag = GunConfig.spareMag;
-
-		canAttack = true;
 	}
 
     public override void OnUpdate()
@@ -74,11 +71,6 @@ public class GunWeapon : Weapon
 
     public override void Attack()
     {
-		if(!CanAttack())
-        {
-			return;
-        }
-
 		int bulletId = Config<Config_Gun>.Get("Gun", Id).bulletId;
 		Module.Bullet.ShowBullet(this, bulletId, Id, PlayerEntity.WeaponRoot.position, PlayerEntity.LookDirection);
 		MainMag--;
@@ -100,7 +92,7 @@ public class GunWeapon : Weapon
 		return addCount > 0;
 	}
 
-	public bool CanAttack()
+	public override bool CanAttack()
     {
 		if (isFireCooling)
         {

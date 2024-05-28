@@ -16,6 +16,10 @@ public class NormalAttackController : ControlActionBase
 
     public override void DoAction(PlayerController controller)
     {
+        if(!controller.Entity.WeaponManager.CurrentWeapon.CanAttack())
+        {
+            return;
+        }
         controller.Entity.WeaponManager.CurrentWeapon.Attack();
     }
 }

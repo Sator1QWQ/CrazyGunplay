@@ -18,7 +18,7 @@ public class GrenadeWeapon : Weapon
     private Config_Grenade config;
 
     private float rateTemp;
-    private bool canAttack;
+    private bool isFireCooling;
 
     public GrenadeWeapon(Config_Weapon weaponConfig, int playerId, int id, PlayerEntity entity) : base(weaponConfig, playerId, id, entity)
     {
@@ -28,9 +28,9 @@ public class GrenadeWeapon : Weapon
 
     public override void OnUpdate()
     {
-        if (rateTemp >= config.fireRate)
+        if (rateTemp >= config.fireRate + config.throwTime)
         {
-            canAttack = true;
+            isFireCooling = false;
             rateTemp = 0;
         }
         rateTemp += Time.deltaTime;
@@ -38,18 +38,28 @@ public class GrenadeWeapon : Weapon
 
     public override void Attack()
     {
-        if (!canAttack)
+        //延迟一段时间 注意定时器的销毁
+        Module.Timer.AddTimer(data =>
         {
-            return;
-        }
-        Debug.Log("投掷物攻击！");
-        Config_Grenade cfg = Config<Config_Grenade>.Get("Grenade", Id);
-        if(MainMag > 0)
+            Debug.Log("投掷物攻击！");
+            Config_Grenade cfg = Config<Config_Grenade>.Get("Grenade", Id);
+            if (MainMag > 0)
+            {
+                int bulletId = cfg.bulletId;
+                Module.Bullet.ShowBullet(this, bulletId, Id, PlayerEntity.WeaponRoot.position, PlayerEntity.LookDirection);
+            }
+            MainMag--;
+        }, config.throwTime);
+        isFireCooling = true;
+    }
+
+    public override bool CanAttack()
+    {
+        if(isFireCooling)
         {
-            int bulletId = cfg.bulletId;
-            Module.Bullet.ShowBullet(this, bulletId, Id, PlayerEntity.WeaponRoot.position, PlayerEntity.LookDirection);
-            canAttack = false;
+            return false;
         }
-        MainMag--;
+
+        return true;
     }
 }

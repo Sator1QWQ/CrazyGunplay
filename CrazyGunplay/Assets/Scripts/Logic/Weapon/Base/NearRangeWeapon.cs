@@ -21,4 +21,9 @@ public class NearRangeWeapon : Weapon
     {
         Debug.Log("近战攻击未实现");
     }
+
+    public override bool CanAttack()
+    {
+        return true;
+    }
 }

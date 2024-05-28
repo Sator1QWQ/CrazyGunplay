@@ -49,5 +49,11 @@ public abstract class Weapon
 	/// </summary>
 	public abstract void Attack();
 
+	/// <summary>
+	/// 是否可攻击
+	/// </summary>
+	/// <returns></returns>
+	public abstract bool CanAttack();
+
 	public virtual void OnUpdate() { }
 }

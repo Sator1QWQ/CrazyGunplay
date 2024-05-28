@@ -184,6 +184,7 @@ public class PlayerEntity : CharacterEntity
         Config_Character data = Config<Config_Character>.Get("Character", Data.heroId);
         Data.weaponId = data.initWeapon;
         WeaponManager.InitWeapon(Data.weaponId);
+        WeaponManager.OnChangeSlot += OnChangeSlot;
         WeaponAnimType type = WeaponManager.CurrentWeapon.Config.animType;
         Anim.SetInteger("weaponAnimType", (int)type);
     }
@@ -352,5 +353,11 @@ public class PlayerEntity : CharacterEntity
     {
         base.OnRecycle();
         isPauseControl = false;
+    }
+
+    private void OnChangeSlot(int _, int __)
+    {
+        WeaponAnimType type = WeaponManager.CurrentWeapon.Config.animType;
+         Anim.SetInteger("weaponAnimType", (int)type);
     }
 }

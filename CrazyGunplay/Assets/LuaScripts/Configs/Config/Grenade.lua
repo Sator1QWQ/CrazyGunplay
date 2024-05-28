@@ -11,6 +11,7 @@ Grenade = {
 		mainMag = 8,
 		fireRate = 0.5,
 		delay = 1.5,
+		throwTime = 0.5,
 		buffIdList = {
 			[1] = 102,
 		},
@@ -32,6 +33,7 @@ Grenade = {
 		mainMag = 15,
 		fireRate = 0.5,
 		delay = 2,
+		throwTime = 0.5,
 		buffIdList = {
 		},
 		buffValueList = {

@@ -23,6 +23,8 @@ public interface Config_Grenade : IConfigBase
 
 	float delay { get; set; }
 
+	float throwTime { get; set; }
+
 	List<int> buffIdList { get; set; }
 
 	List<float> buffValueList { get; set; }
