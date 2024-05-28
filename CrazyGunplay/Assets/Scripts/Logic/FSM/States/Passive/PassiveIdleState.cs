@@ -36,10 +36,10 @@ public class PassiveIdleState : PlayerState
     public override bool OnExecute(PlayerEntity owner)
     {
         //向玩家四个方向发射线
-        Vector3 up = owner.Entity.transform.up;
-        Vector3 down = -owner.Entity.transform.up;
-        Vector3 left = -owner.Entity.transform.right;
-        Vector3 right = owner.Entity.transform.right;
+        Vector3 up = Vector3.up;
+        Vector3 down = -Vector3.up;
+        Vector3 left = -Vector3.right;
+        Vector3 right = Vector3.right;
         Vector3 pos = owner.Entity.transform.position;
         RaycastHit upHit, downHit, leftHit, rightHit;
         bool isHitMapBorder = false;
