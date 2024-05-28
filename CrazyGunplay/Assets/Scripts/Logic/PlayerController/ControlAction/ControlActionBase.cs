@@ -13,6 +13,11 @@ using UnityGameFramework.Runtime;
 public abstract class ControlActionBase
 {
 	/// <summary>
+	/// 是否暂停
+	/// </summary>
+	public bool IsPause { get; set; }
+
+	/// <summary>
 	/// 控制器类型
 	/// </summary>
 	public abstract ControllerType CtrlType { get; }

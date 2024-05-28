@@ -1,4 +1,5 @@
 ﻿using GameFramework.Event;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class WeaponManager
     private PlayerEntity mPlayerEntity;
     public Weapon CurrentWeapon { get; private set; }
     public int CurrentSlot { get; private set; }    //当前槽
+
+    public event Action<int, int> OnChangeSlot;
 
     public WeaponManager(PlayerEntity playerEntity)
     {
@@ -93,8 +96,10 @@ public class WeaponManager
 
     private void Change(int slot, Weapon weapon)
     {
+        int lastWeaponId = CurrentWeapon.Id;
         CurrentWeapon = weapon;
         CurrentSlot = slot;
+        OnChangeSlot?.Invoke(lastWeaponId, weapon.Id);
     }
 
     /// <summary>

@@ -4,6 +4,7 @@ using UnityEngine;
 using GameFramework;
 using UnityGameFramework.Runtime;
 using XLua;
+using System;
 
 /*
 * 作者：
@@ -13,44 +14,28 @@ using XLua;
 */
 public class GunWeapon : Weapon
 {
-
-	/// <summary>
-	/// 射速
-	/// </summary>
-	public float FireRate { get; private set; }
-	
-	/// <summary>
-	/// 射程
-	/// </summary>
-	public float Range { get; private set; }
-
-	/// <summary>
-	/// 换弹时间
-	/// </summary>
-	public float ReloadTime { get; private set; }
-
 	/// <summary>
 	/// 主弹夹
 	/// </summary>
-	public float MainMag { get; private set; }
+	public int MainMag { get; private set; }
 
 	/// <summary>
 	/// 备用弹夹
 	/// </summary>
-	public float SpareMag { get; private set; }
+	public int SpareMag { get; private set; }
 
 	/// <summary>
-	/// 每发子弹产生后坐力
+	/// 是否正在换弹
 	/// </summary>
-	public float PerRecoil { get; private set; }
+	public bool IsReloading { get; private set; }
 
-	/// <summary>
-	/// 最大后坐力
-	/// </summary>
-	public float MaxRecoil { get; private set; }
+	public Config_Gun GunConfig { get; private set; }
 
 	private float rateTemp;
 	private bool canAttack;
+	private float reloadTemp;
+	private bool reloadState;
+	private bool isFireCooling;
 
 	/// <summary>
 	/// 外部不允许直接new这个对象
@@ -59,42 +44,117 @@ public class GunWeapon : Weapon
 	/// <param name="id"></param>
 	public GunWeapon(Config_Weapon config, int playerId, int id, PlayerEntity entity) : base(config, playerId, id, entity)
     {
-		Config_Gun cfg = Config<Config_Gun>.Get("Gun", id);
-		FireRate = cfg.fireRate;
-		Range = cfg.range;
-		ReloadTime = cfg.reloadTime;
-		MainMag = cfg.mainMag;
-		SpareMag = cfg.spareMag;
+		GunConfig = Config<Config_Gun>.Get("Gun", id);
+		MainMag = GunConfig.mainMag;
+		SpareMag = GunConfig.spareMag;
 
 		canAttack = true;
 	}
 
     public override void OnUpdate()
     {
-		if(rateTemp >= FireRate)
+		if(rateTemp >= GunConfig.fireRate)
         {
-			canAttack = true;
+			isFireCooling = false;
 			rateTemp = 0;
         }
 		rateTemp += Time.deltaTime;
+
+		if(reloadState)
+        {
+			if (reloadTemp >= GunConfig.reloadTime)
+			{
+				ReloadSuccess();
+				IsReloading = false;
+				reloadTemp = 0;
+			}
+			reloadTemp += Time.deltaTime;
+		}
     }
 
     public override void Attack()
     {
-		if(!canAttack)
+		if(!CanAttack())
         {
 			return;
         }
+
 		int bulletId = Config<Config_Gun>.Get("Gun", Id).bulletId;
 		Module.Bullet.ShowBullet(this, bulletId, Id, PlayerEntity.WeaponRoot.position, PlayerEntity.LookDirection);
-		canAttack = false;
+		MainMag--;
+		if(MainMag == 0)
+        {
+			if(SpareMag > 0)
+            {
+				StartReload();
+			}
+			
+        }
+		isFireCooling = true;
+	}
+
+	public bool CanReload()
+    {
+		int reloadCount = GunConfig.mainMag - MainMag;
+		int addCount = Mathf.Min(reloadCount, SpareMag);
+		return addCount > 0;
+	}
+
+	public bool CanAttack()
+    {
+		if (isFireCooling)
+        {
+			return false;
+        }
+
+		if(MainMag == 0 && SpareMag == 0)
+        {
+			return false;
+        }
+
+		if(IsReloading)
+        {
+			return false;
+        }
+
+		return true;
     }
 
 	/// <summary>
 	/// 换弹
 	/// </summary>
-	public void Reload()
+	public void StartReload()
     {
+		if(!CanReload())
+        {
+			return;
+        }
 		Debug.Log("换子弹！");
-    }
+		reloadState = true;
+		reloadTemp = 0;
+		IsReloading = true;
+	}
+
+	public void StopReload()
+    {
+		if(!reloadState)
+        {
+			return;
+        }
+
+		Debug.Log("取消换弹");
+		reloadTemp = 0;
+		reloadState = false;
+		IsReloading = false;
+	}
+
+	private void ReloadSuccess()
+    {
+		int reloadCount = GunConfig.mainMag - MainMag;
+		int addCount = Mathf.Min(reloadCount, SpareMag);
+		SpareMag -= addCount;
+		MainMag += addCount;
+		Debug.Log("换弹结束！");
+		StopReload();
+	}
 }

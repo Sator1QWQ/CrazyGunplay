@@ -184,6 +184,8 @@ public class PlayerEntity : CharacterEntity
         Config_Character data = Config<Config_Character>.Get("Character", Data.heroId);
         Data.weaponId = data.initWeapon;
         WeaponManager.InitWeapon(Data.weaponId);
+        WeaponAnimType type = WeaponManager.CurrentWeapon.Config.animType;
+        Anim.SetInteger("weaponAnimType", (int)type);
     }
 
     //初始化技能

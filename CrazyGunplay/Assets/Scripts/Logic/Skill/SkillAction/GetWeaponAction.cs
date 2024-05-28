@@ -37,6 +37,16 @@ public class GetWeaponAction : SkillAction
 
     public override bool EndCondition()
     {
-        return weapon.MainMagazine == 0 && weapon.SpareMagazine == 0;
+        if(weapon.Config.weaponType == WeaponType.Gun)
+        {
+            GunWeapon gun = weapon as GunWeapon;
+            return gun.MainMag == 0 && gun.SpareMag == 0;
+        }
+        else if (weapon.Config.weaponType == WeaponType.Throw)
+        {
+            GrenadeWeapon throwWeapon = weapon as GrenadeWeapon;
+            return throwWeapon.MainMag == 0;
+        }
+        return false;
     }
 }

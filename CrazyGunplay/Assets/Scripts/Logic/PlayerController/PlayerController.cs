@@ -30,7 +30,7 @@ public abstract class PlayerController
     public bool UseGravity { get; set; }
 
     /// <summary>
-    /// 是否暂停控制
+    /// 是否暂停全部控制
     /// </summary>
     public bool IsPause { get; set; }
 
@@ -227,10 +227,35 @@ public abstract class PlayerController
         }
     }
 
+    /// <summary>
+    /// 暂停某个控制操作
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="isPause"></param>
+    public void SetPauseControl(ControllerType type, bool isPause)
+    {
+        mControllerDic[type].IsPause = isPause;
+    }
+
+    /// <summary>
+    /// 某个行为是否被暂停
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public bool IsActionPause(ControllerType type)
+    {
+        return mControllerDic[type].IsPause;
+    }
+
     private void UpdateControllerAction(ControllerType type)
     {
         if(mControllerDic.ContainsKey(type))
         {
+            if(mControllerDic[type].IsPause)
+            {
+                return;
+            }
+
             mControllerDic[type].DoAction(this);
         }
     }

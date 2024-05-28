@@ -13,6 +13,8 @@ using XLua;
 */
 public class GrenadeWeapon : Weapon
 {
+    public int MainMag { get; private set; }
+
     private Config_Grenade config;
 
     private float rateTemp;
@@ -21,6 +23,7 @@ public class GrenadeWeapon : Weapon
     public GrenadeWeapon(Config_Weapon weaponConfig, int playerId, int id, PlayerEntity entity) : base(weaponConfig, playerId, id, entity)
     {
         config = Config<Config_Grenade>.Get("Grenade", id);
+        MainMag = config.mainMag;
     }
 
     public override void OnUpdate()
@@ -41,12 +44,12 @@ public class GrenadeWeapon : Weapon
         }
         Debug.Log("投掷物攻击！");
         Config_Grenade cfg = Config<Config_Grenade>.Get("Grenade", Id);
-        bool hasBullet = ChangeMagazineNum(cfg.mainMag);
-        if(hasBullet)
+        if(MainMag > 0)
         {
             int bulletId = cfg.bulletId;
             Module.Bullet.ShowBullet(this, bulletId, Id, PlayerEntity.WeaponRoot.position, PlayerEntity.LookDirection);
             canAttack = false;
         }
+        MainMag--;
     }
 }
