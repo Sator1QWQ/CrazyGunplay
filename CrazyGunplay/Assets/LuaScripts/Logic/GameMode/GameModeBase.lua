@@ -1,15 +1,19 @@
 GameModeBase = Class.Create("GameModeBase", Object)
 
-function GameModeBase:ctor()
-    self.curControlPlayer = 0
+--生成玩家实体
+function GameModeBase:CreatePlayers()
+    Debug.LogError("必须实现函数！")
 end
 
---获取当前控制的玩家
-function GameModeBase:GetCurControlPlayer()
-    return self.curControlPlayer
+function GameModeBase:Update()
 end
 
---设置当前控制的是哪个玩家
-function GameModeBase:SetCurControlPlayer(playerId)
-    self.curControlPlayer = playerId
+--对局结束条件
+function GameModeBase:EndCheck()
+    return false
 end
+
+function GameModeBase:Clear()
+end
+
+GameModeBase.Instance = GameModeBase.new()

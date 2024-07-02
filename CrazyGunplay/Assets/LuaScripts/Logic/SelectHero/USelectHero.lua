@@ -67,13 +67,7 @@ function _M.ClickOK(grid)
     end
 
     if _M.isOnePReady and _M.isTwoPReady then
-        local oneP = {id = GlobalDefine.OnePId, name = GlobalDefine.OnePName, hero = _M.onePSelectId, life = MBattleSetting.playerLife}
-        local twoP = {id = GlobalDefine.TwoPId, name = GlobalDefine.TwoPName, hero = _M.twoPSelectId, life = MBattleSetting.playerLife}
-        MPlayer.Instance:AddPlayer(oneP)
-        MPlayer.Instance:AddPlayer(twoP)
-        MTeam.Instance:AddTeamPlayer(GlobalDefine.BlueTeam, GlobalDefine.OnePId)
-        MTeam.Instance:AddTeamPlayer(GlobalDefine.RedTeam, GlobalDefine.OnePId)
-        SceneTool.ChangeScene(_M.sceneList[_M.sceneIndex])
+        _M.ReadyToChangeScene()
         --local normalMode = NormalGameMode.new()
         --MBattleSetting.Instance:SetGameMode(normalMode)
         --MBattleSetting.Instance:StartCountDown()
@@ -82,6 +76,18 @@ function _M.ClickOK(grid)
     grid:Foreach(function(item)
         item:InitSelect()
     end)
+end
+
+function _M.ReadyToChangeScene()
+    local oneP = {id = GlobalDefine.OnePId, name = GlobalDefine.OnePName, heroId = _M.onePSelectId, life = MBattleSetting.Instance.playerLife}
+    local twoP = {id = GlobalDefine.TwoPId, name = GlobalDefine.TwoPName, heroId = _M.twoPSelectId, life = MBattleSetting.Instance.playerLife}
+    MPlayer.Instance:AddPlayer(oneP)
+    MPlayer.Instance:AddPlayer(twoP)
+    MTeam.Instance:AddTeamPlayer(GlobalDefine.BlueTeam, GlobalDefine.OnePId)
+    MTeam.Instance:AddTeamPlayer(GlobalDefine.RedTeam, GlobalDefine.OnePId)
+
+    Debug.Log("选择界面完成，切换场景。。")
+    SceneTool.ChangeScene(_M.sceneList[_M.sceneIndex])
 end
 
 function _M.ClickBack()
@@ -95,13 +101,13 @@ function _M.Refresh()
 end
 
 --哪个玩家选了英雄
-function _M.PlayerSelectChange(id, b)
+function _M.PlayerSelectChange(id, b, heroId)
     if id == GlobalDefine.OnePId then
         _M.isOnePSelect = b
-        _M.onePSelectId = id
+        _M.onePSelectId = heroId
     else
         _M.isTwoPSelect = b
-        _M.twoPSelectId = id
+        _M.twoPSelectId = heroId
     end
 end
 

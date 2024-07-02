@@ -61,12 +61,17 @@ public class PlayerEntity : CharacterEntity
 
     private bool isPauseControl;   //是否暂停控制
     private SimpleGravity mGravity;
-    private Vector3 initPos = Vector3.up * 10;
+    private Vector3 initPos;
 
     //userData为playerid
     protected override void OnInit(object userData)
     {
         base.OnInit(userData);
+    }
+
+    protected override void OnShow(object userData)
+    {
+        base.OnShow(userData);
         LuaTable table = (LuaTable)userData;
         PlayerId = table.Get<int>("playerId");
         Data = Module.PlayerData.GetData(PlayerId);
@@ -85,16 +90,14 @@ public class PlayerEntity : CharacterEntity
         InitStateMachine();
         InitWeapon();
         InitSkill();
+
+        initPos = Vector3.up * 10;
         Entity.transform.position = initPos;
-        if(PlayerId == 2)
+        if (PlayerId == 2)
         {
             Entity.transform.position = Vector3.up * 10 + Vector3.right * 10;
         }
-    }
 
-    protected override void OnShow(object userData)
-    {
-        base.OnShow(userData);
         Module.Event.Subscribe(ChangeStateEventArgs<PlayerEntity>.EventId, OnChangeState);
         Module.Event.Subscribe(BattleStateChangeArgs.EventId, OnBattleStateChange);
         Module.Event.Subscribe(SyncBuffDataEventArgs.EventId, OnSyncBuffData);
@@ -352,7 +355,20 @@ public class PlayerEntity : CharacterEntity
     protected override void OnRecycle()
     {
         base.OnRecycle();
-        isPauseControl = false;
+        PlayerId = 0;
+        Data = null;
+        BuffData = null;
+        WeaponRoot = null;
+        WeaponModelRoot = null;
+        Anim = null;
+        Config = null;
+        BuffManager = null;
+        WeaponManager = null;
+        SkillManager = null;
+        AudioSource = null;
+        isPauseControl = false;   //是否暂停控制
+        mGravity = null;
+        initPos = Vector3.one * -10000;
     }
 
     private void OnChangeSlot(int _, int __)

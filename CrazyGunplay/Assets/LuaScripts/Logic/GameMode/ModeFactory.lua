@@ -1,38 +1,32 @@
 --游戏模式工厂
 require "Logic.GameMode.LocalMode"
 ModeFactory = Class.Create("ModeFactory", Object)
-
---根据游戏模式枚举获取mode对象
-function ModeFactory:GetModeObj()
-    local mode = MSelectHero.Instance.mode
-    local GameMode = GlobalEnum.GameMode
-    if self.modeDic[mode] ~= nil then
-        return self.modeDic[mode]
-    end
-
-    local modeObj = nil
-    if mode == GameMode.Local then
-        modeObj = LocalMode.new()
-    elseif mode == GameMode.Multi then
-
-    else
-
-    end
-
-    if modeObj then
-        self.modeDic[mode] = modeObj
-    end
-
-    return modeObj
-end
+local GameMode = GlobalEnum.GameMode
 
 function ModeFactory:ctor()
     self.modeDic = {}   --mode对象字典
+    self.currentMode = nil
 end
 
-function ModeFactory:Dispose()
+function ModeFactory:Init()
+    self.modeDic[GameMode.Local] = LocalMode.new()
+    --self.modeDic[GameMode.Multi] = Multi.new()
+    --self.modeDic[GameMode.Stroy] = Story.new()
+end
+
+--改变模式
+function ModeFactory:ChangeMode(gameMode)
+    if self.currentMode == nil then
+        self.currentMode = self.modeDic[gameMode]
+        return
+    end
+
+    self.currentMode:Clear()
+    self.currentMode = self.modeDic[gameMode]
+end
+
+function ModeFactory:Clear()
     self.modeDic = nil
 end
 
---单例类
 ModeFactory.Instance = ModeFactory.new()

@@ -25,5 +25,7 @@ Text = require "Global.Text"
 require "Base.ControllerRequire"
 require "Base.ModelRequire"
 require "Base.ToolRequire"
+require "Logic.GameMode.ModeFactory"
+require "Logic.GameMode.GameModeBase"
 
 Debug.Log("Lua Main运行!!!")

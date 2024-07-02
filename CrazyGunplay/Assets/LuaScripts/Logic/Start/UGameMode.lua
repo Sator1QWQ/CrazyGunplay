@@ -16,6 +16,7 @@ end
 function _M.Local()
     --MSelectHero.Instance:SetMode(GlobalEnum.GameMode.Local)
     UI:OpenUIForm("Assets/Resource/UI/SelectHeroPanel.prefab", "NormalGroup")
+    ModeFactory.Instance:ChangeMode(GlobalEnum.GameMode.Local)
 end
 
 return _M

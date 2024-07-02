@@ -15,7 +15,8 @@ function BattleModeScene:OnEnable()
     Module.Event:Subscribe(CS.HitEventArgs.EventId, BattleModeScene.HitPlayerEvent)
     Module.Event:Subscribe(CS.BuffStartEventArgs.EventId, BattleModeScene.BuffStartEvent)
     Module.Event:Subscribe(CS.BuffEndEventArgs.EventId, BattleModeScene.BuffEndEvent)
-
+    
+    ModeFactory.Instance.currentMode:CreatePlayers()
     self:ChangeBattleState(GlobalEnum.BattleState.Battle)
     Module.Timer:AddUpdateTimer(function(data)
         --print("countDown==" .. tostring(data.remainTime))

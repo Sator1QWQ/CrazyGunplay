@@ -59,6 +59,11 @@ public class CameraController : MonoBehaviour
             return;
         }
 
+        if(entityArr.Length == 0)
+        {
+            return;
+        }
+
         //每帧计算fov
         float maxAngle = 0;
         Vector3 totalPos = new Vector3();

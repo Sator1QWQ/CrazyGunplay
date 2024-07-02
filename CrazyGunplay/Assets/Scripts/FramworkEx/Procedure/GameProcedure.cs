@@ -16,7 +16,7 @@ using XLua;
 */
 public class GameProcedure : ProcedureBase
 {
-    private bool testMode = true;
+    private bool testMode = false;
 
     protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
     {

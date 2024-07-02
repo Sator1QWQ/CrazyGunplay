@@ -7,8 +7,8 @@ local USelectHeroItem = Class.Create("USelectHeroItem", Object)
 
 function USelectHeroItem:ItemInit(luaItem, index)
     self.index = index
-    local heroId = 1000 + index + 1
-    luaItem:Get("name_text").text = Character[heroId].name
+    self.heroId = 1000 + index + 1
+    luaItem:Get("name_text").text = Character[self.heroId].name
     luaItem:Get("1P_text").text = Text.OneP
     luaItem:Get("2P_text").text = Text.TwoP
     self.onePSelectGo = luaItem:GetGameObject("1PSelect_go")
@@ -41,7 +41,7 @@ function USelectHeroItem:OnSelect(isSelect)
         curSelectPlayer = GlobalDefine.OnePId
     end
 
-    USelectHero.PlayerSelectChange(curSelectPlayer, isSelect)
+    USelectHero.PlayerSelectChange(curSelectPlayer, isSelect, self.heroId)
     USelectHero.Refresh()
 end
 

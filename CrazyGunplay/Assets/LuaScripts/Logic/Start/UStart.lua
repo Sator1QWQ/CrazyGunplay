@@ -7,6 +7,8 @@ function _M.OnInit(panel)
     panel:Get("Start_btn").onClick:AddListener(function()
         UI:OpenUIForm("Assets/Resource/UI/GameModePanel.prefab", "NormalGroup")
     end)
+
+    ModeFactory.Instance:Init()
 end
 
 return _M
