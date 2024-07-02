@@ -83,6 +83,8 @@ public class GunWeapon : Weapon
 			
         }
 		isFireCooling = true;
+		string path = GlobalDefine.GUN_AUDIO_PATH + GunConfig.directoryName + "/Shoot.mp3";
+		Module.Audio.PlayAudio(Entity.PlayerEntity.AudioSource, path);
 	}
 
 	public bool CanReload()
@@ -125,6 +127,9 @@ public class GunWeapon : Weapon
 		reloadState = true;
 		reloadTemp = 0;
 		IsReloading = true;
+
+		string path = GlobalDefine.GUN_AUDIO_PATH + GunConfig.directoryName + "/Reload.mp3";
+		Module.Audio.PlayAudio(Entity.PlayerEntity.AudioSource, path);
 	}
 
 	public void StopReload()

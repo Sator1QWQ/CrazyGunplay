@@ -12,6 +12,7 @@ Gun = {
 		spareMag = 120,
 		perRecoil = 0.1,
 		maxRecoil = 1.2,
+		directoryName = Gun_Text.directoryName_4,
 	},
 	[102] = {
 		id = 102,
@@ -24,6 +25,7 @@ Gun = {
 		spareMag = 100,
 		perRecoil = 0.3,
 		maxRecoil = 1.2,
+		directoryName = Gun_Text.directoryName_5,
 	},
 	[103] = {
 		id = 103,
@@ -36,6 +38,7 @@ Gun = {
 		spareMag = 15,
 		perRecoil = 1.2,
 		maxRecoil = 3,
+		directoryName = Gun_Text.directoryName_6,
 	},
 }
 Gun.Count = 3

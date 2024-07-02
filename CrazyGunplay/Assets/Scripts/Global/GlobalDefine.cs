@@ -36,6 +36,11 @@ public class GlobalDefine
 	/// </summary>
 	public static readonly string AUDIO_PATH = "Assets/Resource/Audio/";
 
+	/// <summary>
+	/// 枪械音效路径
+	/// </summary>
+	public static readonly string GUN_AUDIO_PATH = AUDIO_PATH + "Weapon/Gun/";
+
 	public const float DESIGN_WIDTH = 1920;	//设计宽
 	public const float DESIGN_HEIGHT = 1080;    //设计高
 

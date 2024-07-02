@@ -25,4 +25,6 @@ public interface Config_Gun : IConfigBase
 
 	float maxRecoil { get; set; }
 
+	string directoryName { get; set; }
+
 }

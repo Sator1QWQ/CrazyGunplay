@@ -23,11 +23,17 @@ public class AudioComponent : GameFrameworkComponent
     {
         if(audioDic.ContainsKey(assetName))
         {
+            //还没加载完
+            if(audioDic[assetName] == null)
+            {
+                return;
+            }
             source.clip = audioDic[assetName];
             source.Play();
             return;
         }
 
+        audioDic.Add(assetName, null);
         LoadAssetCallbacks callBack = new LoadAssetCallbacks(OnLoadAsset);
         Module.Resource.LoadAsset(assetName, callBack, source);
     }
@@ -35,7 +41,7 @@ public class AudioComponent : GameFrameworkComponent
     private void OnLoadAsset(string assetName, object asset, float duration, object userData)
     {
         AudioClip clip = asset as AudioClip;
-        audioDic.Add(assetName, clip);
+        audioDic[assetName] = clip;
         AudioSource source = userData as AudioSource;
         source.clip = clip;
         source.Play();

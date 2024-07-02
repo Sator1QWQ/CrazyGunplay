@@ -35,7 +35,8 @@ public class SkillExpression : IReference
         
         if (!string.IsNullOrEmpty(Config.audioPath))
         {
-            Module.Audio.PlayAudio(ownerSkill.OwnerPlayer.AudioSource, GlobalDefine.AUDIO_PATH + Config.audioPath + ".wav");
+            string path = GlobalDefine.AUDIO_PATH + Config.audioPath + ".wav";
+            Module.Audio.PlayAudio(ownerSkill.OwnerPlayer.AudioSource, path);
         }
 
         int particleEntityId = EntityTool.GetParticleEntityId();
