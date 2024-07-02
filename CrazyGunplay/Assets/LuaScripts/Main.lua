@@ -27,5 +27,6 @@ require "Base.ModelRequire"
 require "Base.ToolRequire"
 require "Logic.GameMode.ModeFactory"
 require "Logic.GameMode.GameModeBase"
+require "Logic.GameMode.LocalMode"
 
 Debug.Log("Lua Main运行!!!")

@@ -1,5 +1,4 @@
 --游戏模式工厂
-require "Logic.GameMode.LocalMode"
 ModeFactory = Class.Create("ModeFactory", Object)
 local GameMode = GlobalEnum.GameMode
 
