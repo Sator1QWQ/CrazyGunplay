@@ -55,3 +55,10 @@ GlobalEnum.OperatorType =
     Multi = 3,  --乘
     Divi = 4,   --除
 }
+
+GlobalEnum.WeaponType = 
+{
+    Gun = 1,	--枪械
+	Throw = 2,	--投掷物
+	NearRange = 3,	--近战
+}

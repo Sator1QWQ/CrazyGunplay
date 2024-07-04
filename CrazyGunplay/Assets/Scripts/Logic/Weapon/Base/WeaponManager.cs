@@ -63,16 +63,6 @@ public class WeaponManager
     }
 
     /// <summary>
-    /// 切换当前槽内的武器对象
-    /// </summary>
-    /// <param name="weaponSlot"></param>
-    /// <param name="weaponId"></param>
-    public void ChangeWeapon(int weaponSlot, int weaponId)
-    {
-        
-    }
-
-    /// <summary>
     /// 添加或者切换武器槽
     /// </summary>
     /// <param name="weaponSlot"></param>
@@ -100,6 +90,8 @@ public class WeaponManager
         CurrentWeapon = weapon;
         CurrentSlot = slot;
         OnChangeSlot?.Invoke(lastWeaponId, weapon.Id);
+        ChangeWeaponEventArgs args = ChangeWeaponEventArgs.Create(weapon.PlayerId, lastWeaponId, weapon.Id);
+        Module.Event.FireNow(weapon, args);
     }
 
     /// <summary>

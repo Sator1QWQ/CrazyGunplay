@@ -71,20 +71,32 @@ public class GunWeapon : Weapon
 
     public override void Attack()
     {
+		//子弹一开始为0
+		if (MainMag == 0)
+		{
+			if (SpareMag > 0)
+			{
+				StartReload();
+			}
+			return;
+		}
+
 		int bulletId = Config<Config_Gun>.Get("Gun", Id).bulletId;
 		Module.Bullet.ShowBullet(this, bulletId, Id, PlayerEntity.WeaponRoot.position, PlayerEntity.LookDirection);
 		MainMag--;
-		if(MainMag == 0)
-        {
-			if(SpareMag > 0)
-            {
-				StartReload();
-			}
-			
-        }
 		isFireCooling = true;
 		string path = GlobalDefine.GUN_AUDIO_PATH + GunConfig.directoryName + "/Shoot.mp3";
 		Module.Audio.PlayAudio(Entity.PlayerEntity.AudioSource, path);
+		BulletCountChangeEventArgs args = BulletCountChangeEventArgs.Create(PlayerEntity.PlayerId);
+		Module.Event.FireNow(this, args);
+
+		if (MainMag == 0)
+		{
+			if (SpareMag > 0)
+			{
+				StartReload();
+			}
+		}
 	}
 
 	public bool CanReload()
@@ -153,5 +165,7 @@ public class GunWeapon : Weapon
 		MainMag += addCount;
 		Debug.Log("换弹结束！");
 		StopReload();
+		WeaponReloadFinishEventArgs args = WeaponReloadFinishEventArgs.Create(PlayerEntity.PlayerId);
+		Module.Event.FireNow(this, args);
 	}
 }

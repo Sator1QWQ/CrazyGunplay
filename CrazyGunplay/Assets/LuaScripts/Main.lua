@@ -8,6 +8,7 @@ EventTriggerType = EventSystems.EventTriggerType
 Time = UnityEngine.Time
 Input = UnityEngine.Input
 KeyCode = UnityEngine.KeyCode
+RectTransform = UnityEngine.RectTransform
 
 Module = CS.Module
 UI = Module.UI
