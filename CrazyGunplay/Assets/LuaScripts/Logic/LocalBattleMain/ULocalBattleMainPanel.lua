@@ -17,8 +17,6 @@ function _M.OnInit(panel)
     _M.twoPWeaponIcon = panel:Get("IconTwo_img")
     _M.twoPWeaponName = panel:Get("WeaponNameTwo_text")
     _M.twoPBulletText = panel:Get("BulletTwo_text")
-
-    _M.RefreshUI()
 end
 
 function _M.OnOpen(panel)
@@ -26,6 +24,7 @@ function _M.OnOpen(panel)
     Module.Event:Subscribe(CS.ChangeWeaponEventArgs.EventId, _M.OnChangeWeapon)
     Module.Event:Subscribe(CS.BulletCountChangeEventArgs.EventId, _M.OnChangeBulletCount)
     Module.Event:Subscribe(CS.WeaponReloadFinishEventArgs.EventId, _M.OnWeaponReloadFinish)
+    _M.RefreshUI()
 end
 
 function _M.OnClose()

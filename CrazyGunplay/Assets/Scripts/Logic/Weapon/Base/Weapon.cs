@@ -56,4 +56,15 @@ public abstract class Weapon
 	public abstract bool CanAttack();
 
 	public virtual void OnUpdate() { }
+
+	public void Clear()
+    {
+		PlayerId = 0;
+		Id = 0;
+		PlayerEntity = null;
+		Entity = null;
+		Config = null;
+		EntityId = 0;
+    }
+
 }

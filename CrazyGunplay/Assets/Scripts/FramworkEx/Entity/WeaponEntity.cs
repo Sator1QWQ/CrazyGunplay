@@ -21,4 +21,10 @@ public class WeaponEntity : EntityLogic
     {
 		PlayerEntity = entity;
     }
+
+    protected override void OnRecycle()
+    {
+        base.OnRecycle();
+		PlayerEntity = null;
+    }
 }

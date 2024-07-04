@@ -150,6 +150,14 @@ public class BulletComponent : GameFrameworkComponent
                         break;
                     }
                 }
+
+                //地图区域限制
+                Vector3 pos = logic.Entity.transform.position;
+                if (pos.x < GlobalDefine.MIN_X || pos.x > GlobalDefine.MAX_X || pos.y < GlobalDefine.MIN_Y || pos.y > GlobalDefine.MAX_Y)
+                {
+                    HideBullet(bullet);
+                    return;
+                }
             }
 
             bool customHit = false;

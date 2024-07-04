@@ -94,6 +94,8 @@ public class GlobalDefine
 	/// <summary>
 	/// 限制坐标高度
 	/// </summary>
+	public static float MIN_X = -100;
 	public static float MIN_Y = -100;
+	public static float MAX_X = 100;
 	public static float MAX_Y = 100;
 }
