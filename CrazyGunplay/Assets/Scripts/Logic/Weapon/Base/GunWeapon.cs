@@ -78,6 +78,10 @@ public class GunWeapon : Weapon
 			{
 				StartReload();
 			}
+			else
+            {
+				Module.Audio.PlayAudio(PlayerEntity.AudioSource, GlobalDefine.GUN_AUDIO_PATH + "EmptyBullet.mp3");
+            }
 			return;
 		}
 
@@ -109,11 +113,6 @@ public class GunWeapon : Weapon
 	public override bool CanAttack()
     {
 		if (isFireCooling)
-        {
-			return false;
-        }
-
-		if(MainMag == 0 && SpareMag == 0)
         {
 			return false;
         }
