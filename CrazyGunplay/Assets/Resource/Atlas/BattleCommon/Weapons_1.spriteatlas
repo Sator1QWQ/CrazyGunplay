@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Weapons_1
+  serializedVersion: 2
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 1344467728533578282, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+    - {fileID: 6026782021629925764, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+    - {fileID: 8726085458019727865, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+    - {fileID: 252731139876381131, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+    - {fileID: -4321761424530200026, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+    - {fileID: 7777137997594765434, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+    - {fileID: 5878160821369875804, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+    - {fileID: 4089789442523662905, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+    - {fileID: -1002828763078405551, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+    - {fileID: 7736769013599413961, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 7736769013599413961, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+  - {fileID: 252731139876381131, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+  - {fileID: 8726085458019727865, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+  - {fileID: 6026782021629925764, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+  - {fileID: 1344467728533578282, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+  - {fileID: 5878160821369875804, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+  - {fileID: 7777137997594765434, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+  - {fileID: -4321761424530200026, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+  - {fileID: -1002828763078405551, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+  - {fileID: 4089789442523662905, guid: 5490e9165e89bdd4fb423625ff20978d, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Weapons_1_10
+  - Weapons_1_3
+  - Weapons_1_2
+  - Weapons_1_1
+  - Weapons_1_0
+  - Weapons_1_6
+  - Weapons_1_5
+  - Weapons_1_4
+  - Weapons_1_9
+  - Weapons_1_8
+  m_Tag: Weapons_1
+  m_IsVariant: 0
+  m_IsPlaceholder: 0

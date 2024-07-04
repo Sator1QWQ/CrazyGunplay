@@ -84,7 +84,7 @@ function _M.ReadyToChangeScene()
     MPlayer.Instance:AddPlayer(oneP)
     MPlayer.Instance:AddPlayer(twoP)
     MTeam.Instance:AddTeamPlayer(GlobalDefine.BlueTeam, GlobalDefine.OnePId)
-    MTeam.Instance:AddTeamPlayer(GlobalDefine.RedTeam, GlobalDefine.OnePId)
+    MTeam.Instance:AddTeamPlayer(GlobalDefine.RedTeam, GlobalDefine.TwoPId)
 
     Debug.Log("选择界面完成，切换场景。。")
     SceneTool.ChangeScene(_M.sceneList[_M.sceneIndex])

@@ -77,6 +77,13 @@ public class PlayerEntity : CharacterEntity
         Data = Module.PlayerData.GetData(PlayerId);
         BuffData = Module.PlayerData.GetBuffData(PlayerId);
         WeaponRoot = transform.Find("WeaponRoot");
+        if(WeaponRoot == null)
+        {
+            GameObject go = new GameObject("WeaponRoot");
+            go.transform.SetParent(transform, false);
+            go.transform.localPosition = new Vector3(0, 1.8f, 0);
+            WeaponRoot = go.transform;
+        }
         WeaponModelRoot = transform.Find("Hips_jnt/Spine_jnt/Spine_jnt 1/Chest_jnt/Shoulder_Right_jnt/Arm_Right_jnt/Forearm_Right_jnt/Hand_Right_jnt");
         Entity.transform.forward = Vector3.right;
         Anim = GetComponent<Animator>();

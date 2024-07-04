@@ -131,7 +131,8 @@ public class PlayerDataComponent : GameFrameworkComponent
         IEntity[] entitys = group.GetAllEntities();
         for(int i = 0; i < entitys.Length; i++)
         {
-            PlayerEntity player = entitys[i] as PlayerEntity;
+            Entity entity = entitys[i] as Entity;
+            PlayerEntity player = entity.Logic as PlayerEntity;
             if(player.PlayerId == playerId)
             {
                 return player;

@@ -64,8 +64,14 @@ public sealed class Module : MonoBehaviour
     /// </summary>
     public static PlayerDataComponent PlayerData { get; private set; }
 
+    /// <summary>
+    /// 队伍
+    /// </summary>
     public static TeamComponent Team { get; private set; }
 
+    /// <summary>
+    /// 音频组件
+    /// </summary>
     public static AudioComponent Audio { get; private set; }
 
     /// <summary>
@@ -77,6 +83,11 @@ public sealed class Module : MonoBehaviour
     /// 命中范围检查组件
     /// </summary>
     public static HitAreaComponent HitArea { get; private set; }
+
+    /// <summary>
+    /// 图集组件
+    /// </summary>
+    public static AtlasComponent Atlas { get; private set; }
 
     private void Start()
     {
@@ -101,6 +112,7 @@ public sealed class Module : MonoBehaviour
         Audio = GameEntry.GetComponent<AudioComponent>();
         Target = GameEntry.GetComponent<TargetComponent>();
         HitArea = GameEntry.GetComponent<HitAreaComponent>();
+        Atlas = GameEntry.GetComponent<AtlasComponent>();
 
         Debug.Log("模块初始化完成");
     }
