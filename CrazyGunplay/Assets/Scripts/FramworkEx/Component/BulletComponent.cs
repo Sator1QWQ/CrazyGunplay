@@ -183,4 +183,10 @@ public class BulletComponent : GameFrameworkComponent
             }
         }
     }
+
+    public void Clear()
+    {
+        bulletList.Clear();
+        flyingList.Clear();
+    }
 }

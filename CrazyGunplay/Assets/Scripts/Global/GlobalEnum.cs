@@ -586,3 +586,24 @@ public enum WeaponAnimType
 	RPG = 5,
 	MiniGun = 6,
 }
+
+/// <summary>
+/// 预加载类型
+/// </summary>
+public enum PreloadType
+{
+	/// <summary>
+	/// 玩家实体
+	/// </summary>
+	PlayerEntity = 1,
+
+	/// <summary>
+	/// 普通实体
+	/// </summary>
+	Entity = 2,
+
+	/// <summary>
+	/// 普通资源
+	/// </summary>
+	OtherAssets = 3,
+}

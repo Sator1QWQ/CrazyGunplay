@@ -1,5 +1,6 @@
 require "Configs.Config.Weapon"
 require "Configs.Config.Buff"
+require "Configs.Config.Effect"
 
 --战斗模式的场景逻辑
 --基于LuaBehaviour，由C#调用声明周期
@@ -11,12 +12,55 @@ function BattleModeScene:Awake()
 end
 
 function BattleModeScene:OnEnable()
+    BattleModeScene.Instance.PreloadFinish = function() self:OnPreloadFinish() end
+    Module.Event:Subscribe(CS.PreloadFinishEventArgs.EventId, BattleModeScene.Instance.PreloadFinish)
+
+    self:CreatePreloadData()
+    Module.Preload:StartPreload()   --后续加个进度条
+end
+
+function BattleModeScene:OnDisable()
+    self:ChangeBattleState(GlobalEnum.BattleState.None)
+    self.winnerTeam = nil
+end
+
+--清除战斗数据
+function BattleModeScene:ClearBattleData()
+    MPlayer.Instance:Clear()
+    MTeam.Instance:Clear()
+    Module.Timer:RemoveAllTimer()
+    Module.Event:Unsubscribe(PlayerDieEventArgs.EventId, BattleModeScene.PlayerDieEvent)
+    Module.Event:Unsubscribe(CS.HitEventArgs.EventId, BattleModeScene.HitPlayerEvent)
+    Module.Event:Unsubscribe(CS.BuffStartEventArgs.EventId, BattleModeScene.BuffStartEvent)
+    Module.Event:Unsubscribe(CS.BuffEndEventArgs.EventId, BattleModeScene.BuffEndEvent)
+    Module.Event:Unsubscribe(CS.PreloadFinishEventArgs.EventId, BattleModeScene.Instance.PreloadFinish)
+end
+
+function BattleModeScene:CreatePreloadData()
+    ModeFactory.Instance.currentMode:CreatePlayers()
+
+    --预加载特效
+    for k, v in pairs(Effect) do
+        if k ~= "Count" then
+            local entityId = CS.EntityTool.GetParticleEntityId()
+            local path = v.effectPath
+            local data = CS.PreloadData()
+            data.path = path
+            data.type = GlobalEnum.PreloadType.Entity
+            data.values = {entityId, typeof(CS.ParticleEntity), "Particle"}
+            Module.Preload:AddPreload(data)
+        end
+    end
+
+end
+
+--预加载完成，这时才执行逻辑
+function BattleModeScene:OnPreloadFinish()
     Module.Event:Subscribe(PlayerDieEventArgs.EventId, BattleModeScene.PlayerDieEvent)
     Module.Event:Subscribe(CS.HitEventArgs.EventId, BattleModeScene.HitPlayerEvent)
     Module.Event:Subscribe(CS.BuffStartEventArgs.EventId, BattleModeScene.BuffStartEvent)
     Module.Event:Subscribe(CS.BuffEndEventArgs.EventId, BattleModeScene.BuffEndEvent)
     
-    ModeFactory.Instance.currentMode:CreatePlayers()
     self:ChangeBattleState(GlobalEnum.BattleState.Battle)    
     Module.Timer:AddUpdateTimer(function(data)
         local isEnd, allDeadTeamId, winnerTeam = ModeFactory.Instance.currentMode:CheckBattleEnd()
@@ -37,22 +81,6 @@ function BattleModeScene:OnEnable()
 
     --显示HUD
     UITool.OpenUIForm("LocalBattleMainPanel", true)
-end
-
-function BattleModeScene:OnDisable()
-    self:ChangeBattleState(GlobalEnum.BattleState.None)
-    self.winnerTeam = nil
-end
-
---清除战斗数据
-function BattleModeScene:ClearBattleData()
-    MPlayer.Instance:Clear()
-    MTeam.Instance:Clear()
-    Module.Timer:RemoveAllTimer()
-    Module.Event:Unsubscribe(PlayerDieEventArgs.EventId, BattleModeScene.PlayerDieEvent)
-    Module.Event:Unsubscribe(CS.HitEventArgs.EventId, BattleModeScene.HitPlayerEvent)
-    Module.Event:Unsubscribe(CS.BuffStartEventArgs.EventId, BattleModeScene.BuffStartEvent)
-    Module.Event:Unsubscribe(CS.BuffEndEventArgs.EventId, BattleModeScene.BuffEndEvent)
 end
 
 function BattleModeScene.PlayerDieEvent(sender, args)

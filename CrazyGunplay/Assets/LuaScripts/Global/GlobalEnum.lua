@@ -62,3 +62,16 @@ GlobalEnum.WeaponType =
 	Throw = 2,	--投掷物
 	NearRange = 3,	--近战
 }
+
+--预加载类型
+GlobalEnum.PreloadType =
+{
+    --玩家实体
+    PlayerEntity = 1,
+
+	--实体
+	Entity = 2,
+	
+    --普通资源
+	OtherAssets = 3,
+}

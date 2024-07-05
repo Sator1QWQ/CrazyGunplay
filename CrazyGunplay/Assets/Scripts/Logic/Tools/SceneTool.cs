@@ -43,6 +43,7 @@ public class SceneTool
         Module.Entity.HideAllLoadedEntities();
 
         Module.Timer.RemoveAllTimer();
+        Module.Bullet.Clear();
     }
 
     //清除场景资源
@@ -57,6 +58,7 @@ public class SceneTool
         Module.Entity.HideAllLoadedEntities();
 
         Module.Timer.RemoveAllTimer();
+        Module.Bullet.Clear();
 
         //卸载场景
         string[] loadedScene = Module.Scene.GetUnloadingSceneAssetNames();

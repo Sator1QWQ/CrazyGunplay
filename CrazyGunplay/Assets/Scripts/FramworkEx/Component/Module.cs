@@ -89,6 +89,8 @@ public sealed class Module : MonoBehaviour
     /// </summary>
     public static AtlasComponent Atlas { get; private set; }
 
+    public static PreloadComponent Preload { get; private set; }
+
     private void Start()
     {
         InitModuleComponent();
@@ -113,6 +115,7 @@ public sealed class Module : MonoBehaviour
         Target = GameEntry.GetComponent<TargetComponent>();
         HitArea = GameEntry.GetComponent<HitAreaComponent>();
         Atlas = GameEntry.GetComponent<AtlasComponent>();
+        Preload = GameEntry.GetComponent<PreloadComponent>();
 
         Debug.Log("模块初始化完成");
     }
