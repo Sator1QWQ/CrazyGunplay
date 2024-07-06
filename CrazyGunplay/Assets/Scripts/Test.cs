@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    public GameObject target;
+    public float moveSpeed;
+
+    public BoxCollider col;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+
+        if(Physics.BoxCast(transform.position, col.size / 2, Vector3.down, Quaternion.identity, 2))
         {
-            transform.rotation = Quaternion.LookRotation(target.transform.right);
-            transform.right = transform.forward;
+            Debug.Log("碰撞检测到了！");
+        }
+
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, Vector3.down, out hit, 2))
+        {
+            Debug.Log("射线检测到了2！==" + hit.transform.name);
         }
 
     }
