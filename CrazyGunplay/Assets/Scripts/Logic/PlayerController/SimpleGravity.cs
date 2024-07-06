@@ -37,6 +37,7 @@ public class SimpleGravity : MonoBehaviour
 
     public Vector3 leftRaycastOffset;    //左脚射线偏移
     public Vector3 rightRaycastOffset;    //右脚射线偏移
+    public PhysicMaterial noFrictionMaterial;   //无摩擦力的材质
 
     private Rigidbody mBody;
     private List<VelocityData> mVelocityDataList = new List<VelocityData>();  //速度数据列表
@@ -49,6 +50,7 @@ public class SimpleGravity : MonoBehaviour
     public bool useGravity;
     [HideInInspector] public bool seetingUseGravity;
     private List<UpdateData> mUpdateActionList = new List<UpdateData>();
+    private Collider collid;
 
     private bool isAir;
     public bool IsAir 
@@ -79,6 +81,7 @@ public class SimpleGravity : MonoBehaviour
         mBody.useGravity = false;
         seetingUseGravity = useGravity;
         RayCastDistance = GlobalDefine.FLOOR_RAY_DISTANCE;
+        collid = GetComponent<Collider>();
     }
 
     /// <summary>
@@ -183,6 +186,11 @@ public class SimpleGravity : MonoBehaviour
         else
         {
             IsAir = true;
+        }
+
+        if(noFrictionMaterial != null)
+        {
+            collid.material = IsAir ? noFrictionMaterial : null;    //在空中，使用无摩擦力的材质
         }
 
         if (useGravity)

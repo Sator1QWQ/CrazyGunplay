@@ -40,7 +40,6 @@ public class PlayerEntity : CharacterEntity
 
     public AudioSource AudioSource { get; private set; }
 
-
     private event Action<PlayerEntity> buffDataChange = _ => { };
     /// <summary>
     /// buff改变事件
@@ -62,6 +61,7 @@ public class PlayerEntity : CharacterEntity
     private bool isPauseControl;   //是否暂停控制
     private SimpleGravity mGravity;
     private Vector3 initPos;
+    private BoxCollider playerCollider;
 
     //userData为playerid
     protected override void OnInit(object userData)
@@ -110,6 +110,8 @@ public class PlayerEntity : CharacterEntity
         Module.Event.Subscribe(SyncBuffDataEventArgs.EventId, OnSyncBuffData);
         Module.Event.Subscribe(PlayerGetDamageEventArgs.EventId, OnHitPlayer);
         Module.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
+
+        playerCollider = GetComponent<BoxCollider>();
     }
 
     protected override void OnHide(bool isShutdown, object userData)
@@ -132,6 +134,17 @@ public class PlayerEntity : CharacterEntity
         Machine.OnUpdate();
         Controller.OnUpdate();
         WeaponManager.OnUpdate();
+
+        //平台碰撞
+        Vector3 downRayCastOffset = Vector3.up * 0.3f;
+        if (Physics.Raycast(Entity.transform.position + downRayCastOffset, Vector3.down, 0.5f, LayerMask.GetMask("Floor")))
+        {
+            //在空中，并且下降
+            if(mGravity.IsAir && mGravity.vt.y <= 0)
+            {
+                playerCollider.isTrigger = true;
+            }
+        }
     }
 
     protected override void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)
@@ -361,7 +374,7 @@ public class PlayerEntity : CharacterEntity
     //hide时会调用这个函数，重置数据
     protected override void OnRecycle()
     {
-        base.OnRecycle();
+        base.OnRecycle(); 
         PlayerId = 0;
         Data = null;
         BuffData = null;
@@ -382,5 +395,20 @@ public class PlayerEntity : CharacterEntity
     {
         WeaponAnimType type = WeaponManager.CurrentWeapon.Config.animType;
          Anim.SetInteger("weaponAnimType", (int)type);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.layer != LayerMask.NameToLayer("Floor"))
+        {
+            return;
+        }
+
+		//检测平台
+        ContactPoint[] points = collision.contacts;
+        if(points[0].normal == Vector3.left || points[0].normal == Vector3.right || points[0].normal == Vector3.down)
+        {
+            playerCollider.isTrigger = false;
+        }
     }
 }

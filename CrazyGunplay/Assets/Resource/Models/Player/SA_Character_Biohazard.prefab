@@ -524,6 +524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftRaycastOffset: {x: -0.5, y: 0.1, z: 0}
   rightRaycastOffset: {x: 0.5, y: 0.1, z: 0}
+  noFrictionMaterial: {fileID: 13400000, guid: 84d568c64047b64408b0aa8d3de1068a, type: 2}
   useGravity: 1
   seetingUseGravity: 0
 --- !u!114 &414325241228874805
