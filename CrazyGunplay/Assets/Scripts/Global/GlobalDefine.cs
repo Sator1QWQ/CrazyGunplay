@@ -37,6 +37,11 @@ public class GlobalDefine
 	public static readonly string AUDIO_PATH = "Assets/Resource/Audio/";
 
 	/// <summary>
+	/// 图集路径
+	/// </summary>
+	public static readonly string ALTAS_PATH = "Assets/Resource/Atlas/";
+
+	/// <summary>
 	/// 枪械音效路径
 	/// </summary>
 	public static readonly string GUN_AUDIO_PATH = AUDIO_PATH + "Weapon/Gun/";

@@ -25,6 +25,21 @@ namespace XLua.CSObjectWrap
             translator.DelayWrapLoader(typeof(SceneTool), SceneToolWrap.__Register);
         
         
+            translator.DelayWrapLoader(typeof(UnityEngine.EventSystems.EventTrigger), UnityEngineEventSystemsEventTriggerWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(UnityEngine.EventSystems.EventTrigger.Entry), UnityEngineEventSystemsEventTriggerEntryWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(UnityEngine.EventSystems.EventTrigger.TriggerEvent), UnityEngineEventSystemsEventTriggerTriggerEventWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(LuaPanel), LuaPanelWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(LuaItem), LuaItemWrap.__Register);
+        
+        
             translator.DelayWrapLoader(typeof(object), SystemObjectWrap.__Register);
         
         
@@ -159,6 +174,10 @@ namespace XLua.CSObjectWrap
         
             translator.DelayWrapLoader(typeof(XLuaTest.Foo), XLuaTestFooWrap.__Register);
         
+        }
+        
+        static void wrapInit1(LuaEnv luaenv, ObjectTranslator translator)
+        {
         
             translator.DelayWrapLoader(typeof(XLuaTest.FooExtension), XLuaTestFooExtensionWrap.__Register);
         
@@ -173,6 +192,8 @@ namespace XLua.CSObjectWrap
         {
             
             wrapInit0(luaenv, translator);
+            
+            wrapInit1(luaenv, translator);
             
             
             translator.AddInterfaceBridgeCreator(typeof(Config_Buff), Config_BuffBridge.__Create);
@@ -194,6 +215,8 @@ namespace XLua.CSObjectWrap
             translator.AddInterfaceBridgeCreator(typeof(Config_Gun), Config_GunBridge.__Create);
             
             translator.AddInterfaceBridgeCreator(typeof(Config_HitArea), Config_HitAreaBridge.__Create);
+            
+            translator.AddInterfaceBridgeCreator(typeof(Config_PreloadConfig), Config_PreloadConfigBridge.__Create);
             
             translator.AddInterfaceBridgeCreator(typeof(Config_Scene), Config_SceneBridge.__Create);
             

@@ -5,6 +5,7 @@ using GameFramework;
 using UnityGameFramework.Runtime;
 using System;
 using XLua;
+using UnityEngine.EventSystems;
 
 /*
 * 作者：
@@ -21,5 +22,15 @@ public static class CSharpCallLuaWhite
         typeof(Action<LuaTable, bool>),
         typeof(Action<LuaTable, int>),
         typeof(Action<PlayerBattleData>),
+    };
+
+    [LuaCallCSharp]
+    public static List<Type> whiteList2 = new List<Type>()
+    {
+        typeof(EventTrigger),
+        typeof(EventTrigger.Entry),
+        typeof(EventTrigger.TriggerEvent),
+        typeof(LuaPanel),
+        typeof(LuaItem),
     };
 }

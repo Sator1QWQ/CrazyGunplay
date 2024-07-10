@@ -36,6 +36,67 @@ public class PreloadComponent : GameFrameworkComponent
         dataList.Add(data);
     }
 
+    /// <summary>
+    /// 自动预加载资源
+    /// </summary>
+    public void AutoAddPreload()
+    {
+        Dictionary<int, Config_PreloadConfig> configDic = Config<Config_PreloadConfig>.Get("PreloadConfig");
+        foreach (KeyValuePair<int, Config_PreloadConfig> pairs in configDic)
+        {
+            Config_PreloadConfig config = pairs.Value;
+            string assetPath;
+            string typePath = "";
+            string filePath;
+            string exName = "";
+            if (config.loadValues == null || config.loadValues.Count == 0 || string.IsNullOrEmpty(config.loadValues[0]))
+            {
+                filePath = "";
+            }
+            else
+            {
+                filePath = config.loadValues[0];
+            }
+
+            if (config.assetType == PreloadAssetType.Sound)
+            {
+                typePath = GlobalDefine.AUDIO_PATH;
+                exName = "*.mp3";
+            }
+            else if (config.assetType == PreloadAssetType.Altas)
+            {
+                typePath = GlobalDefine.ALTAS_PATH;
+                exName = "*.spriteatlas";
+            }
+            assetPath = typePath + filePath;
+
+            //加载单个文件
+            if (config.loadLogic == PreloadLogic.LoadByFilePath)
+            {
+                PreloadData data = new PreloadData();
+                data.type = PreloadType.OtherAssets;
+                data.path = assetPath;
+                AddPreload(data);
+            }
+            //加载文件夹下的所有文件
+            else if (config.loadLogic == PreloadLogic.LoadByDirectoryPath)
+            {
+                string dataPath = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf("/Assets") + 1);
+                string[] files = System.IO.Directory.GetFiles(dataPath + assetPath, exName, System.IO.SearchOption.AllDirectories);
+                string[] newFiles = new string[files.Length];
+                for (int i = 0; i < files.Length; i++)
+                {
+                    newFiles[i] = files[i].Replace(dataPath, "");
+                    string newFile = newFiles[i].Replace("\\", "/");
+                    PreloadData data = new PreloadData();
+                    data.type = PreloadType.OtherAssets;
+                    data.path = newFile;
+                    AddPreload(data);
+                }
+            }
+        }
+    }
+
     private void Update()
     {
         bool isAllLoaded = true;

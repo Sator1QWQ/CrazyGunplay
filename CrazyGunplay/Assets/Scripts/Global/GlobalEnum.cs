@@ -607,3 +607,32 @@ public enum PreloadType
 	/// </summary>
 	OtherAssets = 3,
 }
+
+/// <summary>
+/// 资源类型
+/// </summary>
+public enum PreloadAssetType
+{
+	/// <summary>
+	/// 音频
+	/// </summary>
+	Sound = 1,
+
+	/// <summary>
+	/// 图集
+	/// </summary>
+	Altas = 2,
+}
+
+public enum PreloadLogic
+{
+	/// <summary>
+	/// 根据文件路径加载
+	/// </summary>
+	LoadByFilePath = 1,
+
+	/// <summary>
+	/// 根据文件夹路径加载
+	/// </summary>
+	LoadByDirectoryPath = 2,
+}

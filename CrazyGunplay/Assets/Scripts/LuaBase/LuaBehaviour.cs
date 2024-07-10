@@ -5,6 +5,8 @@ using GameFramework;
 using UnityGameFramework.Runtime;
 using XLua;
 using System;
+using UnityEngine.Profiling;
+using System.Text;
 
 /*
 * 作者：
@@ -23,7 +25,9 @@ public class LuaBehaviour : MonoBehaviour
 
     private void Awake()
     {
+        Profiler.BeginSample("LuaBehaviour path==" + luaScriptPath);
         Init();
+        Profiler.EndSample();
     }
 
     public void Init()
@@ -32,7 +36,7 @@ public class LuaBehaviour : MonoBehaviour
         {
             return;
         }
-        byte[] bts = Module.Lua.GetByteAndLoad(luaScriptPath);
+        //byte[] bts = Module.Lua.GetByteAndLoad(luaScriptPath);
 
         //每次awake的时候重新加载lua
         string scriptName = luaScriptPath.Substring(luaScriptPath.LastIndexOf('/') + 1);

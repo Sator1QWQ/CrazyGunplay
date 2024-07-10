@@ -52,6 +52,8 @@ function BattleModeScene:CreatePreloadData()
         end
     end
 
+    --预加载其他资源
+    Module.Preload:AutoAddPreload()
 end
 
 --预加载完成，这时才执行逻辑

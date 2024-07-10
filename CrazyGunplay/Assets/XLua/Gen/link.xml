@@ -4,6 +4,8 @@
 
 	<assembly fullname="Assembly-CSharp">
 	    <type fullname="SceneTool" preserve="all"/>
+		<type fullname="LuaPanel" preserve="all"/>
+		<type fullname="LuaItem" preserve="all"/>
 		<type fullname="Tutorial.BaseClass" preserve="all"/>
 		<type fullname="Tutorial.TestEnum" preserve="all"/>
 		<type fullname="Tutorial.DerivedClass" preserve="all"/>
@@ -22,6 +24,13 @@
 		<type fullname="XLuaTest.Foo" preserve="all"/>
 		<type fullname="XLuaTest.FooExtension" preserve="all"/>
 		<type fullname="Tutorial.DerivedClass+TestEnumInner" preserve="all"/>
+		
+	</assembly>
+
+	<assembly fullname="UnityEngine.UI">
+	    <type fullname="UnityEngine.EventSystems.EventTrigger" preserve="all"/>
+		<type fullname="UnityEngine.EventSystems.EventTrigger+Entry" preserve="all"/>
+		<type fullname="UnityEngine.EventSystems.EventTrigger+TriggerEvent" preserve="all"/>
 		
 	</assembly>
 
