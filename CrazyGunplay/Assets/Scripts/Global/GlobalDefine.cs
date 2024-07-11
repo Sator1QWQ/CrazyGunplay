@@ -62,7 +62,7 @@ public class GlobalDefine
 	/// <summary>
 	/// 地面射线检测的长度
 	/// </summary>
-	public static float FLOOR_RAY_DISTANCE = 0.2f;
+	public static float FLOOR_RAY_DISTANCE = 0.3f;
 
 	/// <summary>
 	/// 子弹检测长度

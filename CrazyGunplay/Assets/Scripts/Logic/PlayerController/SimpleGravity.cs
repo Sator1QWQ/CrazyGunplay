@@ -51,6 +51,8 @@ public class SimpleGravity : MonoBehaviour
     [HideInInspector] public bool seetingUseGravity;
     private List<UpdateData> mUpdateActionList = new List<UpdateData>();
     private Collider collid;
+    private Vector3 lastPos;
+    private Vector3 currentPos;
 
     private bool isAir;
     public bool IsAir 
@@ -150,7 +152,7 @@ public class SimpleGravity : MonoBehaviour
         upTime = 0;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         for (int i = 0; i < mUpdateActionList.Count; i++)
         {
@@ -165,23 +167,27 @@ public class SimpleGravity : MonoBehaviour
             }
         }
 
+        lastPos = currentPos;
+        currentPos = transform.position;
+
         //触碰地面
         RaycastHit hitLeft;
         RaycastHit hitRight;
-        if (Physics.Raycast(transform.position + leftRaycastOffset, Vector3.down, out hitLeft, GlobalDefine.FLOOR_RAY_DISTANCE, LayerMask.GetMask("Floor")) || Physics.Raycast(transform.position + rightRaycastOffset, Vector3.down, out hitRight, GlobalDefine.FLOOR_RAY_DISTANCE, LayerMask.GetMask("Floor")))
+        float rayDis = Mathf.Abs(lastPos.y - currentPos.y) + 0.1f;  //射线检测长度应是动态的
+        rayDis = Mathf.Clamp(rayDis, GlobalDefine.FLOOR_RAY_DISTANCE, rayDis);
+        if (Physics.Raycast(transform.position + leftRaycastOffset, Vector3.down, out hitLeft, rayDis, LayerMask.GetMask("Floor")) || Physics.Raycast(transform.position + rightRaycastOffset, Vector3.down, out hitRight, rayDis, LayerMask.GetMask("Floor")))
         {
-            if (IsAir)
+            if (IsAir && vt.y <= 0)
             {
                 for (int i = 0; i < mUpdateActionList.Count; i++)
                 {
                     mUpdateActionList[i].onFloorAct?.Invoke();
                 }
-                Debug.Log("触碰到地面了");
                 OnTouchGround();
                 ResetGravity();
                 gravityTime = 0;
+                IsAir = false;
             }
-            IsAir = false;
         }
         else
         {

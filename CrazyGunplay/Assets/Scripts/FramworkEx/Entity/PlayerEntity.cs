@@ -122,6 +122,9 @@ public class PlayerEntity : CharacterEntity
         Module.Event.Unsubscribe(SyncBuffDataEventArgs.EventId, OnSyncBuffData);
         Module.Event.Unsubscribe(PlayerGetDamageEventArgs.EventId, OnHitPlayer);
         Module.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntity);
+
+        mGravity.OnIsAirChange -= IsAirChange;
+        mGravity.OnTouchGround -= TouchGround;
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -134,17 +137,6 @@ public class PlayerEntity : CharacterEntity
         Machine.OnUpdate();
         Controller.OnUpdate();
         WeaponManager.OnUpdate();
-
-        //平台碰撞
-        Vector3 downRayCastOffset = Vector3.up * 0.3f;
-        if (Physics.Raycast(Entity.transform.position + downRayCastOffset, Vector3.down, 0.5f, LayerMask.GetMask("Floor")))
-        {
-            //在空中，并且下降
-            if(mGravity.IsAir && mGravity.vt.y <= 0)
-            {
-                playerCollider.isTrigger = true;
-            }
-        }
     }
 
     protected override void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)
@@ -158,6 +150,7 @@ public class PlayerEntity : CharacterEntity
     {
         mGravity = GetComponent<SimpleGravity>();
         mGravity.OnIsAirChange += IsAirChange;
+        mGravity.OnTouchGround += TouchGround;
         if (PlayerId == 1)
         {
             Controller = new OnePController(this, mGravity);
@@ -333,6 +326,11 @@ public class PlayerEntity : CharacterEntity
         Anim.SetBool("isAir", b);
     }
 
+    private void TouchGround()
+    {
+        playerCollider.isTrigger = false;
+    }
+
     private void OnBattleStateChange(object sender, GameEventArgs e)
     {
         BattleStateChangeArgs args = e as BattleStateChangeArgs;
@@ -408,7 +406,7 @@ public class PlayerEntity : CharacterEntity
         ContactPoint[] points = collision.contacts;
         if(points[0].normal == Vector3.left || points[0].normal == Vector3.right || points[0].normal == Vector3.down)
         {
-            playerCollider.isTrigger = false;
+            playerCollider.isTrigger = true;
         }
     }
 }
